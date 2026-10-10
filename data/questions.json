@@ -1,0 +1,85 @@
+{
+ "note": "Interview questions. Miami / South Florida specific, answerable yes or no, no statistics. 'search' is the text used to find what each candidate has said on the topic. Drafts until 'reviewed' is true.",
+ "questions": [
+  {
+   "id": "flooding",
+   "theme": "forces",
+   "short": "Flooding",
+   "question": "Sunny-day flooding keeps closing Miami streets. Should the federal government spend more to raise roads, upgrade drains and build sea walls here?",
+   "search": "flooding, sea level rise, storm surge, resilience, stormwater drains, sea walls, hurricane protection and infrastructure funding for South Florida",
+   "reviewed": false
+  },
+  {
+   "id": "insurance",
+   "theme": "forces",
+   "short": "Home insurance",
+   "question": "Home insurance bills in South Florida keep climbing. Should the federal government step in to bring property-insurance costs down?",
+   "search": "property insurance, homeowners insurance premiums, flood insurance, NFIP, insurance crisis, cost of insuring a home in Florida",
+   "reviewed": false
+  },
+  {
+   "id": "heat",
+   "theme": "forces",
+   "short": "Extreme heat",
+   "question": "Miami summers keep getting hotter. Should there be a national rule requiring water, shade and rest breaks for people who work outdoors?",
+   "search": "extreme heat, heat protections for outdoor workers, water and shade breaks, heat standard, construction and farm workers, climate change and rising temperatures",
+   "reviewed": false
+  },
+  {
+   "id": "drilling",
+   "theme": "forces",
+   "short": "Offshore drilling",
+   "question": "Should oil and gas drilling be banned off Florida's coast?",
+   "search": "offshore oil and gas drilling off Florida's coast, drilling moratorium, Gulf of Mexico, protecting beaches, energy production, clean energy, solar",
+   "reviewed": false
+  },
+  {
+   "id": "everglades",
+   "theme": "wildlife",
+   "short": "Everglades & Biscayne Bay",
+   "question": "Should Congress spend more to restore the Everglades and clean up Biscayne Bay?",
+   "search": "Everglades restoration funding, Biscayne Bay, water quality, Lake Okeechobee, red tide, algae, coral reefs, clean water",
+   "reviewed": false
+  },
+  {
+   "id": "species",
+   "theme": "wildlife",
+   "short": "Endangered animals",
+   "question": "Should protecting endangered animals like manatees and Florida panthers come first, even when it slows down new building?",
+   "search": "endangered species, manatees, Florida panther, sea turtles, wildlife protection, conservation, habitat, animal welfare, development and environmental rules",
+   "reviewed": false
+  },
+  {
+   "id": "housing",
+   "theme": "jobs",
+   "short": "Rent & housing",
+   "question": "Rent in Miami has pushed a lot of young people out. Should the federal government spend more to build housing and help renters?",
+   "search": "affordable housing, rent, housing costs, cost of living, homeownership, housing affordability in Miami and South Florida",
+   "reviewed": false
+  },
+  {
+   "id": "wages",
+   "theme": "jobs",
+   "short": "Minimum wage",
+   "question": "Should the federal minimum wage be raised?",
+   "search": "minimum wage, wages, good-paying jobs, workers, unions, small business, economy, taxes and jobs",
+   "reviewed": false
+  },
+  {
+   "id": "college",
+   "theme": "jobs",
+   "short": "College costs",
+   "question": "Should the government cancel or cut student debt?",
+   "search": "student debt, student loans, college affordability, tuition, Pell grants, higher education, workforce training, education",
+   "reviewed": false
+  },
+  {
+   "id": "immigration",
+   "theme": "jobs",
+   "short": "Immigration",
+   "question": "Should immigrants who have lived here for years, like Dreamers and people with TPS, get a path to legal status?",
+   "search": "immigration, path to legal status or citizenship, Dreamers, DACA, TPS for Venezuelans Haitians Cubans Nicaraguans, deportation, border security",
+   "reviewed": false
+  }
+ ]
+}

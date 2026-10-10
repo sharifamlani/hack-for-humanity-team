@@ -89,9 +89,32 @@ for (const [candidate_id, m] of Object.entries(MEMBERS)) {
   }
 }
 
+// CFscores (Bonica's DIME database): where a candidate's donors place them, on a scale of
+// about -2 (left) to +2 (right). Collected into data/positions/cfscores.csv from the DIME
+// recipients file. Jolly is left out: his only score is from 2016, when he ran as a Republican.
+const SKIP_CF = new Set(["fl-gov-jolly"]);
+const cfscores = [];
+if (existsSync("data/positions/cfscores.csv")) {
+  const [h, ...rows] = parseCsv(readFileSync("data/positions/cfscores.csv", "utf8"));
+  for (const r of rows) {
+    const o = Object.fromEntries(h.map((k, i) => [k, r[i]]));
+    if (SKIP_CF.has(o.candidate_id) || o.recipient_cfscore === "" || !Number.isFinite(Number(o.recipient_cfscore))) continue;
+    cfscores.push({ candidate_id: o.candidate_id, cfscore: Number(o.recipient_cfscore), cycle: Number(o.cycle), seat: o.seat });
+  }
+}
+
 writeFileSync(
   "data/positions/records.json",
-  JSON.stringify({ source: "Voteview, 119th Congress (voteview.com)", scores, votes }, null, 1) + "\n",
+  JSON.stringify(
+    {
+      source: "Voteview, 119th Congress (voteview.com); DIME v4.0 recipients 1979-2024 (data.stanford.edu/dime)",
+      scores,
+      votes,
+      cfscores,
+    },
+    null,
+    1,
+  ) + "\n",
   "utf8",
 );
 for (const s of scores) {

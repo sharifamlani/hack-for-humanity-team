@@ -1,4 +1,4 @@
-import { ALL_QUESTION_IDS, QUESTIONS, questionById, scoreOf, stanceOf, voteOf } from "./questions";
+import { ALL_QUESTION_IDS, QUESTIONS, cfOf, questionById, scoreOf, stanceOf, voteOf } from "./questions";
 
 // The voter's recorded answer to one question.
 export type Stance = "yea" | "nay" | "unsure" | "skip";
@@ -67,11 +67,17 @@ const MIN_ANSWERS = 2;
 
 export type Placement = {
   x: number; // -1 (left) ... +1 (right)
-  // "record": DW-NOMINATE from votes in Congress. "positions": our index from yes/no positions.
-  // "guess": our index where most of the positions are party guesses.
-  source: "record" | "positions" | "guess";
+  // "record": DW-NOMINATE from votes in Congress. "donors": CFscore from who funded their
+  // past campaigns. "positions": our index from yes/no positions. "guess": our index where
+  // most of the positions are party guesses.
+  source: "record" | "donors" | "positions" | "guess";
   answers: number;
+  // For "donors": the election cycle the score comes from.
+  cycle?: number;
 };
+
+// CFscores run about -2 to +2; halving puts them on roughly the same line as DW-NOMINATE.
+const CF_SCALE = 0.5;
 
 function index(stances: ("yes" | "no" | null)[], ids: string[]) {
   let right = 0;
@@ -97,6 +103,8 @@ export function placeVoter(answers: Answers): Placement | null {
 export function placeCandidate(candidateId: string, party: string): Placement | null {
   const record = scoreOf(candidateId);
   if (record) return { x: record.nominate_dim1, source: "record", answers: record.votes_scored };
+  const cf = cfOf(candidateId);
+  if (cf) return { x: cf.cfscore * CF_SCALE, source: "donors", answers: 0, cycle: cf.cycle };
   const ids = ALL_QUESTION_IDS.filter((id) => LEFT_ANSWER[id]);
   const positions = ids.map((id) => positionOf(candidateId, party, id));
   const got = index(positions.map((p) => p.stance), ids);

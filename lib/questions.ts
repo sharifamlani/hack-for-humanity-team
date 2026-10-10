@@ -83,6 +83,11 @@ export const voteOf = (candidateId: string, questionId: string) =>
 export const scoreOf = (candidateId: string) => SCORES.find((s) => s.candidate_id === candidateId);
 export const ALL_QUESTION_IDS = ALL.map((q) => q.id);
 
+// CFscore (Bonica, DIME): where a candidate's past donors place them, about -2 to +2.
+export type CfScore = { candidate_id: string; cfscore: number; cycle: number; seat: string };
+const CFSCORES = recordsJson.cfscores as CfScore[];
+export const cfOf = (candidateId: string) => CFSCORES.find((c) => c.candidate_id === candidateId);
+
 // Candidates we have collected any published words for.
 export const hasRecord = (candidateId: string) =>
   STANCES.some((s) => s.candidate_id === candidateId) || CLOSEST.some((c) => c.candidate_id === candidateId);

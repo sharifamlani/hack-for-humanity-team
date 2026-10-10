@@ -38,7 +38,9 @@ function SpectrumLine({ me, people }: { me: Placement | null; people: { letter: 
                     ? "border-2 border-dashed border-foreground/50 bg-background text-foreground/60"
                     : p.at.source === "record"
                       ? "bg-foreground text-background"
-                      : "border-2 border-foreground bg-card"
+                      : p.at.source === "donors"
+                        ? "bg-water text-white"
+                        : "border-2 border-foreground bg-card"
                 }`}
                 style={{ left: pct(p.at.x) }}
               >
@@ -64,7 +66,9 @@ function SpectrumLine({ me, people }: { me: Placement | null; people: { letter: 
                   ? "— not enough to place"
                   : record
                     ? `— from ${p.at.answers} votes in Congress (DW-NOMINATE ${p.at.x.toFixed(2)})`
-                    : p.at.source === "guess"
+                    : p.at.source === "donors"
+                      ? `— from who funded their ${p.at.cycle} campaign (CFscore ${(p.at.x * 2).toFixed(2)})`
+                      : p.at.source === "guess"
                       ? "— mostly a party guess"
                       : `— from ${p.at.answers} positions`}
               </span>
@@ -74,8 +78,9 @@ function SpectrumLine({ me, people }: { me: Placement | null; people: { letter: 
         {!me && <li className="text-foreground/60">Answer two or more of the questions to place yourself.</li>}
       </ul>
       <p className="mt-2 text-[11px] text-foreground/50">
-        Rough placement. Solid dark = measured from votes in Congress. Outlined = our estimate from
-        published positions. Dashed = party guess.
+        Rough placement. Dark = measured from votes in Congress (DW-NOMINATE, Voteview). Blue =
+        from past campaign donors (CFscore, Bonica&apos;s DIME). Outlined = our estimate from published
+        positions. Dashed = party guess. The three scales are not identical.
       </p>
     </div>
   );

@@ -1,5 +1,5 @@
 {
- "source": "Voteview, 119th Congress (voteview.com)",
+ "source": "Voteview, 119th Congress (voteview.com); DIME v4.0 recipients 1979-2024 (data.stanford.edu/dime)",
  "scores": [
   {
    "candidate_id": "us-house-fl26-diaz-balart",
@@ -310,6 +310,104 @@
    "date": "2026-06-23",
    "text": "Voted NO on the Housing for the 21st Century Act, a bill to increase the supply of housing (H.R. 6644, 2026-06-23).",
    "url": "https://voteview.com/rollcall/RH1190584"
+  }
+ ],
+ "cfscores": [
+  {
+   "candidate_id": "us-house-fl27-salazar",
+   "cfscore": 1.149,
+   "cycle": 2024,
+   "seat": "federal:house"
+  },
+  {
+   "candidate_id": "fl-house-106-baez-geller",
+   "cfscore": -0.843,
+   "cycle": 2024,
+   "seat": "federal:house"
+  },
+  {
+   "candidate_id": "us-house-fl26-diaz-balart",
+   "cfscore": 0.582,
+   "cycle": 2024,
+   "seat": "federal:house"
+  },
+  {
+   "candidate_id": "us-house-fl25-moskowitz",
+   "cfscore": -0.213,
+   "cycle": 2024,
+   "seat": "federal:house"
+  },
+  {
+   "candidate_id": "fl-gov-donalds",
+   "cfscore": 1.455,
+   "cycle": 2024,
+   "seat": "federal:house"
+  },
+  {
+   "candidate_id": "us-house-fl28-gimenez",
+   "cfscore": 0.945,
+   "cycle": 2024,
+   "seat": "federal:house"
+  },
+  {
+   "candidate_id": "us-house-fl28-ehr",
+   "cfscore": -1.019,
+   "cycle": 2024,
+   "seat": "federal:house"
+  },
+  {
+   "candidate_id": "fl-house-108-campbell",
+   "cfscore": -0.167,
+   "cycle": 2020,
+   "seat": "state:upper"
+  },
+  {
+   "candidate_id": "us-senate-fl-moody",
+   "cfscore": 1.031,
+   "cycle": 2022,
+   "seat": "state:attorneyg"
+  },
+  {
+   "candidate_id": "fl-senate-40-rodriguez",
+   "cfscore": 0.964,
+   "cycle": 2022,
+   "seat": "state:upper"
+  },
+  {
+   "candidate_id": "fl-house-106-basabe",
+   "cfscore": 1.127,
+   "cycle": 2022,
+   "seat": "state:lower"
+  },
+  {
+   "candidate_id": "fl-senate-38-calatayud",
+   "cfscore": 1.002,
+   "cycle": 2022,
+   "seat": "state:upper"
+  },
+  {
+   "candidate_id": "fl-senate-36-garcia",
+   "cfscore": 1.038,
+   "cycle": 2022,
+   "seat": "state:upper"
+  },
+  {
+   "candidate_id": "fl-house-108-francius",
+   "cfscore": -1.309,
+   "cycle": 2022,
+   "seat": "state:lower"
+  },
+  {
+   "candidate_id": "us-senate-fl-nixon",
+   "cfscore": -0.922,
+   "cycle": 2022,
+   "seat": "state:lower"
+  },
+  {
+   "candidate_id": "fl-senate-34-gantt",
+   "cfscore": -0.837,
+   "cycle": 2022,
+   "seat": "state:lower"
   }
  ]
 }

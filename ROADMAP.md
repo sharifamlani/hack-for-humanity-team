@@ -1,6 +1,6 @@
 # ROADMAP — Hack for Humanity: Miami
 
-**Version:** v1.8
+**Version:** v1.9
 **Canonical execution directive for this repo.** If any other doc disagrees with this file,
 this file wins or the other doc gets corrected.
 
@@ -8,7 +8,7 @@ this file wins or the other doc gets corrected.
 
 ## §0 — You are here
 
-**Current phase:** Phase 2 — Build (Saturday Oct 10, 2026). **Live site: https://hack-for-humanity-team.vercel.app** — the full pivot is deployed (208fe61): Miami questions, voice interview, candidates' own words with quotes, one left–right line per race (votes, donors, or a checked Gemma 4 estimate), a suggested ballot, and the voter's dot placed by Gemma 4 from the conversation. The roll-call version is tagged `roll-call-version`. **Next unblocked:** one timed rehearsal of `docs/demo-script.md` on the live site in a real browser with a microphone, teammate names in README, submit on OrganizerHQ by 3:45.
+**Current phase:** Phase 2 — Build (Saturday Oct 10, 2026). **Live site: https://hack-for-humanity-team.vercel.app** — **final UI live at 3:15 PM** (dark theme from the team mockups; Address, Ballot, Compare and Voting plan rebuilt; the interview screen has the new colours only and is waiting on its own mockup). Underneath: the full pivot is deployed (208fe61): Miami questions, voice interview, candidates' own words with quotes, one left–right line per race (votes, donors, or a checked Gemma 4 estimate), a suggested ballot, and the voter's dot placed by Gemma 4 from the conversation. The roll-call version is tagged `roll-call-version`. **Next unblocked:** one timed rehearsal of `docs/demo-script.md` on the live site in a real browser with a microphone, teammate names in README, submit on OrganizerHQ by 3:45.
 
 - **Done:** repo skeleton — MIT license, docs, ignore rules (`87bc02e`, 2026-10-09).
 - **Done:** public repo live at **https://github.com/sharifamlani/hack-for-humanity** —
@@ -124,6 +124,7 @@ against production, not localhost.
 
 ## §6 — Changelog
 
+- **2026-10-10 (3:15 PM)** — **Final UI shipped** (`74ae027`, `66f1232`, `aa893ac`): dark palette, serif headlines, 1040px shell with nav, labelled step dots and brand shapes; Ballot and Voting plan in two columns; Compare shows each candidate's exact quote and source in the cell, with theme tabs, the suggested ballot reduced to one strip ("Closest to what you told us") and the method text collapsed. Mockup labels saying "demo" or "prototype" were deliberately not copied because the data is real. Checked by a scripted browser walk of all five screens on production with the venue address at 1280px and 390px: no console errors, no failed requests. Open: the interview screen has new colours only (its mockup is still to come); the spoken-answer path has not been re-tested by a person since the reskin; on a phone the Compare grid scrolls sideways; demo not rehearsed.
 - **2026-10-10 (2:50 PM)** — **Voter placed from the conversation; pivot deployed to production** (208fe61). `/api/place`: Gemma 4 reads the whole interview and places the voter with a range (smoke: five test voters in order, reruns identical; ~23 s on prod). Five House candidates with no record or donor score get a Gemma 4 estimate from their own words, used only after a check on five sitting members (correct side 5 of 5, average miss 0.16); state candidates are excluded because two estimates could not be verified. CFscores converted with a fitted line (average miss 0.07, was 0.13 when halved). Verified on prod by direct calls: home, lookup, place, ask, voice token. **Not verified:** the match screen in a browser (test browser was locked) and the microphone path on the deployed site. README and demo script updated: the app now suggests a closest match, so "never recommend" wording is gone.
 
 - **2026-10-10 (2:21 PM)** — **Method pivot shipped** (`8e2c457`): roll-call scaling removed; six Miami questions; open "tell me what I care about" mode; match grid with four kinds of mark (stated, leans, closest passage, party guess). Data: 8 research-agent passes, 215 pages, 1,753 passages, 31 candidates (16 federal, 14 state legislature, 3 county/school board with text). `verify-stances.mjs`: 0 quotes missing from source, 82 positions; 13 weak leanings removed by review (`data/positions/reviewed-out.json`). Verified on prod with the venue address: four races shown, no console or network errors. Open: voice path on the deployed site not re-tested since the pivot; question wording still unreviewed; news interviews held out; five candidates have no reachable website; demo not rehearsed.

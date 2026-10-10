@@ -1,7 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { BallotStep } from "@/components/BallotStep";
+import { PollingStep } from "@/components/PollingStep";
 import { STEPS, StepBar } from "@/components/StepBar";
+import type { LookupResult } from "@/lib/types";
 
 const VENUE_ADDRESS = "2750 NW 3rd Ave, Miami, FL 33127";
 
@@ -14,10 +17,6 @@ const THEMES = [
 // What each later step will show once it is wired. Shown on screen so nobody
 // mistakes the shell for a working feature.
 const COMING: Record<number, { title: string; body: string }> = {
-  1: {
-    title: "Who's on your ballot",
-    body: "Your district on the new 2026 map, who represents you today, and every candidate on your Nov 3 ballot with sourced quotes.",
-  },
   2: {
     title: "Ten real votes, your call",
     body: "Yes / No / Skip on questions Congress actually voted on, one card at a time.",
@@ -26,17 +25,57 @@ const COMING: Record<number, { title: string; body: string }> = {
     title: "Where you stand",
     body: "You and the candidates on one scale for each theme, with a Gemma 4 explanation of where you differ.",
   },
-  4: {
-    title: "Your polling place",
-    body: "Where to vote on Tuesday, Nov 3, early voting near you, and directions.",
-  },
 };
 
 export default function Home() {
   const [step, setStep] = useState(0);
   const [address, setAddress] = useState("");
 
+  const [result, setResult] = useState<LookupResult | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
   const next = () => setStep((s) => Math.min(s + 1, STEPS.length - 1));
+
+  // Later steps need a lookup result; without one, stay on the address screen.
+  const goTo = (target: number) => setStep(result ? target : 0);
+
+  async function lookup(query: string) {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch(`/api/lookup?${query}`);
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error);
+      setResult(json);
+      setStep(1);
+    } catch (e) {
+      setError(
+        e instanceof Error && e.message
+          ? e.message
+          : "Something went wrong. Check your connection and try again.",
+      );
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  function useMyLocation() {
+    if (!navigator.geolocation) {
+      setError("This browser can't share a location. Type your address instead.");
+      return;
+    }
+    setLoading(true);
+    setError(null);
+    navigator.geolocation.getCurrentPosition(
+      (pos) => lookup(`lat=${pos.coords.latitude}&lon=${pos.coords.longitude}`),
+      () => {
+        setLoading(false);
+        setError("We couldn't get your location. Type your address instead.");
+      },
+      { enableHighAccuracy: true, timeout: 10000 },
+    );
+  }
 
   return (
     <div className="mx-auto flex w-full max-w-md flex-1 flex-col gap-6 px-5 py-6">
@@ -57,7 +96,7 @@ export default function Home() {
         </div>
       </header>
 
-      <StepBar step={step} onStep={setStep} />
+      <StepBar step={step} onStep={goTo} />
 
       {step === 0 ? (
         <main className="flex flex-1 flex-col gap-6">
@@ -73,7 +112,7 @@ export default function Home() {
             className="flex flex-col gap-3"
             onSubmit={(e) => {
               e.preventDefault();
-              if (address.trim()) next();
+              if (address.trim()) lookup(`address=${encodeURIComponent(address.trim())}`);
             }}
           >
             <label htmlFor="address" className="text-sm font-semibold">
@@ -90,10 +129,23 @@ export default function Home() {
             />
             <button
               type="submit"
-              disabled={!address.trim()}
+              disabled={!address.trim() || loading}
               className="rounded-2xl bg-accent px-4 py-4 text-lg font-bold text-white shadow-[0_4px_0_0_var(--foreground)] transition active:translate-y-1 active:shadow-none disabled:opacity-40"
             >
-              Show my ballot ▶
+              {loading ? "Finding your district…" : "Show my ballot ▶"}
+            </button>
+            {error && (
+              <p role="alert" className="rounded-xl bg-accent/10 px-3 py-2 text-sm font-semibold text-accent">
+                {error}
+              </p>
+            )}
+            <button
+              type="button"
+              onClick={useMyLocation}
+              disabled={loading}
+              className="rounded-2xl border-2 border-foreground px-4 py-3 font-bold disabled:opacity-40"
+            >
+              📍 Use my location
             </button>
             <button
               type="button"
@@ -103,7 +155,7 @@ export default function Home() {
               Try: 2750 NW 3rd Ave — we&apos;re here
             </button>
             <p className="text-sm text-foreground/70">
-              🔒 We never store your address.
+              🔒 We never store your address or location.
             </p>
           </form>
 
@@ -121,6 +173,10 @@ export default function Home() {
             ))}
           </ul>
         </main>
+      ) : result && step === 1 ? (
+        <BallotStep result={result} onNext={next} onSkipToPolling={() => setStep(4)} />
+      ) : result && step === 4 ? (
+        <PollingStep result={result} />
       ) : (
         <main className="flex flex-1 flex-col gap-6">
           <section className="rounded-3xl bg-card p-6">
@@ -131,11 +187,6 @@ export default function Home() {
               {COMING[step].title}
             </h2>
             <p className="mt-3 text-foreground/80">{COMING[step].body}</p>
-            {address && (
-              <p className="mt-4 rounded-xl bg-background px-3 py-2 text-sm">
-                Address entered: {address}
-              </p>
-            )}
           </section>
           {step < STEPS.length - 1 && (
             <button

@@ -31,7 +31,7 @@ export async function GET(request: Request) {
     }
     if (geo.county !== "Miami-Dade") {
       return NextResponse.json(
-        { error: "That location is outside Miami-Dade County. 305 Votes covers Miami-Dade only for now." },
+        { error: "That location is outside Miami-Dade County. Your Ballot, Your Block covers Miami-Dade only for now." },
         { status: 422 },
       );
     }

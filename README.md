@@ -1,6 +1,6 @@
 # Hack for Humanity: Miami — Hacktoberfest 2026
 
-**305 Votes** — an entry for
+**Your Ballot, Your Block** — an entry for
 **[Hack for Humanity: Miami](https://events.mlh.com/events/14790-hack-for-humanity-miami)**,
 an MLH-hosted civic-innovation hackathon presented by The AI Collective at The LAB Miami.
 
@@ -28,7 +28,7 @@ never voted, three things are hard at once:
 
 ## What we built
 
-305 Votes takes a voter from an address to a ballot, a conversation, and a polling place.
+Your Ballot, Your Block takes a voter from an address to a ballot, a conversation, and a polling place.
 It suggests a closest match and shows what the match is based on; the choice stays with the voter.
 
 1. **Find your district.** Type an address or share your phone's location. The app shows your

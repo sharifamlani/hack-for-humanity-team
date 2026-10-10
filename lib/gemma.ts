@@ -10,20 +10,13 @@ export function gemmaModel() {
   return model;
 }
 
-export async function askGemma(prompt: string, maxOutputTokens = 2048): Promise<string> {
-  const res = await fetch(`${ENDPOINT}/${gemmaModel()}:generateContent`, {
-    method: "POST",
-    headers: {
-      "x-goog-api-key": process.env.GEMINI_API_KEY ?? "",
-      "content-type": "application/json",
-    },
-    body: JSON.stringify({
-      contents: [{ parts: [{ text: prompt }] }],
-      generationConfig: { maxOutputTokens, temperature: 0.2 },
-    }),
-    signal: AbortSignal.timeout(30000),
-    cache: "no-store",
-  });
+export async function askGemma(prompt: string, maxOutputTokens = 2048, temperature = 0.2): Promise<string> {
+  let res = await callGemma(prompt, maxOutputTokens, temperature);
+  // One retry when the service is busy or rate-limiting.
+  if ([429, 500, 503].includes(res.status)) {
+    await new Promise((r) => setTimeout(r, 2500));
+    res = await callGemma(prompt, maxOutputTokens, temperature);
+  }
   if (!res.ok) throw new Error(`Gemma HTTP ${res.status}`);
   const data = await res.json();
   // Gemma 4 returns its reasoning as a separate part flagged thought:true. Drop it,
@@ -36,6 +29,22 @@ export async function askGemma(prompt: string, maxOutputTokens = 2048): Promise<
     .trim();
   if (!text) throw new Error("Gemma returned no answer");
   return text;
+}
+
+function callGemma(prompt: string, maxOutputTokens: number, temperature: number) {
+  return fetch(`${ENDPOINT}/${gemmaModel()}:generateContent`, {
+    method: "POST",
+    headers: {
+      "x-goog-api-key": process.env.GEMINI_API_KEY ?? "",
+      "content-type": "application/json",
+    },
+    body: JSON.stringify({
+      contents: [{ parts: [{ text: prompt }] }],
+      generationConfig: { maxOutputTokens, temperature },
+    }),
+    signal: AbortSignal.timeout(50000),
+    cache: "no-store",
+  });
 }
 
 export async function askGemmaJson<T>(prompt: string): Promise<T> {

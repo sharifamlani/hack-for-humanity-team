@@ -1,7 +1,7 @@
 {
  "model": "gemma-4-26b-a4b-it",
  "embeddingModel": "gemini-embedding-2",
- "built": "2026-10-10T18:09:19.719Z",
+ "built": "2026-10-10T18:20:45.687Z",
  "stances": [
   {
    "candidate_id": "us-house-fl24-brown",
@@ -102,7 +102,8 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.684
+   "similarity": 0.684,
+   "error": "Gemma timed out"
   },
   {
    "candidate_id": "us-house-fl24-brown",
@@ -135,11 +136,12 @@
   {
    "candidate_id": "us-house-fl24-brown",
    "question": "transit",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.748
+   "stance": "yes",
+   "quote": "Invest in roads, bridges, water systems, drainage, and infrastructure that keeps South Florida moving.",
+   "url": "https://tebrownforflorida.com/the-people-first-agenda/",
+   "why": "The candidate explicitly states a priority to invest in roads and infrastructure.",
+   "similarity": 0.748,
+   "reading": "leans"
   },
   {
    "candidate_id": "us-house-fl24-brown",
@@ -148,7 +150,8 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.75
+   "similarity": 0.75,
+   "error": "Gemma timed out"
   },
   {
    "candidate_id": "us-house-fl24-gilbert",
@@ -245,11 +248,12 @@
   {
    "candidate_id": "us-house-fl24-gilbert",
    "question": "fema",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.758
+   "stance": "yes",
+   "quote": "More federal help to strengthen homes and communities before disaster strikes.",
+   "url": "https://olivergilbert.vote/catastrophe-insurance/",
+   "why": "The candidate advocates for more federal assistance to strengthen homes and communities before disasters occur.",
+   "similarity": 0.755,
+   "reading": "leans"
   },
   {
    "candidate_id": "us-house-fl24-gilbert",
@@ -286,7 +290,8 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.787
+   "similarity": 0.787,
+   "error": "Gemma timed out"
   },
   {
    "candidate_id": "us-house-fl24-gilbert",
@@ -415,11 +420,12 @@
   {
    "candidate_id": "us-house-fl25-moskowitz",
    "question": "enforcement",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.656
+   "stance": "no",
+   "quote": "Today’s decision is a failure of judgment that puts roughly 350,000 Haitians at risk of deportation to a country our own State Department says is too dangerous to visit.",
+   "url": "https://moskowitz.house.gov/posts/moskowitz-responds-to-supreme-court-decision-on-haitian-tps",
+   "why": "The candidate opposes the deportation of Haitian TPS holders, calling the decision a failure of judgment and wrong policy.",
+   "similarity": 0.656,
+   "reading": "leans"
   },
   {
    "candidate_id": "us-house-fl25-moskowitz",
@@ -447,7 +453,8 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.748
+   "similarity": 0.748,
+   "error": "Gemma timed out"
   },
   {
    "candidate_id": "us-house-fl25-singer",
@@ -546,11 +553,12 @@
   {
    "candidate_id": "us-house-fl25-singer",
    "question": "fema",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.677
+   "stance": "yes",
+   "quote": "This coastal district has unique needs for flooding and windstorms, and Scott will work to increase federal support to lower costs.",
+   "url": "https://www.scottsingerusa.com/priorities",
+   "why": "The candidate states he will work to increase federal support for the district's needs regarding flooding and windstorms.",
+   "similarity": 0.663,
+   "reading": "leans"
   },
   {
    "candidate_id": "us-house-fl25-singer",
@@ -564,11 +572,12 @@
   {
    "candidate_id": "us-house-fl25-singer",
    "question": "enforcement",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.694
+   "stance": "yes",
+   "quote": "Scott strongly supports President Trump’s efforts to secure the border and turn back the failed Biden policies that allowed millions of people into our nation outside of the normal vetting process.",
+   "url": "https://www.scottsingerusa.com/priorities",
+   "why": "The candidate supports securing the border and reversing policies that allowed unauthorized entry.",
+   "similarity": 0.676,
+   "reading": "leans"
   },
   {
    "candidate_id": "us-house-fl25-singer",
@@ -582,20 +591,22 @@
   {
    "candidate_id": "us-house-fl25-singer",
    "question": "transit",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.713
+   "stance": "yes",
+   "quote": "He will work for better federal solutions for our roadways, bridges, and coastline – something many residents feel was neglected by prior representatives.",
+   "url": "https://www.scottsingerusa.com/priorities",
+   "why": "The candidate states he will work for better federal solutions for roadways and bridges.",
+   "similarity": 0.703,
+   "reading": "leans"
   },
   {
    "candidate_id": "us-house-fl25-singer",
    "question": "taxes",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.783
+   "stance": "yes",
+   "quote": "Scott stands with President Trump on his work to provide the largest tax cut in American history and will oppose efforts to increase tax rates.",
+   "url": "https://www.scottsingerusa.com/priorities",
+   "why": "The candidate supports previous tax cuts and opposes increasing tax rates.",
+   "similarity": 0.783,
+   "reading": "leans"
   },
   {
    "candidate_id": "us-house-fl26-diaz-balart",
@@ -696,11 +707,12 @@
   {
    "candidate_id": "us-house-fl26-diaz-balart",
    "question": "fema",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.746
+   "stance": "yes",
+   "quote": "$16.6 billion for the Federal Emergency Management Agency (FEMA) $262.5 million for FEMA Flood Hazard Mapping $250 million for pre-disaster mitigation fund",
+   "url": "https://mariodiazbalart.house.gov/media-center/press-releases/diaz-balart-delivers-another-year-record-level-investment",
+   "why": "The candidate lists specific funding amounts for FEMA and disaster mitigation.",
+   "similarity": 0.746,
+   "reading": "leans"
   },
   {
    "candidate_id": "us-house-fl26-diaz-balart",
@@ -718,7 +730,8 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.692
+   "similarity": 0.692,
+   "error": "Gemma timed out"
   },
   {
    "candidate_id": "us-house-fl26-diaz-balart",
@@ -727,17 +740,18 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.797
+   "similarity": 0.797,
+   "error": "Gemma timed out"
   },
   {
    "candidate_id": "us-house-fl26-diaz-balart",
    "question": "transit",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
+   "stance": "yes",
+   "quote": "Beyond ports, this bill continues the strong levels of funding for BUILD grants, Capital Investment Grants, and Airports and Highway Grants, allowing localities like those in Collier, Hendry, and Miami-Dade Counties to compete for federal money to upgrade and expand their facilities.",
+   "url": "https://mariodiazbalart.house.gov/media-center/press-releases/diaz-balart-delivers-another-year-record-level-investment",
+   "why": "The candidate supports continued funding for highway grants and infrastructure upgrades in Miami-Dade County.",
    "similarity": 0.759,
-   "error": "Gemma timed out"
+   "reading": "leans"
   },
   {
    "candidate_id": "us-house-fl26-diaz-balart",
@@ -843,11 +857,12 @@
   {
    "candidate_id": "us-house-fl26-locklin",
    "question": "fema",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.711
+   "stance": "yes",
+   "quote": "This is money that would otherwise go toward disaster preparedness/relief.",
+   "url": "https://locklinforcongress.com/issues-immigration",
+   "why": "The candidate expresses concern that funds were removed from emergency response, which would have been used for disaster preparedness and relief.",
+   "similarity": 0.711,
+   "reading": "leans"
   },
   {
    "candidate_id": "us-house-fl26-locklin",
@@ -866,17 +881,18 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.713
+   "similarity": 0.713,
+   "error": "Gemma timed out"
   },
   {
    "candidate_id": "us-house-fl26-locklin",
    "question": "cuba",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
+   "stance": "no",
+   "quote": "If a policy hasn’t worked in 60 years, we have a responsibility to rethink it.",
+   "url": "https://locklinforcongress.com/issues-cuba",
+   "why": "The candidate argues that the current policy should be re-evaluated because it has not achieved its intended results.",
    "similarity": 0.794,
-   "error": "Gemma timed out"
+   "reading": "leans"
   },
   {
    "candidate_id": "us-house-fl26-locklin",
@@ -995,11 +1011,12 @@
   {
    "candidate_id": "us-house-fl27-rodriguez",
    "question": "fema",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.703
+   "stance": "yes",
+   "quote": "Help communities address flooding, extreme heat, stronger storms, and rising insurance costs.",
+   "url": "https://eliottrodriguez.com/issues/",
+   "why": "The candidate expresses a priority to help communities address the impacts of stronger storms.",
+   "similarity": 0.703,
+   "reading": "leans"
   },
   {
    "candidate_id": "us-house-fl27-rodriguez",
@@ -1008,7 +1025,8 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.742
+   "similarity": 0.742,
+   "error": "Gemma timed out"
   },
   {
    "candidate_id": "us-house-fl27-rodriguez",
@@ -1017,7 +1035,8 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.715
+   "similarity": 0.715,
+   "error": "Gemma timed out"
   },
   {
    "candidate_id": "us-house-fl27-rodriguez",
@@ -1035,7 +1054,8 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.767
+   "similarity": 0.767,
+   "error": "Gemma timed out"
   },
   {
    "candidate_id": "us-house-fl27-rodriguez",
@@ -1148,7 +1168,8 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.745
+   "similarity": 0.745,
+   "error": "Gemma timed out"
   },
   {
    "candidate_id": "us-house-fl27-salazar",
@@ -1166,7 +1187,8 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.763
+   "similarity": 0.763,
+   "error": "Gemma timed out"
   },
   {
    "candidate_id": "us-house-fl27-salazar",
@@ -1180,21 +1202,22 @@
   {
    "candidate_id": "us-house-fl27-salazar",
    "question": "transit",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.741
+   "stance": "yes",
+   "quote": "$960,000 to resurface Coral Way and enhance roadway safety",
+   "url": "https://salazar.house.gov/media/press-releases/rep-maria-elvira-salazar-secures-256-million-floridas-27th-district-fy26",
+   "why": "The candidate has a record of securing federal funds for roadway projects in Miami-Dade.",
+   "similarity": 0.737,
+   "reading": "leans"
   },
   {
    "candidate_id": "us-house-fl27-salazar",
    "question": "taxes",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
+   "stance": "yes",
+   "quote": "It allows servers, bartenders, and other restaurant workers to keep more of their earnings for the bills waiting at home, without asking small restaurant owners, already operating on tight margins, to absorb another cost.",
+   "url": "https://salazar.house.gov/media/press-releases/salazar-joins-acting-labor-secretary-sonderling-highlight-no-tax-tips-address",
+   "why": "The candidate helped pass legislation that provides tax relief to workers and avoids increasing costs for small business owners.",
    "similarity": 0.765,
-   "error": "Gemma timed out"
+   "reading": "leans"
   },
   {
    "candidate_id": "us-house-fl28-ehr",
@@ -1445,11 +1468,12 @@
   {
    "candidate_id": "us-house-fl28-gimenez",
    "question": "fema",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.783
+   "stance": "yes",
+   "quote": "I urge your administration to add Monroe County to the list of counties set to receive federal emergency assistance by designating Monroe as a Category A assisting with debris removal and allowing eligibility for Individual Assistance (IA).",
+   "url": "https://gimenez.house.gov/2022/10/congressman-gimenez-urges-president-biden-to-approve-federal-individual-assistance-for-monroe-county",
+   "why": "The candidate is requesting federal emergency assistance and resources for his county following a hurricane.",
+   "similarity": 0.783,
+   "reading": "leans"
   },
   {
    "candidate_id": "us-house-fl28-gimenez",
@@ -1467,35 +1491,38 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.752
+   "similarity": 0.752,
+   "error": "Gemma timed out"
   },
   {
    "candidate_id": "us-house-fl28-gimenez",
    "question": "cuba",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.784
+   "stance": "yes",
+   "quote": "President Trump has shown steadfast and unwavering solidarity with the Venezuelan people, including by protecting those fleeing oppression, supporting the courageous democratic opposition, and imposing tough sanctions on the Maduro dictatorship.",
+   "url": "https://gimenez.house.gov/2025/1/gim-nez-d-az-balart-and-salazar-stand-in-solidarity-with-the-venezuelan-people",
+   "why": "The candidate expresses support for the imposition of tough sanctions on the Maduro dictatorship in Venezuela.",
+   "similarity": 0.78,
+   "reading": "leans"
   },
   {
    "candidate_id": "us-house-fl28-gimenez",
    "question": "transit",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.777
+   "stance": "yes",
+   "quote": "I will continue to advocate for policies that invest in sustainable infrastructure and encourages more use of public transportation.",
+   "url": "https://gimenez.house.gov/energy",
+   "why": "The candidate states they will advocate for policies that invest in sustainable infrastructure and public transportation.",
+   "similarity": 0.777,
+   "reading": "leans"
   },
   {
    "candidate_id": "us-house-fl28-gimenez",
    "question": "taxes",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
+   "stance": "yes",
+   "quote": "The only way to keep pushing the ingenuity and the entrepreneurial spirit of the American people is by lowering our taxes, reforming our legal system to stop undue liability for businesses, cutting unnecessary and burdensome regulations, and fostering an unparalleled, world-class business climate.",
+   "url": "https://gimenez.house.gov/economy-and-taxes",
+   "why": "The candidate states that lowering taxes is the only way to maintain the ingenuity and entrepreneurial spirit of the American people.",
    "similarity": 0.769,
-   "error": "Gemma timed out"
+   "reading": "leans"
   },
   {
    "candidate_id": "us-house-fl28-rojas",
@@ -1609,11 +1636,12 @@
   {
    "candidate_id": "us-house-fl28-rojas",
    "question": "enforcement",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.646
+   "stance": "yes",
+   "quote": "I will support our law enforcement, secure our borders, and invest in community programs that prevent crime and give our youth a brighter future.",
+   "url": "https://www.eddyrojas.com/events-1",
+   "why": "The candidate's commitment to securing the borders is a closely related priority to increasing immigration enforcement.",
+   "similarity": 0.646,
+   "reading": "leans"
   },
   {
    "candidate_id": "us-house-fl28-rojas",
@@ -1636,12 +1664,12 @@
   {
    "candidate_id": "us-house-fl28-rojas",
    "question": "taxes",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
+   "stance": "yes",
+   "quote": "I'll fight to cut burdensome regulations, lower taxes on small businesses, and bring good-paying jobs back to Miami.",
+   "url": "https://www.eddyrojas.com/events-1",
+   "why": "The candidate explicitly states his intention to lower taxes on small businesses.",
    "similarity": 0.775,
-   "error": "Gemma timed out"
+   "reading": "leans"
   },
   {
    "candidate_id": "us-senate-fl-gillespie",
@@ -1746,22 +1774,22 @@
   {
    "candidate_id": "us-senate-fl-gillespie",
    "question": "healthcare",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
+   "stance": "yes",
+   "quote": "I propose national health coverage, with the ability to opt-out.",
+   "url": "https://neilgillespie4senate.blogspot.com/",
+   "why": "The candidate proposes national health coverage, which is a significant federal action regarding health care.",
    "similarity": 0.716,
-   "error": "Gemma timed out"
+   "reading": "leans"
   },
   {
    "candidate_id": "us-senate-fl-gillespie",
    "question": "enforcement",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
+   "stance": "yes",
+   "quote": "I support the lawful removal of people who enter the United States illegally, but not the spectacle created by activists confronting ICE.",
+   "url": "https://neilgillespie4senate.blogspot.com/",
+   "why": "The candidate expresses support for the lawful removal of people who enter the United States illegally.",
    "similarity": 0.75,
-   "error": "Gemma timed out"
+   "reading": "leans"
   },
   {
    "candidate_id": "us-senate-fl-gillespie",
@@ -1890,7 +1918,8 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.742
+   "similarity": 0.742,
+   "error": "Gemma timed out"
   },
   {
    "candidate_id": "us-senate-fl-moody",
@@ -2039,11 +2068,12 @@
   {
    "candidate_id": "us-senate-fl-nixon",
    "question": "fema",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.707
+   "stance": "yes",
+   "quote": "Disaster resilience funding  to harden homes against hurricanes.",
+   "url": "https://angienixon.com/priorities/",
+   "why": "The candidate explicitly supports disaster resilience funding to protect homes from hurricanes.",
+   "similarity": 0.707,
+   "reading": "leans"
   },
   {
    "candidate_id": "us-senate-fl-nixon",
@@ -2090,7 +2120,8 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.743
+   "similarity": 0.743,
+   "error": "Gemma timed out"
   }
  ]
 }

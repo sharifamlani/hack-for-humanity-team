@@ -1,6 +1,6 @@
 # ROADMAP — Hack for Humanity: Miami
 
-**Version:** v1.6
+**Version:** v1.7
 **Canonical execution directive for this repo.** If any other doc disagrees with this file,
 this file wins or the other doc gets corrected.
 
@@ -8,7 +8,7 @@ this file wins or the other doc gets corrected.
 
 ## §0 — You are here
 
-**Current phase:** Phase 2 — Build (Saturday Oct 10, 2026). **Live site: https://hack-for-humanity-team.vercel.app** — all five steps work end to end on production (d60f536): address → ballot → AI interview (Gemma 4) → match chart + Gemma 4 explanation → polling place. **Next unblocked:** human review of the 12 question wordings in `data/items.json`, README, demo script. Plan: `docs/build-plan.md`.
+**Current phase:** Phase 2 — Build (Saturday Oct 10, 2026). **Live site: https://hack-for-humanity-team.vercel.app** — method changed at 1 PM: Miami questions, a voice interview with two modes, and a match grid built from candidates' own published words (Gemma 4 reads them; quotes verified word for word; party guess as a labelled fallback). 31 candidates, 215 pages, 1,753 passages. The roll-call version is tagged `roll-call-version`. **Next unblocked:** rehearse `docs/demo-script.md` twice on the live site, add teammate names to README, submit on OrganizerHQ by 3:45. Plan: `docs/build-plan.md`.
 
 - **Done:** repo skeleton — MIT license, docs, ignore rules (`87bc02e`, 2026-10-09).
 - **Done:** public repo live at **https://github.com/sharifamlani/hack-for-humanity** —
@@ -123,6 +123,8 @@ against production, not localhost.
 ---
 
 ## §6 — Changelog
+
+- **2026-10-10 (2:21 PM)** — **Method pivot shipped** (`8e2c457`): roll-call scaling removed; six Miami questions; open "tell me what I care about" mode; match grid with four kinds of mark (stated, leans, closest passage, party guess). Data: 8 research-agent passes, 215 pages, 1,753 passages, 31 candidates (16 federal, 14 state legislature, 3 county/school board with text). `verify-stances.mjs`: 0 quotes missing from source, 82 positions; 13 weak leanings removed by review (`data/positions/reviewed-out.json`). Verified on prod with the venue address: four races shown, no console or network errors. Open: voice path on the deployed site not re-tested since the pivot; question wording still unreviewed; news interviews held out; five candidates have no reachable website; demo not rehearsed.
 - **2026-10-10 (1:01 PM)** — **Voice interview live** (a0d3526): the AI speaks first and converses by voice (Gemini Live, `gemini-3.8-live`, single-use browser token); Gemma 4 re-reads each spoken answer and its reading is what gets scored; tap buttons and typing remain. Confirmed working by Sharif in the browser; the scripted voice loop passed (spoken answer heard and recorded in 2 s). Not independently checked: the deployed site's mic path on a phone. README must disclose both models and which does what.
 - **2026-10-10 (12:52 PM)** — **Quiz replaced by an AI interviewer; full flow live** (d60f536). 12 real House votes (4 per theme) with Voteview cutpoints; scaling smoke PASS (all five Miami-Dade members recovered within 0.14 of their published score from their own votes). Gemma 4 (`gemma-4-31b-it`) reads typed answers (~8 s) and writes the per-theme comparison; verified on prod. Gemini Live voice probed and working (first audio 1.7 s) but not built. Open: question wording and hooks are Gemma drafts, not yet human-reviewed; challengers are not placed (no stance data); congress.gov demo key rate-limits, so summaries come from govinfo bulk data.
 - **2026-10-10 (12:34 PM)** — **Lookup path works end to end on production** (e48f1f6): address or phone location → Census Geocoder (2026 lines) + Miami-Dade ArcGIS (old-lines district, precinct, polling place, early voting) → ballot from the sourced candidate roster. Checked on prod with the Miami Beach address (FL-24 → FL-25, Miami Beach City Hall) and locally in a browser with the venue (FL-26 → FL-24, Dunbar K-8, no console errors). Not done: County Commissioner and School Board races are not matched to an address; quiz, scale, Gemma 4 not started; no congress.gov key in `.env`.

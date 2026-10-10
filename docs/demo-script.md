@@ -4,7 +4,7 @@
 nothing gets built that is not spoken aloud here. If a feature has no sentence, it has no
 reason to exist.
 
-**Status:** empty — written at kickoff once the idea is locked.
+**Status:** drafted at 2:20 PM against the live site. Not yet rehearsed.
 
 ---
 
@@ -43,7 +43,29 @@ first does three things:
 
 ## The script
 
-_To be written._
+Drafted 2:20 PM from what is live. **The presenter should rewrite it in their own words** and
+time it twice against the live site. Address used: the venue, 2750 NW 3rd Ave.
+
+| Seconds | Say | Do |
+|---|---|---|
+| 0:00–0:20 | "If you're 22 and live in Wynwood, your congressional district changed this year and nobody told you. The person who represents you today is not on your ballot in November. Young voters here don't skip elections because they don't care — they skip because nobody connects the ballot to their life." | Site already open on the address screen |
+| 0:20–0:35 | "305 Votes takes you from your address to the ballot box in two minutes." | Tap **Try: 2750 NW 3rd Ave**, then **Show my ballot** |
+| 0:35–0:50 | "This building moved from District 26 to District 24. Here is everyone on your ballot, from Congress to the county questions, each with its official source." | Point at the "district changed" card; scroll the ballot once |
+| 0:50–1:20 | "Now it talks with you. It asks about things that matter here — flooding, insurance, rent, the Everglades — and you just answer out loud." | **See where you stand** → **Ask me**. Answer ONE question by voice. Tap Yes/No for the rest |
+| 1:20–1:45 | "Then it shows where each candidate stands — in their own words. We read 215 pages from 31 candidates' own websites. Gemma 4, an open-weight model, read them and pulled the exact sentence. Solid means they said it. Dashed means it's only a party guess, and we say so. Every mark has a link." | **See where I stand**. Tap one **why?** to open a quote and its source |
+| 1:45–2:00 | "And here's where you vote, with directions. It's open source, MIT licensed, and it never tells you who to vote for. It shows you the evidence and gets you to the polls." | **Where do I vote?** → point at the polling place |
+
+**If asked "isn't this biased?"** — The app describes and never recommends. A position is shown
+only when the candidate's exact sentence is on their own page; a person removed 13 readings that
+were a stretch; party guesses are drawn differently and counted separately.
+
+**If asked "where's the AI?"** — Gemma 4 does three jobs: it reads each candidate's pages and
+decides what they said, it reads the voter's spoken answer, and it writes the comparison. Gemini
+Live is only the voice. The embedding model only finds passages.
+
+**Numbers you can say (all from `scripts/verify-stances.mjs` and the data files at 2:20 PM):**
+31 candidates · 215 pages · 1,753 passages · 82 quoted positions before review, every quote
+checked word-for-word against its page.
 
 ## Fallback plan
 

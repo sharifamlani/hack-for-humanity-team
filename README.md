@@ -29,7 +29,7 @@ never voted, three things are hard at once:
 ## What we built
 
 305 Votes takes a voter from an address to a ballot, a conversation, and a polling place.
-It never tells anyone how to vote.
+It suggests a closest match and shows what the match is based on; the choice stays with the voter.
 
 1. **Find your district.** Type an address or share your phone's location. The app shows your
    congressional district on the old map and the new map, and says if it changed.

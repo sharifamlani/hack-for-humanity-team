@@ -46,10 +46,12 @@ first does three things:
 Drafted 2:20 PM from what is live. **The presenter should rewrite it in their own words** and
 time it twice against the live site. Address used: the venue, 2750 NW 3rd Ave.
 
+> **Click order changed at 3:30 PM.** Address → **Start** → interview → **See where I stand** → ballot with matches → tap **U.S. House** for the evidence → **Back to my ballot** → **Build my voting plan**. The district-changed card is now on the ballot page, after the interview, so say the 0:35 line when the ballot appears.
+
 | Seconds | Say | Do |
 |---|---|---|
 | 0:00–0:20 | "If you're 22 and live in Wynwood, your congressional district changed this year and nobody told you. The person who represents you today is not on your ballot in November. Young voters here don't skip elections because they don't care — they skip because nobody connects the ballot to their life." | Site already open on the address screen |
-| 0:20–0:35 | "Your Ballot, Your Block takes you from your address to the ballot box in two minutes." | Tap **Try: 2750 NW 3rd Ave**, then **Show my ballot** |
+| 0:20–0:35 | "Your Ballot, Your Block takes you from your address to the ballot box in two minutes." | Tap **Try: 2750 NW 3rd Ave**, then **Start** |
 | 0:35–0:50 | "This building moved from District 26 to District 24. Here is everyone on your ballot, from Congress to the county questions, each with its official source." | Point at the "district changed" card; scroll the ballot once |
 | 0:50–1:20 | "Now it talks with you. It asks about things that matter here — flooding, insurance, rent, the Everglades — and you just answer out loud." | **Explore your priorities** → **Ask me**. Answer ONE question by voice. Tap Yes/No for the rest |
 | 1:20–1:45 | "Then it shows where each candidate stands — in their own words. We read 215 pages from 31 candidates' own websites. Gemma 4, an open-weight model, read them and pulled the exact sentence. Solid means they said it. Dashed means it's only a party guess, and we say so. Every mark has a link. And it puts you and the candidates on one line: Gemma 4 places you from what you actually said, and gives a closest match in each race." | **See where I stand**. Point at "Closest to what you told us", then a quote and its **View source** link in the grid, then the left-right line under it (your dot shifts after about 20 seconds when Gemma 4 answers). Tap **How do we compare?** for Gemma 40027s comparison |

@@ -46,7 +46,7 @@ first does three things:
 Drafted 2:20 PM from what is live. **The presenter should rewrite it in their own words** and
 time it twice against the live site. Address used: the venue, 2750 NW 3rd Ave.
 
-> **Click order changed at 3:30 PM.** Address → **Start** → interview → **See where I stand** → ballot with matches → tap **U.S. House** for the evidence → **Back to my ballot** → **Build my voting plan**. The district-changed card is now on the ballot page, after the interview, so say the 0:35 line when the ballot appears.
+> **Click order changed at 3:30 PM.** Address → **Start** → interview → **See where I stand** → ballot with matches → tap **U.S. House** and its evidence drops open under the race (the markers slide into place on the line) → scroll to **Build my voting plan**. The district-changed card is now on the ballot page, after the interview, so say the 0:35 line when the ballot appears.
 
 | Seconds | Say | Do |
 |---|---|---|

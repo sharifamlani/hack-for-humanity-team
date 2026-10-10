@@ -1,6 +1,6 @@
 # ROADMAP — Hack for Humanity: Miami
 
-**Version:** v1.11
+**Version:** v1.12
 **Canonical execution directive for this repo.** If any other doc disagrees with this file,
 this file wins or the other doc gets corrected.
 
@@ -124,6 +124,7 @@ against production, not localhost.
 
 ## §6 — Changelog
 
+- **2026-10-10 (3:33 PM)** — **Race evidence opens inside the ballot** (`36ac1b6`): tapping a race drops its evidence open under it, with no page change; the left-right line comes first and every marker slides from the middle to its position. Production walk passed (8 match percentages, 7 source links on U.S. House, no errors). Tags: `v01` (`a74fa49`, five-step flow) and `v02` (`92d9f57`, race evidence on its own page) are the fallbacks. Open: the slide animation was seen in still screenshots only, not watched by a person; spoken answer on the live site untested by a person; demo not rehearsed.
 - **2026-10-10 (3:30 PM)** — **Flow reordered** (`15ce9d3`): address → interview → ballot with a match per scored race → tap a race for its evidence → voting plan. Four steps instead of five; Gemma 4's placement of the voter is fetched once and shared by the ballot and race screens. Production walk passed with the venue address: 8 match percentages on the ballot, 7 source links on the U.S. House race, no errors. The previous version is tagged `v01` (`a74fa49`) as the fallback. Open: `docs/demo-script.md` has the new click order but has not been rehearsed; a spoken answer on the live site is still untested by a person.
 - **2026-10-10 (3:20 PM)** — **Talk screen redesigned and app renamed** (`2d9fbd9`, `fc3ff74`): the brand flower is now the voice guide (yellow speaking, mint listening, blue thinking) in the centred mockup layout; handlers and prompts unchanged. "305 Votes" became **Your Ballot, Your Block** in the logo, page title, voice prompts, README and demo script. Production walk of all five screens passed with no errors, and the talk screen connected and spoke in a headless browser with a fake microphone (seen locally; the production run completed without page errors). Open: a real spoken answer by a person on the live site; demo not rehearsed; the repo, Vercel URL and package name still carry the old name.
 - **2026-10-10 (3:15 PM)** — **Final UI shipped** (`74ae027`, `66f1232`, `aa893ac`): dark palette, serif headlines, 1040px shell with nav, labelled step dots and brand shapes; Ballot and Voting plan in two columns; Compare shows each candidate's exact quote and source in the cell, with theme tabs, the suggested ballot reduced to one strip ("Closest to what you told us") and the method text collapsed. Mockup labels saying "demo" or "prototype" were deliberately not copied because the data is real. Checked by a scripted browser walk of all five screens on production with the venue address at 1280px and 390px: no console errors, no failed requests. Open: the interview screen has new colours only (its mockup is still to come); the spoken-answer path has not been re-tested by a person since the reskin; on a phone the Compare grid scrolls sideways; demo not rehearsed.

@@ -1,320 +1,246 @@
-# Plan — "305 Votes" (working name): from your address to the ballot box
+# Plan — 305 Votes pivot: Miami questions, candidates' own words, Gemma 4 decides
 
 ## Context
 
-The team (Sharif + 3) locked the idea at ~11:50 AM: **young Miami voters don't make it to the
-polls, and don't see how the ballot connects to their daily life.** Build a playful,
-trustworthy web app that takes an 18–25 year old from their address to (1) their district and
-current representative, (2) who is on their ballot Nov 3, (3) **where they stand next to those
-candidates on the hackathon's three themes, placed on one shared scale**, and (4) their polling
-place with directions. Voting is the first module of a wider civic platform; a public kiosk is
-part of the pitch.
+At ~1:00 PM the team changed the method. The voice interview, ballot and polling place stay.
+What changes is **what we ask and how we match**:
 
-Build stops 3:30 PM, submission 3:45 PM. No application code exists yet.
+- **Drop** the roll-call scaling (Bafumi–Herron, Voteview cutpoints, the left–right chart).
+- **Ask Miami / South Florida questions** instead of questions about federal bills.
+- **Collect candidates' own words** — campaign sites, official sites, press releases/speeches.
+- **Match with embeddings (cosine similarity)** to find what each candidate said on each
+  question, then **Gemma 4 reads those passages and decides** the candidate's position.
 
-**Entry:** Track 04 Data to Action, plus Challenge 2 (open-source AI) and Challenge 3 (Gemma 4).
-**Named group:** 18–25 year old voters in Miami-Dade, especially in neighborhoods whose
-congressional district changed in May 2026 (Wynwood, Miami Beach, Sunny Isles).
+Why it is better for this event: the old method could only place people who have voted in
+Congress, so for the venue's own district (FL-24) **both candidates showed "not enough public
+record"**. The new one works for challengers, and the questions are about Miami.
 
-## The scaling method (added at the team's request)
+**Clock: it is 1:15 PM. Build ends 3:30, submit 3:45.** This plan fits only with the scope
+below. The working roll-call version is live now (`a58b9c7`) and gets tagged first, so there
+is always something to demo.
 
-**Design: bridging on shared roll-call items (Bafumi & Herron 2010; Jessee 2009).** The voter
-answers the same yes/no questions Congress actually voted on, so voter and legislators land on
-one scale.
+(This replaces the 12:20 "evidence file" plan that was in this file; that plan was never
+built — there is no `data/evidence.csv` in the repo.)
 
-- **Items:** 9–12 real House roll calls from the 119th Congress, 3–4 per theme
-  (🌊 Water/air/land/fire · 🐢 Wildlife · 🎓 Jobs & staying in Miami). Each has a published
-  Voteview cutpoint (`nominate_mid_1`) and spread, so nothing is estimated from scratch.
-- **Voter's position:** a one-dimensional grid search over θ ∈ [−1, 1] maximizing the
-  likelihood of their answers given the fixed cutpoints. Milliseconds, deterministic, no sampler.
-- **Per theme:** the same search run on that theme's items only, drawn with an uncertainty band.
-- **Incumbents:** placed from their **actual votes on those same items**, plus their published
-  `nominate_dim1` overall.
-- **Challengers (no voting record):** placed **only** where a teammate has hand-coded their
-  stance on an item with a source URL. Otherwise the card says "Not enough public record to
-  place." The model never guesses a candidate's position.
+## Scope decisions (made so we can start; say so if any is wrong)
 
-Two honest limits, stated on screen and in the README:
-1. With 3–4 items a theme score is coarse, so it is shown as a band, not a point.
-2. The scale is the general left–right dimension. A theme score means "where your answers on
-   water bills put you on that scale", not a separate water dimension.
-
-**Unverified and must be checked first:** that the 119th House has at least 3 usable roll calls
-per theme (spread away from zero, both sides > 40 votes). If a theme has fewer, it shows a
-match percentage instead of a scale position.
-
-## Scope decisions
-
-| Team asked for | Decision | Why |
+| Question | Decision | Why |
 |---|---|---|
-| Phone number or address | **Address only, never stored** | Phone adds legal exposure and nothing on screen |
-| Current rep + candidates | **In** — "represented now by / voting Nov 3 in" | Redistricting makes these different for many addresses |
-| Scale voter vs candidates per theme | **In** — method above | The team's core differentiator; also the Data to Action "visual" |
-| Candidate positions | **In, sourced only** | Every claim has a link or says none found |
-| Link daily life to the vote | **Folded into the themes + Gemma explanation** | A separate hobby picker is cut to pay for the quiz |
-| Closest polling place | **In**, with Directions and the official county lookup beside it | Ours is "most likely, confirm here" |
-| Fun, colourful, minimal, trustworthy | **In — phone-first, one flow** | The audience is on phones |
-| Users customise the look | **Stretch**: 3-colour theme picker | Cut first |
-| Kiosk / platform | **Pitch only**; "soon" tabs shown | No hardware in 3.5 hours |
+| Which candidates | **U.S. House, FL-24 to FL-28 — 13 people.** U.S. Senate (3) only if time | 64 people are on the roster; 13 is what fits |
+| Where their words come from | Campaign site + official house.gov site + their press-release/news pages | "Speeches" = press releases today; video and transcripts don't fit |
+| Website addresses | **None are in our data (0 of 64 have a `campaign_url`).** One agent finds them now; teammates add more to the same file | Blocking — nothing can be scraped without them |
+| When Gemma decides | **Before the demo, by script** — not live | 13 × 6 = 78 readings at ~8 s each; live it would stall and could fail on stage |
+| Question format | **Miami-specific and still yes/no-able**, with room to explain out loud | Keeps the voice flow and the Yes/No buttons the team asked to keep |
+| Embedding model | `gemini-embedding-2` (closed-weight; no open one on this key) | It only *finds* passages. **Gemma 4 makes every decision.** Disclosed in README |
+| The match | Issue by issue: agrees / differs / no public position, each with the candidate's quote and link | No left–right score; nothing is shown without a source |
 
-**Where Gemma 4 does real work:** (a) rewrites each roll call's procedural title into a neutral,
-answerable question (generated by script, reviewed by a human before shipping); (b) live, after
-the quiz, writes a short plain-language explanation of where the voter and each candidate
-differ on the chosen theme, using only the item results and sourced text it is handed.
+### Two ways in (added 1:20 PM)
+
+The interview step opens with a choice:
+
+| Mode | What happens | How the match is made |
+|---|---|---|
+| **"Ask me"** (guided) | The AI asks the 6 Miami questions out loud; you answer by voice or Yes/No | Your answers vs each candidate's pre-read position — the grid below. **Built first; this is the demo path** |
+| **"I'll tell you what I care about"** (open) | You talk freely about what you're passionate or curious about; the AI asks one follow-up | Live: your words are embedded, cosine similarity pulls each candidate's closest passages, and Gemma 4 writes what each has said about *your* topic, with quotes and links. No agree/differ mark unless you stated a clear position |
+
+The open mode reuses the same scraped passages and embeddings, plus one live step
+(`/api/ask`). It is **built second and is the first thing cut** if the guided path is not
+finished by 2:35.
+
+**Guardrail that replaces the old math:** a candidate's position is shown only if Gemma's quote
+is found **word-for-word** in the scraped page. Otherwise the cell reads "No public position
+found". The app still describes and never recommends.
 
 ## Folder structure
 
 ```
 .
-├── app/
-│   ├── layout.tsx                # fonts, colour tokens, page shell
-│   ├── page.tsx                  # the flow: address → ballot → quiz → match → polling place
-│   ├── globals.css               # Tailwind + theme tokens
-│   └── api/
-│       ├── lookup/route.ts       # address → districts (new + old), precinct, polling place
-│       └── explain/route.ts      # Gemma 4: theme result + sourced text → explanation
-├── components/
-│   ├── StepBar.tsx               # 1 Address · 2 Ballot · 3 Quiz · 4 Match · 5 Go vote
-│   ├── AddressForm.tsx           # input + venue demo chip + privacy line
-│   ├── DistrictBanner.tsx        # old rep / new district
-│   ├── CandidateCard.tsx         # name, party, sourced quotes
-│   ├── Quiz.tsx                  # one question per card, Yes / No / Skip
-│   ├── ScaleChart.tsx            # one line per theme: you + candidates as dots, with band
-│   ├── ExplainBox.tsx            # Gemma 4 explanation + source links
-│   └── PollingCard.tsx           # place, hours, Directions, official link
-├── lib/
-│   ├── census.ts                 # Census Geocoder (keyless, server-side)
-│   ├── arcgis.ts                 # Miami-Dade point-in-polygon + polling place join
-│   ├── scale.ts                  # grid-search θ from answers + fixed cutpoints
-│   ├── gemma.ts                  # reads GEMMA_MODEL only; filters thought parts
-│   └── types.ts                  # shared shapes
 ├── data/
-│   ├── _README.md                # what each file is, who maintains it, the sourcing rule
-│   ├── items.json                # the 9–12 roll calls: cutpoint, spread, theme, question, member votes
-│   ├── candidates.json           # 5 districts, candidates, sourced quotes, hand-coded item stances
-│   └── fixtures/venue.json       # canned lookup for the venue address (demo fallback)
+│   ├── candidates/sites.csv          # NEW  candidate_id, url, kind, found_by
+│   ├── questions.json                # NEW  6 Miami questions, 2 per theme (human-reviewed)
+│   ├── positions/
+│   │   ├── _README.md                # NEW  what these files are; the word-for-word rule
+│   │   ├── chunks.json               # NEW  scraped passages: candidate, url, text
+│   │   ├── embeddings.json           # NEW  one vector per passage and per question
+│   │   └── stances.json              # NEW  candidate × question: yes/no/none + quote + url + similarity
+│   └── items.json                    # DELETE (roll calls)
 ├── scripts/
-│   ├── build-items.mjs           # pulls Voteview rollcalls + votes, filters, asks Gemma for wording
-│   ├── verify-items.mjs          # asserts ≥3 usable items per theme, all cutpoints present
-│   ├── smoke-scale.mjs           # recovers Miami-Dade members from their own votes
-│   ├── probe-sources.mjs         # hits every external source once
-│   ├── smoke-gemma.mjs           # one real Gemma 4 call, asserts clean answer
-│   └── verify-candidates.mjs     # asserts every claim and stance has a source URL
-├── docs/demo-script.md
-├── README.md
-└── ROADMAP.md
+│   ├── scrape-positions.mjs          # NEW  fetch sites.csv pages + issue/news links → chunks.json
+│   ├── embed-positions.mjs           # NEW  embed passages + questions → embeddings.json
+│   ├── build-stances.mjs             # NEW  cosine top passages → Gemma 4 decides → stances.json
+│   ├── verify-stances.mjs            # NEW  every quote word-for-word in its page; coverage table
+│   ├── build-items.mjs               # DELETE
+│   └── smoke-scale.mjs               # DELETE
+├── lib/
+│   ├── questions.ts                  # NEW  replaces items.ts (questions, themes, stances)
+│   ├── match.ts                      # NEW  agreement count per candidate (plain arithmetic)
+│   ├── items.ts, scale.ts            # DELETE
+│   └── gemma.ts                      # reuse as is (GEMMA_MODEL only, drops thought parts)
+├── app/api/
+│   ├── interview/route.ts            # EDIT  read an answer against a Miami question, not a bill
+│   ├── explain/route.ts              # EDIT  compare the voter's words with candidates' quotes
+│   └── lookup/, voice-token/         # unchanged
+├── components/
+│   ├── VoiceInterview.tsx            # EDIT  swap ITEMS for questions; drop bill links
+│   ├── InterviewStep.tsx             # EDIT  same swap (typed fallback)
+│   ├── MatchStep.tsx                 # REWRITE  issue-by-issue grid with quotes
+│   └── BallotStep, PollingStep, StepBar   # unchanged
+└── docs/build-plan.md, ROADMAP.md, README.md   # updated to the new method
 ```
+
+Reused as built: `lib/gemma.ts`, `lib/liveVoice.ts`, `/api/lookup`, `/api/voice-token`,
+`parseCsv` in `scripts/merge-candidates.mjs`, the ballot and polling screens.
 
 ## Flowchart
 
 ```
-BUILD TIME
-[Voteview rollcalls + votes] --> build-items.mjs --> [Gemma 4: neutral wording]
-                                                         |  human review
-                                                         v
-                                                  data/items.json
-[Teammate research + source URLs] ----------------> data/candidates.json
+BEFORE THE DEMO (scripts, run once, results committed)
+[agent + teammates] --> data/candidates/sites.csv
+                              |
+                 scrape-positions.mjs  --> chunks.json   (passages, each with its URL)
+                              |
+[questions.json] --> embed-positions.mjs --> embeddings.json
+                              |
+          for each candidate x question:
+          cosine similarity --> top 4 passages --> Gemma 4: "yes / no / no clear position
+                                                             + the exact sentence"
+                              |
+                 quote found word-for-word in the page?  --no--> "no public position"
+                              | yes
+                        stances.json  --> verify-stances.mjs (coverage table)
 
-RUN TIME
-[address] --> /api/lookup --> Census Geocoder ---------> NEW district, lat/lon
-                    |-------> Miami-Dade ArcGIS -------> OLD district, precinct, polling place
-                    v
-          join district --> candidates.json
-                    v
-   [Ballot screen] --> [Quiz: 9-12 Yes/No/Skip] --> lib/scale.ts (in browser)
-                                                        |
-                         you θ per theme + overall <----+----> candidates' positions
-                                                        v
-                                               [ScaleChart: dots on a line]
-                                                        |
-                              tap a theme --> /api/explain --> Gemma 4 --> ExplainBox
-                                                        v
-                                     [PollingCard] --> Directions opens maps
-failure path: any external call fails --> fixtures/venue.json, labelled "saved example"
-answers and address stay in the browser; nothing is stored
-```
-
-## UI/UX wireframes (phone-first; all new surfaces)
-
-**Step 1 — Address**
-```
-+--------------------------------------+
-| 305 VOTES     [Vote] Housing· Climate·|
-| ●─○─○─○─○   1 of 5                    |
-|                                      |
-|  Your ballot.                        |
-|  Your block.                         |
-|  Two minutes.                        |
-|                                      |
-| +----------------------------------+ |
-| | Your home address                | |
-| +----------------------------------+ |
-| [        Show my ballot ▶         ]  |
-|                                      |
-|  ( Try: 2750 NW 3rd Ave — we're here)|
-|  🔒 We never store your address.     |
-+--------------------------------------+
-  states: empty · typing · loading ("Finding your district…")
-          · error ("We couldn't find that address. Try adding the city.")
+ON STAGE
+[address] --> /api/lookup --> district --> the House candidates on that ballot
+[voice interview: 6 Miami questions] --> Gemini Live speaks and hears
+          each answer --> /api/interview --> Gemma 4 records yes / no / not sure
+                              |
+        lib/match.ts: voter's answer vs stances.json   (a count, no model)
+                              |
+   [Match screen] --tap a cell--> /api/explain --> Gemma 4 writes the comparison
+                              |                     from the voter's words + the quote
+                        [Polling place]
 ```
 
-**Step 2 — Your ballot**
+## UI wireframes
+
+**Interview start (step 3) — new chooser**
 ```
-+--------------------------------------+
-| ●─●─○─○─○   2 of 5                    |
-| ⚠ YOUR DISTRICT CHANGED IN 2026      |
-| Represented now by                   |
-|   <Member>, FL-26        (old map)   |
-| On Tue Nov 3 you vote in             |
-|   FL-24                  (new map)   |
-|--------------------------------------|
-| WHO'S ON YOUR BALLOT                 |
-| +----------------------------------+ |
-| | Candidate A · party · incumbent  | |
-| | "sourced quote…"        [source↗]| |
-| +----------------------------------+ |
-| +----------------------------------+ |
-| | Candidate B · party              | |
-| | No public statement found yet.   | |
-| +----------------------------------+ |
-| [   See where you stand ▶   ]        |
-| [   Skip to my polling place   ]     |
-+--------------------------------------+
-  variant: district unchanged → banner reads "You vote in FL-27", no warning
+BEFORE                                   AFTER
+| Let's talk it through              |  | How do you want to do this?        |
+| I'll ask you out loud about 6      |  | +--------------------------------+ |
+| things Congress really voted on.   |  | | 🎙 Ask me                      | |
+|          ( 🎙 Start )              |  | | 6 quick Miami questions        | |
+| I'd rather type                    |  | +--------------------------------+ |
+|                                    |  | +--------------------------------+ |
+|                                    |  | | 💬 I'll tell you what I care   | |
+|                                    |  | | about — talk about anything    | |
+|                                    |  | +--------------------------------+ |
+|                                    |  | I'd rather type                    |
+```
+Open mode result (replaces the grid for that mode):
+```
+| You talked about: rent, your abuela's flood insurance      |
+| Brown   "…exact sentence…" [site↗]                         |
+| Gilbert "…exact sentence…" [site↗]                         |
+| ⚡ Gemma 4: what each has said about this, in plain words   |
+| ◌ shown when a candidate has nothing close to your topic   |
 ```
 
-**Step 3 — Quiz (one card at a time)**
+**Guided interview — only the words change**
 ```
-+--------------------------------------+
-| ●─●─●─○─○   3 of 5      Question 4/10 |
-| 🌊 WATER · AIR · LAND · FIRE          |
-|                                      |
-|  Should the federal government       |
-|  <plain-language question>?          |
-|                                      |
-|  Real vote: H.R. ____ · <date>       |
-|  [ What did this bill do? ⓘ ]        |
-|                                      |
-|  [   👍 Yes   ]   [   👎 No   ]       |
-|            [ Skip ]                  |
-|  ▓▓▓▓▓▓▓▓░░░░░░░░░░  40%             |
-+--------------------------------------+
-  states: ⓘ open → 2-line neutral summary + link to the roll call
-          · answered → card slides, next question
+BEFORE                                   AFTER
+| 🌊 WATER·AIR·LAND·FIRE       1 of 6 |  | 🌊 WATER·AIR·LAND·FIRE       1 of 6 |
+|            ( 🗣️ )                   |  |            ( 🗣️ )                   |
+| Would you vote yes on a bill that  |  | Sunny-day flooding keeps closing   |
+| creates a center to predict        |  | Miami streets. Should government   |
+| wildfires…?                        |  | spend more to raise roads and fix  |
+| ▸ Real vote: H.R. 471 ⓘ            |  | drains here?                       |
+| [Yes][No][Not sure][Skip]          |  | [Yes][No][Not sure][Skip]          |
+| chips: H.R. 471: Yes ✓             |  | chips: Flooding: Yes ✓             |
 ```
 
-**Step 4 — Your match**
+**Match (step 4) — rewritten**
 ```
-+--------------------------------------+
-| ●─●─●─●─○   4 of 5                    |
-| WHERE YOU STAND                      |
-|                                      |
-| 🌊 Water · air · land · fire          |
-|  ◀──────[░░●YOU░░]────A────────B──▶  |
-| 🐢 Wildlife                           |
-|  ◀────A──────[░●YOU░]─────────B───▶  |
-| 🎓 Jobs & staying in Miami            |
-|  ◀──────────A──[░░●YOU░░]──────B──▶  |
-|                                      |
-|  ● you (shaded = how sure we are)    |
-|  A, B = candidates · ◌ = not enough  |
-|        public record to place        |
-|--------------------------------------|
-| Tap a theme to see why  ⚡ Gemma 4    |
-| +----------------------------------+ |
-| | On water, you and A agreed on 3  | |
-| | of 4 real votes. You split on    | |
-| | H.R. ____ …            [votes ↗] | |
-| +----------------------------------+ |
-| We describe. We never recommend.     |
-| [   Where do I vote? ▶   ]           |
-+--------------------------------------+
-  states: explanation idle · loading ("Gemma 4 is reading the votes…")
-          · answered · error (falls back to the plain agreement count)
-          · fewer than 3 answers in a theme → "Answer more to place you here"
+BEFORE                                   AFTER
+| Where you stand                    |  | Where you stand                    |
+| ◀ left ............... right ▶     |  | U.S. House · FL-24                 |
+| 🌊  ──[●YOU]──────A──              |  |               Brown     Gilbert    |
+| 🐢  ──[●YOU]───A─────              |  | 🌊 Flooding    ✓ agree  ◌ none     |
+| 🎓  (answer 2 to place you)        |  | 🌊 Heat        ✗ differ ✓ agree    |
+| ◌ Brown — not enough record        |  | 🐢 Everglades  ◌ none   ✓ agree    |
+| ◌ Gilbert — not enough record      |  | 🐢 Biscayne    ✓ agree  ✓ agree    |
+|                                    |  | 🎓 Housing     ✗ differ ✓ agree    |
+|                                    |  | 🎓 Jobs        ◌ none   ◌ none     |
+|                                    |  | Lines up with you on:              |
+|                                    |  |  Brown 2 of 4 · Gilbert 4 of 4     |
+|                                    |  |  (only issues they've spoken on)   |
 ```
-
-**Step 5 — Go vote**
+Tap a cell:
 ```
-+--------------------------------------+
-| ●─●─●─●─●   5 of 5                    |
-| 📍 YOUR POLLING PLACE (most likely)  |
-| <Name>                               |
-| <Address> · Precinct <n>             |
-| Election Day: Tue Nov 3              |
-|                                      |
-| EARLY VOTING NEAR YOU                |
-| <Site> · <days/hours> · ♿            |
-|                                      |
-| [      Get directions ▶      ]       |
-| [ Confirm on the county's site ↗ ]   |
-|                                      |
-| [ Share with a friend ]              |
-+--------------------------------------+
-  fallback: "Showing a saved example — live lookup unavailable."
+| 🌊 Heat — Brown ✗ differs                       |
+| You said: "outdoor workers need water breaks"   |
+| Brown: "…exact sentence from her site…" [site↗] |
+| ⚡ Gemma 4: short plain comparison              |
 ```
+(Names and marks above are layout placeholders, not findings.)
+States: ✓ agrees · ✗ differs · ◌ no public position found · — you skipped · loading
+("Gemma 4 is reading…") · explanation failed → the quote and link still show.
 
 | UI piece | BEFORE | AFTER |
 |---|---|---|
-| Header, tabs, step bar | none | Name, "Vote" active, two "soon" tabs, 5-dot progress |
-| Address form | none | Input, button, venue chip, privacy line; loading + error states |
-| District banner | none | Old rep / new district; plain variant when unchanged |
-| Candidate cards | none | Name, party, sourced quote or "none found" |
-| Quiz card | none | Theme tag, question, real bill reference, Yes/No/Skip, info popover |
-| Scale chart | none | Three theme lines, voter dot with band, candidate markers, "can't place" marker |
-| Explain box | none | Gemma 4 text with source links; idle/loading/answered/error |
-| Polling card | none | Place, early voting, Directions, official link, fallback label |
-
-Look and feel (Teammate B owns the final palette): big type, one bright accent per theme, white
-cards on a warm background, rounded corners, large tap targets; no party colours on the scale.
-
-## Who does what
-
-| Person | Owns | Deliverable | Due |
-|---|---|---|---|
-| **Sharif + Claude** | all code; **item selection** (it is the methodology) | the flow end to end | slice 1:20, freeze 2:50 |
-| **Teammate A** | `data/candidates.json` (shared sheet is fine) | Candidates for FL-24/25/26/27/28 from the state's official list; sourced quotes; each challenger's stance on the quiz items where a source exists | first district 1:00, all 1:45 |
-| **Teammate B** | look and words | Palette, tone, button and screen copy; reviews Gemma's question wording for neutrality; then demo narration | palette 12:45 |
-| **Teammate C** | the case | One sourced young-voter turnout number for Miami-Dade; README problem/impact text; kiosk + platform roadmap line; submission form | number 1:15 |
-
-Claude subagents: `screen-builder` for polish once the slice runs, `submission-scribe` for the
-README at ~2:00, `demo-verifier` on the deployed URL at 2:50. Never more than three at once.
+| Question text | Federal bill wording | Miami-specific question |
+| Bill details / roll-call links | Shown | Removed |
+| Answer chips | Bill number | Short issue name |
+| Match chart | Left–right lines, sitting members only | Issue grid, every House candidate on the ballot |
+| "Not enough record" | Whole candidates | Single cells, only where nothing was found |
+| Evidence | Vote list | Candidate's own sentence + link |
+| Method note | Voteview explanation | "From candidates' own websites. Gemma 4 read them. Quotes are exact." |
 
 ## Derisking — smokes in dependency order
 
 | # | What it proves | Command | Expected | If it fails → |
 |---|---|---|---|---|
-| 1 | Enough real votes exist per theme | `node scripts/build-items.mjs && node scripts/verify-items.mjs` | `OK: 3 themes, >=3 usable items each` | That theme shows a match % instead of a scale position |
-| 2 | The scaling math is right | `node scripts/smoke-scale.mjs` | `PASS: Miami-Dade members recovered on the correct side, within 0.35 of nominate_dim1` | Fix `scale.ts` before any UI uses it |
-| 3 | The scaffold builds and deploys | `pnpm build && vercel --prod --yes` | `Compiled successfully`, URL returns `200` | Fix deploy now, not at 3 PM |
-| 4 | Every external source answers | `node scripts/probe-sources.mjs "2750 NW 3rd Ave, Miami, FL"` | `census OK FL-24 · oldlines OK FL-26 · precinct OK · polling OK` | Failing source served from the fixture |
-| 5 | Candidate data is sourced | `node scripts/verify-candidates.mjs` | `OK: 5 districts, 0 unsourced claims` | Show only districts that pass |
-| 6 | Gemma 4 returns a clean answer | `node scripts/smoke-gemma.mjs` | `finishReason STOP · answer non-empty · no thought text · model gemma-4-31b-it` | Check `GEMMA_MODEL` and token budget; cache one labelled answer |
-| 7 | **End to end on the deployed URL** | Walk `docs/demo-script.md` with the venue address, timed | Under 2:00, no console errors, no empty states | Cut the last feature added until it passes |
+| 0 | We can always fall back | `git tag roll-call-version && git push --tags` | tag visible on GitHub | — |
+| 1 | We have somewhere to scrape | `node scripts/verify-stances.mjs --sites` | `OK: 13 candidates, >=10 with a URL` | Demo only the districts that have URLs |
+| 2 | The sites give real text | `node scripts/scrape-positions.mjs` | `wrote chunks.json: N passages from >=10 candidates` | A site that returns no text gets pasted text from a teammate, or is marked none |
+| 3 | Cosine search finds the right passage | `node --env-file=.env scripts/embed-positions.mjs --check` | top passage for the flooding question is about flooding | Fix chunking before any Gemma call |
+| 4 | Gemma's readings are sourced | `node --env-file=.env scripts/build-stances.mjs && node scripts/verify-stances.mjs` | `OK: 0 quotes missing from source` + coverage table | A failing cell becomes "none"; drop a question nobody has spoken on |
+| 5 | The app builds on the new data | `pnpm build && vercel --prod --yes` | `Compiled successfully`, URL 200 | Fix; old version still tagged |
+| 6 | **End to end on the live site** | Venue address → voice interview → match → polling, timed | under 2:00, a quote with a working link on screen | `vercel rollback` to the roll-call version |
 
-Ground truth after smoke 7: the polling place for the venue matches the official county lookup;
-candidates match the state's list; one incumbent's dots are checked by hand against their
-actual votes.
+Ground truth after smoke 6: a teammate opens three quoted links and confirms the sentence is
+on the page and means what the cell says.
 
 ## Implementation steps
 
-1. **Lock (now–12:20):** `docs/demo-script.md`; ROADMAP rows 1.1–1.4; `GEMMA_MODEL` in `.env`;
-   brief teammates; commit.
-2. **Items + math (–12:50):** `build-items.mjs`, Sharif picks the items, `scale.ts`; smokes 1–2.
-3. **Scaffold + deploy (–1:05):** Next.js + Tailwind, env on Vercel; smoke 3.
-4. **Lookup (–1:35):** `census.ts`, `arcgis.ts`, `/api/lookup`, steps 1, 2 and 5 on screen; smoke 4.
-5. **Quiz + chart (–2:10):** `Quiz.tsx`, `ScaleChart.tsx` with incumbents from real votes.
-6. **Candidates + Gemma (–2:35):** merge `candidates.json`, `/api/explain`; smokes 5–6.
-7. **Polish (–2:50):** palette, fallback fixture, README. **Feature freeze 2:50.**
-8. **Prove and submit (–3:30):** smoke 7 twice, ground-truth checks, ROADMAP flips, submit.
+1. **1:20** Tag the working version (smoke 0). Dispatch one agent to fill
+   `data/candidates/sites.csv` for the 13 House candidates (campaign + official + news pages).
+2. **1:20–1:40** While it runs: write the scripts; draft 8 candidate questions (2–3 per theme)
+   with Gemma 4, Miami-specific and yes/no-able.
+3. **1:40–2:00** Smokes 1–3. Pick the **6 questions with the best coverage**.
+4. **2:00–2:20** Smoke 4. A teammate starts spot-checking quotes. Dispatch `submission-scribe`
+   for the README (track, all three models and what each does, every data source, how to run).
+5. **2:20–2:50** Swap the interview to the new questions, rewrite the match screen, update the
+   two Gemma routes, delete the roll-call files. Smoke 5. **Feature freeze 2:50.**
+6. **2:50–3:30** Smoke 6 twice, demo script, ROADMAP + docs, submit by 3:30.
 
-**Cut order if behind:** theme picker → early-voting line → challenger placement (incumbents
-only) → live Gemma explanation (show the agreement count instead) → per-theme lines (one
-overall line). The address → ballot → polling place path is never cut.
+Open mode adds `app/api/ask/route.ts` (embed the voter's words → cosine over
+`embeddings.json` → Gemma 4 summary with exact quotes) and a chooser + result view in
+`VoiceInterview.tsx` / `MatchStep.tsx`. It slots into step 5 after the guided path works.
 
-## Open risks
+**Cut order:** open "tell me what you care about" mode → U.S. Senate → live Gemma explanation (quotes still show) → districts with thin
+data. **Abort rule:** if smoke 4 has not passed by 2:30, stop and demo the tagged roll-call
+version — it works today.
 
-- **Roll calls per theme are unverified** — smoke 1 settles it in the first 20 minutes.
-- **The candidate list is unverified** — Teammate A's first task.
-- **The schedule is tight:** the quiz adds roughly 45 minutes, taken from polish time.
-- **Nonpartisan framing:** describe and link, never recommend; no party colours on the scale.
+## Risks to say out loud
+
+- **Thin challenger websites.** Some cells will read "no public position found". That is
+  honest, but a mostly empty grid is a weak demo — coverage decides which district we demo.
+- **Gemma misreading a candidate** is the reputational risk. Mitigations: the word-for-word
+  quote check, a link on every cell, a human spot-check, and "none" whenever in doubt.
+- **We give up a verified method.** The scaling recovered real members within 0.14 of their
+  published scores. The new match is a count of agreements, not a measured position — the
+  README must not oversell it.
+- **Three models on stage** — Gemini Live (voice), `gemini-embedding-2` (finding passages),
+  Gemma 4 (every decision). Only Gemma is open-weight; the README must say exactly this.
+- **2 hours 15 minutes** for a method change, with no slack for a second pivot.

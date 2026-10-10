@@ -2,7 +2,7 @@
 //
 // This is the VOICE only: it speaks the questions and hears the answers. What a person's
 // answer means for the score is decided by Gemma 4 (see /api/interview) and the scale is
-// plain arithmetic (lib/scale.ts).
+// a plain comparison (lib/match.ts).
 //
 // Turn-taking is half-duplex on purpose: the mic only streams while the app is
 // "listening", so the AI never hears itself through the speakers in a loud room.
@@ -102,7 +102,7 @@ export class LiveVoice {
                   functionDeclarations: [
                     {
                       name: "record_answer",
-                      description: "Record the person's answer on the current bill.",
+                      description: "Record the person's answer on the current question.",
                       parameters: {
                         type: "OBJECT",
                         properties: { stance: { type: "STRING", enum: ["yes", "no", "unsure"] } },

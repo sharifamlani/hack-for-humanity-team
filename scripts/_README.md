@@ -1,15 +1,17 @@
 # scripts/
 
-Any command that gets run more than once lives here as a script, not as a line retyped into
-a terminal. Multi-step or multi-file operations (data pulls, verification passes, builds,
-deploys) are always scripts.
+Any command that gets run more than once lives here as a script. Each one prints what it
+did and exits non-zero on failure.
 
-Conventions:
-- Idempotent where possible.
-- Real arguments, not hardcoded local paths.
-- Print what was done; exit non-zero on failure.
-- Any script that produces artifacts is paired with a verification script that asserts those
-  artifacts exist and are well-formed. "It printed success" is not proof.
+| Script | What it does |
+|---|---|
+| `merge-candidates.mjs` | Merges `data/candidates/{federal,state,local}.csv` into `data/candidates.csv` |
+| `build-candidates-json.mjs` | Turns that CSV into `data/candidates.json`, the file the app reads |
+| `verify-candidates.mjs` | Checks every roster row has a source |
+| `scrape-positions.mjs` | Downloads the pages in `data/candidates/sites/*.csv` and saves their exact text as passages |
+| `embed-positions.mjs` | Embeds passages and interview questions (`--check` prints the closest passages per question) |
+| `build-stances.mjs` | Gemma 4 reads each candidate's closest passages and decides yes / no / none, with a word-for-word quote check (`--second-look` re-reads the empty cells) |
+| `verify-stances.mjs` | Asserts every shown quote is on its page word for word; prints the coverage table |
 
-Empty until the build day — the first scripts will likely be a data-source fetch and its
-verification counterpart.
+Order for the position data: scrape → embed → build-stances → verify-stances.
+`pnpm data` runs the two candidate-roster scripts and is run automatically before `pnpm build`.

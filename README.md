@@ -1,70 +1,235 @@
 # Hack for Humanity: Miami — Hacktoberfest 2026
 
-> **Status:** pre-build research repo. Per the official rules, **all project work happens
-> during build time (10:45 AM – 3:30 PM, Oct 10 2026)** — see
-> [Why there is no code here yet](#why-there-is-no-code-here-yet).
->
-> **The five sections below marked required are a graded artifact**, not an afterthought: the
-> guide specifies the README must carry the track, data sources, models used, how to run it,
-> and team members.
+**305 Votes** — an entry for
+**[Hack for Humanity: Miami](https://events.mlh.com/events/14790-hack-for-humanity-miami)**,
+an MLH-hosted civic-innovation hackathon presented by The AI Collective at The LAB Miami.
 
-An entry for **[Hack for Humanity: Miami](https://events.mlh.com/events/14790-hack-for-humanity-miami)**,
-an MLH-hosted civic-innovation hackathon presented by The AI Collective at The LAB Miami —
-building AI-powered solutions to real Miami community problems.
-
-- **When:** Friday Oct 9 – Saturday Oct 10, 2026 (main build day Saturday, 10:00 AM – 5:30 PM EDT)
-- **Where:** The LAB Miami, 2750 NW 3rd Avenue, Miami, FL 33127
-- **Hosts:** The AI Collective · Major League Hacking · The LAB Miami · DeepStation
+- **Live app:** https://hack-for-humanity-team.vercel.app
+- **Code:** https://github.com/sharifamlani/hack-for-humanity-team (public, [MIT](LICENSE))
+- **Built:** all code was written during the build window on Saturday, Oct 10, 2026.
 
 ## The problem
 
-_To be filled in at kickoff once a track and idea are chosen._
+**Voters aged 18–25 in Miami-Dade County, especially in neighbourhoods whose congressional
+district changed in 2026.**
+
+Florida redrew 21 of its 28 congressional districts in May 2026. The new lines are in use for
+the election on **Tuesday, Nov 3, 2026**. For a young voter who has just moved, or who has
+never voted, three things are hard at once:
+
+1. **Which district am I in now?** Some addresses moved. The venue of this event (Wynwood)
+   went from FL-26 to FL-24. Miami Beach and Sunny Isles Beach went from FL-24 to FL-25.
+   One county map layer still shows the old lines, even though it lists the current
+   representatives' names.
+2. **Who is on my ballot?** The answer depends on the address, and the lists are spread
+   across several government sites.
+3. **What do the candidates actually say about the things I care about?** Candidate
+   websites are long, and a young voter should not have to read 100 pages to find out.
 
 ## What we built
 
-_To be filled in during the build. This section is what judges read first — it gets written
-as the demo takes shape, not at 3:40 PM._
+305 Votes takes a voter from an address to a ballot, a conversation, and a polling place.
+It never tells anyone how to vote.
+
+1. **Find your district.** Type an address or share your phone's location. The app shows your
+   congressional district on the old map and the new map, and says if it changed.
+2. **See your ballot.** The races and candidates for that address, from Congress down to
+   judges and ballot questions.
+3. **Talk it through.** A voice interview, with two modes:
+   - **Ask me** — the AI speaks ten Miami questions (flooding, insurance, heat, housing,
+     wages, student debt and others) from [`data/questions.json`](data/questions.json).
+   - **I'll tell you what I care about** — you speak or type freely about what matters to you.
+   Typing and tapping Yes / No / Not sure work if you do not want to use a microphone.
+4. **Compare with the candidates' own words.** For each candidate, the match screen shows
+   where they line up with you and where they differ, with a **word-for-word quote and a
+   link** to the page it came from. If we found nothing, it says so.
+5. **Plan your vote.** Your most likely polling place and the two nearest early-voting sites.
 
 ## How it works
 
-_Architecture, data sources, and where the AI sits in the loop._
-
-## Running it locally
-
-```bash
-cp .env.example .env   # then fill in the keys the stack actually needs
+```
+address / phone location
+   -> U.S. Census Geocoder: new district, state districts, county, city      (lib/census.ts)
+   -> Miami-Dade ArcGIS: old-map district, precinct, polling place, early voting (lib/arcgis.ts)
+   -> ballot filter over data/candidates.json                                (lib/ballot.ts)
+   -> voice interview                                                        (components/VoiceInterview.tsx, OpenTalk.tsx, lib/liveVoice.ts)
+   -> match screen                                                           (components/MatchStep.tsx, lib/match.ts)
+   -> polling place and early voting                                         (components/PollingStep.tsx)
 ```
 
-_Install and run steps land here with the first application commit._
+**Where each model sits.** Three models, three jobs. They are not interchangeable.
 
-## Track
+| Model | Job in the product | Where |
+|---|---|---|
+| **Gemma 4** (`gemma-4-31b-it`, open-weight, via the Gemini API) | Makes every decision. Reads each candidate's passages and decides yes / no / none with an exact quote. Reads the voter's spoken or typed answers. Writes the comparisons. | `scripts/build-stances.mjs`, `app/api/interview`, `app/api/explain`, `app/api/ask` |
+| **Gemini Live** (`gemini-3.8-live`, closed-weight) | Voice only. Speaks the questions and hears the answers. | `lib/liveVoice.ts`, `app/api/voice-token` |
+| **`gemini-embedding-2`** (closed-weight) | Finds passages only, by cosine similarity. Decides nothing. | `scripts/embed-positions.mjs`, `app/api/ask` |
 
-_One of: **01 Four Forces, One City** · **02 Wild Miami** · **03 Brain Gain** ·
-**04 Data to Action**. Also state any MLH challenges entered (Best Open-Source AI Project,
-Best Use of Gemma 4)._
+The product code reads the model name only from the `GEMMA_MODEL` variable, and
+[`lib/gemma.ts`](lib/gemma.ts) refuses to run unless it starts with `gemma-`.
+
+**The quote guardrail.** A candidate's position is kept only if the quote Gemma 4 gives is
+found **word for word** in the passage it came from (ignoring curly quotes, dashes and
+spacing). Otherwise it is recorded as "none". This runs when positions are built
+(`build-stances.mjs`), in the open mode at request time (`app/api/ask`), and is re-checked by
+`scripts/verify-stances.mjs`.
+
+**We describe, we never recommend.** The prompts in `app/api/explain`, `app/api/ask` and
+`app/api/interview` forbid recommending, praising or criticising anyone, and forbid
+mentioning parties. The match screen says "We describe. We never recommend." The agree /
+differ marks are a plain comparison in [`lib/match.ts`](lib/match.ts), with no model.
+
+**Privacy.** `app/api/lookup` uses the address for that one request only. It is not stored or
+logged. The browser gets a single-use, short-lived voice token, so the API key stays on the
+server.
+
+## Track and challenges entered
+
+- **Track 04 — Data to Action.** The question: what does a young Miami-Dade voter's ballot
+  look like on the new map, and where do the candidates stand on what they care about?
+- **MLH Best Open-Source AI Project.** Open-weight Gemma 4 makes every decision. Repo is
+  public and MIT-licensed.
+- **MLH Best Use of Gemma 4.** Gemma 4 via the Gemini API, named above and in the code.
 
 ## Data sources
 
-_Cite **every** dataset, with a link. Required by the guide._
+Every source the app or its build scripts read.
+
+**Where the voter is and what is on the ballot**
+
+| Source | Used for | Link |
+|---|---|---|
+| U.S. Census Geocoder | Address or point to current congressional, state senate, state house, county, city | [Geocoding Services API](https://geocoding.geo.census.gov/geocoder/Geocoding_Services_API.html) |
+| Miami-Dade County open data (ArcGIS), `CongressionalDistrict_gdb` | District on the **old** (pre-2026) map, shown only for comparison | [layer](https://services.arcgis.com/8Pc9XBTAsYuxx9Ny/arcgis/rest/services/CongressionalDistrict_gdb/FeatureServer/0) |
+| Miami-Dade ArcGIS, `Precinct_gdb` | Precinct for the address | [layer](https://services.arcgis.com/8Pc9XBTAsYuxx9Ny/arcgis/rest/services/Precinct_gdb/FeatureServer/0) |
+| Miami-Dade ArcGIS, `PollingPlace_gdb` | Polling place for the precinct | [layer](https://services.arcgis.com/8Pc9XBTAsYuxx9Ny/arcgis/rest/services/PollingPlace_gdb/FeatureServer/0) |
+| Miami-Dade ArcGIS, `ElectionGeography_public` | Early-voting sites | [layer](https://services.arcgis.com/8Pc9XBTAsYuxx9Ny/arcgis/rest/services/ElectionGeography_public/FeatureServer/0) |
+| Miami-Dade Supervisor of Elections | Official lookup the app links to | [votemiamidade.gov](https://www.votemiamidade.gov/elections/home.page) |
+
+**Candidate roster** — [`data/candidates/*.csv`](data/candidates) (federal 16 rows, state 41,
+local 38; 95 rows merged into `data/candidates.csv`). Every row carries its own `source_url`.
+These are the distinct sources:
+
+- Florida Division of Elections, 2026 General Election candidate listings:
+  [federal](https://dos.elections.myflorida.com/candidates/CanList.asp?elecid=20261103-GEN) ·
+  [Cabinet](https://dos.elections.myflorida.com/candidates/canlist.asp?elecid=20261103-GEN&OfficeGroup=CAB) ·
+  [Legislature](https://dos.elections.myflorida.com/candidates/canlist.asp?elecid=20261103-GEN&OfficeGroup=LEG)
+- Florida Division of Elections, [Constitutional Initiatives](https://constitutionalinitiatives.dos.fl.gov/)
+  (statewide ballot measures)
+- Miami-Dade Supervisor of Elections:
+  [official sample ballot, Nov 3, 2026](https://www.miamidade.gov/elections/library/2026-11-03-general-election-sample-ballot.pdf) ·
+  [elected officials list](https://www.miamidade.gov/elections/library/reports/elected-officials.pdf)
+- Miami-Dade County Commission pages:
+  [District 2](https://www.miamidade.gov/global/government/commission/district02/home.page) ·
+  [District 3](https://www.miamidade.gov/global/government/commission/district03/home.page) ·
+  [District 4](https://www.miamidade.gov/global/government/commission/district04/home.page)
+- News, used for 4 rows marked `secondary`:
+  [WLRN, school board runoff](https://www.wlrn.org/education/2026-08-19/two-candidates-advance-to-runoff-in-miami-dade-school-board-district-1-election) ·
+  [WLRN, municipal elections](https://www.wlrn.org/government-politics/2025-11-05/south-florida-municipal-elections-meiner-re-elected-in-miami-beach-upset-in-homestead-council-race) ·
+  [NBC Miami, mayor sworn in](https://www.nbcmiami.com/news/politics/local-politics/eileen-higgins-miami-mayor-sworn-in/3737130/)
+
+**Candidates' own words** — 109 pages are listed in
+[`data/candidates/sites/*.csv`](data/candidates/sites) for the 16 federal candidates (U.S.
+Senate and U.S. House FL-24 to FL-28). 106 returned HTTP 200. They are campaign sites,
+official government sites, press releases, interviews and one questionnaire. Pages per
+candidate (see the CSVs for every URL, its type, and how it was found):
+
+| Candidate | Pages | Candidate | Pages |
+|---|---|---|---|
+| Carlos A. Gimenez | 13 | Eliott Rodriguez | 4 |
+| Mario Diaz-Balart | 12 | Eddy Rojas | 3 |
+| Nicole Locklin | 11 | Neil J. Gillespie | 3 |
+| Maria Elvira Salazar | 11 | Te Mayonna Brown | 5 |
+| Jared Moskowitz | 9 | Oliver G. Gilbert III | 8 |
+| Ashley Moody | 8 | Scott Singer | 6 |
+| Angie Nixon | 8 | Phil "Felipe" Ehr | 6 |
+| Peter Jassenoff | 1 (nothing found) | Deborah Ann Meidinger Hosey | 1 (nothing found) |
+
+The scraper (`scripts/scrape-positions.mjs`) turned 100 distinct pages into **880 passages**
+for 14 candidates, saved word for word in
+[`data/positions/chunks.json`](data/positions/chunks.json).
+
+**Interview questions** — ten yes / no questions written by the team during the event:
+[`data/questions.json`](data/questions.json). They are marked `"reviewed": false`.
 
 ## Models used
 
-_Name **every** model, with a link to its license or terms. Required — and required for
-Best Open-Source AI Project eligibility. Also list AI coding agents used to build._
+**Running in the product**
+
+| Model | Open or closed | Terms |
+|---|---|---|
+| Gemma 4, `gemma-4-31b-it`, via the Gemini API | Open-weight | [Gemma terms of use](https://ai.google.dev/gemma/terms) |
+| Gemini Live, `gemini-3.8-live` | Closed-weight | [Gemini API terms](https://ai.google.dev/gemini-api/terms) |
+| `gemini-embedding-2` | Closed-weight | [Gemini API terms](https://ai.google.dev/gemini-api/terms) |
+
+Gemma 4 does all the deciding. Gemini Live only speaks and listens. The embedding model only
+finds passages. See [How it works](#how-it-works).
+
+**Used to build it (not in the product)**
+
+- **Claude Code** (Anthropic), a coding agent, wrote and edited code and documentation with
+  the team. Terms: [Anthropic commercial terms](https://www.anthropic.com/legal/commercial-terms).
+
+## Running it locally
+
+You need Node.js, [pnpm](https://pnpm.io) and a Gemini API key (https://mlh.link/gemma).
+
+```bash
+pnpm install
+cp .env.example .env     # then fill in the two variables below
+pnpm dev                 # http://localhost:3000
+```
+
+Required environment variables (names only):
+
+| Variable | Purpose |
+|---|---|
+| `GEMINI_API_KEY` | Gemini API: Gemma 4, Gemini Live token, embeddings |
+| `GEMMA_MODEL` | Model the product uses. Set to `gemma-4-31b-it`. Must start with `gemma-`. |
+
+`.env.example` also lists Supabase and Census ACS variables. Nothing in the code reads them.
+
+Other commands: `pnpm build` (runs `pnpm data` first), `pnpm start`, `pnpm lint`, and
+`pnpm data` (merges the candidate CSVs and writes `data/candidates.json`).
+
+**Rebuild the candidate-position data.** Run in this order. Details are in
+[`data/positions/_README.md`](data/positions/_README.md).
+
+```bash
+node scripts/scrape-positions.mjs                      # pages in data/candidates/sites -> chunks.json
+node --env-file=.env scripts/embed-positions.mjs       # passages + questions -> embeddings.json
+node --env-file=.env scripts/build-stances.mjs         # Gemma 4 reads passages -> stances.json
+node scripts/verify-stances.mjs                        # fails if any quote is not on its page
+```
+
+TODO: `data/positions/stances.json` currently holds an empty list (`{"stances":[]}`). Until
+`build-stances.mjs` is run and committed, the guided mode shows "no public position found"
+for every candidate. After the run, add the yes / no / none counts here.
+
+## Limits and honesty
+
+- **Federal candidates only.** Candidate words are collected for the 16 federal candidates
+  (U.S. Senate and U.S. House). State, county and local candidates are on the ballot screen
+  but have no positions.
+- **Two candidates have no website we could find** (Meidinger Hosey, Jassenoff), so they have
+  no positions.
+- **"No public position found" does not mean "no view."** It means we found nothing in the
+  pages we read that clearly answers the question. News articles are left out on purpose,
+  because they quote several people.
+- **Polling places** come from county open data. Precincts can move. Confirm with the
+  [Supervisor of Elections](https://www.votemiamidade.gov/elections/home.page) before you go.
+- **County Commissioner and School Board races are not matched to an address** yet, so they
+  are not shown as "on your ballot."
+- **Miami-Dade only.** Addresses outside the county are turned away.
+- **Question wording is an unreviewed draft** (`"reviewed": false` in `data/questions.json`).
+- **Old-map district** comes from a county layer that predates the 2026 lines. We show it
+  only to say whether your district changed. The "new" district comes from the Census Geocoder.
+- **Voice** needs a microphone and a browser that allows it. Without one, use the buttons.
 
 ## Team
 
-_Team members._
-
-## Why there is no code here yet
-
-The official guide allows **"ideas, research and sketches from before the event"** but not
-**"code or project materials."** So this repo intentionally ships with research,
-documentation and licensing only — no `package.json`, no framework scaffold, no application
-source. Every pre-event commit is a `docs:` commit, and the history is the proof.
-
-See [`CLAUDE.md`](CLAUDE.md) for the full rule set and [`ROADMAP.md`](ROADMAP.md) for the
-build-day execution checklist.
+- Sharif Amlani
+- ADD TEAMMATE NAMES (three more members)
 
 ## License
 

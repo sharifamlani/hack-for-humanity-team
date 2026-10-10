@@ -13,6 +13,7 @@ const col = Object.fromEntries(HEADER.map((h, i) => [h, i]));
 const BOOLS = ["incumbent", "on_general_ballot", "covers_miami", "covers_miami_beach"];
 const LEVELS = ["federal", "state", "county", "municipal", "school_board", "judicial", "ballot_measure"];
 const ids = new Set();
+let unknown = 0;
 
 for (const r of rows) {
   const id = r[col.candidate_id] || "(no id)";
@@ -22,7 +23,11 @@ for (const r of rows) {
   if (!LEVELS.includes(r[col.office_level])) errors.push(`${id}: bad office_level "${r[col.office_level]}"`);
   if (!/^https?:\/\//.test(r[col.source_url])) errors.push(`${id}: missing source_url`);
   if (!["primary", "secondary", "unverified"].includes(r[col.verification])) errors.push(`${id}: bad verification "${r[col.verification]}"`);
-  for (const b of BOOLS) if (!["true", "false"].includes(r[col[b]])) errors.push(`${id}: ${b} is "${r[col[b]]}", want true/false`);
+  // An empty cell means "not confirmed" (see data/_README.md); it is counted, not rejected.
+  for (const b of BOOLS) {
+    if (r[col[b]] === "") unknown++;
+    else if (!["true", "false"].includes(r[col[b]])) errors.push(`${id}: ${b} is "${r[col[b]]}", want true/false or empty`);
+  }
 }
 
 const count = (f) => rows.filter(f).length;

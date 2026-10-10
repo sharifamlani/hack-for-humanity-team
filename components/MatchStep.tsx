@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { compare, matchScore, placeCandidate, positionOf, tally, type Answers, type Cell, type Placement } from "@/lib/match";
-import { ESTIMATE_CHECK, QUESTIONS, THEMES, closestOf, hasRecord, stanceOf, voteOf, type Theme } from "@/lib/questions";
+import { ESTIMATE_CHECK, QUESTIONS, THEMES, closestOf, hasEvidence, stanceOf, voteOf, type Theme } from "@/lib/questions";
 import type { Candidate, LookupResult } from "@/lib/types";
 
 const MARK: Record<Cell, { icon: string; label: string; style: string }> = {
@@ -179,7 +179,7 @@ export function MatchStep({
   // The races we have collected candidates' own words for: U.S. House, then U.S. Senate.
   const races = result.ballot
     .flatMap((s) => s.races)
-    .filter((r) => r.office === office && r.candidates.some((c) => hasRecord(c.candidate_id)))
+    .filter((r) => r.office === office && r.candidates.some((c) => hasEvidence(c.candidate_id)))
     .sort((a, b) => Number(b.office.startsWith("U.S. House")) - Number(a.office.startsWith("U.S. House")));
 
   // The suggested ballot: in each race, the candidate closest to what the voter told us.

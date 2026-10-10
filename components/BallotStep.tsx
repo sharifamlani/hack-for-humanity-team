@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { matchScore, type Answers, type Placement } from "@/lib/match";
-import { hasRecord } from "@/lib/questions";
+import { hasEvidence } from "@/lib/questions";
 import type { Candidate, LookupResult } from "@/lib/types";
 
 type Race = LookupResult["ballot"][number]["races"][number];
@@ -28,8 +28,8 @@ function RaceBlock({
   open: boolean;
   evidence: (office: string) => ReactNode;
 }) {
-  // Only races where we have collected the candidates' own words can be scored.
-  const scored = race.candidates.some((c) => hasRecord(c.candidate_id));
+  // Only races where a candidate has published words or a voting record can be scored.
+  const scored = race.candidates.some((c) => hasEvidence(c.candidate_id));
   const scores = new Map(
     race.candidates.map((c) => [c.candidate_id, scored ? matchScore(answers, c.candidate_id, c.party, me) : null]),
   );
@@ -183,7 +183,7 @@ export function BallotStep({
           {result.ballot.map((section, i) => (
             <details
               key={section.section}
-              open={i === 0 || section.races.some((r) => r.candidates.some((c) => hasRecord(c.candidate_id)))}
+              open={i === 0 || section.races.some((r) => r.candidates.some((c) => hasEvidence(c.candidate_id)))}
               className="card px-5 py-4"
             >
               <summary className="cursor-pointer">

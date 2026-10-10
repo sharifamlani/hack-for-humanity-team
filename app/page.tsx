@@ -132,9 +132,7 @@ export default function Home() {
             <h1 className="display text-6xl lg:text-7xl">
               Your ballot.
               <br />
-              Your block.
-              <br />
-              <span className="text-accent">Two minutes.</span>
+              <span className="text-accent">Your block.</span>
             </h1>
             <p className="mt-4 max-w-md text-lg text-foreground/80">
               Miami-Dade redrew its districts this year. See who is really on your ballot, what

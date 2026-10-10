@@ -9,6 +9,7 @@ import { VoiceInterview } from "@/components/VoiceInterview";
 import { PollingStep } from "@/components/PollingStep";
 import { Shapes } from "@/components/Shapes";
 import { STEPS, StepBar } from "@/components/StepBar";
+import { TrustCards } from "@/components/TrustCards";
 import type { Answers, Stance } from "@/lib/match";
 import { usePlacement } from "@/lib/usePlacement";
 import type { LookupResult } from "@/lib/types";
@@ -179,6 +180,8 @@ export default function Home() {
             </button>
             <p className="text-sm text-foreground/70">🔒 We never store your address or location.</p>
           </form>
+
+          <TrustCards />
         </main>
       ) : result && step === 1 ? (
         <div className="mx-auto flex w-full max-w-3xl flex-1 flex-col">

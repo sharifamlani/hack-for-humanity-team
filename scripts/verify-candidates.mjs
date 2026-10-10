@@ -41,4 +41,4 @@ if (errors.length) {
   for (const e of errors.slice(0, 40)) console.error(`  - ${e}`);
   process.exit(1);
 }
-console.log(`\nOK: ${rows.length} rows, 0 unsourced`);
+console.log(`\nOK: ${rows.length} rows, 0 unsourced, ${unknown} cells not confirmed`);

@@ -2,6 +2,153 @@
  "minSimilarity": 0.73,
  "closest": [
   {
+   "candidate_id": "fl-agr-simpson",
+   "question": "everglades",
+   "text": "$26 million investment in the effort to stem red tide through research and for red tide mitigation. This builds on the $70 million in red tide funding and an additional $68 million for blue-green algae funding invested over the previous four years. $10.8 million investment for the implementation of the Blue-Green Algae Task Force recommendations.",
+   "url": "https://wiltonsimpson.com/environment/",
+   "similarity": 0.78
+  },
+  {
+   "candidate_id": "fl-agr-simpson",
+   "question": "species",
+   "text": "These efforts are critical as we work to address flooding and sea-level rise resiliency as well as water management and prescribed burns essential for land management and restoration. Preserving and protecting these land and water resources is not only vital to wildlife but critical to our groundwater recharge that provides drinking water to Florida communities.",
+   "url": "https://wiltonsimpson.com/environment/",
+   "similarity": 0.751
+  },
+  {
+   "candidate_id": "fl-agr-simpson",
+   "question": "college",
+   "text": "Wilton worked to rebalance state financial aid programs to cover the cost of tuition and fees for general education requirements. He understands that we must pursue targeted programs that lead to jobs and scholarship programs that give students alternative pathways to professional certifications for the more than one million Floridians without a high school diploma.",
+   "url": "https://wiltonsimpson.com/education/",
+   "similarity": 0.757
+  },
+  {
+   "candidate_id": "fl-agr-simpson",
+   "question": "immigration",
+   "text": "Ours is a nation of immigrants and here in Florida the rich impacts of immigrants are found in everything from our economy to our culture. Wilton understands that promoting legal immigration is foundational to who we are as a state, and that foundation is threatened when illegal immigration is allowed to thrive as it has under the Biden Administration. That is why Wilton worked to ban sanctuary cities in Florida.",
+   "url": "https://wiltonsimpson.com/public-safety/",
+   "similarity": 0.756
+  },
+  {
+   "candidate_id": "fl-cfo-ingoglia",
+   "question": "immigration",
+   "text": "When Governor DeSantis needed help in the Florida Legislature to crack down on illegal immigration, Blaise Ingoglia received the call. Blaise’s message to illegal immigrants has been even clearer – you can go home, or you can go to Alligator Alcatraz, the choice is yours. Blaise was an integral part of the MAGA movement since the beginning.",
+   "url": "https://blaiseforflorida.com/issues/",
+   "similarity": 0.756
+  },
+  {
+   "candidate_id": "fl-cfo-taddeo",
+   "question": "insurance",
+   "text": "Affordability is the issue in this race. Here is how Annette will lower the costs Florida families can no longer keep up with. How would Annette Taddeo lower homeowners insurance costs? Annette Taddeo will publish a public report card grading every home insurance company in Florida, so you can see who pays claims and who stalls before you buy a policy.",
+   "url": "https://annettetaddeo.com/issues",
+   "similarity": 0.765
+  },
+  {
+   "candidate_id": "fl-cfo-taddeo",
+   "question": "drilling",
+   "text": "Energy companies have given Blaise Ingoglia over one hundred thousand dollars in political support while currently promoting the construction of massive hyperscale data centers across the state of Florida that will drive up utility costs for Florida families. Support a statewide moratorium on new large-scale AI data centers until Florida has enforceable safeguards for ratepayers, water, and communities.",
+   "url": "https://annettetaddeo.com/issues",
+   "similarity": 0.736
+  },
+  {
+   "candidate_id": "fl-cfo-taddeo",
+   "question": "fema",
+   "text": "Track every dollar of federal reimbursement Florida is eligible for and report on what has actually come back. Florida is eligible for up to $608 million from FEMA. So far, about $58 million has been reimbursed. Audit waste wherever it is, in any city, any county, and any state agency, no matter which party is in charge.",
+   "url": "https://annettetaddeo.com/issues",
+   "similarity": 0.762
+  },
+  {
+   "candidate_id": "fl-gov-donalds",
+   "question": "insurance",
+   "text": "Keep Citizens Insurance small so everyday drivers and homeowners never get hit with a surprise \"hurricane tax\" bill after a big storm. Cut the red tape and slow permitting that make rebuilding a home after a storm needlessly expensive and drive up your insurance premiums.",
+   "url": "https://byrondonalds.com/issues/affordability/",
+   "similarity": 0.784
+  },
+  {
+   "candidate_id": "fl-gov-donalds",
+   "question": "housing",
+   "text": "Affordability - Byron Donalds for Governor “Florida cannot become too expensive for working families and seniors on fixed incomes. The status quo has a cost. Progress doesn't pay the bill sitting on your kitchen counter today—it's time to bring down costs.” Protect reforms and stop lawsuit abuse that jacks up rates for everyone, saving homeowners hundreds of dollars a year.",
+   "url": "https://byrondonalds.com/issues/affordability/",
+   "similarity": 0.731
+  },
+  {
+   "candidate_id": "fl-gov-donalds",
+   "question": "immigration",
+   "text": "Law and Order - Byron Donalds for Governor “We must secure our borders, keep local neighborhoods safe, stop taxpayer handouts to illegal immigration, and keep deadly drugs off our streets.” Cut off state funds, subsidies, and free perks that encourage illegal immigration into Florida. Require every Florida business to use the E-Verify system so legal workers keep the jobs and wages they've earned.",
+   "url": "https://byrondonalds.com/issues/law-and-order/",
+   "similarity": 0.734
+  },
+  {
+   "candidate_id": "fl-gov-donalds",
+   "question": "healthcare",
+   "text": "“You deserve to know what healthcare costs before you get treated. Your Doctor, Your Price puts you back in charge, cuts out the red tape, and lets doctors focus on their patients.” Require doctors and hospitals to post plain, guaranteed cash prices for the 50 most common medical tests and procedures.",
+   "url": "https://byrondonalds.com/issues/healthcare/",
+   "similarity": 0.769
+  },
+  {
+   "candidate_id": "fl-gov-donalds",
+   "question": "transit",
+   "text": "“California passes heavy regulations. New York sends you the bill. Florida puts out the welcome mat. Bureaucratic delays shouldn't stop honest people from opening a business and earning a living.” Put every business, building, and road permit on an open state website with a ticking clock, forcing local offices to approve projects on time.",
+   "url": "https://byrondonalds.com/issues/economy/",
+   "similarity": 0.731
+  },
+  {
+   "candidate_id": "fl-gov-donalds",
+   "question": "taxes",
+   "text": "Keep our state personal income tax at zero, make sure Tallahassee balances its books responsibly every single year, and cut taxes at every opportunity.",
+   "url": "https://byrondonalds.com/issues/economy/",
+   "similarity": 0.769
+  },
+  {
+   "candidate_id": "fl-gov-jolly",
+   "question": "flooding",
+   "text": "Yes, structurally. Florida's property insurance crisis is driven by hurricane risk, litigation costs, and reinsurance prices, and the hurricane risk component has grown with warming ocean temperatures and rising sea levels. Insurers price policies to absorb rising expected losses, so climate is one of the underlying drivers of the insurance crisis.",
+   "url": "https://davidjolly.com/environment",
+   "similarity": 0.785
+  },
+  {
+   "candidate_id": "fl-gov-jolly",
+   "question": "insurance",
+   "text": "The property insurance crisis is the primary reason so many people in Florida are struggling to afford a place to live. From renters to retirees to homeowners, the burden of property insurance continues to make housing costs in Florida unaffordable for many.",
+   "url": "https://davidjolly.com/issues/",
+   "similarity": 0.8
+  },
+  {
+   "candidate_id": "fl-gov-jolly",
+   "question": "drilling",
+   "text": "Jolly's clean energy position would require greater integration of renewables into Florida's utility planning. That likely means stronger net metering rules to support rooftop solar and accelerated utility-scale renewable buildout, pushing FPL and other utilities to expand renewable generation. Q. Why oppose offshore drilling if it could create Florida jobs?",
+   "url": "https://davidjolly.com/environment",
+   "similarity": 0.778
+  },
+  {
+   "candidate_id": "fl-gov-jolly",
+   "question": "everglades",
+   "text": "Protecting Florida’s Environment & Climate – David Jolly David Jolly believes protecting Florida's environment is essential to the state's economy and quality of life.",
+   "url": "https://davidjolly.com/environment",
+   "similarity": 0.768
+  },
+  {
+   "candidate_id": "fl-gov-jolly",
+   "question": "housing",
+   "text": "Half of Florida renters now hand over more than a third of their income just to keep a roof overhead, and older condo owners are being hit with special assessments that can wipe out a lifetime of savings. Safety matters, and no one should live in an unsafe building, but families cannot be left to shoulder impossible bills alone.",
+   "url": "https://davidjolly.com/issues/affordability/",
+   "similarity": 0.783
+  },
+  {
+   "candidate_id": "fl-gov-jolly",
+   "question": "immigration",
+   "text": "Culture wars divide and demonize. Florida should reject the politics of division and hate, and instead create a home where everyone is valued, respected, and welcomed. We should become a place where everyone is given dignity and treated equally, regardless of race, creed, or color; and regardless of who you love or who you worship.",
+   "url": "https://davidjolly.com/issues/",
+   "similarity": 0.764
+  },
+  {
+   "candidate_id": "fl-gov-jolly",
+   "question": "healthcare",
+   "text": "Expanding Medicaid is part of the solution. It would provide coverage to hundreds of thousands of Floridians who are currently left without access to care. Because access isn't just about coverage. It's about whether care is actually available when and where people need it. That's why Florida should invest in more primary healthcare clinics throughout the state.",
+   "url": "https://davidjolly.com/issues/health-care/",
+   "similarity": 0.743
+  },
+  {
    "candidate_id": "fl-house-106-baez-geller",
    "question": "flooding",
    "text": "We must take climate change seriously. Sea level rise is not theoretical — it is real, and the impact is already here. This is not about politics; it is about protecting our future. District 106 is our coastline, our beaches, and our water. They are the lifeblood of our community.",

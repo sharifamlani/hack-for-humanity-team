@@ -100,7 +100,10 @@ export const ESTIMATE_CHECK = estimatesJson.check as { correctSide: number; of: 
 export const hasRecord = (candidateId: string) =>
   STANCES.some((s) => s.candidate_id === candidateId) || CLOSEST.some((c) => c.candidate_id === candidateId);
 
-// Candidates we can score: their own words, or a voting record in Congress. A race is
-// matched when at least one of its candidates has either.
+// Candidates we can score: their own words, a voting record in Congress, or a donor score.
+// A race is matched when at least one of its candidates has any of these.
 export const hasEvidence = (candidateId: string) =>
-  hasRecord(candidateId) || VOTES.some((v) => v.candidate_id === candidateId) || !!scoreOf(candidateId);
+  hasRecord(candidateId) ||
+  VOTES.some((v) => v.candidate_id === candidateId) ||
+  !!scoreOf(candidateId) ||
+  !!cfOf(candidateId);

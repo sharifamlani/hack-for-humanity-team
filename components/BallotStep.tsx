@@ -1,4 +1,5 @@
-import type { ReactNode } from "react";
+          <p className="display mt-1 text-2xl">{street || geo.city || "Miami-Dade"}</p>
+          {street && rest && <p className="mt-1 text-sm text-foreground/80">{rest}</p>}import type { ReactNode } from "react";
 import { matchScore, type Answers, type Placement } from "@/lib/match";
 import { hasRecord } from "@/lib/questions";
 import type { Candidate, LookupResult } from "@/lib/types";
@@ -123,6 +124,9 @@ export function BallotStep({
   onNext: () => void;
 }) {
   const { geo } = result;
+  // The address as the geocoder matched it: street on one line, city, state and ZIP on the next.
+  const [street, ...tail] = (geo.matchedAddress ?? "").split(",").map((part) => part.trim());
+  const rest = tail.join(", ");
   const answered = Object.values(answers).some((a) => a === "yea" || a === "nay");
   return (
     <main className="flex flex-1 flex-col gap-5">
@@ -172,9 +176,6 @@ export function BallotStep({
             <p className="text-sm">
               State Senate {geo.stateSenate} · State House {geo.stateHouse}
             </p>
-            {geo.matchedAddress && (
-              <p className="mt-1 text-xs text-foreground/70">{geo.matchedAddress}</p>
-            )}
           </div>
         </section>
 

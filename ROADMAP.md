@@ -1,6 +1,6 @@
 # ROADMAP — Hack for Humanity: Miami
 
-**Version:** v1.5
+**Version:** v1.6
 **Canonical execution directive for this repo.** If any other doc disagrees with this file,
 this file wins or the other doc gets corrected.
 
@@ -8,7 +8,7 @@ this file wins or the other doc gets corrected.
 
 ## §0 — You are here
 
-**Current phase:** Phase 2 — Build (Saturday Oct 10, 2026). **Live site: https://hack-for-humanity-team.vercel.app** — all five steps work end to end on production (d60f536): address → ballot → AI interview (Gemma 4) → match chart + Gemma 4 explanation → polling place. **Next unblocked:** live voice for the interview (Gemini Live verified on this key; Gemma 4 stays the model that reads answers), human review of the 12 question wordings in `data/items.json`, README, demo script. Plan: `docs/build-plan.md`.
+**Current phase:** Phase 2 — Build (Saturday Oct 10, 2026). **Live site: https://hack-for-humanity-team.vercel.app** — all five steps work end to end on production (d60f536): address → ballot → AI interview (Gemma 4) → match chart + Gemma 4 explanation → polling place. **Next unblocked:** human review of the 12 question wordings in `data/items.json`, README, demo script. Plan: `docs/build-plan.md`.
 
 - **Done:** repo skeleton — MIT license, docs, ignore rules (`87bc02e`, 2026-10-09).
 - **Done:** public repo live at **https://github.com/sharifamlani/hack-for-humanity** —
@@ -123,6 +123,7 @@ against production, not localhost.
 ---
 
 ## §6 — Changelog
+- **2026-10-10 (1:01 PM)** — **Voice interview live** (a0d3526): the AI speaks first and converses by voice (Gemini Live, `gemini-3.8-live`, single-use browser token); Gemma 4 re-reads each spoken answer and its reading is what gets scored; tap buttons and typing remain. Confirmed working by Sharif in the browser; the scripted voice loop passed (spoken answer heard and recorded in 2 s). Not independently checked: the deployed site's mic path on a phone. README must disclose both models and which does what.
 - **2026-10-10 (12:52 PM)** — **Quiz replaced by an AI interviewer; full flow live** (d60f536). 12 real House votes (4 per theme) with Voteview cutpoints; scaling smoke PASS (all five Miami-Dade members recovered within 0.14 of their published score from their own votes). Gemma 4 (`gemma-4-31b-it`) reads typed answers (~8 s) and writes the per-theme comparison; verified on prod. Gemini Live voice probed and working (first audio 1.7 s) but not built. Open: question wording and hooks are Gemma drafts, not yet human-reviewed; challengers are not placed (no stance data); congress.gov demo key rate-limits, so summaries come from govinfo bulk data.
 - **2026-10-10 (12:34 PM)** — **Lookup path works end to end on production** (e48f1f6): address or phone location → Census Geocoder (2026 lines) + Miami-Dade ArcGIS (old-lines district, precinct, polling place, early voting) → ballot from the sourced candidate roster. Checked on prod with the Miami Beach address (FL-24 → FL-25, Miami Beach City Hall) and locally in a browser with the venue (FL-26 → FL-24, Dunbar K-8, no console errors). Not done: County Commissioner and School Board races are not matched to an address; quiz, scale, Gemma 4 not started; no congress.gov key in `.env`.
 - **2026-10-10 (12:16 PM)** — **Site is up:** Next.js 16 + Tailwind scaffold with the five-step shell and the address screen, deployed to https://hack-for-humanity-team.vercel.app (181af42). Build passes; live URL returns 200. Not wired yet: lookup, ballot, quiz, scale, polling place. GitHub auto-deploy could not be connected, so deploys are manual (`vercel --prod --yes`).

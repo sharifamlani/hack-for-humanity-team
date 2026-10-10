@@ -98,3 +98,10 @@ body {
   font-weight: 600;
 }
 .link-mint:hover { text-decoration: underline; }
+
+/* Evidence dropping open under a race on the ballot. */
+@keyframes drop {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.drop { animation: drop 0.35s ease-out; }

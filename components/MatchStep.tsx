@@ -18,6 +18,12 @@ const pct = (x: number) => `${((Math.max(-1, Math.min(1, x)) + 1) / 2) * 100}%`;
 // Everyone in a race on one left-right line. Members of Congress sit at their published
 // DW-NOMINATE score; everyone else at a rough index built from their yes/no positions.
 function SpectrumLine({ me, placing, people }: { me: Placement | null; placing: boolean; people: { letter: string; name: string; at: Placement | null }[] }) {
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    const id = setTimeout(() => setReady(true), 80);
+    return () => clearTimeout(id);
+  }, []);
+  const slide = "left 1.4s cubic-bezier(.2,.8,.2,1)";
   return (
     <div className="mt-3 rounded-2xl bg-background p-4">
       <div className="flex justify-between text-[10px] font-bold uppercase tracking-wider text-foreground/50">
@@ -44,7 +50,7 @@ function SpectrumLine({ me, placing, people }: { me: Placement | null; placing: 
                         ? "bg-water text-background"
                         : "border border-foreground/25 bg-card"
                 }`}
-                style={{ left: pct(p.at.x) }}
+                style={{ left: ready ? pct(p.at.x) : "50%", transition: slide }}
               >
                 {p.letter}
               </div>
@@ -57,7 +63,7 @@ function SpectrumLine({ me, placing, people }: { me: Placement | null; placing: 
           />
         )}
         {me && (
-          <div className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2" style={{ left: pct(me.x) }}>
+          <div className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2" style={{ left: ready ? pct(me.x) : "50%", transition: slide }}>
             <span className="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-black text-accent">YOU</span>
             <div className="h-5 w-5 rounded-full border border-foreground/25 bg-accent" />
           </div>
@@ -122,6 +128,7 @@ export function MatchStep({
   said,
   openSaid,
   office,
+  embedded = false,
   me,
   placing,
   onNext,
@@ -134,6 +141,8 @@ export function MatchStep({
   openSaid: string;
   // The one race being shown.
   office: string;
+  // Shown inside the ballot, under its race, instead of as a screen of its own.
+  embedded?: boolean;
   me: Placement | null;
   placing: boolean;
   onNext: () => void;
@@ -213,8 +222,8 @@ export function MatchStep({
   const shown = QUESTIONS.filter((q) => theme === "all" || q.theme === theme);
 
   return (
-    <main className="flex flex-1 flex-col gap-5">
-      <div>
+    <main className={embedded ? "drop mt-2 flex flex-col gap-4" : "flex flex-1 flex-col gap-5"}>
+      <div className={embedded ? "hidden" : ""}>
         <button type="button" onClick={onBack} className="mb-3 font-bold hover:text-accent">
           ← Back to my ballot
         </button>
@@ -302,7 +311,7 @@ export function MatchStep({
       {(answered || !openSaid) && races.map((race) => {
         const cols = { gridTemplateColumns: `minmax(190px,1.1fr) repeat(${race.candidates.length}, minmax(170px,1fr))` };
         return (
-          <section key={race.office} className="card p-5">
+          <section key={race.office} className={embedded ? "flex flex-col" : "card flex flex-col p-5"}>
             <div className="overflow-x-auto">
               <div className="grid gap-x-5" style={cols}>
                 <p className="text-sm text-foreground/70">{race.office}</p>
@@ -447,7 +456,7 @@ export function MatchStep({
               ⓘ Missing information does not imply support or opposition.
             </p>
 
-            <details open className="mt-2">
+            <details open className="order-first mb-4">
               <summary className="cursor-pointer text-sm font-bold">Where everyone sits, left to right</summary>
               <SpectrumLine
                 me={me}
@@ -463,7 +472,7 @@ export function MatchStep({
         );
       })}
 
-      <div className="grid items-start gap-4 lg:grid-cols-[auto_1fr_1.1fr]">
+      <div className={embedded ? "hidden" : "grid items-start gap-4 lg:grid-cols-[auto_1fr_1.1fr]"}>
         <button type="button" onClick={onBack} className="px-2 py-3 text-left font-bold hover:text-accent">
           ← Back to my ballot
         </button>

@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { matchScore, type Answers, type Placement } from "@/lib/match";
 import { hasRecord } from "@/lib/questions";
 import type { Candidate, LookupResult } from "@/lib/types";
@@ -17,11 +18,15 @@ function RaceBlock({
   answers,
   me,
   onRace,
+  open,
+  evidence,
 }: {
   race: Race;
   answers: Answers;
   me: Placement | null;
   onRace: (office: string) => void;
+  open: boolean;
+  evidence: (office: string) => ReactNode;
 }) {
   // Only races where we have collected the candidates' own words can be scored.
   const scored = race.candidates.some((c) => hasRecord(c.candidate_id));
@@ -45,7 +50,7 @@ function RaceBlock({
           className="flex w-full items-baseline justify-between gap-3 text-left font-bold text-coral hover:text-accent"
         >
           <span>{race.office}</span>
-          <span className="shrink-0 text-sm text-accent">See the evidence →</span>
+          <span className="shrink-0 text-sm text-accent">{open ? "Hide the evidence ↑" : "See the evidence ↓"}</span>
         </button>
       ) : (
         <h3 className="font-bold text-coral">{race.office}</h3>
@@ -90,7 +95,8 @@ function RaceBlock({
           );
         })}
       </ul>
-      {scored && tie && <p className="text-sm text-foreground/60">Too close to call between the top two.</p>}
+      {scored && open && evidence(race.office)}
+      {scored && tie && !open && <p className="text-sm text-foreground/60">Too close to call between the top two.</p>}
     </div>
   );
 }
@@ -101,6 +107,8 @@ export function BallotStep({
   me,
   placing,
   onRace,
+  openRace,
+  evidence,
   onNext,
 }: {
   result: LookupResult;
@@ -109,6 +117,9 @@ export function BallotStep({
   // True while Gemma 4 is still placing the voter; the percentages settle when it finishes.
   placing: boolean;
   onRace: (office: string) => void;
+  // The race whose evidence is dropped open, and how to draw it.
+  openRace: string | null;
+  evidence: (office: string) => ReactNode;
   onNext: () => void;
 }) {
   const { geo } = result;
@@ -125,7 +136,7 @@ export function BallotStep({
         <h1 className="display text-5xl lg:text-6xl">Your ballot.</h1>
         <p className="mt-3 text-lg text-foreground/80">
           {answered
-            ? "Your closest match in each race, from what you told us. Tap a race to see the evidence."
+            ? "Your closest match in each race, from what you told us. Tap a race to open the evidence."
             : "Everyone on your ballot. Tap a race to see what the candidates have said."}
           {placing && <span className="ml-2 animate-pulse text-sm text-accent">⚡ Gemma 4 is refining your matches…</span>}
         </p>
@@ -181,7 +192,7 @@ export function BallotStep({
                 </span>
               </summary>
               {section.races.map((race) => (
-                <RaceBlock key={race.office} race={race} answers={answers} me={me} onRace={onRace} />
+                <RaceBlock key={race.office} race={race} answers={answers} me={me} onRace={onRace} open={openRace === race.office} evidence={evidence} />
               ))}
             </details>
           ))}

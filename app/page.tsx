@@ -207,20 +207,31 @@ export default function Home() {
             <InterviewStep answers={answers} onAnswer={record} onDone={next} />
           )}
         </div>
-      ) : result && step === 2 && race ? (
-        <MatchStep
+      ) : result && step === 2 ? (
+        <BallotStep
           result={result}
           answers={answers}
-          said={said}
-          openSaid={openSaid}
-          office={race}
           me={me}
           placing={placing}
+          openRace={race}
+          onRace={(office) => setRace(race === office ? null : office)}
+          evidence={(office) => (
+            <MatchStep
+              key={office}
+              result={result}
+              answers={answers}
+              said={said}
+              openSaid={openSaid}
+              office={office}
+              embedded
+              me={me}
+              placing={placing}
+              onNext={next}
+              onBack={() => setRace(null)}
+            />
+          )}
           onNext={next}
-          onBack={() => show(null)}
         />
-      ) : result && step === 2 ? (
-        <BallotStep result={result} answers={answers} me={me} placing={placing} onRace={show} onNext={next} />
       ) : result ? (
         <PollingStep result={result} />
       ) : null}

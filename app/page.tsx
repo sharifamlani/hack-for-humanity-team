@@ -4,6 +4,7 @@ import { useState } from "react";
 import { BallotStep } from "@/components/BallotStep";
 import { InterviewStep, type Answers } from "@/components/InterviewStep";
 import { MatchStep } from "@/components/MatchStep";
+import { VoiceInterview } from "@/components/VoiceInterview";
 import { PollingStep } from "@/components/PollingStep";
 import { STEPS, StepBar } from "@/components/StepBar";
 import type { LookupResult } from "@/lib/types";
@@ -22,6 +23,7 @@ export default function Home() {
 
   const [result, setResult] = useState<LookupResult | null>(null);
   const [answers, setAnswers] = useState<Answers>({});
+  const [typed, setTyped] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -165,6 +167,13 @@ export default function Home() {
         </main>
       ) : result && step === 1 ? (
         <BallotStep result={result} onNext={next} onSkipToPolling={() => setStep(4)} />
+      ) : result && step === 2 && !typed ? (
+        <VoiceInterview
+          answers={answers}
+          onAnswer={(roll, stance) => setAnswers((a) => ({ ...a, [roll]: stance }))}
+          onDone={next}
+          onTypeInstead={() => setTyped(true)}
+        />
       ) : result && step === 2 ? (
         <InterviewStep
           answers={answers}

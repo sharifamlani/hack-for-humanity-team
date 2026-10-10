@@ -1,4 +1,4 @@
-export const STEPS = ["Address", "Ballot", "Priorities", "Compare", "Voting plan"] as const;
+export const STEPS = ["Address", "Priorities", "Ballot", "Voting plan"] as const;
 
 export function StepBar({
   step,

@@ -1,41 +1,118 @@
+import { matchScore, type Answers, type Placement } from "@/lib/match";
+import { hasRecord } from "@/lib/questions";
 import type { Candidate, LookupResult } from "@/lib/types";
 
-function CandidateRow({ c }: { c: Candidate }) {
-  const isMeasure = c.office_level === "ballot_measure";
+type Race = LookupResult["ballot"][number]["races"][number];
+
+const partyStyle = (party: string) =>
+  party.startsWith("Rep")
+    ? "bg-coral text-background"
+    : party.startsWith("Dem")
+      ? "bg-sky text-background"
+      : "bg-foreground/20";
+
+// One contest: party, name, and how closely each candidate matches what the voter said.
+function RaceBlock({
+  race,
+  answers,
+  me,
+  onRace,
+}: {
+  race: Race;
+  answers: Answers;
+  me: Placement | null;
+  onRace: (office: string) => void;
+}) {
+  // Only races where we have collected the candidates' own words can be scored.
+  const scored = race.candidates.some((c) => hasRecord(c.candidate_id));
+  const scores = new Map(
+    race.candidates.map((c) => [c.candidate_id, scored ? matchScore(answers, c.candidate_id, c.party, me) : null]),
+  );
+  const ranked = race.candidates
+    .filter((c) => scores.get(c.candidate_id))
+    .sort((a, b) => scores.get(b.candidate_id)!.score - scores.get(a.candidate_id)!.score);
+  // Within three points is a coin flip, not a match.
+  const tie =
+    ranked.length > 1 && scores.get(ranked[0].candidate_id)!.score - scores.get(ranked[1].candidate_id)!.score < 0.03;
+  const best = tie ? null : ranked[0];
+
   return (
-    <li className="grid grid-cols-[1fr_auto] items-center gap-x-4 gap-y-1 py-3 sm:grid-cols-[1.1fr_1fr_auto]">
-      <p className="text-lg font-semibold leading-snug">{c.name}</p>
-      {!isMeasure ? (
-        <p className="text-foreground/70">
-          {c.party}
-          {c.incumbent && " · incumbent"}
-        </p>
+    <div className="mt-4">
+      {scored ? (
+        <button
+          type="button"
+          onClick={() => onRace(race.office)}
+          className="flex w-full items-baseline justify-between gap-3 text-left font-bold text-coral hover:text-accent"
+        >
+          <span>{race.office}</span>
+          <span className="shrink-0 text-sm text-accent">See the evidence →</span>
+        </button>
       ) : (
-        <span className="hidden sm:block" />
+        <h3 className="font-bold text-coral">{race.office}</h3>
       )}
-      <a
-        href={c.source_url}
-        target="_blank"
-        rel="noreferrer"
-        title={c.source_name}
-        className="row-span-1 shrink-0 rounded-full border border-foreground/40 px-3 py-1 text-sm"
-      >
-        Source ↗
-      </a>
-    </li>
+      <ul className="divide-y divide-foreground/10">
+        {race.candidates.map((c: Candidate) => {
+          const m = scores.get(c.candidate_id);
+          const isBest = best?.candidate_id === c.candidate_id;
+          const isMeasure = c.office_level === "ballot_measure";
+          return (
+            <li key={c.candidate_id} className="flex items-center gap-3 py-3">
+              {!isMeasure && (
+                <span className={`w-28 shrink-0 rounded-full px-2.5 py-0.5 text-center text-xs font-bold ${partyStyle(c.party)}`}>
+                  {c.party.replace(" Affiliation", "")}
+                </span>
+              )}
+              <p className={`min-w-0 flex-1 text-lg leading-snug ${isBest ? "font-black" : "font-semibold"}`}>
+                {c.name}
+                {c.incumbent && <span className="ml-2 text-sm font-normal text-foreground/60">incumbent</span>}
+              </p>
+              {m ? (
+                <span
+                  className={`shrink-0 rounded-full px-3 py-1 text-sm font-black ${
+                    isBest ? "bg-accent text-background" : "border border-foreground/25 text-foreground/70"
+                  }`}
+                >
+                  {isBest && "★ "}
+                  {Math.round(m.score * 100)}% match
+                </span>
+              ) : (
+                <a
+                  href={c.source_url}
+                  target="_blank"
+                  rel="noreferrer"
+                  title={c.source_name}
+                  className="shrink-0 rounded-full border border-foreground/30 px-3 py-1 text-sm text-foreground/80"
+                >
+                  Source ↗
+                </a>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+      {scored && tie && <p className="text-sm text-foreground/60">Too close to call between the top two.</p>}
+    </div>
   );
 }
 
 export function BallotStep({
   result,
+  answers,
+  me,
+  placing,
+  onRace,
   onNext,
-  onSkipToPolling,
 }: {
   result: LookupResult;
+  answers: Answers;
+  me: Placement | null;
+  // True while Gemma 4 is still placing the voter; the percentages settle when it finishes.
+  placing: boolean;
+  onRace: (office: string) => void;
   onNext: () => void;
-  onSkipToPolling: () => void;
 }) {
   const { geo } = result;
+  const answered = Object.values(answers).some((a) => a === "yea" || a === "nay");
   return (
     <main className="flex flex-1 flex-col gap-5">
       {result.savedExample && (
@@ -47,7 +124,10 @@ export function BallotStep({
       <div>
         <h1 className="display text-5xl lg:text-6xl">Your ballot.</h1>
         <p className="mt-3 text-lg text-foreground/80">
-          Get to know the races and candidates in your community.
+          {answered
+            ? "Your closest match in each race, from what you told us. Tap a race to see the evidence."
+            : "Everyone on your ballot. Tap a race to see what the candidates have said."}
+          {placing && <span className="ml-2 animate-pulse text-sm text-accent">⚡ Gemma 4 is refining your matches…</span>}
         </p>
       </div>
 
@@ -89,7 +169,11 @@ export function BallotStep({
 
         <div className="flex flex-col gap-3">
           {result.ballot.map((section, i) => (
-            <details key={section.section} open={i === 0} className="card px-5 py-4">
+            <details
+              key={section.section}
+              open={i === 0 || section.races.some((r) => r.candidates.some((c) => hasRecord(c.candidate_id)))}
+              className="card px-5 py-4"
+            >
               <summary className="cursor-pointer">
                 <span className="display text-2xl">{section.section}</span>
                 <span className="ml-3 text-sm text-foreground/60">
@@ -97,35 +181,28 @@ export function BallotStep({
                 </span>
               </summary>
               {section.races.map((race) => (
-                <div key={race.office} className="mt-4">
-                  <h3 className="font-bold text-coral">{race.office}</h3>
-                  <ul className="divide-y divide-foreground/10">
-                    {race.candidates.map((c) => (
-                      <CandidateRow key={c.candidate_id} c={c} />
-                    ))}
-                  </ul>
-                </div>
+                <RaceBlock key={race.office} race={race} answers={answers} me={me} onRace={onRace} />
               ))}
             </details>
           ))}
 
-          {result.notPlaced.length > 0 && (
-            <p className="text-sm text-foreground/70">
-              ⓘ Not shown yet: {result.notPlaced.join(" and ")} races. We can&apos;t match those
-              districts to an address yet —{" "}
-              <a className="link-mint underline" href={result.officialLookupUrl} target="_blank" rel="noreferrer">
-                check the county&apos;s site
-              </a>
-              .
-            </p>
-          )}
+          <p className="text-sm text-foreground/70">
+            ⓘ A match, not an endorsement. Races without a percentage are not scored yet.
+            {result.notPlaced.length > 0 && (
+              <>
+                {" "}
+                Not shown: {result.notPlaced.join(" and ")} races —{" "}
+                <a className="link-mint underline" href={result.officialLookupUrl} target="_blank" rel="noreferrer">
+                  check the county&apos;s site
+                </a>
+                .
+              </>
+            )}
+          </p>
 
           <div className="mt-2 flex flex-wrap items-center gap-5">
-            <button type="button" onClick={onNext} className="btn-primary">
-              Explore your priorities →
-            </button>
-            <button type="button" onClick={onSkipToPolling} className="link-mint underline">
-              Skip to voting plan
+            <button type="button" onClick={onNext} className="btn-primary text-lg">
+              Build my voting plan →
             </button>
           </div>
         </div>

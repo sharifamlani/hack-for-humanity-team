@@ -10,15 +10,16 @@ import { PollingStep } from "@/components/PollingStep";
 import { Shapes } from "@/components/Shapes";
 import { STEPS, StepBar } from "@/components/StepBar";
 import type { Answers, Stance } from "@/lib/match";
+import { usePlacement } from "@/lib/usePlacement";
 import type { LookupResult } from "@/lib/types";
 
 const VENUE_ADDRESS = "2750 NW 3rd Ave, Miami, FL 33127";
 
 const NAV = [
   { label: "Home", step: 0, steps: [0] },
-  { label: "My ballot", step: 1, steps: [1] },
-  { label: "Explore issues", step: 2, steps: [2, 3] },
-  { label: "Voting plan", step: 4, steps: [4] },
+  { label: "Priorities", step: 1, steps: [1] },
+  { label: "My ballot", step: 2, steps: [2] },
+  { label: "Voting plan", step: 3, steps: [3] },
 ];
 
 export default function Home() {
@@ -31,6 +32,13 @@ export default function Home() {
   const [typed, setTyped] = useState(false);
   const [openMode, setOpenMode] = useState(false);
   const [openSaid, setOpenSaid] = useState("");
+  // The race whose evidence is open; null shows the whole ballot.
+  const [race, setRace] = useState<string | null>(null);
+  const show = (office: string | null) => {
+    setRace(office);
+    window.scrollTo(0, 0);
+  };
+  const { me, placing } = usePlacement(answers, said, openSaid, step >= 2);
 
   // Record an answer and, when we have them, the voter's own words for it.
   const record = (id: string, stance: Stance, words?: string) => {
@@ -43,7 +51,10 @@ export default function Home() {
   const next = () => setStep((s) => Math.min(s + 1, STEPS.length - 1));
 
   // Later steps need a lookup result; without one, stay on the address screen.
-  const goTo = (target: number) => setStep(result ? target : 0);
+  const goTo = (target: number) => {
+    setRace(null);
+    setStep(result ? target : 0);
+  };
 
   async function lookup(query: string) {
     setLoading(true);
@@ -151,7 +162,7 @@ export default function Home() {
               className="rounded-xl border border-foreground/30 bg-background px-4 py-4 text-lg outline-none focus:border-accent focus:ring-4 focus:ring-accent/25"
             />
             <button type="submit" disabled={!address.trim() || loading} className="btn-primary text-lg">
-              {loading ? "Finding your district…" : "Show my ballot →"}
+              {loading ? "Finding your district…" : "Start →"}
             </button>
             {error && (
               <p role="alert" className="rounded-xl bg-coral/15 px-3 py-2 text-sm font-semibold text-coral">
@@ -172,36 +183,44 @@ export default function Home() {
           </form>
         </main>
       ) : result && step === 1 ? (
-        <BallotStep result={result} onNext={next} onSkipToPolling={() => setStep(4)} />
-      ) : result && step === 2 ? (
         <div className="mx-auto flex w-full max-w-3xl flex-1 flex-col">
           {openMode ? (
-        <OpenTalk
-          onBack={() => setOpenMode(false)}
-          onDone={(words) => {
-            setOpenSaid(words);
-            setOpenMode(false);
-            setStep(3);
-          }}
-        />
+            <OpenTalk
+              onBack={() => setOpenMode(false)}
+              onDone={(words) => {
+                setOpenSaid(words);
+                setOpenMode(false);
+                // What they talked about is answered on the U.S. House race screen.
+                show(result.ballot.flatMap((s) => s.races).find((r) => r.office.startsWith("U.S. House"))?.office ?? null);
+                setStep(2);
+              }}
+            />
           ) : !typed ? (
-        <VoiceInterview
-          answers={answers}
-          onAnswer={record}
-          onDone={next}
-          onOpen={() => setOpenMode(true)}
-          onTypeInstead={() => setTyped(true)}
-        />
+            <VoiceInterview
+              answers={answers}
+              onAnswer={record}
+              onDone={next}
+              onOpen={() => setOpenMode(true)}
+              onTypeInstead={() => setTyped(true)}
+            />
           ) : (
-        <InterviewStep
-          answers={answers}
-          onAnswer={record}
-          onDone={next}
-        />
+            <InterviewStep answers={answers} onAnswer={record} onDone={next} />
           )}
         </div>
-      ) : result && step === 3 ? (
-        <MatchStep result={result} answers={answers} said={said} openSaid={openSaid} onNext={next} onBack={() => setStep(2)} />
+      ) : result && step === 2 && race ? (
+        <MatchStep
+          result={result}
+          answers={answers}
+          said={said}
+          openSaid={openSaid}
+          office={race}
+          me={me}
+          placing={placing}
+          onNext={next}
+          onBack={() => show(null)}
+        />
+      ) : result && step === 2 ? (
+        <BallotStep result={result} answers={answers} me={me} placing={placing} onRace={show} onNext={next} />
       ) : result ? (
         <PollingStep result={result} />
       ) : null}

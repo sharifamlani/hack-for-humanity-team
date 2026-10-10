@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { compare, matchScore, placeCandidate, placeVoter, positionOf, tally, type Answers, type Cell, type Placement } from "@/lib/match";
+import { compare, matchScore, placeCandidate, positionOf, tally, type Answers, type Cell, type Placement } from "@/lib/match";
 import { ESTIMATE_CHECK, QUESTIONS, THEMES, closestOf, hasRecord, stanceOf, voteOf, type Theme } from "@/lib/questions";
 import type { Candidate, LookupResult } from "@/lib/types";
 
@@ -121,6 +121,9 @@ export function MatchStep({
   answers,
   said,
   openSaid,
+  office,
+  me,
+  placing,
   onNext,
   onBack,
 }: {
@@ -129,6 +132,10 @@ export function MatchStep({
   said: Record<string, string>;
   // Set when the voter used the open mode: what they told us they care about.
   openSaid: string;
+  // The one race being shown.
+  office: string;
+  me: Placement | null;
+  placing: boolean;
   onNext: () => void;
   onBack: () => void;
 }) {
@@ -159,38 +166,11 @@ export function MatchStep({
   }, [openSaid, result]);
   const [explain, setExplain] = useState<Record<string, { text?: string; loading?: boolean }>>({});
 
-  // Gemma 4 places the voter from the whole conversation. It takes about 20 seconds, so the
-  // rough index is shown first and replaced when the placement arrives.
-  const takesASide = Object.values(answers).filter((a) => a === "yea" || a === "nay").length;
-  const canPlace = takesASide >= 2 || openSaid.trim().length >= 40;
-  // One request per distinct conversation; `settled` records which one has come back.
-  const conversation = JSON.stringify({ answers, said, openSaid });
-  const [settled, setSettled] = useState<{ key: string; placement: Placement | null } | null>(null);
-  useEffect(() => {
-    if (!canPlace) return;
-    let cancelled = false;
-    fetch("/api/place", { method: "POST", headers: { "content-type": "application/json" }, body: conversation })
-      .then(async (res) => {
-        const json = await res.json();
-        if (!res.ok) throw new Error(json.error);
-        return { x: json.x, low: json.low, high: json.high, why: json.why, source: "conversation", answers: json.turns } as Placement;
-      })
-      .catch(() => null)
-      .then((placement) => {
-        if (!cancelled) setSettled({ key: conversation, placement });
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [conversation, canPlace]);
-  const current = settled?.key === conversation ? settled : null;
-  const placing = canPlace && !current;
-  const me = current?.placement ?? placeVoter(answers);
 
   // The races we have collected candidates' own words for: U.S. House, then U.S. Senate.
   const races = result.ballot
     .flatMap((s) => s.races)
-    .filter((r) => r.candidates.some((c) => hasRecord(c.candidate_id)))
+    .filter((r) => r.office === office && r.candidates.some((c) => hasRecord(c.candidate_id)))
     .sort((a, b) => Number(b.office.startsWith("U.S. House")) - Number(a.office.startsWith("U.S. House")));
 
   // The suggested ballot: in each race, the candidate closest to what the voter told us.
@@ -235,11 +215,14 @@ export function MatchStep({
   return (
     <main className="flex flex-1 flex-col gap-5">
       <div>
-        <h1 className="display text-5xl lg:text-6xl">Compare public positions.</h1>
-        <p className="mt-2 text-lg text-foreground/80">Explore the records. Make your own decision.</p>
+        <button type="button" onClick={onBack} className="mb-3 font-bold hover:text-accent">
+          ← Back to my ballot
+        </button>
+        <h1 className="display text-5xl lg:text-6xl">{office}</h1>
+        <p className="mt-2 text-lg text-foreground/80">The match and the evidence. Explore the records, then make your own decision.</p>
       </div>
 
-      {answered && suggestions.length > 0 && (
+      {false && answered && suggestions.length > 0 && (
         <section className="card flex flex-wrap items-center gap-x-6 gap-y-2 px-5 py-4">
           <p className="eyebrow text-accent">Closest to what you told us</p>
           {suggestions.map((s) => (
@@ -482,7 +465,7 @@ export function MatchStep({
 
       <div className="grid items-start gap-4 lg:grid-cols-[auto_1fr_1.1fr]">
         <button type="button" onClick={onBack} className="px-2 py-3 text-left font-bold hover:text-accent">
-          ← Back
+          ← Back to my ballot
         </button>
         <button type="button" onClick={onNext} className="btn-primary text-lg">
           Build my voting plan →

@@ -1,0 +1,614 @@
+{
+ "minSimilarity": 0.73,
+ "closest": [
+  {
+   "candidate_id": "fl-house-106-baez-geller",
+   "question": "flooding",
+   "text": "We must take climate change seriously. Sea level rise is not theoretical — it is real, and the impact is already here. This is not about politics; it is about protecting our future. District 106 is our coastline, our beaches, and our water. They are the lifeblood of our community.",
+   "url": "https://luciabaezgeller.com/",
+   "similarity": 0.761
+  },
+  {
+   "candidate_id": "fl-house-108-francius",
+   "question": "immigration",
+   "text": "A clear, focused agenda — built around the issues that matter most to the families, workers, and small businesses of District 108. Champion the entrepreneurs, workers, and local businesses who power our economy and keep our district thriving. Ensure our public schools are properly funded and every student has access to a quality education and a real shot at success.",
+   "url": "https://www.wancitofranciusforflorida.com/",
+   "similarity": 0.744
+  },
+  {
+   "candidate_id": "fl-senate-36-garcia",
+   "question": "flooding",
+   "text": "Fortifying Florida's coastlines using nature-based solutions like mangrove restoration and living seawalls. This allows smart, targeted environmental improvements in vital areas like Biscayne Bay to naturally protect our communities. (read more)",
+   "url": "https://ileanagarcia.com/legislation/",
+   "similarity": 0.766
+  },
+  {
+   "candidate_id": "fl-senate-36-garcia",
+   "question": "everglades",
+   "text": "Ileana Garcia working to secure additional funds to improve Biscayne Bay spoil islands | Ileana Garcia Ileana Garcia working to secure additional funds to improve Biscayne Bay spoil islands October 25, 2021 | by Jesse Scheckner on Florida Politics The man-made islands are rife with man-made trash. They’re also eroding due to illegal activity. It’s no secret Biscayne Bay is in trouble, and Sen.",
+   "url": "https://ileanagarcia.com/2021/10/25/ileana-garcia-working-to-secure-additional-funds-to-improve-biscayne-bay-spoil-islands/",
+   "similarity": 0.779
+  },
+  {
+   "candidate_id": "fl-senate-36-garcia",
+   "question": "cuba",
+   "text": "Before being elected to the Florida Senate in 2020, Senator Garcia dedicated over three decades to the community through her work in radio, television, and advocacy. As a passionate human rights advocate and first-generation Cuban American, her mother and grandmother arrived in 1957 in the very district she now represents, seeking freedom—the essence of the American Dream.",
+   "url": "https://ileanagarcia.com/about/",
+   "similarity": 0.761
+  },
+  {
+   "candidate_id": "fl-senate-36-garcia",
+   "question": "transit",
+   "text": "Obtained vital state funding for Public Safety Passed SB 68 & SB 70 To Tackle Domestic Violence Secured Millions of Dollars to Improve Our Safety and Public Services Including: $2 million for the firefighter cancer initiative $3 million for the Miami-Little Havana pedestrian priority zones $289,000 for the Chabad of Kendall/Friendship Circle Community Center lifeline Secured $700,000 to expand local health care and m",
+   "url": "https://ileanagarcia.com/",
+   "similarity": 0.734
+  },
+  {
+   "candidate_id": "fl-senate-36-lavin",
+   "question": "flooding",
+   "text": "A state senator cannot raise a single street above the water — that is the work of our cities, and they are doing it. But the State of Florida writes the insurance rules that decide whether a family whose home floods can recover, and the state funds the grant programs — what Tallahassee calls “resilience” — that pay for the pumps, drainage, and seawalls that help communities adapt.",
+   "url": "https://votegeorgelavin.com/priorities",
+   "similarity": 0.808
+  },
+  {
+   "candidate_id": "fl-senate-36-lavin",
+   "question": "insurance",
+   "text": "Florida’s property-insurance market was genuinely broken, and recent reforms did stabilize it — rates slowed, new carriers entered, and far fewer families are stuck with the state insurer of last resort. I will not pretend otherwise. But stability is not the same as affordability.",
+   "url": "https://votegeorgelavin.com/priorities",
+   "similarity": 0.784
+  },
+  {
+   "candidate_id": "fl-senate-36-lavin",
+   "question": "housing",
+   "text": "Florida’s housing crisis is real, and the state’s signature housing law has produced some new homes and modestly narrowed the shortage. But it overrode local communities’ own planning to do so, and it has delivered only a small fraction of the housing the state needs. We can do better than seizing local control in exchange for a fraction of the fix.",
+   "url": "https://votegeorgelavin.com/priorities",
+   "similarity": 0.749
+  },
+  {
+   "candidate_id": "fl-senate-36-lavin",
+   "question": "cuba",
+   "text": "My parents fled Cuba after opposing dictatorship. They taught my brothers and me to question authority, show compassion, and put principle before party. That’s why I registered as a Democrat at eighteen, and it’s why I’m running today. As a legal consultant, I bring an analytical mind and a commitment to public service. Tallahassee has gone too long without answering to the people it governs.",
+   "url": "https://votegeorgelavin.com/",
+   "similarity": 0.737
+  },
+  {
+   "candidate_id": "us-house-fl24-brown",
+   "question": "housing",
+   "text": "Te Brown supports redirecting federal housing dollars away from lifelong rental subsidies and toward helping low-income families in our district buy their first home. Instead of keeping hardworking Americans trapped as permanent renters, housing policy should help families build stability, equity, and independence.",
+   "url": "https://tebrownforflorida.com/issues/",
+   "similarity": 0.732
+  },
+  {
+   "candidate_id": "us-house-fl24-brown",
+   "question": "immigration",
+   "text": "In Congress, I will fight for an earned path to citizenship. Earned: a steady work history, taxes paid, a clean record, a full background check. Not amnesty, and not a cut ahead of anyone who waited in line. A Republican Congress did this in 1998 with the Haitian Refugee Immigration Fairness Act, and it was right then.",
+   "url": "https://tebrownforflorida.com/issues/",
+   "similarity": 0.844
+  },
+  {
+   "candidate_id": "us-house-fl24-brown",
+   "question": "enforcement",
+   "text": "A nation must have secure borders and a fair, lawful immigration system. I support securing our southern border, enforcing our immigration laws, and prioritizing the removal of criminals and those who pose a threat to public safety.",
+   "url": "https://tebrownforflorida.com/issues/",
+   "similarity": 0.731
+  },
+  {
+   "candidate_id": "us-house-fl24-brown",
+   "question": "transit",
+   "text": "3. Jobs & Economic Opportunity — Support small businesses, attract manufacturing, and create good-paying jobs in the district. 4. Infrastructure & Resilience — Invest in roads, bridges, water systems, drainage, and infrastructure that keeps South Florida moving. 5. Protecting Seniors & Veterans — Protect Social Security and Medicare while making sure veterans receive the services they’ve earned. 6.",
+   "url": "https://tebrownforflorida.com/the-people-first-agenda/",
+   "similarity": 0.748
+  },
+  {
+   "candidate_id": "us-house-fl24-gilbert",
+   "question": "flooding",
+   "text": "Federal support should reward communities and property owners that reduce risk. Stronger construction, better drainage, wildfire defenses, roof reinforcement, elevation, and modern building codes save lives and reduce claims. Discounted federal reinsurance pricing for insurers covering mitigated properties. Grants and forgivable loans for household retrofits. Additional assistance for lower-income homeowners.",
+   "url": "https://olivergilbert.vote/catastrophe-insurance/",
+   "similarity": 0.773
+  },
+  {
+   "candidate_id": "us-house-fl24-gilbert",
+   "question": "insurance",
+   "text": "Can lose access to affordable coverage even when they have never filed a claim. Pay more when property owners pass insurance costs into rent. Struggle to protect their buildings and inventory as commercial premiums climb. Insurance is no longer just an insurance issue. It is a housing affordability and cost-of-living issue. A national backstop for extraordinary catastrophes.",
+   "url": "https://olivergilbert.vote/catastrophe-insurance/",
+   "similarity": 0.78
+  },
+  {
+   "candidate_id": "us-house-fl24-gilbert",
+   "question": "housing",
+   "text": "On the Issues - Oliver Gilbert for Congress Gas is $5 a gallon, rent is half your paycheck, and every trip to the grocery store gets more expensive. For far too many neighbors, this has been the reality for far too long. Oliver Gilbert lived these challenges growing up in Miami Gardens, working his way through college and law school, and leading our city as Mayor and County Commissioner.",
+   "url": "https://olivergilbert.vote/issues/",
+   "similarity": 0.738
+  },
+  {
+   "candidate_id": "us-house-fl24-gilbert",
+   "question": "college",
+   "text": "Educational assistance for trade school, college, graduate school, and professional school in exchange for service in designated national priority industries. Enhanced Public Service Loan Forgiveness Expand and modernize loan forgiveness for teachers, nurses, first responders, military personnel, public defenders, and other public service professionals.",
+   "url": "https://olivergilbert.vote/build-act/",
+   "similarity": 0.762
+  },
+  {
+   "candidate_id": "us-house-fl24-gilbert",
+   "question": "fema",
+   "text": "FEMA should establish national resilience criteria in partnership with states, local governments, engineers, building-code organizations, and catastrophe-modeling experts. Federal pricing should recognize property-level and community-level mitigation without creating unaffordable mandates for lower-income households.",
+   "url": "https://olivergilbert.vote/catastrophe-insurance/",
+   "similarity": 0.758
+  },
+  {
+   "candidate_id": "us-house-fl24-gilbert",
+   "question": "enforcement",
+   "text": "Our government has shamefully spent billions ripping families apart. They said ICE would only target criminals, but every day more and more hardworking people are being arrested and deported, often leaving young children behind to fend for themselves or leaving the only country they’ve ever known.",
+   "url": "https://olivergilbert.vote/issues/",
+   "similarity": 0.762
+  },
+  {
+   "candidate_id": "us-house-fl24-gilbert",
+   "question": "transit",
+   "text": "They want to get to work without losing half their day. They want to see a doctor without dreading the bill. They want their kids to inherit an economy that rewards effort. A two-hour commute isn’t a transit problem. It’s a family problem, a cost problem, and a life problem. Nobody should wait until it’s too late to see a doctor because of the bill. Coverage isn’t a luxury. It’s a foundation.",
+   "url": "https://olivergilbert.vote/",
+   "similarity": 0.787
+  },
+  {
+   "candidate_id": "us-house-fl24-gilbert",
+   "question": "taxes",
+   "text": "They want to get to work without losing half their day. They want to see a doctor without dreading the bill. They want their kids to inherit an economy that rewards effort. A two-hour commute isn’t a transit problem. It’s a family problem, a cost problem, and a life problem. Nobody should wait until it’s too late to see a doctor because of the bill. Coverage isn’t a luxury. It’s a foundation.",
+   "url": "https://olivergilbert.vote/",
+   "similarity": 0.764
+  },
+  {
+   "candidate_id": "us-house-fl25-moskowitz",
+   "question": "flooding",
+   "text": "Since coming to Congress, Moskowitz has been a leading voice for fully funding FEMA, keeping emergency response nonpartisan, and enacting commonsense reforms to bolster federal emergency management.",
+   "url": "https://moskowitz.house.gov/posts/moskowitz-introduces-fema-reform-bill-to-allow-states-to-run-housing-and-public-assistance-block-grant-programs",
+   "similarity": 0.754
+  },
+  {
+   "candidate_id": "us-house-fl25-moskowitz",
+   "question": "insurance",
+   "text": "In Florida, Citizens Property Insurance has seen the number of policies it has issued rise about 50% in the last year alone to 1.3 million — equal to 16% of the market and far more than any national insurer writes in the state.",
+   "url": "https://moskowitz.house.gov/posts/cnn-homeowners-insurance",
+   "similarity": 0.786
+  },
+  {
+   "candidate_id": "us-house-fl25-moskowitz",
+   "question": "drilling",
+   "text": "Repeals clean energy tax credits  that have supported business growth, helped lower energy costs, and smoothed the transition to a clean energy economy Eliminates an estimated 73,000 manufacturing and energy jobs  in Florida Raises the cost of energy by an average $610 per year  for Florida families Threatens Pell grant funding for more than 315,000 students  in Florida who are able to access a more affordable educat",
+   "url": "https://moskowitz.house.gov/posts/moskowitz-statement-on-his-vote-against-republicans-disastrous-budget-bill",
+   "similarity": 0.765
+  },
+  {
+   "candidate_id": "us-house-fl25-moskowitz",
+   "question": "housing",
+   "text": "Alfredo Herrera (right) and his partner in New Orleans, Louisiana, in 2021. In the past, acquiring or keeping homeowners’ insurance didn’t present much of a problem.",
+   "url": "https://moskowitz.house.gov/posts/cnn-homeowners-insurance",
+   "similarity": 0.733
+  },
+  {
+   "candidate_id": "us-house-fl25-moskowitz",
+   "question": "college",
+   "text": "In addition to lowering the interest rate on certain federal student loans, the Affordable Loans for Students Act would require loan terms, for eligible loans held by the Secretary of Education, to be modified automatically without any action from the borrower. For eligible federal loans not held by the Secretary, the bill would create a refinancing process while allowing borrowers to opt out.",
+   "url": "https://moskowitz.house.gov/posts/moskowitz-helps-lead-bipartisan-effort-to-force-vote-on-student-loan-relief",
+   "similarity": 0.747
+  },
+  {
+   "candidate_id": "us-house-fl25-moskowitz",
+   "question": "immigration",
+   "text": "“Today’s decision is a failure of judgment that puts roughly 350,000 Haitians at risk of deportation to a country our own State Department says is too dangerous to visit. It’s wrong, and it’s not smart policy. Haitian TPS holders are legal workers who support our health care system, our infrastructure, and our economy in South Florida.",
+   "url": "https://moskowitz.house.gov/posts/moskowitz-responds-to-supreme-court-decision-on-haitian-tps",
+   "similarity": 0.754
+  },
+  {
+   "candidate_id": "us-house-fl25-moskowitz",
+   "question": "fema",
+   "text": "In Congress, Moskowitz has been a leading voice for nonpartisan emergency response and a fully-funded FEMA. Before FEMA’s Disaster Relief Fund became depleted, Moskowitz led legislation in 2023 and 2024 that would have proactively replenished the fund, and he has been outspoken about the need to improve disaster response and invest in programs like FEMA’s Fire Management Assistance Grant in the wake of ongoing wildfi",
+   "url": "https://moskowitz.house.gov/posts/moskowitz-florida-colleagues-introduce-ready-account-act-to-bolster-disaster-preparedness-among-florida-homeowners",
+   "similarity": 0.793
+  },
+  {
+   "candidate_id": "us-house-fl25-moskowitz",
+   "question": "taxes",
+   "text": "Offers an average $309,000 tax giveaway ($847 per day) for the top 0.1 percent  in a tax scheme that gives 22 percent of the bill’s benefits to the top 1 percent Fails to fulfill promises  to end taxes on overtime pay and exempt seniors from taxes on their Social Security benefits",
+   "url": "https://moskowitz.house.gov/posts/moskowitz-statement-on-his-vote-against-republicans-disastrous-budget-bill",
+   "similarity": 0.748
+  },
+  {
+   "candidate_id": "us-house-fl25-singer",
+   "question": "taxes",
+   "text": "Scott stands with President Trump on his work to provide the largest tax cut in American history and will oppose efforts to increase tax rates. In Congress, Scott will work to continue cuts of the incredibly wasteful spending like billions lost in the Biden years spent overseas on ridiculous programs.",
+   "url": "https://www.scottsingerusa.com/priorities",
+   "similarity": 0.783
+  },
+  {
+   "candidate_id": "us-house-fl26-diaz-balart",
+   "question": "flooding",
+   "text": "$67.5 million for South Florida Ecosystem Restoration (which includes projects from the Comprehensive Everglades Restoration Project (CERP) $50 million for Donor/Energy transfer ports, such as Port Miami, build needed infrastructure improvements $200 million for flood and storm damage reduction Funding to support continued maintenance and improvements of Florida's waterways $60 million for small, remote, or subsisten",
+   "url": "https://mariodiazbalart.house.gov/media-center/press-releases/diaz-balart-supports-everglades-restoration-flood-mitigation",
+   "similarity": 0.782
+  },
+  {
+   "candidate_id": "us-house-fl26-diaz-balart",
+   "question": "drilling",
+   "text": "Diaz-Balart Commends President Trump’s Announcement to Extend Offshore Drilling Moratorium on Florida’s Gulf Coast | Congressman Mario Diaz-Balart Diaz-Balart Commends President Trump’s Announcement to Extend Offshore Drilling Moratorium on Florida’s Gulf Coast WASHINGTON, D.C.",
+   "url": "https://mariodiazbalart.house.gov/media-center/press-releases/diaz-balart-commends-president-trumps-announcement-extend-offshore",
+   "similarity": 0.761
+  },
+  {
+   "candidate_id": "us-house-fl26-diaz-balart",
+   "question": "everglades",
+   "text": "\"Today, Congress took another step forward in continued Everglades restoration and protection from flooding and harmful algal blooms in the communities surrounding Lake Okeechobee. The America's Water Infrastructure Act, which authorizes the construction of the EAA Storage Reservoir, is a much-needed solution as Lake Okeechobee and Southern Florida's coasts continue to suffer from algal bloom.",
+   "url": "https://mariodiazbalart.house.gov/media-center/press-releases/diaz-balart-votes-eaa-storage-reservoir-herbert-hoover-dike-funding",
+   "similarity": 0.799
+  },
+  {
+   "candidate_id": "us-house-fl26-diaz-balart",
+   "question": "immigration",
+   "text": "\"Earlier this evening, I presented four amendments to four different bills in the House Rules Committee that would provide funding to secure our border and offer a permanent solution for DREAMers and those with expiring Temporary Protected Status (TPS).",
+   "url": "https://mariodiazbalart.house.gov/media-center/press-releases/diaz-balart-pelosi-puts-politics-government-shutdown-and-permanent",
+   "similarity": 0.795
+  },
+  {
+   "candidate_id": "us-house-fl26-diaz-balart",
+   "question": "fema",
+   "text": "$37.5 billion to help small business owners through the Small Business Administration's 7(a) and 504 loan programs $131 million to support entrepreneurs through Small Business Development Centers $4.9 billion for airport security through the Transportation Security Administration (TSA) $14.9 billion for the U.S.",
+   "url": "https://mariodiazbalart.house.gov/media-center/press-releases/diaz-balart-delivers-another-year-record-level-investment",
+   "similarity": 0.746
+  },
+  {
+   "candidate_id": "us-house-fl26-diaz-balart",
+   "question": "cuba",
+   "text": "\"Ortega and his thugs must go. The Nicaraguan people are demanding free, fair, multiparty elections and a government free of crime and corruption that respects basic human rights and liberties.",
+   "url": "https://mariodiazbalart.house.gov/media-center/press-releases/diaz-balart-shalala-introduce-temporary-protected-status-tps",
+   "similarity": 0.797
+  },
+  {
+   "candidate_id": "us-house-fl26-diaz-balart",
+   "question": "transit",
+   "text": "\"Beyond ports, this bill continues the strong levels of funding for BUILD grants, Capital Investment Grants, and Airports and Highway Grants, allowing localities like those in Collier, Hendry, and Miami-Dade Counties to compete for federal money to upgrade and expand their facilities.",
+   "url": "https://mariodiazbalart.house.gov/media-center/press-releases/diaz-balart-delivers-another-year-record-level-investment",
+   "similarity": 0.759
+  },
+  {
+   "candidate_id": "us-house-fl26-locklin",
+   "question": "immigration",
+   "text": "We should also recognize that legal immigration as an economic strength. Immigrants expand our workforce, start businesses, fill critical jobs, pay taxes, and create demand throughout the economy. Cutting immigration while our population ages makes it harder for the economy to grow and can make worker shortages, and contributes to rising prices.",
+   "url": "https://locklinforcongress.com/issues-affordability",
+   "similarity": 0.795
+  },
+  {
+   "candidate_id": "us-house-fl26-locklin",
+   "question": "cuba",
+   "text": "It's always the people. It's the Cuban families that go without. After six decades, the results are clear: the embargo has not brought democracy to Cuba. It has not ended political repression. It has contributed to hardship for ordinary people. If a policy hasn’t worked in 60 years, we have a responsibility to rethink it.  Why is nothing being done about it?",
+   "url": "https://locklinforcongress.com/issues-cuba",
+   "similarity": 0.794
+  },
+  {
+   "candidate_id": "us-house-fl26-locklin",
+   "question": "taxes",
+   "text": "Social Security is not a handout. It is money Americans earned and paid into throughout their working lives. My first promise is that I will never vote to cut Social Security benefits, raise the retirement age, privatize the program, or reduce cost-of-living adjustments. Protecting Social Security also means making sure it will be there for future generations. Congress has waited too long to act.",
+   "url": "https://locklinforcongress.com/issues-social-security",
+   "similarity": 0.748
+  },
+  {
+   "candidate_id": "us-house-fl27-rodriguez",
+   "question": "flooding",
+   "text": "Invest in Everglades restoration, clean water, resilient infrastructure, and protection of Biscayne Bay. Help communities address flooding, extreme heat, stronger storms, and rising insurance costs. Hold polluters accountable rather than leaving taxpayers to pay for the damage. Expand cleaner energy while protecting affordability, reliability, and good-paying American jobs.",
+   "url": "https://eliottrodriguez.com/issues/",
+   "similarity": 0.804
+  },
+  {
+   "candidate_id": "us-house-fl27-rodriguez",
+   "question": "insurance",
+   "text": "This isn’t theoretical for me. My own daughters have made the decision to build their lives in other cities — even other countries — because the cost of housing in South Florida made staying here unrealistic. A community should be able to retain its young professionals and allow longtime residents to retire without fear that rising costs will push them out.",
+   "url": "https://eliottrodriguez.com/",
+   "similarity": 0.771
+  },
+  {
+   "candidate_id": "us-house-fl27-rodriguez",
+   "question": "heat",
+   "text": "Invest in Everglades restoration, clean water, resilient infrastructure, and protection of Biscayne Bay. Help communities address flooding, extreme heat, stronger storms, and rising insurance costs. Hold polluters accountable rather than leaving taxpayers to pay for the damage. Expand cleaner energy while protecting affordability, reliability, and good-paying American jobs.",
+   "url": "https://eliottrodriguez.com/issues/",
+   "similarity": 0.774
+  },
+  {
+   "candidate_id": "us-house-fl27-rodriguez",
+   "question": "everglades",
+   "text": "Invest in Everglades restoration, clean water, resilient infrastructure, and protection of Biscayne Bay. Help communities address flooding, extreme heat, stronger storms, and rising insurance costs. Hold polluters accountable rather than leaving taxpayers to pay for the damage. Expand cleaner energy while protecting affordability, reliability, and good-paying American jobs.",
+   "url": "https://eliottrodriguez.com/issues/",
+   "similarity": 0.804
+  },
+  {
+   "candidate_id": "us-house-fl27-rodriguez",
+   "question": "housing",
+   "text": "This isn’t theoretical for me. My own daughters have made the decision to build their lives in other cities — even other countries — because the cost of housing in South Florida made staying here unrealistic. A community should be able to retain its young professionals and allow longtime residents to retire without fear that rising costs will push them out.",
+   "url": "https://eliottrodriguez.com/",
+   "similarity": 0.817
+  },
+  {
+   "candidate_id": "us-house-fl27-rodriguez",
+   "question": "wages",
+   "text": "Have a functioning and balanced National Labor Relations Board that enforces laws to protect workers. Enact laws that protect government workers, such as the Public Service Freedom to Negotiate Act. Incentivize businesses to create more high-paying American jobs by providing tax breaks to companies that meet certain wage standards and that do not outsource jobs to other countries.",
+   "url": "https://eliottrodriguez.com/issues/",
+   "similarity": 0.752
+  },
+  {
+   "candidate_id": "us-house-fl27-rodriguez",
+   "question": "immigration",
+   "text": "Protecting Dreamers and providing fair treatment for families with deep roots in America. Supporting appropriate protections for Venezuelans and Haitians and fair processing for eligible Cubans with unresolved I-220A cases. Independent Leadership and Real Accountability Eliott spent nearly five decades asking tough questions and holding powerful people accountable.",
+   "url": "https://eliottrodriguez.com/issues/",
+   "similarity": 0.805
+  },
+  {
+   "candidate_id": "us-house-fl27-rodriguez",
+   "question": "taxes",
+   "text": "Have a functioning and balanced National Labor Relations Board that enforces laws to protect workers. Enact laws that protect government workers, such as the Public Service Freedom to Negotiate Act. Incentivize businesses to create more high-paying American jobs by providing tax breaks to companies that meet certain wage standards and that do not outsource jobs to other countries.",
+   "url": "https://eliottrodriguez.com/issues/",
+   "similarity": 0.742
+  },
+  {
+   "candidate_id": "us-house-fl27-salazar",
+   "question": "flooding",
+   "text": "As Miami faces increasing risk from flooding and storms, the need to formulate and execute a strategic plan to protect us from extreme weather is greater than ever. South Florida faces unique climate and environmental challenges that must be addressed, like sea level rise and saltwater intrusion into the Everglades.",
+   "url": "https://salazar.house.gov/media/press-releases/salazar-introduces-national-coordination-adaptation-and-resilience-security",
+   "similarity": 0.82
+  },
+  {
+   "candidate_id": "us-house-fl27-salazar",
+   "question": "insurance",
+   "text": "\"Now more than ever, Miami residents and Americans nationwide deserve real choice and affordable coverage in the flood-insurance market,\" said Rep. Maria Salazar. \"By opening the door to greater private-sector involvement, the Continuous Coverage for Flood Insurance Act will lower the burden on U.S. taxpayers and provide stronger, more reliable protection.”",
+   "url": "https://salazar.house.gov/media/press-releases/reps-salazar-castor-reintroduce-bipartisan-legislation-lower-flood-insurance",
+   "similarity": 0.769
+  },
+  {
+   "candidate_id": "us-house-fl27-salazar",
+   "question": "everglades",
+   "text": "Rep. Salazar is a strong supporter of the Everglades and Everglades restoration. The Everglades is a critical stopover habitat for birds migrating along the Atlantic Flyway, such as the Yellow-throated Warbler. A restored Everglades supports economic growth, ecological resilience, and protection from severe weather events and drought. Everglades restoration is key to providing healthier ecosystems for these birds.",
+   "url": "https://salazar.house.gov/media/press-releases/salazars-migratory-birds-bill-advances-natural-resources-committee",
+   "similarity": 0.769
+  },
+  {
+   "candidate_id": "us-house-fl27-salazar",
+   "question": "species",
+   "text": "\"Reefing retired ships is a win for all parties,” said FWC Director of Marine Fisheries Management Jessica McCawley. “It is cheaper than scrapping, it provides habitat for fish, they are new underwater destinations for divers, the military legacy of these ships continues, and ships drive economic activity as Florida’s restaurants, bait shops, dive shops, hotels, and other small businesses serve customers every day.”",
+   "url": "https://salazar.house.gov/media/press-releases/state-florida-major-outdoor-groups-announce-public-support-congresswoman-0",
+   "similarity": 0.73
+  },
+  {
+   "candidate_id": "us-house-fl27-salazar",
+   "question": "housing",
+   "text": "Supported H.R. 7024 , the Tax Relief for American Families and Workers Act. This bill increases the low-income housing tax credit, the most important resource for creating affordable housing in the United States today, from 9% to 12.5%. It also authorizes State and local agencies to issue tax credits for lower-income housing supply to developers.",
+   "url": "https://salazar.house.gov/media/press-releases/salazar-delivers-35-million-federal-funding-affordable-housing-senior-citizens",
+   "similarity": 0.778
+  },
+  {
+   "candidate_id": "us-house-fl27-salazar",
+   "question": "immigration",
+   "text": "Creates immediate protected status and streamlined path for Dreamers and TPS recipients, as outlined in the Dream and Promise Act. Establishes the Dignity Program, a practical solution for undocumented immigrants who have been in the U.S. for more than five years. Recipients will be offered a chance to work, pay restitution, get right with the law, and earn legal status.",
+   "url": "https://salazar.house.gov/media/press-releases/problem-solvers-caucus-endorses-dignity-act",
+   "similarity": 0.817
+  },
+  {
+   "candidate_id": "us-house-fl27-salazar",
+   "question": "fema",
+   "text": "\"We are in the midst of hurricane season, and in South Florida, we know all too well how these storms can absolutely devastate our homes,\" said Congresswoman Mar í a Elvira Salazar . \"We must do everything possible so that our coastal communities have access to the all resources provided by the SBA to safely rebuild their homes in the event of a disaster.",
+   "url": "https://salazar.house.gov/media/press-releases/rep-salazar-introduces-rebuilding-communities-after-disasters-act",
+   "similarity": 0.744
+  },
+  {
+   "candidate_id": "us-house-fl27-salazar",
+   "question": "enforcement",
+   "text": "Mandates 100% nationwide E-verify to ensure all American business are hiring legal workers. Achieves operational control and advantage of the Southern Border by employing a comprehensive Southern Border Strategy. Constructs enhanced physical barriers and deploys the most up-to-date technology at the border. Hires thousands of new Border Patrol agents, CBP officers, and border intelligence units.",
+   "url": "https://salazar.house.gov/media/press-releases/salazar-and-escobar-introduce-bipartisan-dignity-act",
+   "similarity": 0.742
+  },
+  {
+   "candidate_id": "us-house-fl27-salazar",
+   "question": "cuba",
+   "text": "“The oppression of the Maduro regime and the total failure of socialism of the 21st century has created dangerous conditions in Venezuela and a constant threat of political persecution,” said Congresswoman Salazar.",
+   "url": "https://salazar.house.gov/media/press-releases/reps-salazar-soto-and-wasserman-schultz-introduce-legislation-designate-tps",
+   "similarity": 0.731
+  },
+  {
+   "candidate_id": "us-house-fl27-salazar",
+   "question": "taxes",
+   "text": "“Miami gathers around its restaurants, from the morning cafecito to the last table of the night. Behind every one of those tables is someone working hard for every tip they earn,” said Congresswoman Salazar. “That is why I helped turn No Tax on Tips into law.",
+   "url": "https://salazar.house.gov/media/press-releases/salazar-joins-acting-labor-secretary-sonderling-highlight-no-tax-tips-address",
+   "similarity": 0.765
+  },
+  {
+   "candidate_id": "us-house-fl28-ehr",
+   "question": "everglades",
+   "text": "Protect the Everglades, defend water resources, support responsible growth, and pursue a temporary moratorium on large-scale AI data centers and other high-impact developments until their impacts on infrastructure, energy, housing, and the environment are fully evaluated. We swore oaths to support and defend the Constitution because we love our families, study history and respect our varied faiths.",
+   "url": "https://ehrforcongress.us/meet-phil/",
+   "similarity": 0.748
+  },
+  {
+   "candidate_id": "us-house-fl28-ehr",
+   "question": "immigration",
+   "text": "Putting America First means defending the Constitution and the rule of law, rejecting anti-American rhetoric, antisemitism, socialism and political extremism, and using military force only when lawful and necessary. Create an inter-agency public corruption task force and strengthen accountability for public contracts.",
+   "url": "https://ehrforcongress.us/meet-phil/",
+   "similarity": 0.781
+  },
+  {
+   "candidate_id": "us-house-fl28-ehr",
+   "question": "healthcare",
+   "text": "Lower premiums, expand access, and reduce out-of-pocket costs through the Healthcare Stability & Program Choice Act. Enforce anti-fraud laws, hold bad actors accountable, stabilize the market, and protect homeowners from rising costs.",
+   "url": "https://ehrforcongress.us/",
+   "similarity": 0.743
+  },
+  {
+   "candidate_id": "us-house-fl28-ehr",
+   "question": "transit",
+   "text": "Putting America First means defending the Constitution and the rule of law, rejecting anti-American rhetoric, antisemitism, socialism and political extremism, and using military force only when lawful and necessary. Create an inter-agency public corruption task force and strengthen accountability for public contracts.",
+   "url": "https://ehrforcongress.us/meet-phil/",
+   "similarity": 0.738
+  },
+  {
+   "candidate_id": "us-house-fl28-gimenez",
+   "question": "flooding",
+   "text": "The Florida Keys in Monroe County experienced significant damage as it relates to extensive flood and property damage to homes and businesses. Further, in addition to damage to Key West International Airport, preliminary assessments indicate significant damage to other critical infrastructure including public housing facilities, transmission lines and piers.",
+   "url": "https://gimenez.house.gov/2022/10/congressman-gimenez-urges-president-biden-to-approve-federal-individual-assistance-for-monroe-county",
+   "similarity": 0.771
+  },
+  {
+   "candidate_id": "us-house-fl28-gimenez",
+   "question": "drilling",
+   "text": "I oppose offshore drilling, especially off the coast of Florida. We must continue to work towards innovation and development of next generation energy sources. I am a strong supporter of free market solutions that protect our environment and innovate our economy to make renewable and clean energy as affordable as, and ultimately cheaper than, traditional energy sources for American families.",
+   "url": "https://gimenez.house.gov/energy",
+   "similarity": 0.817
+  },
+  {
+   "candidate_id": "us-house-fl28-gimenez",
+   "question": "everglades",
+   "text": "“ Reauthorization of the South Florida Ecosystem Enhancement Act and the amendments to the South Florida Geographic Program proposed by Senator Rubio and Congressman Gimenez will continue to fund much needed water quality and habitat restoration projects that are helping to restore our south Florida coastal ecosystems .” – Dr. Duane DeFreese, Executive Director, Indian River Lagoon National Estuary Program",
+   "url": "https://gimenez.house.gov/2023/1/gimenez-rubio-reintroduce-the-south-florida-ecosystem-enhancement-act",
+   "similarity": 0.811
+  },
+  {
+   "candidate_id": "us-house-fl28-gimenez",
+   "question": "housing",
+   "text": "$2 million for Florida International University (FIU) for Center for Incubation, Acceleration, and Manufacturing of Engineering and Technologies Project: This center will support the innovation and workforce development needs of South Florida’s burgeoning advanced manufacturing industry.",
+   "url": "https://gimenez.house.gov/2024/3/rep-carlos-gimenez-secures-major-wins-for-florida-s-28th-district",
+   "similarity": 0.734
+  },
+  {
+   "candidate_id": "us-house-fl28-gimenez",
+   "question": "immigration",
+   "text": "I support allowing undocumented immigrants to come out of the shadows and be placed on a path to legal status so that they can receive their work authorization, get a driver’s license, and send their children to school. Amnesty is unfair. I do not support blanket amnesty that gives undocumented immigrants citizenship.",
+   "url": "https://gimenez.house.gov/immigration",
+   "similarity": 0.855
+  },
+  {
+   "candidate_id": "us-house-fl28-gimenez",
+   "question": "fema",
+   "text": "Thank you for working with the Florida Governor and state and local officials in declaring a state of emergency in Florida due to Hurricane Ian. The full-encompassing damage caused by this historic natural disaster remains to be assessed.",
+   "url": "https://gimenez.house.gov/2022/10/congressman-gimenez-urges-president-biden-to-approve-federal-individual-assistance-for-monroe-county",
+   "similarity": 0.762
+  },
+  {
+   "candidate_id": "us-house-fl28-gimenez",
+   "question": "enforcement",
+   "text": "Border security is paramount and must be done in parallel with immigration reform. I support policies that put more resources into curbing illegal border crossings and keeping illicit drugs and criminal activities off our streets. Border patrol and law enforcement officials must have the tools they need to enforce law and order in our communities.",
+   "url": "https://gimenez.house.gov/immigration",
+   "similarity": 0.752
+  },
+  {
+   "candidate_id": "us-house-fl28-gimenez",
+   "question": "cuba",
+   "text": "I also support policies to extend Deferred Enforced Departure to Venezuelans who reside in the United States. For them to be returned to Venezuela would be to subject them to even more brutal treatment, condemning them to a life of persecution, stripped from their most basic freedom, and fearing for their life. Congressman Gimenez voted yes on the following:",
+   "url": "https://gimenez.house.gov/immigration",
+   "similarity": 0.784
+  },
+  {
+   "candidate_id": "us-house-fl28-gimenez",
+   "question": "transit",
+   "text": "As Mayor of Miami-Dade County, I put an emphasis on installing more solar panels, improving our public transportation and making our streets more bike- and pedestrian-friendly to get more cars off the street. I will continue to advocate for policies that invest in sustainable infrastructure and encourages more use of public transportation.",
+   "url": "https://gimenez.house.gov/energy",
+   "similarity": 0.777
+  },
+  {
+   "candidate_id": "us-house-fl28-gimenez",
+   "question": "taxes",
+   "text": "Economy and Taxes | Congressman Carlos Gimenez Resources for American Citizens in Israel America’s small businesses are the backbone of our economy.",
+   "url": "https://gimenez.house.gov/economy-and-taxes",
+   "similarity": 0.769
+  },
+  {
+   "candidate_id": "us-house-fl28-rojas",
+   "question": "taxes",
+   "text": "I'll fight to cut burdensome regulations, lower taxes on small businesses, and bring good-paying jobs back to Miami. As a business owner, I know what it takes to create opportunity — and I'll bring that experience to Congress. Education is the key to the American Dream.",
+   "url": "https://www.eddyrojas.com/events-1",
+   "similarity": 0.775
+  },
+  {
+   "candidate_id": "us-senate-fl-gillespie",
+   "question": "immigration",
+   "text": "Immigrants are essential for the U.S. economy. We need qualified, vetted, immigrants legally present in America. The de facto open border policy of the Biden administration was wrong. The Biden immigration policy has benefited the legal profession, not the American People. Business is great for immigration lawyers. I support secure boarders. We need to know who is in our county, who is in our home.",
+   "url": "https://neilgillespie4senate.blogspot.com/",
+   "similarity": 0.827
+  },
+  {
+   "candidate_id": "us-senate-fl-gillespie",
+   "question": "enforcement",
+   "text": "Immigrants are essential for the U.S. economy. We need qualified, vetted, immigrants legally present in America. The de facto open border policy of the Biden administration was wrong. The Biden immigration policy has benefited the legal profession, not the American People. Business is great for immigration lawyers. I support secure boarders. We need to know who is in our county, who is in our home.",
+   "url": "https://neilgillespie4senate.blogspot.com/",
+   "similarity": 0.75
+  },
+  {
+   "candidate_id": "us-senate-fl-moody",
+   "question": "flooding",
+   "text": "Congressman Byron Donalds said, “For far too long, the rising cost of flood insurance has crushed hardworking Floridians. This is unacceptable, this must change, and this critical issue must be addressed to ensure our economy works for all Americans.",
+   "url": "https://www.moody.senate.gov/press-releases/sens-ashley-moody-and-rick-scott-introduce-bill-to-provide-tax-relief-for-skyrocketing-flood-insurance-costs/",
+   "similarity": 0.736
+  },
+  {
+   "candidate_id": "us-senate-fl-moody",
+   "question": "insurance",
+   "text": "Senator Rick Scott said, “Floridians know well that flood insurance can be a crucial but costly asset, and it is unacceptable that many are left struggling to find flood insurance coverage they can afford. Families shouldn’t have to choose between protecting their homes and putting food on the table.",
+   "url": "https://www.moody.senate.gov/press-releases/sens-ashley-moody-and-rick-scott-introduce-bill-to-provide-tax-relief-for-skyrocketing-flood-insurance-costs/",
+   "similarity": 0.755
+  },
+  {
+   "candidate_id": "us-senate-fl-moody",
+   "question": "drilling",
+   "text": "Florida’s economy relies on that same beautiful coastline, vibrant tourism industry, and sustainable fisheries. In fact, Florida’s beaches alone generate more than $127.7 billion per year in tourism spending and support over 2.1 million tourism-related jobs. Unfortunately, all these resources suffered devastating harm during the Deepwater Horizon oil spill of 2010.",
+   "url": "https://www.moody.senate.gov/press-releases/news-release-senators-ashley-moody-rick-scott-lead-bipartisan-florida-delegation-letter-to-president-trump-keep-oil-drilling-off-floridas-coasts/",
+   "similarity": 0.797
+  },
+  {
+   "candidate_id": "us-senate-fl-moody",
+   "question": "fema",
+   "text": "Recovering from a storm can be an overwhelming process, especially when you have suffered loss or damage. It is vital that you understand what resources are available. Below, you will find contact information for various federal agencies that may be able to provide assistance depending on your circumstances.",
+   "url": "https://www.moody.senate.gov/storm-preparation/",
+   "similarity": 0.742
+  },
+  {
+   "candidate_id": "us-senate-fl-nixon",
+   "question": "insurance",
+   "text": "A national rent stabilization standard , just-cause eviction protections, and the right to counsel in eviction proceedings. Cracking down on corporate landlords and Wallstreet speculators  buying up single-family homes and driving up rents. Expanding Section 8 vouchers  so every eligible family can access one without languishing on a waitlist.",
+   "url": "https://angienixon.com/priorities/",
+   "similarity": 0.751
+  },
+  {
+   "candidate_id": "us-senate-fl-nixon",
+   "question": "housing",
+   "text": "Angie believes in housing you can actually afford. Rent is too high, homeownership is out of reach for millions, and Wall Street landlords are buying up housing stock and squeezing renters to enrich themselves. Florida is getting hit the hardest, and is now the worst state in the country for renters.",
+   "url": "https://angienixon.com/priorities/",
+   "similarity": 0.778
+  },
+  {
+   "candidate_id": "us-senate-fl-nixon",
+   "question": "wages",
+   "text": "For too long, corporations have rigged labor law against working people. Angie was a labor organizer and will fight for the dignity of all workers. Passing the PRO Act  to make it easier to form a union and harder for corporations to bust one. Paid family and medical leave  for every worker in America, guaranteed by law.",
+   "url": "https://angienixon.com/priorities/",
+   "similarity": 0.731
+  },
+  {
+   "candidate_id": "us-senate-fl-nixon",
+   "question": "college",
+   "text": "Getting an education in America shouldn’t mean a lifetime of debt. About 43 million Americans now owe nearly $2 trillion in student loan debt. That’s about $43,500 per borrower, meaning people owe more for simply trying to get an education than they do on their cars or credit cards.",
+   "url": "https://angienixon.com/priorities/",
+   "similarity": 0.84
+  },
+  {
+   "candidate_id": "us-senate-fl-nixon",
+   "question": "immigration",
+   "text": "It is time we had the courage to say it plainly: mass incarceration and mass deportation are moral failures, and I will fight in the United States Senate to end them. Ending mass incarceration , including federal decriminalization of marijuana and investment in treatment over incarceration for substance use.",
+   "url": "https://angienixon.com/priorities/",
+   "similarity": 0.768
+  },
+  {
+   "candidate_id": "us-senate-fl-nixon",
+   "question": "healthcare",
+   "text": "Roughly 100 million Americans — about 4 in 10 adults — carry some form of medical debt, totaling at least $220 billion nationwide. People aren’t going into debt because they made bad choices; they’re going into debt because they got sick, had a baby or broke a bone.",
+   "url": "https://angienixon.com/priorities/",
+   "similarity": 0.736
+  },
+  {
+   "candidate_id": "us-senate-fl-nixon",
+   "question": "taxes",
+   "text": "A 5% annual wealth tax on billionaires.  I support Senator Sanders’  Make Billionaires Pay Their Fair Share Act , which would apply only to net worth above $1 billion — hitting fewer than 1,000 people in the entire country. Independent economists estimate it would raise roughly $4.4 trillion over ten years without raising taxes by a single dollar on anyone worth less than $1 billion.",
+   "url": "https://angienixon.com/priorities/",
+   "similarity": 0.743
+  }
+ ]
+}

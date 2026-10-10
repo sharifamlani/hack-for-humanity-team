@@ -11,9 +11,10 @@ import { cosine } from "./embed-positions.mjs";
 
 const TOP_PASSAGES = 4;
 const MIN_SIMILARITY = 0.55; // below this the passage is about something else
-const CONCURRENCY = 8;
-const CALL_TIMEOUT_MS = 35000; // a hung connection must not stall a worker forever
-const OUT = "data/positions/stances.json";
+const CONCURRENCY = 5;
+const CALL_TIMEOUT_MS = 55000; // a hung connection must not stall a worker forever
+// STANCES_OUT lets a second run work on its own file so two runs never overwrite each other.
+const OUT = process.env.STANCES_OUT ?? "data/positions/stances.json";
 
 // Compare text ignoring curly-versus-straight quotes, dashes and spacing.
 export const normalise = (s) =>
@@ -95,7 +96,11 @@ async function main() {
   const secondLook = process.argv.includes("--second-look");
   const only = process.argv.includes("--only") ? process.argv[process.argv.indexOf("--only") + 1].split(",") : null;
   // A second look, or a run limited to some candidates, updates the existing file in place.
-  const previous = (secondLook || only) && existsSync(OUT) ? JSON.parse(readFileSync(OUT, "utf8")).stances : [];
+  // --retry-errors re-reads only the cells whose last reading failed (timeout or bad reply).
+  const retryErrors = process.argv.includes("--retry-errors");
+  // --questions a,b limits the run to some questions (used when new questions are added).
+  const onlyQuestions = process.argv.includes("--questions") ? process.argv[process.argv.indexOf("--questions") + 1].split(",") : null;
+  const previous = (secondLook || only || retryErrors || onlyQuestions) && existsSync(OUT) ? JSON.parse(readFileSync(OUT, "utf8")).stances : [];
   const store = JSON.parse(readFileSync("data/positions/embeddings.json", "utf8"));
   const { questions } = JSON.parse(readFileSync("data/questions.json", "utf8"));
   const names = new Map(JSON.parse(readFileSync("data/candidates.json", "utf8")).map((c) => [c.candidate_id, c.name]));
@@ -104,10 +109,12 @@ async function main() {
   const candidates = [...new Set(store.chunks.map((c) => c.candidate_id))].filter((id) => !only || only.includes(id)).sort();
   const jobs = candidates
     .flatMap((candidate_id) => questions.map((q) => ({ candidate_id, q })))
+    .filter((j) => !onlyQuestions || onlyQuestions.includes(j.q.id))
     .filter(
       (j) =>
-        !secondLook ||
-        previous.some((p) => p.candidate_id === j.candidate_id && p.question === j.q.id && p.stance === "none"),
+        (!retryErrors || previous.some((p) => p.candidate_id === j.candidate_id && p.question === j.q.id && p.error)) &&
+        (!secondLook || retryErrors ||
+        previous.some((p) => p.candidate_id === j.candidate_id && p.question === j.q.id && p.stance === "none")),
     );
   const stances = new Array(jobs.length);
   let next = 0;

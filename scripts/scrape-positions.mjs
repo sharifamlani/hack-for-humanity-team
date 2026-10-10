@@ -15,6 +15,7 @@ const MIN_CHARS = 120; // shorter than this is navigation or a caption, not a po
 const MAX_PASSAGES_PER_PAGE = 60;
 const USER_AGENTS = [
   "Mozilla/5.0",
+  "Mozilla/5.0 Chrome/124",
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
 ];
 

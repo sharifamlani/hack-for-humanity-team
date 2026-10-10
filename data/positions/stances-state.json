@@ -1,0 +1,896 @@
+{
+ "model": "gemma-4-31b-it",
+ "embeddingModel": "gemini-embedding-2",
+ "built": "2026-10-10T18:13:42.708Z",
+ "stances": [
+  {
+   "candidate_id": "fl-house-106-baez-geller",
+   "question": "flooding",
+   "stance": "yes",
+   "quote": "We need real investment in resilience to protect our oceans, defend our water supply, and keep our neighborhoods healthy, safe, and livable for generations to come.",
+   "url": "https://luciabaezgeller.com/",
+   "why": "The candidate explicitly calls for real investment in resilience to protect neighborhoods from the impacts of sea level rise.",
+   "similarity": 0.761,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-house-106-baez-geller",
+   "question": "insurance",
+   "stance": "yes",
+   "quote": "Trabajar para reducir las primas de seguros de propiedad que se han disparado y abordar el aumento en el costo de vida diario, para que la vivienda, los seguros y las necesidades básicas sean más accesibles para las familias de Florida.",
+   "url": "https://luciabaezgeller.com/inicio",
+   "why": "The candidate explicitly states a goal to reduce skyrocketing property insurance premiums to make them more accessible for families.",
+   "similarity": 0.709,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-house-106-baez-geller",
+   "question": "heat",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.688
+  },
+  {
+   "candidate_id": "fl-house-106-baez-geller",
+   "question": "drilling",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.682,
+   "error": "Gemma timed out"
+  },
+  {
+   "candidate_id": "fl-house-106-baez-geller",
+   "question": "everglades",
+   "stance": "yes",
+   "quote": "We need real investment in resilience to protect our oceans, defend our water supply, and keep our neighborhoods healthy, safe, and livable for generations to come.",
+   "url": "https://luciabaezgeller.com/",
+   "why": "The candidate calls for real investment to protect oceans and the water supply, which is a closely related priority to restoring the Everglades and cleaning up Biscayne Bay.",
+   "similarity": 0.721,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-house-106-baez-geller",
+   "question": "species",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.683
+  },
+  {
+   "candidate_id": "fl-house-106-baez-geller",
+   "question": "housing",
+   "stance": "yes",
+   "quote": "Work to reduce skyrocketing property insurance premiums and address the rising cost of everyday life so housing, insurance, and basic necessities are more affordable for Florida families.",
+   "url": "https://luciabaezgeller.com/",
+   "why": "The candidate expresses a goal to make housing more affordable for families.",
+   "similarity": 0.697,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-house-106-baez-geller",
+   "question": "wages",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.615
+  },
+  {
+   "candidate_id": "fl-house-106-baez-geller",
+   "question": "college",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.64
+  },
+  {
+   "candidate_id": "fl-house-106-baez-geller",
+   "question": "immigration",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.719
+  },
+  {
+   "candidate_id": "fl-house-106-baez-geller",
+   "question": "fema",
+   "stance": "yes",
+   "quote": "We need real investment in resilience to protect our oceans, defend our water supply, and keep our neighborhoods healthy, safe, and livable for generations to come.",
+   "url": "https://luciabaezgeller.com/",
+   "why": "The candidate calls for investment in resilience to protect the coastline from climate change and sea level rise, which is a closely related priority to funding FEMA and disaster relief.",
+   "similarity": 0.657,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-house-106-baez-geller",
+   "question": "healthcare",
+   "stance": "yes",
+   "quote": "Lucia will protect women’s healthcare autonomy, expand access to affordable healthcare, and fight lower prescription drug costs so every family can get the care they need.",
+   "url": "https://luciabaezgeller.com/",
+   "why": "The candidate explicitly states she will expand access to affordable healthcare and fight to lower prescription drug costs.",
+   "similarity": 0.682,
+   "reading": "stated"
+  },
+  {
+   "candidate_id": "fl-house-106-baez-geller",
+   "question": "enforcement",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.635
+  },
+  {
+   "candidate_id": "fl-house-106-baez-geller",
+   "question": "cuba",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.718
+  },
+  {
+   "candidate_id": "fl-house-106-baez-geller",
+   "question": "transit",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.694
+  },
+  {
+   "candidate_id": "fl-house-106-baez-geller",
+   "question": "taxes",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.696
+  },
+  {
+   "candidate_id": "fl-house-106-basabe",
+   "question": "flooding",
+   "stance": "yes",
+   "quote": "We are revitalizing small businesses, advocating for homeowners and taxpayers, enhancing public safety, modernizing our infrastructure, protecting our beaches and ensuring dignity and care for our elderly.",
+   "url": "https://fabianbasabe.com/",
+   "why": "The candidate's record of modernizing infrastructure and protecting beaches is closely related to spending on roads, drains, and sea walls to combat flooding.",
+   "similarity": 0.665,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-house-106-basabe",
+   "question": "insurance",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.66
+  },
+  {
+   "candidate_id": "fl-house-106-basabe",
+   "question": "heat",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.642
+  },
+  {
+   "candidate_id": "fl-house-106-basabe",
+   "question": "drilling",
+   "stance": "yes",
+   "quote": "A true friend to the environment, he continues to advocate for environmental preservation and sustainable growth.",
+   "url": "https://fabianbasabe.com/meet",
+   "why": "Advocating for environmental preservation is a priority closely related to banning oil and gas drilling off the coast.",
+   "similarity": 0.634,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-house-106-basabe",
+   "question": "everglades",
+   "stance": "yes",
+   "quote": "A true friend to the environment, he continues to advocate for environmental preservation and sustainable growth.",
+   "url": "https://fabianbasabe.com/meet",
+   "why": "The candidate advocates for environmental preservation, which is a closely related priority to restoring the Everglades and cleaning up Biscayne Bay.",
+   "similarity": 0.693,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-house-106-basabe",
+   "question": "species",
+   "stance": "yes",
+   "quote": "A true friend to the environment, he continues to advocate for environmental preservation and sustainable growth.",
+   "url": "https://fabianbasabe.com/meet",
+   "why": "The candidate's advocacy for environmental preservation and sustainable growth aligns with the priority of protecting the environment over unrestricted building.",
+   "similarity": 0.682,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-house-106-basabe",
+   "question": "housing",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.661
+  },
+  {
+   "candidate_id": "fl-house-106-basabe",
+   "question": "wages",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.643
+  },
+  {
+   "candidate_id": "fl-house-106-basabe",
+   "question": "college",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.643
+  },
+  {
+   "candidate_id": "fl-house-106-basabe",
+   "question": "immigration",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.709
+  },
+  {
+   "candidate_id": "fl-house-106-basabe",
+   "question": "fema",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.674
+  },
+  {
+   "candidate_id": "fl-house-106-basabe",
+   "question": "healthcare",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.647
+  },
+  {
+   "candidate_id": "fl-house-106-basabe",
+   "question": "enforcement",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.639
+  },
+  {
+   "candidate_id": "fl-house-106-basabe",
+   "question": "cuba",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.663
+  },
+  {
+   "candidate_id": "fl-house-106-basabe",
+   "question": "transit",
+   "stance": "yes",
+   "quote": "We are revitalizing small businesses, advocating for homeowners and taxpayers, enhancing public safety, modernizing our infrastructure, protecting our beaches and ensuring dignity and care for our elderly.",
+   "url": "https://fabianbasabe.com/",
+   "why": "The candidate's goal of modernizing infrastructure is closely related to spending more on roads and public transit.",
+   "similarity": 0.702,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-house-106-basabe",
+   "question": "taxes",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.725
+  },
+  {
+   "candidate_id": "fl-house-108-campbell",
+   "question": "flooding",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.714
+  },
+  {
+   "candidate_id": "fl-house-108-campbell",
+   "question": "insurance",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.708
+  },
+  {
+   "candidate_id": "fl-house-108-campbell",
+   "question": "heat",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.686
+  },
+  {
+   "candidate_id": "fl-house-108-campbell",
+   "question": "drilling",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.716
+  },
+  {
+   "candidate_id": "fl-house-108-campbell",
+   "question": "everglades",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.735
+  },
+  {
+   "candidate_id": "fl-house-108-campbell",
+   "question": "species",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.665
+  },
+  {
+   "candidate_id": "fl-house-108-campbell",
+   "question": "housing",
+   "stance": "yes",
+   "quote": "Running for State Representative of District 108 , join me in the fight for better healthcare, education, gun violence prevention and housing!",
+   "url": "https://daphnecampbell.com/about-us",
+   "why": "The candidate explicitly calls for a fight for better housing, which is a closely related priority to spending more to build housing and help renters.",
+   "similarity": 0.722,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-house-108-campbell",
+   "question": "wages",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.674
+  },
+  {
+   "candidate_id": "fl-house-108-campbell",
+   "question": "college",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.68
+  },
+  {
+   "candidate_id": "fl-house-108-campbell",
+   "question": "immigration",
+   "stance": "yes",
+   "quote": "Representative Campbell, herself has been working arduously and diligently to see that the HFRP comes to fruition.",
+   "url": "https://daphnecampbell.com/press-releases",
+   "why": "The candidate advocated for the Haitian Family Reunification Parole program to promote safe and legal migration.",
+   "similarity": 0.7,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-house-108-campbell",
+   "question": "fema",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.672
+  },
+  {
+   "candidate_id": "fl-house-108-campbell",
+   "question": "healthcare",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.664,
+   "error": "Gemma timed out"
+  },
+  {
+   "candidate_id": "fl-house-108-campbell",
+   "question": "enforcement",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.65
+  },
+  {
+   "candidate_id": "fl-house-108-campbell",
+   "question": "cuba",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.673
+  },
+  {
+   "candidate_id": "fl-house-108-campbell",
+   "question": "transit",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.731
+  },
+  {
+   "candidate_id": "fl-house-108-campbell",
+   "question": "taxes",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.684
+  },
+  {
+   "candidate_id": "fl-house-108-francius",
+   "question": "flooding",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.688
+  },
+  {
+   "candidate_id": "fl-house-108-francius",
+   "question": "insurance",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.681
+  },
+  {
+   "candidate_id": "fl-house-108-francius",
+   "question": "heat",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.664
+  },
+  {
+   "candidate_id": "fl-house-108-francius",
+   "question": "drilling",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.642
+  },
+  {
+   "candidate_id": "fl-house-108-francius",
+   "question": "everglades",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.705
+  },
+  {
+   "candidate_id": "fl-house-108-francius",
+   "question": "species",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.672
+  },
+  {
+   "candidate_id": "fl-house-108-francius",
+   "question": "housing",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.674
+  },
+  {
+   "candidate_id": "fl-house-108-francius",
+   "question": "wages",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.697
+  },
+  {
+   "candidate_id": "fl-house-108-francius",
+   "question": "college",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.681
+  },
+  {
+   "candidate_id": "fl-house-108-francius",
+   "question": "immigration",
+   "stance": "yes",
+   "quote": "Enact Just & Humane Immigration Policies Stand for policies that are fair, lawful, and treat every family with the dignity and humanity they deserve.",
+   "url": "https://www.wancitofranciusforflorida.com/",
+   "why": "The candidate advocates for just and humane immigration policies that treat families with dignity, which is a closely related priority to providing a path to legal status.",
+   "similarity": 0.744,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-house-108-francius",
+   "question": "fema",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.667
+  },
+  {
+   "candidate_id": "fl-house-108-francius",
+   "question": "healthcare",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.671
+  },
+  {
+   "candidate_id": "fl-house-108-francius",
+   "question": "enforcement",
+   "stance": "no",
+   "quote": "Stand for policies that are fair, lawful, and treat every family with the dignity and humanity they deserve.",
+   "url": "https://www.wancitofranciusforflorida.com/",
+   "why": "The candidate advocates for humane immigration policies and treating families with dignity, which points away from increasing arrests and deportations.",
+   "similarity": 0.692,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-house-108-francius",
+   "question": "cuba",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.637
+  },
+  {
+   "candidate_id": "fl-house-108-francius",
+   "question": "transit",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.688
+  },
+  {
+   "candidate_id": "fl-house-108-francius",
+   "question": "taxes",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.743
+  },
+  {
+   "candidate_id": "fl-senate-36-garcia",
+   "question": "flooding",
+   "stance": "yes",
+   "quote": "Championed Flood Mitigation Efforts in our community",
+   "url": "https://ileanagarcia.com/",
+   "why": "The candidate has a record of championing flood mitigation and securing funding for drainage projects.",
+   "similarity": 0.748,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-senate-36-garcia",
+   "question": "insurance",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.703
+  },
+  {
+   "candidate_id": "fl-senate-36-garcia",
+   "question": "heat",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.704
+  },
+  {
+   "candidate_id": "fl-senate-36-garcia",
+   "question": "drilling",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.709
+  },
+  {
+   "candidate_id": "fl-senate-36-garcia",
+   "question": "everglades",
+   "stance": "yes",
+   "quote": "In the 2021 Legislative Session, Garica secured $36 million for coastal resilience and Biscayne Bay — $20 million for bay restoration and preservation projects and $16 million in resiliency grant funding for South Florida.",
+   "url": "https://ileanagarcia.com/2021/10/25/ileana-garcia-working-to-secure-additional-funds-to-improve-biscayne-bay-spoil-islands/",
+   "why": "The candidate secured significant funding specifically for the restoration and preservation of Biscayne Bay.",
+   "similarity": 0.764,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-senate-36-garcia",
+   "question": "species",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.756
+  },
+  {
+   "candidate_id": "fl-senate-36-garcia",
+   "question": "housing",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.701
+  },
+  {
+   "candidate_id": "fl-senate-36-garcia",
+   "question": "wages",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.699
+  },
+  {
+   "candidate_id": "fl-senate-36-garcia",
+   "question": "college",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.715
+  },
+  {
+   "candidate_id": "fl-senate-36-garcia",
+   "question": "immigration",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.737
+  },
+  {
+   "candidate_id": "fl-senate-36-garcia",
+   "question": "fema",
+   "stance": "yes",
+   "quote": "Championed Flood Mitigation Efforts in our community",
+   "url": "https://ileanagarcia.com/",
+   "why": "The candidate's record of championing flood mitigation efforts indicates a priority closely related to hurricane disaster relief.",
+   "similarity": 0.68,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-senate-36-garcia",
+   "question": "healthcare",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.707
+  },
+  {
+   "candidate_id": "fl-senate-36-garcia",
+   "question": "enforcement",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.651
+  },
+  {
+   "candidate_id": "fl-senate-36-garcia",
+   "question": "cuba",
+   "stance": "yes",
+   "quote": "The Florida Senate condemned FARC’s long history of violence, kidnapping, and human rights abuses, and pledged to oppose any regime that supports terrorist groups, including those in Cuba, Venezuela, and Iran.",
+   "url": "https://ileanagarcia.com/legislation/",
+   "why": "The candidate pledged to oppose the regimes of Cuba and Venezuela.",
+   "similarity": 0.753,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-senate-36-garcia",
+   "question": "transit",
+   "stance": "yes",
+   "quote": "$5 million for vital infrastructure and road construction",
+   "url": "https://ileanagarcia.com/",
+   "why": "The candidate has a record of securing funding for road construction and infrastructure.",
+   "similarity": 0.734,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-senate-36-garcia",
+   "question": "taxes",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.707
+  },
+  {
+   "candidate_id": "fl-senate-36-lavin",
+   "question": "flooding",
+   "stance": "yes",
+   "quote": "Fight every year to fund the state’s flood-protection grants and to bring those dollars home to District 36’s communities.",
+   "url": "https://votegeorgelavin.com/priorities",
+   "why": "The candidate supports funding for flood-protection grants that pay for pumps, drainage, and seawalls.",
+   "similarity": 0.808,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-senate-36-lavin",
+   "question": "insurance",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.784
+  },
+  {
+   "candidate_id": "fl-senate-36-lavin",
+   "question": "heat",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.724
+  },
+  {
+   "candidate_id": "fl-senate-36-lavin",
+   "question": "drilling",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.715
+  },
+  {
+   "candidate_id": "fl-senate-36-lavin",
+   "question": "everglades",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.729
+  },
+  {
+   "candidate_id": "fl-senate-36-lavin",
+   "question": "species",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.707
+  },
+  {
+   "candidate_id": "fl-senate-36-lavin",
+   "question": "housing",
+   "stance": "yes",
+   "quote": "Support affordable-housing approaches that give communities a real say in what gets built in them.",
+   "url": "https://votegeorgelavin.com/priorities",
+   "why": "The candidate supports affordable-housing approaches to ensure the creation of homes that families can actually afford.",
+   "similarity": 0.749,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-senate-36-lavin",
+   "question": "wages",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.66
+  },
+  {
+   "candidate_id": "fl-senate-36-lavin",
+   "question": "college",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.702
+  },
+  {
+   "candidate_id": "fl-senate-36-lavin",
+   "question": "immigration",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.755
+  },
+  {
+   "candidate_id": "fl-senate-36-lavin",
+   "question": "fema",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.706
+  },
+  {
+   "candidate_id": "fl-senate-36-lavin",
+   "question": "healthcare",
+   "stance": "yes",
+   "quote": "Fight to bring our own federal dollars home to cover working families in the coverage gap, rather than sending those dollars to other states.",
+   "url": "https://votegeorgelavin.com/priorities",
+   "why": "The candidate advocates for using federal funds to provide health coverage for working families.",
+   "similarity": 0.738,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-senate-36-lavin",
+   "question": "enforcement",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.665
+  },
+  {
+   "candidate_id": "fl-senate-36-lavin",
+   "question": "cuba",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.737
+  },
+  {
+   "candidate_id": "fl-senate-36-lavin",
+   "question": "transit",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.73
+  },
+  {
+   "candidate_id": "fl-senate-36-lavin",
+   "question": "taxes",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.72
+  }
+ ]
+}

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { compare, tally, type Answers, type Cell } from "@/lib/match";
-import { QUESTIONS, THEMES, hasRecord, stanceOf } from "@/lib/questions";
+import { QUESTIONS, THEMES, closestOf, hasRecord, stanceOf } from "@/lib/questions";
 import type { Candidate, LookupResult } from "@/lib/types";
 
 const MARK: Record<Cell, { icon: string; label: string; style: string }> = {
@@ -60,9 +60,8 @@ export function MatchStep({
   // The races we have collected candidates' own words for: U.S. House, then U.S. Senate.
   const races = result.ballot
     .flatMap((s) => s.races)
-    .filter((r) => r.office.startsWith("U.S. House") || r.office.startsWith("U.S. Senate"))
-    .sort((a, b) => Number(b.office.startsWith("U.S. House")) - Number(a.office.startsWith("U.S. House")))
-    .filter((r) => r.candidates.some((c) => hasRecord(c.candidate_id)));
+    .filter((r) => r.candidates.some((c) => hasRecord(c.candidate_id)))
+    .sort((a, b) => Number(b.office.startsWith("U.S. House")) - Number(a.office.startsWith("U.S. House")));
 
   async function toggle(key: string, questionId: string, candidates: Candidate[]) {
     setOpen(open === key ? null : key);
@@ -166,6 +165,8 @@ export function MatchStep({
                     const mark = MARK[cell];
                     // A party guess is drawn hollow and dashed so it never looks like a quote.
                     const guess = basis === "party" && (cell === "agree" || cell === "differ");
+                    // No yes/no, but they have said something on the topic: show a speech mark.
+                    const spoke = cell === "none" && !!closestOf(c.candidate_id, q.id);
                     return (
                       <button
                         key={c.candidate_id}
@@ -175,10 +176,12 @@ export function MatchStep({
                         className={`mx-auto flex h-8 w-8 items-center justify-center rounded-full text-sm font-black ${
                           guess
                             ? "border-2 border-dashed border-foreground/50 text-foreground/60"
-                            : `${mark.style} ${basis === "leans" ? "opacity-60" : ""}`
+                            : spoke
+                              ? "border border-foreground/40 bg-background"
+                              : `${mark.style} ${basis === "leans" ? "opacity-60" : ""}`
                         }`}
                       >
-                        {guess ? `~${mark.icon}` : mark.icon}
+                        {guess ? `~${mark.icon}` : spoke ? "💬" : mark.icon}
                       </button>
                     );
                   })}
@@ -196,6 +199,7 @@ export function MatchStep({
                       {race.candidates.map((c) => {
                         const s = stanceOf(c.candidate_id, q.id);
                         const guess = q.partyLean?.[c.party];
+                        const near = closestOf(c.candidate_id, q.id);
                         return (
                           <p key={c.candidate_id} className="mt-2">
                             <b>{c.name}:</b>{" "}
@@ -209,13 +213,27 @@ export function MatchStep({
                                   source ↗
                                 </a>
                               </>
-                            ) : guess ? (
-                              <span className="text-foreground/60">
-                                nothing found in their own words. Party guess: {c.party} candidates usually
-                                say {guess}. This is not {lastName(c.name)}&apos;s statement.
-                              </span>
                             ) : (
-                              <span className="text-foreground/60">no public position found on this.</span>
+                              <>
+                                {near ? (
+                                  <>
+                                    <span className="text-foreground/60">no clear yes or no. Closest thing they&apos;ve said: </span>
+                                    “{near.text}”{" "}
+                                    <a className="font-semibold underline" href={near.url} target="_blank" rel="noreferrer">
+                                      source ↗
+                                    </a>
+                                  </>
+                                ) : (
+                                  <span className="text-foreground/60">nothing found on this in what they&apos;ve published.</span>
+                                )}
+                                {guess && (
+                                  <span className="text-foreground/60">
+                                    {" "}
+                                    Party guess: {c.party} candidates usually say {guess}. This is not{" "}
+                                    {lastName(c.name)}&apos;s statement.
+                                  </span>
+                                )}
+                              </>
                             )}
                           </p>
                         );
@@ -272,6 +290,9 @@ export function MatchStep({
         </li>
         <li>
           <b>~ dashed</b> party guess, not their words
+        </li>
+        <li>
+          <b>💬</b> said something on this, no clear yes or no
         </li>
       </ul>
 

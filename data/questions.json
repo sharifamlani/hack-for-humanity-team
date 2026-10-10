@@ -119,6 +119,73 @@
     "Democratic": "yes"
    },
    "active": true
+  },
+  {
+   "id": "fema",
+   "theme": "forces",
+   "short": "Hurricane relief",
+   "question": "Should Congress put more money into FEMA and hurricane disaster relief?",
+   "search": "FEMA funding, hurricane recovery and disaster relief, disaster assistance, storm preparedness, emergency management",
+   "partyLean": {},
+   "reviewed": false,
+   "active": false
+  },
+  {
+   "id": "healthcare",
+   "theme": "jobs",
+   "short": "Health-care costs",
+   "question": "Should the federal government do more to bring down what people pay for health insurance and medicine?",
+   "search": "health care costs, health insurance premiums, Affordable Care Act subsidies, Medicaid, Medicare, prescription drug prices",
+   "partyLean": {
+    "Democratic": "yes"
+   },
+   "reviewed": false,
+   "active": false
+  },
+  {
+   "id": "enforcement",
+   "theme": "jobs",
+   "short": "Immigration enforcement",
+   "question": "Should immigration arrests and deportations be stepped up?",
+   "search": "immigration enforcement, ICE arrests, deportations, border security, secure the border, detention, illegal immigration",
+   "partyLean": {
+    "Democratic": "no",
+    "Republican": "yes"
+   },
+   "reviewed": false,
+   "active": false
+  },
+  {
+   "id": "cuba",
+   "theme": "jobs",
+   "short": "Cuba & Venezuela",
+   "question": "Should the U.S. keep tough sanctions on the governments of Cuba and Venezuela?",
+   "search": "Cuba, Venezuela, Nicaragua, sanctions, Maduro, Castro regime, dictatorship, communism, freedom and democracy in Latin America",
+   "partyLean": {},
+   "reviewed": false,
+   "active": false
+  },
+  {
+   "id": "transit",
+   "theme": "jobs",
+   "short": "Transit & traffic",
+   "question": "Should the federal government spend more on public transit and roads in Miami-Dade?",
+   "search": "public transit, Metrorail, traffic, transportation funding, roads and bridges, infrastructure investment in South Florida",
+   "partyLean": {},
+   "reviewed": false,
+   "active": false
+  },
+  {
+   "id": "taxes",
+   "theme": "jobs",
+   "short": "Taxes",
+   "question": "Should federal taxes be cut further for families and small businesses?",
+   "search": "tax cuts, tax relief, no tax on tips, small business taxes, child tax credit, taxes for working families, tax code",
+   "partyLean": {
+    "Republican": "yes"
+   },
+   "reviewed": false,
+   "active": false
   }
  ],
  "partyLeanNote": "Fallback only, used when we found nothing in a candidate's own words. A rough generalisation of the two national parties' usual positions, written by the team on Oct 10, 2026 — NOT sourced per candidate. Left empty where the parties do not plainly differ or where South Florida members often break from their party (flooding, Everglades, offshore drilling, and Republicans on immigration and insurance)."

@@ -1,5 +1,7 @@
 import questionsJson from "@/data/questions.json";
 import stancesJson from "@/data/positions/stances.json";
+import stateStancesJson from "@/data/positions/stances-state.json";
+import closestJson from "@/data/positions/closest.json";
 
 export type Theme = "forces" | "wildlife" | "jobs";
 
@@ -50,10 +52,22 @@ export const QUESTIONS: Question[] = (() => {
 
 export const questionById = (id: string) => ALL.find((q) => q.id === id);
 
-const STANCES = (stancesJson as { stances: CandidateStance[] }).stances;
+// Federal candidates and state-legislature candidates are read in separate runs.
+const STANCES = [
+  ...(stancesJson as { stances: CandidateStance[] }).stances,
+  ...(stateStancesJson as { stances: CandidateStance[] }).stances,
+];
 
 export const stanceOf = (candidateId: string, questionId: string) =>
   STANCES.find((s) => s.candidate_id === candidateId && s.question === questionId);
 
+// The candidate's closest on-topic passage for a question, in their exact words. No model
+// has read it and it carries no yes/no (scripts/attach-passages.mjs).
+export type ClosestPassage = { candidate_id: string; question: string; text: string; url: string };
+const CLOSEST = (closestJson as { closest: ClosestPassage[] }).closest;
+export const closestOf = (candidateId: string, questionId: string) =>
+  CLOSEST.find((c) => c.candidate_id === candidateId && c.question === questionId);
+
 // Candidates we have collected any published words for.
-export const hasRecord = (candidateId: string) => STANCES.some((s) => s.candidate_id === candidateId);
+export const hasRecord = (candidateId: string) =>
+  STANCES.some((s) => s.candidate_id === candidateId) || CLOSEST.some((c) => c.candidate_id === candidateId);

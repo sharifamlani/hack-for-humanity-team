@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "data": "node scripts/merge-candidates.mjs && node scripts/build-candidates-json.mjs",
+    "prebuild": "pnpm data"
   },
   "dependencies": {
     "next": "16.4.0",

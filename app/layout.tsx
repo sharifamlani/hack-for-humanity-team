@@ -19,7 +19,7 @@ const display = Source_Serif_4({
 });
 
 export const metadata: Metadata = {
-  title: "Your Ballot, Your Block",
+  title: "Your Ballot. Your Block.",
   description: "From your address to the ballot box — Miami-Dade, Nov 3 2026",
 };
 

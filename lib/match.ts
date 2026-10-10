@@ -112,3 +112,24 @@ export function placeCandidate(candidateId: string, party: string): Placement | 
   const guessed = positions.filter((p) => p.basis === "party").length;
   return { x: got.x, source: guessed > got.n / 2 ? "guess" : "positions", answers: got.n };
 }
+
+// ---- Suggested ballot ----------------------------------------------------------------
+// How close a candidate is to what the voter told us, from 0 to 1. Two ingredients, averaged
+// when both exist: the share of questions where they agree (a party guess counts half as
+// much as a position backed by a vote or a quote), and how near they sit on the left-right
+// line. Plain arithmetic; no model picks anyone.
+export type MatchScore = { score: number; agreeShare: number | null; lineCloseness: number | null };
+
+export function matchScore(answers: Answers, candidateId: string, party: string): MatchScore | null {
+  const t = tally(answers, candidateId, party);
+  const weight = t.own.of + 0.5 * t.guess.of;
+  const agreeShare = weight > 0 ? (t.own.agree + 0.5 * t.guess.agree) / weight : null;
+
+  const me = placeVoter(answers);
+  const them = placeCandidate(candidateId, party);
+  const lineCloseness = me && them ? 1 - Math.min(Math.abs(me.x - them.x), 1) : null;
+
+  const parts = [agreeShare, lineCloseness].filter((p): p is number => p !== null);
+  if (parts.length === 0) return null;
+  return { score: parts.reduce((a, b) => a + b, 0) / parts.length, agreeShare, lineCloseness };
+}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { compare, placeCandidate, placeVoter, tally, type Answers, type Cell, type Placement } from "@/lib/match";
+import { compare, matchScore, placeCandidate, placeVoter, tally, type Answers, type Cell, type Placement } from "@/lib/match";
 import { QUESTIONS, THEMES, closestOf, hasRecord, stanceOf, voteOf } from "@/lib/questions";
 import type { Candidate, LookupResult } from "@/lib/types";
 
@@ -137,6 +137,19 @@ export function MatchStep({
     .filter((r) => r.candidates.some((c) => hasRecord(c.candidate_id)))
     .sort((a, b) => Number(b.office.startsWith("U.S. House")) - Number(a.office.startsWith("U.S. House")));
 
+  // The suggested ballot: in each race, the candidate closest to what the voter told us.
+  const suggestions = races
+    .map((race) => {
+      const ranked = race.candidates
+        .map((c) => ({ c, m: matchScore(answers, c.candidate_id, c.party) }))
+        .filter((x): x is { c: Candidate; m: NonNullable<ReturnType<typeof matchScore>> } => x.m !== null)
+        .sort((a, b) => b.m.score - a.m.score);
+      // Within three points is a coin flip, not a match.
+      const tie = ranked.length > 1 && ranked[0].m.score - ranked[1].m.score < 0.03;
+      return { office: race.office, best: ranked[0], tie };
+    })
+    .filter((s) => s.best);
+
   async function toggle(key: string, questionId: string, candidates: Candidate[]) {
     setOpen(open === key ? null : key);
     const mine = answers[questionId];
@@ -164,6 +177,33 @@ export function MatchStep({
   return (
     <main className="flex flex-1 flex-col gap-5">
       <h2 className="text-3xl font-black tracking-tight">Where you stand</h2>
+
+      {answered && suggestions.length > 0 && (
+        <section className="rounded-3xl border-2 border-foreground bg-card p-5">
+          <p className="text-xs font-black uppercase tracking-widest text-accent">Your suggested ballot</p>
+          <ul className="mt-2 divide-y divide-foreground/10">
+            {suggestions.map((s) => (
+              <li key={s.office} className="flex items-baseline justify-between gap-3 py-2.5">
+                <div>
+                  <p className="text-xs font-semibold text-foreground/60">{s.office}</p>
+                  <p className="text-lg font-black leading-tight">
+                    {s.tie ? "Too close to call" : s.best.c.name}
+                  </p>
+                </div>
+                {!s.tie && (
+                  <span className="shrink-0 rounded-full bg-wildlife px-3 py-1 text-sm font-black text-white">
+                    {Math.round(s.best.m.score * 100)}% match
+                  </span>
+                )}
+              </li>
+            ))}
+          </ul>
+          <p className="mt-2 text-xs text-foreground/60">
+            The closest candidate in each race to what you told us. A match, not an endorsement — the
+            evidence for every race is below, and other races on your ballot are not scored yet.
+          </p>
+        </section>
+      )}
 
       {openSaid && (
         <section className="rounded-3xl border-2 border-foreground bg-card p-5">
@@ -348,9 +388,11 @@ export function MatchStep({
           <ul className="mt-4 space-y-1 border-t border-foreground/10 pt-3 text-sm">
             {race.candidates.map((c) => {
               const t = tally(answers, c.candidate_id, c.party);
+              const m = matchScore(answers, c.candidate_id, c.party);
               return (
                 <li key={c.candidate_id}>
                   <b>{c.name}</b>{" "}
+                  {m && <span className="font-black text-wildlife">{Math.round(m.score * 100)}% match · </span>}
                   {t.own.of > 0
                     ? `lines up with you on ${t.own.agree} of ${t.own.of} from their own words`
                     : "— nothing in their own words to compare yet"}
@@ -393,7 +435,9 @@ export function MatchStep({
         and decides whether they answer it yes or no, and a position is shown only when its quote
         is on the page word for word. Where we found nothing, a dashed mark fills in the usual
         position of the candidate&apos;s party — a rough guess, never their own statement. A blank
-        circle means we found nothing and made no guess. We describe. We never recommend.
+        circle means we found nothing and made no guess. The match percentage averages two
+        things: how often you and the candidate agree (a party guess counts half), and how close
+        you sit on the left-right line. It is a starting point, not an endorsement.
       </p>
 
       <button

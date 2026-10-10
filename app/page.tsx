@@ -208,7 +208,7 @@ export default function Home() {
       ) : null}
 
       <footer className="text-center text-xs text-foreground/60">
-        We describe. We never recommend. · Open source, MIT · Hack for Humanity:
+        A match, not an endorsement · Open source, MIT · Hack for Humanity:
         Miami 2026
       </footer>
     </div>

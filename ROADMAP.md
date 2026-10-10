@@ -1,6 +1,6 @@
 # ROADMAP — Hack for Humanity: Miami
 
-**Version:** v1.13
+**Version:** v1.14
 **Canonical execution directive for this repo.** If any other doc disagrees with this file,
 this file wins or the other doc gets corrected.
 
@@ -124,6 +124,7 @@ against production, not localhost.
 
 ## §6 — Changelog
 
+- **2026-10-10 (3:39 PM)** — **Interview is now ten questions** (`b2cb734`), chosen from the sixteen already written so that all 20 candidates with a quoted position have at least one to match on: immigration, hurricane relief, home insurance, flooding, transit, health care, immigration enforcement, housing, Everglades, student debt. Endangered animals dropped (two candidates had a position). Production walk passed; the U.S. House race now shows 14 source links, up from 7. Not changed: 11 collected candidates still have no clear yes or no on any question, and statewide offices have no collected pages. The interview is longer, so the demo should tap through most of it.
 - **2026-10-10 (3:35 PM)** — **Ballot panel shows the voter's street address** (`f33c2e4`), not just the city; live on production and walked with the venue address (reads "2750 NW 3RD AVE"). The first attempt (`8e775ee`) broke the build; the deploy failed, so production was never affected, and the next commit repaired it. Code freeze from here: what is left is the submission on OrganizerHQ by 3:45, teammate names in the README, and one spoken answer on the live site by a person.
 - **2026-10-10 (3:33 PM)** — **Race evidence opens inside the ballot** (`36ac1b6`): tapping a race drops its evidence open under it, with no page change; the left-right line comes first and every marker slides from the middle to its position. Production walk passed (8 match percentages, 7 source links on U.S. House, no errors). Tags: `v01` (`a74fa49`, five-step flow) and `v02` (`92d9f57`, race evidence on its own page) are the fallbacks. Open: the slide animation was seen in still screenshots only, not watched by a person; spoken answer on the live site untested by a person; demo not rehearsed.
 - **2026-10-10 (3:30 PM)** — **Flow reordered** (`15ce9d3`): address → interview → ballot with a match per scored race → tap a race for its evidence → voting plan. Four steps instead of five; Gemma 4's placement of the voter is fetched once and shared by the ballot and race screens. Production walk passed with the venue address: 8 match percentages on the ballot, 7 source links on the U.S. House race, no errors. The previous version is tagged `v01` (`a74fa49`) as the fallback. Open: `docs/demo-script.md` has the new click order but has not been rehearsed; a spoken answer on the live site is still untested by a person.

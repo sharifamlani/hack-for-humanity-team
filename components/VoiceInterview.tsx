@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Flower } from "@/components/Shapes";
 import { LiveVoice, type VoiceState } from "@/lib/liveVoice";
 import type { Answers, Stance } from "@/lib/match";
 import { QUESTIONS, THEMES, type Question } from "@/lib/questions";
@@ -23,7 +24,7 @@ const LABEL: Record<Stance, string> = { yea: "Yes", nay: "No", unsure: "Not sure
 
 const STATUS: Record<VoiceState, string> = {
   connecting: "Connecting…",
-  speaking: "Speaking…",
+  speaking: "AI speaking",
   listening: "Listening — talk, then tap me when you're done",
   thinking: "Thinking…",
   ended: "All done",
@@ -149,12 +150,13 @@ export function VoiceInterview({
   if (!started) {
     return (
       <main className="flex flex-1 flex-col items-center gap-6 text-center">
-        <h2 className="text-3xl font-black tracking-tight">Let&apos;s talk it through</h2>
+        <Flower className="h-24 w-24 text-sun" />
+        <h1 className="display text-4xl lg:text-5xl">Let&apos;s talk about what matters.</h1>
         <p className="text-foreground/80">Two ways to do this. Both are out loud, like talking to a friend.</p>
         <button
           type="button"
           onClick={start}
-          className="w-full rounded-3xl bg-accent px-5 py-6 text-left text-background active:translate-y-1"
+          className="w-full max-w-md rounded-3xl bg-accent px-5 py-6 text-left text-background active:translate-y-1"
         >
           <span className="block text-2xl font-black">🎙 Ask me</span>
           <span className="block text-sm font-semibold opacity-90">
@@ -164,7 +166,7 @@ export function VoiceInterview({
         <button
           type="button"
           onClick={onOpen}
-          className="w-full rounded-3xl border border-foreground/25 bg-card px-5 py-6 text-left active:translate-y-1"
+          className="w-full max-w-md rounded-3xl border border-foreground/25 bg-card px-5 py-6 text-left active:translate-y-1"
         >
           <span className="block text-2xl font-black">💬 I&apos;ll tell you what I care about</span>
           <span className="block text-sm font-semibold text-foreground/70">
@@ -180,43 +182,63 @@ export function VoiceInterview({
   }
 
   const done = !question;
+  const tone = state === "listening" ? "text-accent" : state === "thinking" || state === "connecting" ? "text-sky" : "text-sun";
   return (
-    <main className="flex flex-1 flex-col items-center gap-4">
-      <div className="flex w-full items-center justify-between text-xs font-black uppercase tracking-widest">
-        <span>{question ? `${THEMES[question.theme].emoji} ${THEMES[question.theme].label}` : "Interview"}</span>
-        <span className="text-foreground/50">
-          {Math.min(index + 1, QUESTIONS.length)} of {QUESTIONS.length}
-        </span>
-      </div>
+    <main className="flex flex-1 flex-col items-center gap-4 text-center">
+      <p className="eyebrow text-foreground/60">
+        {question ? `${THEMES[question.theme].emoji} ${THEMES[question.theme].label}` : "Interview"} ·{" "}
+        {Math.min(index + 1, QUESTIONS.length)} of {QUESTIONS.length}
+      </p>
+      <h1 className="display border-b border-foreground/25 pb-3 text-3xl lg:text-4xl">Let&apos;s talk about what matters.</h1>
+      <p className="display min-h-20 max-w-xl text-2xl lg:text-3xl">
+        {aiLine || (question ? question.question : "That's everything. Let's see where you stand.")}
+      </p>
 
-      <div className="relative my-4 flex h-44 w-44 items-center justify-center">
+      <div className="relative my-2 flex h-48 w-48 items-center justify-center">
         {(state === "speaking" || state === "listening") && (
-          <span
-            className={`absolute inset-0 animate-ping rounded-full opacity-30 ${state === "listening" ? "bg-wildlife" : "bg-coral"}`}
-          />
+          <span className={`absolute inset-6 animate-ping rounded-full opacity-25 ${state === "listening" ? "bg-accent" : "bg-sun"}`} />
         )}
         <button
           ref={orb}
           type="button"
           onClick={() => voice.current?.endTurn()}
           aria-label={state === "listening" ? "I'm done talking" : "Voice assistant"}
-          className={`relative h-40 w-40 rounded-full border-4 border-foreground text-5xl transition-transform duration-100 ${
-            state === "listening" ? "bg-wildlife" : state === "thinking" || state === "connecting" ? "animate-pulse bg-jobs" : "bg-coral"
+          className={`relative h-44 w-44 transition-transform duration-100 ${tone} ${
+            state === "thinking" || state === "connecting" ? "animate-pulse" : ""
           }`}
         >
-          {state === "listening" ? "👂" : state === "thinking" || state === "connecting" ? "💭" : "🗣️"}
+          <Flower className="h-full w-full" />
         </button>
       </div>
-      <p className="text-sm font-bold">{micOff && state === "listening" ? "Mic is off — tap your answer below" : STATUS[state]}</p>
+      <div>
+        <p className={`font-bold ${tone}`}>{micOff && state === "listening" ? "Mic is off — tap your answer below" : STATUS[state]}</p>
+        {state === "speaking" && <p className="text-sm text-foreground/60">Your microphone is paused while the guide speaks.</p>}
+      </div>
       {note && <p className="rounded-xl bg-coral/15 px-3 py-2 text-sm font-semibold text-coral">{note}</p>}
 
-      <div className="w-full rounded-3xl bg-card p-4">
-        <p className="min-h-12">{aiLine || (question ? question.question : "That's everything. Let's see where you stand.")}</p>
-        {myLine && <p className="mt-3 border-t border-foreground/10 pt-3 text-sm italic">You: “{myLine.trim()}”</p>}
+      <div className="flex gap-8 text-xs font-semibold">
+        <button type="button" onClick={() => voice.current?.endTurn()} className="flex flex-col items-center gap-1.5">
+          <span className={`flex h-14 w-14 items-center justify-center rounded-full border text-xl ${state === "listening" ? "border-accent bg-accent/15" : "border-foreground/40"}`}>
+            🎙
+          </span>
+          {state === "listening" ? "Done talking" : "Mic paused"}
+        </button>
+        <button type="button" onClick={onTypeInstead} className="flex flex-col items-center gap-1.5">
+          <span className="flex h-14 w-14 items-center justify-center rounded-full border border-foreground/40 text-xl">⌨</span>
+          Type instead
+        </button>
       </div>
 
+      {myLine && (
+        <div className="card flex w-full max-w-2xl items-center gap-4 px-5 py-3 text-left">
+          <span className="eyebrow shrink-0 text-foreground/60">You said</span>
+          <span className="border-l border-foreground/25 pl-4">“{myLine.trim()}”</span>
+        </div>
+      )}
+
       {recorded > 0 && (
-        <ul className="flex w-full flex-wrap gap-2 text-xs font-bold">
+        <ul className="flex w-full flex-wrap items-center justify-center gap-2 text-xs font-bold">
+          <li className="font-normal text-foreground/60">Notes so far:</li>
           {QUESTIONS.filter((q) => answers[q.id]).map((q) => (
             <li key={q.id} className="rounded-full border border-foreground/20 bg-card px-3 py-1">
               {q.short}: {LABEL[answers[q.id]]}
@@ -228,19 +250,19 @@ export function VoiceInterview({
         </ul>
       )}
 
-      <div className="mt-auto flex w-full flex-col gap-2 pt-2">
+      <div className="mt-auto flex w-full flex-col items-center gap-3 border-t border-foreground/20 pt-4">
         {!done && (
-          <div className="grid grid-cols-4 gap-2 text-sm font-bold">
-            <button type="button" onClick={() => tap("yea")} className="rounded-xl border border-foreground/25 bg-card py-2.5">
+          <div className="grid w-full max-w-md grid-cols-4 gap-2 text-sm font-bold">
+            <button type="button" onClick={() => tap("yea")} className="rounded-full border border-foreground/30 bg-card py-2.5 hover:border-accent">
               👍 Yes
             </button>
-            <button type="button" onClick={() => tap("nay")} className="rounded-xl border border-foreground/25 bg-card py-2.5">
+            <button type="button" onClick={() => tap("nay")} className="rounded-full border border-foreground/30 bg-card py-2.5 hover:border-accent">
               👎 No
             </button>
-            <button type="button" onClick={() => tap("unsure")} className="rounded-xl border border-foreground/30 py-2.5">
+            <button type="button" onClick={() => tap("unsure")} className="rounded-full border border-foreground/20 py-2.5 hover:border-accent">
               Not sure
             </button>
-            <button type="button" onClick={() => tap("skip")} className="rounded-xl border border-foreground/30 py-2.5">
+            <button type="button" onClick={() => tap("skip")} className="rounded-full border border-foreground/20 py-2.5 hover:border-accent">
               Skip
             </button>
           </div>
@@ -252,13 +274,9 @@ export function VoiceInterview({
               voice.current?.stop();
               onDone();
             }}
-            className={`rounded-2xl px-4 py-4 text-lg font-bold ${
-              done
-                ? "bg-accent text-background"
-                : "border border-foreground/25"
-            }`}
+            className={done ? "btn-primary w-full max-w-sm text-lg" : "btn-ghost w-full max-w-sm"}
           >
-            See where I stand ▶
+            See where I stand →
           </button>
         )}
         <p className="text-center text-xs text-foreground/60">

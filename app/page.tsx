@@ -174,7 +174,7 @@ export default function Home() {
       ) : result && step === 1 ? (
         <BallotStep result={result} onNext={next} onSkipToPolling={() => setStep(4)} />
       ) : result && step === 2 ? (
-        <div className="mx-auto flex w-full max-w-md flex-1 flex-col">
+        <div className="mx-auto flex w-full max-w-3xl flex-1 flex-col">
           {openMode ? (
         <OpenTalk
           onBack={() => setOpenMode(false)}

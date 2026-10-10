@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Flower } from "@/components/Shapes";
 import { LiveVoice, type VoiceState } from "@/lib/liveVoice";
 
 // The open mode: instead of set questions, the person talks about whatever they care
@@ -16,7 +17,7 @@ Rules:
 
 const STATUS: Record<VoiceState, string> = {
   connecting: "Connecting…",
-  speaking: "Speaking…",
+  speaking: "AI speaking",
   listening: "Listening — talk, then tap me when you're done",
   thinking: "Thinking…",
   ended: "Got it",
@@ -77,45 +78,52 @@ export function OpenTalk({ onDone, onBack }: { onDone: (said: string) => void; o
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const tone = state === "listening" ? "text-accent" : state === "thinking" || state === "connecting" ? "text-sky" : "text-sun";
   return (
-    <main className="flex flex-1 flex-col items-center gap-4">
-      <div className="flex w-full items-center justify-between text-xs font-black uppercase tracking-widest">
-        <span>💬 What you care about</span>
-        <button type="button" onClick={onBack} className="font-semibold normal-case tracking-normal underline">
-          back
+    <main className="flex flex-1 flex-col items-center gap-4 text-center">
+      <div className="flex w-full items-center justify-between">
+        <button type="button" onClick={onBack} className="font-bold hover:text-accent">
+          ← Back
         </button>
+        <span className="eyebrow text-foreground/60">💬 What you care about</span>
+        <span className="w-12" />
       </div>
+      <h1 className="display border-b border-foreground/25 pb-3 text-3xl lg:text-4xl">Let&apos;s talk about what matters.</h1>
+      <p className="display min-h-20 max-w-xl text-2xl lg:text-3xl">
+        {aiLine || "What's one thing about life in Miami that you care about, or are curious about?"}
+      </p>
 
-      <div className="relative my-4 flex h-44 w-44 items-center justify-center">
+      <div className="relative my-2 flex h-48 w-48 items-center justify-center">
         {(state === "speaking" || state === "listening") && (
-          <span
-            className={`absolute inset-0 animate-ping rounded-full opacity-30 ${state === "listening" ? "bg-wildlife" : "bg-coral"}`}
-          />
+          <span className={`absolute inset-6 animate-ping rounded-full opacity-25 ${state === "listening" ? "bg-accent" : "bg-sun"}`} />
         )}
         <button
           ref={orb}
           type="button"
           onClick={() => voice.current?.endTurn()}
           aria-label={state === "listening" ? "I'm done talking" : "Voice assistant"}
-          className={`relative h-40 w-40 rounded-full border-4 border-foreground text-5xl transition-transform duration-100 ${
-            state === "listening" ? "bg-wildlife" : state === "thinking" || state === "connecting" ? "animate-pulse bg-jobs" : "bg-coral"
+          className={`relative h-44 w-44 transition-transform duration-100 ${tone} ${
+            state === "thinking" || state === "connecting" ? "animate-pulse" : ""
           }`}
         >
-          {state === "listening" ? "👂" : state === "thinking" || state === "connecting" ? "💭" : "🗣️"}
+          <Flower className="h-full w-full" />
         </button>
       </div>
-      <p className="text-sm font-bold">{STATUS[state]}</p>
+      <div>
+        <p className={`font-bold ${tone}`}>{STATUS[state]}</p>
+        {state === "speaking" && <p className="text-sm text-foreground/60">Your microphone is paused while the guide speaks.</p>}
+      </div>
       {note && <p className="rounded-xl bg-coral/15 px-3 py-2 text-sm font-semibold text-coral">{note}</p>}
 
-      <div className="w-full rounded-3xl bg-card p-4">
-        <p className="min-h-12">
-          {aiLine || "What's one thing about life in Miami that you care about, or are curious about?"}
-        </p>
-        {myLine && <p className="mt-3 border-t border-foreground/10 pt-3 text-sm italic">You: “{myLine.trim()}”</p>}
-      </div>
+      {myLine && (
+        <div className="card flex w-full max-w-2xl items-center gap-4 px-5 py-3 text-left">
+          <span className="eyebrow shrink-0 text-foreground/60">You said</span>
+          <span className="border-l border-foreground/25 pl-4">“{myLine.trim()}”</span>
+        </div>
+      )}
 
       <form
-        className="mt-auto flex w-full flex-col gap-2"
+        className="mt-auto flex w-full max-w-2xl flex-col items-center gap-3 border-t border-foreground/20 pt-4"
         onSubmit={(e) => {
           e.preventDefault();
           const said = (draft.trim() || heard.current).trim();
@@ -130,14 +138,14 @@ export function OpenTalk({ onDone, onBack }: { onDone: (said: string) => void; o
           placeholder="…or type it here"
           aria-label="What you care about"
           rows={2}
-          className="rounded-2xl border border-foreground/25 bg-card px-4 py-3 outline-none focus:ring-4 focus:ring-accent/30"
+          className="w-full rounded-xl border border-foreground/30 bg-card px-4 py-3 outline-none focus:border-accent focus:ring-4 focus:ring-accent/25"
         />
         <button
           type="submit"
           disabled={(draft.trim() || myLine.trim()).length < 8}
-          className="rounded-2xl bg-accent px-4 py-4 text-lg font-bold text-background disabled:opacity-40"
+          className="btn-primary w-full max-w-sm text-lg"
         >
-          See what candidates have said ▶
+          See what candidates have said →
         </button>
         <p className="text-center text-xs text-foreground/60">
           🗣 Voice: Gemini Live · ⚡ Gemma 4 reads the candidates&apos; own pages for you

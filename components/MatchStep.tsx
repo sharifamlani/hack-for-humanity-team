@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { compare, matchScore, placeCandidate, placeVoter, tally, type Answers, type Cell, type Placement } from "@/lib/match";
-import { ESTIMATE_CHECK, QUESTIONS, THEMES, closestOf, hasRecord, stanceOf, voteOf } from "@/lib/questions";
+import { compare, matchScore, placeCandidate, placeVoter, positionOf, tally, type Answers, type Cell, type Placement } from "@/lib/match";
+import { ESTIMATE_CHECK, QUESTIONS, THEMES, closestOf, hasRecord, stanceOf, voteOf, type Theme } from "@/lib/questions";
 import type { Candidate, LookupResult } from "@/lib/types";
 
 const MARK: Record<Cell, { icon: string; label: string; style: string }> = {
-  agree: { icon: "✓", label: "agrees with you", style: "bg-wildlife text-white" },
+  agree: { icon: "✓", label: "agrees with you", style: "bg-wildlife text-background" },
   differ: { icon: "✗", label: "differs from you", style: "bg-foreground text-background" },
   none: { icon: "◌", label: "no public position found", style: "border border-foreground/25 text-foreground/40" },
   skipped: { icon: "–", label: "you skipped this", style: "text-foreground/30" },
@@ -41,8 +41,8 @@ function SpectrumLine({ me, placing, people }: { me: Placement | null; placing: 
                     : p.at.source === "record"
                       ? "bg-foreground text-background"
                       : p.at.source === "donors"
-                        ? "bg-water text-white"
-                        : "border-2 border-foreground bg-card"
+                        ? "bg-water text-background"
+                        : "border border-foreground/25 bg-card"
                 }`}
                 style={{ left: pct(p.at.x) }}
               >
@@ -59,7 +59,7 @@ function SpectrumLine({ me, placing, people }: { me: Placement | null; placing: 
         {me && (
           <div className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2" style={{ left: pct(me.x) }}>
             <span className="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-black text-accent">YOU</span>
-            <div className="h-5 w-5 rounded-full border-2 border-foreground bg-accent" />
+            <div className="h-5 w-5 rounded-full border border-foreground/25 bg-accent" />
           </div>
         )}
       </div>
@@ -100,9 +100,9 @@ function SpectrumLine({ me, placing, people }: { me: Placement | null; placing: 
         )}
       </ul>
       <p className="mt-2 text-[11px] text-foreground/50">
-        Rough placement. Dark = measured from votes in Congress (DW-NOMINATE, Voteview). Blue =
+        Rough placement. White = measured from votes in Congress (DW-NOMINATE, Voteview). Blue =
         from past campaign donors (CFscore, Bonica&apos;s DIME). Outlined = our estimate from published
-        positions. Red outline = Gemma 4&apos;s estimate from their own words (checked on sitting
+        positions. Mint outline = Gemma 4&apos;s estimate from their own words (checked on sitting
         members: right side {ESTIMATE_CHECK.correctSide} of {ESTIMATE_CHECK.of}, average miss{" "}
         {ESTIMATE_CHECK.averageMiss.toFixed(2)}). Dashed = party guess. The shaded band is the range
         for your own spot. These scales are not identical.
@@ -122,6 +122,7 @@ export function MatchStep({
   said,
   openSaid,
   onNext,
+  onBack,
 }: {
   result: LookupResult;
   answers: Answers;
@@ -129,7 +130,9 @@ export function MatchStep({
   // Set when the voter used the open mode: what they told us they care about.
   openSaid: string;
   onNext: () => void;
+  onBack: () => void;
 }) {
+  const [theme, setTheme] = useState<Theme | "all">("all");
   const [open, setOpen] = useState<string | null>(null);
   const [ask, setAsk] = useState<{ loading: boolean; topic?: string; findings?: Finding[]; error?: string }>({
     loading: !!openSaid,
@@ -227,67 +230,65 @@ export function MatchStep({
     }
   }
 
+  const shown = QUESTIONS.filter((q) => theme === "all" || q.theme === theme);
+
   return (
     <main className="flex flex-1 flex-col gap-5">
-      <h2 className="text-3xl font-black tracking-tight">Where you stand</h2>
+      <div>
+        <h1 className="display text-5xl lg:text-6xl">Compare public positions.</h1>
+        <p className="mt-2 text-lg text-foreground/80">Explore the records. Make your own decision.</p>
+      </div>
 
       {answered && suggestions.length > 0 && (
-        <section className="rounded-3xl border-2 border-foreground bg-card p-5">
-          <p className="text-xs font-black uppercase tracking-widest text-accent">Your suggested ballot</p>
-          <ul className="mt-2 divide-y divide-foreground/10">
-            {suggestions.map((s) => (
-              <li key={s.office} className="flex items-baseline justify-between gap-3 py-2.5">
-                <div>
-                  <p className="text-xs font-semibold text-foreground/60">{s.office}</p>
-                  <p className="text-lg font-black leading-tight">
-                    {s.tie ? "Too close to call" : s.best.c.name}
-                  </p>
-                </div>
-                {!s.tie && (
-                  <span className="shrink-0 rounded-full bg-wildlife px-3 py-1 text-sm font-black text-white">
-                    {Math.round(s.best.m.score * 100)}% match
-                  </span>
-                )}
-              </li>
-            ))}
-          </ul>
-          <p className="mt-2 text-xs text-foreground/60">
-            The closest candidate in each race to what you told us. A match, not an endorsement — the
-            evidence for every race is below, and other races on your ballot are not scored yet.
+        <section className="card flex flex-wrap items-center gap-x-6 gap-y-2 px-5 py-4">
+          <p className="eyebrow text-accent">Closest to what you told us</p>
+          {suggestions.map((s) => (
+            <p key={s.office} className="text-sm">
+              <span className="text-foreground/60">{s.office}: </span>
+              <b>{s.tie ? "Too close to call" : s.best.c.name}</b>
+              {!s.tie && (
+                <span className="ml-2 rounded-full bg-accent px-2 py-0.5 text-xs font-black text-background">
+                  {Math.round(s.best.m.score * 100)}% match
+                </span>
+              )}
+            </p>
+          ))}
+          <p className="w-full text-xs text-foreground/60">
+            A match, not an endorsement. The evidence for every race is below.
           </p>
         </section>
       )}
 
       {openSaid && (
-        <section className="rounded-3xl border-2 border-foreground bg-card p-5">
-          <p className="text-xs font-black uppercase tracking-widest text-accent">
-            You talked about{ask.topic ? `: ${ask.topic}` : ""}
-          </p>
+        <section className="card p-5">
+          <p className="eyebrow text-accent">You talked about{ask.topic ? `: ${ask.topic}` : ""}</p>
           <p className="mt-2 text-sm italic">“{openSaid.trim()}”</p>
           {ask.loading && (
             <p className="mt-3 animate-pulse text-foreground/60">
               Gemma 4 is reading what your candidates have published…
             </p>
           )}
-          {ask.error && <p className="mt-3 text-sm font-semibold text-accent">{ask.error}</p>}
-          {ask.findings?.map((f) => (
-            <div key={f.id} className="mt-4 border-t border-foreground/10 pt-3 text-sm">
-              <p className="font-black">{f.name}</p>
-              {f.quote ? (
-                <>
-                  <p className="mt-1">{f.said}</p>
-                  <p className="mt-1 text-foreground/80">
-                    “{f.quote}”{" "}
-                    <a className="font-semibold underline" href={f.url} target="_blank" rel="noreferrer">
-                      source ↗
-                    </a>
-                  </p>
-                </>
-              ) : (
-                <p className="mt-1 text-foreground/60">◌ Nothing found on this in what they&apos;ve published.</p>
-              )}
-            </div>
-          ))}
+          {ask.error && <p className="mt-3 text-sm font-semibold text-coral">{ask.error}</p>}
+          <div className="grid gap-x-6 md:grid-cols-2">
+            {ask.findings?.map((f) => (
+              <div key={f.id} className="mt-4 border-t border-foreground/15 pt-3 text-sm">
+                <p className="display text-lg">{f.name}</p>
+                {f.quote ? (
+                  <>
+                    <p className="mt-1">{f.said}</p>
+                    <p className="mt-1 text-foreground/80">
+                      “{f.quote}”{" "}
+                      <a className="link-mint" href={f.url} target="_blank" rel="noreferrer">
+                        View source ↗
+                      </a>
+                    </p>
+                  </>
+                ) : (
+                  <p className="mt-1 text-foreground/60">Nothing found on this in what they&apos;ve published.</p>
+                )}
+              </div>
+            ))}
+          </div>
           {ask.findings && (
             <p className="mt-3 text-xs text-foreground/50">Read and summarised by Gemma 4. Quotes are exact.</p>
           )}
@@ -295,212 +296,211 @@ export function MatchStep({
       )}
 
       {races.length === 0 && (
-        <p className="rounded-3xl bg-card p-5">
-          We haven&apos;t collected what the candidates on your ballot have said yet.
-        </p>
+        <p className="card p-5">We haven&apos;t collected what the candidates on your ballot have said yet.</p>
       )}
 
-      {(answered || !openSaid) && races.map((race) => (
-        <section key={race.office} className="rounded-3xl bg-card p-5">
-          <h3 className="text-sm font-bold text-accent">{race.office}</h3>
-          <SpectrumLine
-            me={me}
-            placing={placing}
-            people={race.candidates.map((c, i) => ({
-              letter: LETTERS[i] ?? "?",
-              name: c.name,
-              at: placeCandidate(c.candidate_id, c.party),
-            }))}
-          />
+      {(answered || !openSaid) && races.length > 0 && (
+        <div className="flex flex-wrap gap-2">
+          {(["all", ...Object.keys(THEMES)] as (Theme | "all")[]).map((t) => (
+            <button
+              key={t}
+              type="button"
+              onClick={() => setTheme(t)}
+              className={`rounded-full px-5 py-2.5 text-sm font-bold ${
+                theme === t ? "bg-accent text-background" : "border border-foreground/25 bg-card hover:border-accent"
+              }`}
+            >
+              {t === "all" ? "All issues" : `${THEMES[t].emoji} ${THEMES[t].label}`}
+            </button>
+          ))}
+        </div>
+      )}
 
-          <div
-            className="mt-3 grid items-center gap-x-2 gap-y-1"
-            style={{ gridTemplateColumns: `minmax(0,1fr) repeat(${race.candidates.length}, 3.75rem)` }}
-          >
-            <span />
-            {race.candidates.map((c) => (
-              <span key={c.candidate_id} className="truncate text-center text-[11px] font-black" title={c.name}>
-                {lastName(c.name)}
-              </span>
-            ))}
-
-            {QUESTIONS.map((q) => {
-              const key = `${race.office}|${q.id}`;
-              return (
-                <div key={q.id} className="contents">
-                  <button
-                    type="button"
-                    onClick={() => toggle(key, q.id, race.candidates)}
-                    className="py-2 text-left text-sm font-bold"
-                  >
-                    {THEMES[q.theme].emoji} {q.short}
-                    <span className="ml-1 text-xs text-accent">{open === key ? "hide" : "why?"}</span>
-                  </button>
-                  {race.candidates.map((c) => {
-                    const { cell, basis } = compare(answers, c.candidate_id, c.party, q.id);
-                    const mark = MARK[cell];
-                    // A party guess is drawn hollow and dashed so it never looks like a quote.
-                    const guess = basis === "party" && (cell === "agree" || cell === "differ");
-                    // No yes/no, but they have said something on the topic: show a speech mark.
-                    const spoke = cell === "none" && !!closestOf(c.candidate_id, q.id);
-                    return (
-                      <button
-                        key={c.candidate_id}
-                        type="button"
-                        onClick={() => toggle(key, q.id, race.candidates)}
-                        aria-label={`${c.name}: ${guess ? "party guess, " : basis === "leans" ? "leans, " : ""}${mark.label}`}
-                        className={`mx-auto flex h-8 w-8 items-center justify-center rounded-full text-sm font-black ${
-                          guess
-                            ? "border-2 border-dashed border-foreground/50 text-foreground/60"
-                            : spoke
-                              ? "border border-foreground/40 bg-background"
-                              : `${mark.style} ${basis === "leans" ? "opacity-60" : ""}`
+      {(answered || !openSaid) && races.map((race) => {
+        const cols = { gridTemplateColumns: `minmax(190px,1.1fr) repeat(${race.candidates.length}, minmax(170px,1fr))` };
+        return (
+          <section key={race.office} className="card p-5">
+            <div className="overflow-x-auto">
+              <div className="grid gap-x-5" style={cols}>
+                <p className="text-sm text-foreground/70">{race.office}</p>
+                {race.candidates.map((c) => {
+                  const t = tally(answers, c.candidate_id, c.party);
+                  const m = matchScore(answers, c.candidate_id, c.party, me);
+                  return (
+                    <div key={c.candidate_id} className="border-l border-foreground/15 pb-3 pl-4">
+                      <p className="display text-xl">{c.name}</p>
+                      <span
+                        className={`mt-1 inline-block rounded-full px-2.5 py-0.5 text-xs font-bold ${
+                          c.party.startsWith("Rep")
+                            ? "bg-coral text-background"
+                            : c.party.startsWith("Dem")
+                              ? "bg-sky text-background"
+                              : "bg-foreground/20"
                         }`}
                       >
-                        {guess ? `~${mark.icon}` : spoke ? "💬" : mark.icon}
-                      </button>
-                    );
-                  })}
-
-                  {open === key && (
-                    <div className="col-span-full mb-2 rounded-2xl bg-background p-4 text-sm">
-                      <p className="font-semibold">{q.question}</p>
-                      <p className="mt-2">
-                        You:{" "}
-                        <b>
-                          {answers[q.id] === "yea" ? "Yes" : answers[q.id] === "nay" ? "No" : answers[q.id] === "unsure" ? "Not sure" : "skipped"}
-                        </b>
-                        {said[q.id] && <span className="italic"> — “{said[q.id].trim()}”</span>}
+                        {c.party}
+                        {c.incumbent && " · incumbent"}
+                      </span>
+                      <p className="mt-1.5 text-xs text-foreground/70">
+                        {m && <b className="text-accent">{Math.round(m.score * 100)}% match · </b>}
+                        {t.own.of > 0 ? `${t.own.agree} of ${t.own.of} from their own words` : "nothing in their own words yet"}
+                        {t.guess.of > 0 && ` · ${t.guess.agree} of ${t.guess.of} by party guess`}
                       </p>
+                    </div>
+                  );
+                })}
+
+                {shown.map((q) => {
+                  const key = `${race.office}|${q.id}`;
+                  return (
+                    <div key={q.id} className="contents">
+                      <div className="border-t border-foreground/15 py-4 pr-2">
+                        <p className="display text-lg">
+                          {THEMES[q.theme].emoji} {q.short}
+                        </p>
+                        <p className="mt-1 text-sm text-foreground/70">{q.question}</p>
+                        <p className="mt-1 text-xs text-foreground/60">
+                          You:{" "}
+                          <b className="text-foreground">
+                            {answers[q.id] === "yea" ? "Yes" : answers[q.id] === "nay" ? "No" : answers[q.id] === "unsure" ? "Not sure" : "skipped"}
+                          </b>
+                        </p>
+                        {(answers[q.id] === "yea" || answers[q.id] === "nay") && (
+                          <button type="button" onClick={() => toggle(key, q.id, race.candidates)} className="link-mint mt-1 text-left text-sm">
+                            {open === key ? "Hide comparison" : "How do we compare? ⚡ Gemma 4"}
+                          </button>
+                        )}
+                      </div>
                       {race.candidates.map((c) => {
+                        const { cell, basis } = compare(answers, c.candidate_id, c.party, q.id);
+                        const theirs = positionOf(c.candidate_id, c.party, q.id);
                         const s = stanceOf(c.candidate_id, q.id);
-                        const guess = q.partyLean?.[c.party];
                         const near = closestOf(c.candidate_id, q.id);
                         const vote = voteOf(c.candidate_id, q.id);
+                        const guess = theirs.basis === "party";
+                        const head =
+                          cell === "agree"
+                            ? "✓ Agrees with you"
+                            : cell === "differ"
+                              ? "✗ Differs from you"
+                              : theirs.stance
+                                ? `Says ${theirs.stance}`
+                                : near
+                                  ? "💬 No clear yes or no"
+                                  : "Nothing found";
                         return (
-                          <p key={c.candidate_id} className="mt-2">
-                            <b>{c.name}:</b>{" "}
+                          <div
+                            key={c.candidate_id}
+                            aria-label={`${c.name}: ${guess ? "party guess, " : basis === "leans" ? "leans, " : ""}${MARK[cell].label}`}
+                            className="border-l border-t border-foreground/15 py-4 pl-4 text-sm"
+                          >
+                            <p
+                              className={`display text-base ${
+                                guess
+                                  ? "text-foreground/60"
+                                  : cell === "agree"
+                                    ? "text-accent"
+                                    : cell === "differ"
+                                      ? "text-coral"
+                                      : ""
+                              } ${basis === "leans" ? "opacity-70" : ""}`}
+                            >
+                              {guess ? `~ Party guess: ${head.replace(/^[✓✗] /, "").toLowerCase()}` : head}
+                              {basis === "leans" && " (leans)"}
+                            </p>
                             {vote && (
-                              <>
+                              <p className="mt-1 text-foreground/80">
                                 🗳 {vote.text}{" "}
-                                <a className="font-semibold underline" href={vote.url} target="_blank" rel="noreferrer">
-                                  roll call ↗
-                                </a>{" "}
-                              </>
+                                <a className="link-mint whitespace-nowrap" href={vote.url} target="_blank" rel="noreferrer">
+                                  Roll call ↗
+                                </a>
+                              </p>
                             )}
                             {s && s.stance !== "none" ? (
                               <>
-                                {s.reading === "leans" && (
-                                  <span className="text-foreground/60">leans {s.stance} — </span>
-                                )}
-                                “{s.quote}”{" "}
-                                <a className="font-semibold underline" href={s.url} target="_blank" rel="noreferrer">
-                                  source ↗
+                                <p className="mt-1 line-clamp-5 text-foreground/80" title={s.quote}>“{s.quote}”</p>
+                                <a className="link-mint" href={s.url} target="_blank" rel="noreferrer">
+                                  View source ↗
                                 </a>
                               </>
-                            ) : vote ? null : (
+                            ) : vote ? null : near ? (
                               <>
-                                {near ? (
-                                  <>
-                                    <span className="text-foreground/60">no clear yes or no. Closest thing they&apos;ve said: </span>
-                                    “{near.text}”{" "}
-                                    <a className="font-semibold underline" href={near.url} target="_blank" rel="noreferrer">
-                                      source ↗
-                                    </a>
-                                  </>
-                                ) : (
-                                  <span className="text-foreground/60">nothing found on this in what they&apos;ve published.</span>
-                                )}
-                                {guess && (
-                                  <span className="text-foreground/60">
-                                    {" "}
-                                    Party guess: {c.party} candidates usually say {guess}. This is not{" "}
-                                    {lastName(c.name)}&apos;s statement.
-                                  </span>
-                                )}
+                                <p className="mt-1 line-clamp-4 text-foreground/70" title={near.text}>
+                                  Closest thing they&apos;ve said: “{near.text}”
+                                </p>
+                                <a className="link-mint" href={near.url} target="_blank" rel="noreferrer">
+                                  View source ↗
+                                </a>
                               </>
+                            ) : (
+                              <p className="mt-1 text-foreground/60">
+                                {guess
+                                  ? `${c.party} candidates usually say ${theirs.stance}. This is not ${lastName(c.name)}'s statement.`
+                                  : "Nothing on this in what they've published."}
+                              </p>
                             )}
-                          </p>
+                          </div>
                         );
                       })}
-                      {explain[key]?.loading && (
-                        <p className="mt-3 animate-pulse text-foreground/60">Gemma 4 is reading…</p>
-                      )}
-                      {explain[key]?.text && (
-                        <p className="mt-3 border-t border-foreground/10 pt-3">
-                          {explain[key].text}
-                          <span className="ml-1 text-xs text-foreground/50">— written by Gemma 4</span>
-                        </p>
+
+                      {open === key && (
+                        <div className="col-span-full mb-3 rounded-xl bg-background p-4 text-sm">
+                          {said[q.id] && <p className="italic">You said: “{said[q.id].trim()}”</p>}
+                          {explain[key]?.loading && <p className="animate-pulse text-foreground/60">Gemma 4 is reading…</p>}
+                          {explain[key]?.text && (
+                            <p className="mt-1">
+                              {explain[key].text}
+                              <span className="ml-1 text-xs text-foreground/50">— written by Gemma 4</span>
+                            </p>
+                          )}
+                        </div>
                       )}
                     </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
+                  );
+                })}
+              </div>
+            </div>
+            <p className="border-t border-foreground/15 pt-3 text-sm text-foreground/70">
+              ⓘ Missing information does not imply support or opposition.
+            </p>
 
-          <ul className="mt-4 space-y-1 border-t border-foreground/10 pt-3 text-sm">
-            {race.candidates.map((c) => {
-              const t = tally(answers, c.candidate_id, c.party);
-              const m = matchScore(answers, c.candidate_id, c.party, me);
-              return (
-                <li key={c.candidate_id}>
-                  <b>{c.name}</b>{" "}
-                  {m && <span className="font-black text-wildlife">{Math.round(m.score * 100)}% match · </span>}
-                  {t.own.of > 0
-                    ? `lines up with you on ${t.own.agree} of ${t.own.of} from their own words`
-                    : "— nothing in their own words to compare yet"}
-                  {t.guess.of > 0 && (
-                    <span className="text-foreground/60">
-                      {" "}
-                      · {t.guess.agree} of {t.guess.of} by party guess
-                    </span>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-          <p className="mt-1 text-xs text-foreground/60">
-            Counted only on issues where you answered yes or no.
+            <details open className="mt-2">
+              <summary className="cursor-pointer text-sm font-bold">Where everyone sits, left to right</summary>
+              <SpectrumLine
+                me={me}
+                placing={placing}
+                people={race.candidates.map((c, i) => ({
+                  letter: LETTERS[i] ?? "?",
+                  name: c.name,
+                  at: placeCandidate(c.candidate_id, c.party),
+                }))}
+              />
+            </details>
+          </section>
+        );
+      })}
+
+      <div className="grid items-start gap-4 lg:grid-cols-[auto_1fr_1.1fr]">
+        <button type="button" onClick={onBack} className="px-2 py-3 text-left font-bold hover:text-accent">
+          ← Back
+        </button>
+        <button type="button" onClick={onNext} className="btn-primary text-lg">
+          Build my voting plan →
+        </button>
+        <details className="card px-5 py-4 text-sm">
+          <summary className="display cursor-pointer text-lg">What informs this view?</summary>
+          <p className="mt-2 text-foreground/70">
+            We collected what each candidate has published on their own websites and press releases.
+            A search finds the passages closest to each question, Gemma 4 reads them and decides
+            whether they answer it yes or no, and a position is shown only when its quote is on the
+            page word for word. Where we found nothing, a party guess fills in the usual position of
+            the candidate&apos;s party — a rough guess, never their own statement. The match
+            percentage averages two things: how often you and the candidate agree (a party guess
+            counts half), and how close you sit on the left-right line. It is a starting point, not
+            an endorsement.
           </p>
-        </section>
-      ))}
-
-      <ul className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-foreground/70">
-        {(["agree", "differ", "none"] as Cell[]).map((k) => (
-          <li key={k}>
-            <b>{MARK[k].icon}</b> {MARK[k].label}
-          </li>
-        ))}
-        <li>
-          <b>faded</b> their words lean that way
-        </li>
-        <li>
-          <b>~ dashed</b> party guess, not their words
-        </li>
-        <li>
-          <b>💬</b> said something on this, no clear yes or no
-        </li>
-      </ul>
-
-      <p className="text-xs text-foreground/60">
-        How this works: we collected what each candidate has published on their own websites and
-        press releases. A search finds the passages closest to each question, Gemma 4 reads them
-        and decides whether they answer it yes or no, and a position is shown only when its quote
-        is on the page word for word. Where we found nothing, a dashed mark fills in the usual
-        position of the candidate&apos;s party — a rough guess, never their own statement. A blank
-        circle means we found nothing and made no guess. The match percentage averages two
-        things: how often you and the candidate agree (a party guess counts half), and how close
-        you sit on the left-right line. It is a starting point, not an endorsement.
-      </p>
-
-      <button
-        type="button"
-        onClick={onNext}
-        className="rounded-2xl bg-accent px-4 py-4 text-lg font-bold text-white shadow-[0_4px_0_0_var(--foreground)] active:translate-y-1 active:shadow-none"
-      >
-        Where do I vote? ▶
-      </button>
+        </details>
+      </div>
     </main>
   );
 }

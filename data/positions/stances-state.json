@@ -1,7 +1,7 @@
 {
  "model": "gemma-4-31b-it",
  "embeddingModel": "gemini-embedding-2",
- "built": "2026-10-10T20:10:17.647Z",
+ "built": "2026-10-10T20:26:40.655Z",
  "stances": [
   {
    "candidate_id": "fl-ag-rodriguez",
@@ -15,20 +15,22 @@
   {
    "candidate_id": "fl-ag-rodriguez",
    "question": "insurance",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.684
+   "stance": "yes",
+   "quote": "Investigate Big Insurance for rate inflation, excessive claim denials, and delayed payouts.",
+   "url": "https://www.jjr.vote/priorities",
+   "why": "The candidate advocates for investigating insurance companies for rate inflation, which aligns with the goal of bringing insurance costs down.",
+   "similarity": 0.682,
+   "reading": "leans"
   },
   {
    "candidate_id": "fl-ag-rodriguez",
    "question": "heat",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.679
+   "stance": "yes",
+   "quote": "Enforce the state minimum wage, shut down wage theft, and penalize unsafe workplaces.",
+   "url": "https://www.jjr.vote/priorities",
+   "why": "The candidate's commitment to penalizing unsafe workplaces aligns with the goal of implementing safety rules for outdoor workers.",
+   "similarity": 0.679,
+   "reading": "leans"
   },
   {
    "candidate_id": "fl-ag-rodriguez",
@@ -46,7 +48,8 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.738
+   "similarity": 0.738,
+   "error": "Gemma timed out"
   },
   {
    "candidate_id": "fl-ag-rodriguez",
@@ -60,11 +63,12 @@
   {
    "candidate_id": "fl-ag-rodriguez",
    "question": "housing",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.685
+   "stance": "yes",
+   "quote": "Stop algorithmic rent setting by corporate landlords that drives up housing costs.",
+   "url": "https://www.jjr.vote/priorities",
+   "why": "The candidate expresses a priority to lower housing costs and stop corporate landlords from driving up rent, which aligns with the goal of helping renters.",
+   "similarity": 0.685,
+   "reading": "leans"
   },
   {
    "candidate_id": "fl-ag-rodriguez",
@@ -105,11 +109,12 @@
   {
    "candidate_id": "fl-ag-rodriguez",
    "question": "healthcare",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.694
+   "stance": "yes",
+   "quote": "Investigate Big Insurance for rate inflation, excessive claim denials, and delayed payouts.",
+   "url": "https://www.jjr.vote/priorities",
+   "why": "The candidate expresses a desire to combat insurance rate inflation, which is a closely related priority to bringing down the cost of health insurance.",
+   "similarity": 0.694,
+   "reading": "leans"
   },
   {
    "candidate_id": "fl-ag-rodriguez",
@@ -199,7 +204,8 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.723
+   "similarity": 0.723,
+   "rejected": "quote not found word-for-word in the passage"
   },
   {
    "candidate_id": "fl-ag-uthmeier",
@@ -429,20 +435,22 @@
   {
    "candidate_id": "fl-agr-atkins",
    "question": "taxes",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.664
+   "stance": "yes",
+   "quote": "This GOP Forever War Tax on top of the GOP Tariff Tax is absolutely crushing Florida farmers and families, and bankrupting our small businesses",
+   "url": "https://joeyforflorida.com/david-vs-goliath",
+   "why": "The candidate argues that current taxes are harming families and small businesses, which indicates a desire for those taxes to be reduced.",
+   "similarity": 0.664,
+   "reading": "leans"
   },
   {
    "candidate_id": "fl-agr-simpson",
    "question": "flooding",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.719
+   "stance": "yes",
+   "quote": "This plan prioritizes investing in state and local affordable housing programs, mitigates the impacts of sea level rise and enhances wastewater programs, including septic-to-sewer conversions.",
+   "url": "https://wiltonsimpson.com/environment/",
+   "why": "The candidate supports a plan that prioritizes mitigating the impacts of sea level rise.",
+   "similarity": 0.719,
+   "reading": "leans"
   },
   {
    "candidate_id": "fl-agr-simpson",
@@ -474,11 +482,12 @@
   {
    "candidate_id": "fl-agr-simpson",
    "question": "everglades",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.78
+   "stance": "yes",
+   "quote": "This includes investments in Piney Point Cleanup ($100 million), Rattlesnake Key ($23 million) and Biscayne Bay ($20 million).",
+   "url": "https://wiltonsimpson.com/environment/",
+   "why": "The candidate's record shows he has supported specific investments for the cleanup of Biscayne Bay.",
+   "similarity": 0.776,
+   "reading": "leans"
   },
   {
    "candidate_id": "fl-agr-simpson",
@@ -487,7 +496,8 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.751
+   "similarity": 0.751,
+   "error": "Gemma timed out"
   },
   {
    "candidate_id": "fl-agr-simpson",
@@ -519,11 +529,12 @@
   {
    "candidate_id": "fl-agr-simpson",
    "question": "immigration",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.756
+   "stance": "no",
+   "quote": "That is why Wilton worked to ban sanctuary cities in Florida.",
+   "url": "https://wiltonsimpson.com/public-safety/",
+   "why": "Working to ban sanctuary cities is a policy record associated with opposing paths to legal status for undocumented immigrants.",
+   "similarity": 0.756,
+   "reading": "leans"
   },
   {
    "candidate_id": "fl-agr-simpson",
@@ -546,11 +557,12 @@
   {
    "candidate_id": "fl-agr-simpson",
    "question": "enforcement",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.7
+   "stance": "yes",
+   "quote": "That is why Wilton worked to ban sanctuary cities in Florida.",
+   "url": "https://wiltonsimpson.com/public-safety/",
+   "why": "Banning sanctuary cities increases cooperation with federal immigration authorities to facilitate arrests and deportations.",
+   "similarity": 0.7,
+   "reading": "leans"
   },
   {
    "candidate_id": "fl-agr-simpson",
@@ -573,11 +585,12 @@
   {
    "candidate_id": "fl-agr-simpson",
    "question": "taxes",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.725
+   "stance": "yes",
+   "quote": "While states like California and New York continue to hammer residents with unbearable tax burdens, Wilton has cut taxes for families, small and large business owners, farmers and homeowners.",
+   "url": "https://wiltonsimpson.com/economic-freedom/",
+   "why": "The candidate has a record of cutting taxes for families and small businesses at the state level.",
+   "similarity": 0.725,
+   "reading": "leans"
   },
   {
    "candidate_id": "fl-cfo-ingoglia",
@@ -595,7 +608,8 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.72
+   "similarity": 0.72,
+   "error": "Gemma timed out"
   },
   {
    "candidate_id": "fl-cfo-ingoglia",
@@ -627,11 +641,12 @@
   {
    "candidate_id": "fl-cfo-ingoglia",
    "question": "species",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.709
+   "stance": "yes",
+   "quote": "As a State Senator, Blaise Ingoglia was among the first legislators to oppose building hotels and golf courses in our state parks.",
+   "url": "https://blaiseforflorida.com/issues/",
+   "why": "The candidate has a record of opposing development in natural areas to preserve Florida's environment.",
+   "similarity": 0.709,
+   "reading": "leans"
   },
   {
    "candidate_id": "fl-cfo-ingoglia",
@@ -640,7 +655,8 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.692
+   "similarity": 0.692,
+   "error": "Gemma timed out"
   },
   {
    "candidate_id": "fl-cfo-ingoglia",
@@ -663,11 +679,12 @@
   {
    "candidate_id": "fl-cfo-ingoglia",
    "question": "immigration",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.756
+   "stance": "no",
+   "quote": "For years, Blaise has been the go-to voice in the legislature to stop illegal immigration.",
+   "url": "https://blaiseforflorida.com/issues/",
+   "why": "The candidate's record and stated goal of stopping illegal immigration point toward opposition to providing a path to legal status.",
+   "similarity": 0.73,
+   "reading": "leans"
   },
   {
    "candidate_id": "fl-cfo-ingoglia",
@@ -676,7 +693,8 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.697
+   "similarity": 0.697,
+   "error": "Gemma timed out"
   },
   {
    "candidate_id": "fl-cfo-ingoglia",
@@ -690,11 +708,12 @@
   {
    "candidate_id": "fl-cfo-ingoglia",
    "question": "enforcement",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.678
+   "stance": "yes",
+   "quote": "Blaise’s message to illegal immigrants has been even clearer – you can go home, or you can go to Alligator Alcatraz, the choice is yours.",
+   "url": "https://blaiseforflorida.com/issues/",
+   "why": "The quote indicates a preference for the deportation or detention of illegal immigrants.",
+   "similarity": 0.678,
+   "reading": "leans"
   },
   {
    "candidate_id": "fl-cfo-ingoglia",
@@ -712,7 +731,8 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.712
+   "similarity": 0.712,
+   "error": "Gemma timed out"
   },
   {
    "candidate_id": "fl-cfo-ingoglia",
@@ -721,7 +741,8 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.693
+   "similarity": 0.693,
+   "error": "Gemma timed out"
   },
   {
    "candidate_id": "fl-cfo-taddeo",
@@ -784,7 +805,8 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.722
+   "similarity": 0.722,
+   "error": "Gemma timed out"
   },
   {
    "candidate_id": "fl-cfo-taddeo",
@@ -865,7 +887,8 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.726
+   "similarity": 0.726,
+   "error": "Gemma timed out"
   },
   {
    "candidate_id": "fl-gov-donalds",
@@ -915,11 +938,12 @@
   {
    "candidate_id": "fl-gov-donalds",
    "question": "species",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.735
+   "stance": "no",
+   "quote": "Bureaucratic delays shouldn't stop honest people from opening a business and earning a living.",
+   "url": "https://byrondonalds.com/issues/economy/",
+   "why": "The candidate argues that bureaucratic delays should not hinder the ability of people to open businesses or complete building projects.",
+   "similarity": 0.735,
+   "reading": "leans"
   },
   {
    "candidate_id": "fl-gov-donalds",
@@ -946,16 +970,18 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.704
+   "similarity": 0.704,
+   "error": "Gemma timed out"
   },
   {
    "candidate_id": "fl-gov-donalds",
    "question": "immigration",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.734
+   "stance": "no",
+   "quote": "We must secure our borders, keep local neighborhoods safe, stop taxpayer handouts to illegal immigration, and keep deadly drugs off our streets.",
+   "url": "https://byrondonalds.com/issues/law-and-order/",
+   "why": "The candidate's goal to stop taxpayer handouts to illegal immigration aligns with a position against providing a path to legal status.",
+   "similarity": 0.734,
+   "reading": "leans"
   },
   {
    "candidate_id": "fl-gov-donalds",
@@ -969,11 +995,12 @@
   {
    "candidate_id": "fl-gov-donalds",
    "question": "healthcare",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.769
+   "stance": "yes",
+   "quote": "Require doctors and hospitals to post plain, guaranteed cash prices for the 50 most common medical tests and procedures.",
+   "url": "https://byrondonalds.com/issues/healthcare/",
+   "why": "The candidate proposes specific regulatory requirements to increase price transparency and lower costs for medical procedures.",
+   "similarity": 0.769,
+   "reading": "leans"
   },
   {
    "candidate_id": "fl-gov-donalds",
@@ -1010,7 +1037,8 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.769
+   "similarity": 0.769,
+   "error": "Gemma timed out"
   },
   {
    "candidate_id": "fl-gov-jolly",
@@ -1052,29 +1080,32 @@
   {
    "candidate_id": "fl-gov-jolly",
    "question": "everglades",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.768
+   "stance": "yes",
+   "quote": "His plan calls for real investments in environmental protection, accelerated clean and renewable energy integration into Florida's utility system, sustained funding for coastal resiliency and water quality improvements, and honest climate planning in state policy.",
+   "url": "https://davidjolly.com/environment",
+   "why": "The candidate explicitly calls for real investments in environmental protection and sustained funding for water quality improvements.",
+   "similarity": 0.768,
+   "reading": "leans"
   },
   {
    "candidate_id": "fl-gov-jolly",
    "question": "species",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.746
+   "stance": "yes",
+   "quote": "Florida needs an immediate moratorium on the construction of hyperscale data centers, issued on day one, until the environmental impact is fully studied, the protections for water and communities are proven sufficient, and the people who live here have a real say in what gets built next door.",
+   "url": "https://davidjolly.com/issues/",
+   "why": "The candidate calls for a moratorium on construction until environmental impacts are studied, indicating a willingness to slow down building to protect the environment.",
+   "similarity": 0.746,
+   "reading": "leans"
   },
   {
    "candidate_id": "fl-gov-jolly",
    "question": "housing",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.783
+   "stance": "yes",
+   "quote": "Building more is how we bring prices back within reach.",
+   "url": "https://davidjolly.com/issues/affordability/",
+   "why": "The candidate advocates for building more housing and investing in workforce housing to make homes affordable.",
+   "similarity": 0.757,
+   "reading": "leans"
   },
   {
    "candidate_id": "fl-gov-jolly",
@@ -1115,20 +1146,22 @@
   {
    "candidate_id": "fl-gov-jolly",
    "question": "healthcare",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.743
+   "stance": "yes",
+   "quote": "Expanding Medicaid is part of the solution.",
+   "url": "https://davidjolly.com/issues/health-care/",
+   "why": "The candidate supports expanding Medicaid, which is a federal government action to increase health insurance affordability and access.",
+   "similarity": 0.743,
+   "reading": "leans"
   },
   {
    "candidate_id": "fl-gov-jolly",
    "question": "enforcement",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.673
+   "stance": "no",
+   "quote": "But Florida can also be a state that corrects disparities in criminal justice for communities of color and immigrant communities, promoting local control of community policing.",
+   "url": "https://davidjolly.com/issues/",
+   "why": "The candidate expresses a goal to correct criminal justice disparities for immigrant communities, which points away from increasing arrests and deportations.",
+   "similarity": 0.673,
+   "reading": "leans"
   },
   {
    "candidate_id": "fl-gov-jolly",

@@ -65,6 +65,51 @@
    "candidate_id": "fl-house-106-baez-geller",
    "question": "everglades",
    "reason": "Quote is about resilience in general, not the Everglades or Biscayne Bay."
+  },
+  {
+   "candidate_id": "fl-ag-rodriguez",
+   "question": "heat",
+   "reason": "Quote is about unsafe workplaces and wage theft, not heat protections."
+  },
+  {
+   "candidate_id": "fl-ag-rodriguez",
+   "question": "healthcare",
+   "reason": "Quote does not say which kind of insurance it means."
+  },
+  {
+   "candidate_id": "fl-gov-donalds",
+   "question": "species",
+   "reason": "Quote is about business permits, not wildlife."
+  },
+  {
+   "candidate_id": "fl-gov-donalds",
+   "question": "immigration",
+   "reason": "Quote is about border security, not legal status for long-term residents."
+  },
+  {
+   "candidate_id": "fl-gov-jolly",
+   "question": "species",
+   "reason": "Quote is about data centers, not endangered animals."
+  },
+  {
+   "candidate_id": "fl-gov-jolly",
+   "question": "enforcement",
+   "reason": "Quote is about criminal-justice disparities, not immigration arrests."
+  },
+  {
+   "candidate_id": "fl-agr-atkins",
+   "question": "taxes",
+   "reason": "Quote attacks tariffs; it does not say he would cut federal taxes."
+  },
+  {
+   "candidate_id": "fl-agr-simpson",
+   "question": "immigration",
+   "reason": "Banning sanctuary cities is about enforcement, not legal status."
+  },
+  {
+   "candidate_id": "fl-cfo-ingoglia",
+   "question": "immigration",
+   "reason": "Quote is about stopping illegal immigration, not legal status for long-term residents."
   }
  ]
 }

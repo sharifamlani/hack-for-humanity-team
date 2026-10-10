@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+/* Theme tokens — placeholder palette until the team locks the final one. */
+:root {
+  --background: #fff7ec;
+  --foreground: #1b1b3a;
+  --card: #ffffff;
+  --accent: #ff5a4e;
+  --water: #1fa2ff;
+  --wildlife: #18b47b;
+  --jobs: #ffb703;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-accent: var(--accent);
+  --color-water: var(--water);
+  --color-wildlife: var(--wildlife);
+  --color-jobs: var(--jobs);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}

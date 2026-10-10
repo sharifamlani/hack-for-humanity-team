@@ -37,3 +37,6 @@ Thumbs.db
 *.log
 scratch/
 tmp/
+
+# ---- Next.js generated ----
+next-env.d.ts

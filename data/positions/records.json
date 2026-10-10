@@ -402,6 +402,30 @@
    "cfscore": -0.837,
    "cycle": 2022,
    "seat": "state:lower"
+  },
+  {
+   "candidate_id": "fl-ag-rodriguez",
+   "cfscore": -0.645,
+   "cycle": 2020,
+   "seat": "state:upper"
+  },
+  {
+   "candidate_id": "fl-cfo-taddeo",
+   "cfscore": -0.808,
+   "cycle": 2024,
+   "seat": "federal:house"
+  },
+  {
+   "candidate_id": "fl-cfo-ingoglia",
+   "cfscore": 0.921,
+   "cycle": 2022,
+   "seat": "state:upper"
+  },
+  {
+   "candidate_id": "fl-agr-simpson",
+   "cfscore": 0.896,
+   "cycle": 2022,
+   "seat": "state:office"
   }
  ]
 }

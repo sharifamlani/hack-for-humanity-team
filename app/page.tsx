@@ -103,7 +103,7 @@ export default function Home() {
     <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-6 px-5 py-6 lg:px-8">
       <header className="flex items-center justify-between gap-4 border-b border-foreground/20 pb-4">
         <button type="button" onClick={() => setStep(0)} className="display text-xl lg:text-2xl">
-          Your Ballot, <span className="text-coral">Your Block.</span>
+          Your Ballot, <span className="text-accent">Your Block.</span>
         </button>
         <nav aria-label="Sections" className="hidden gap-7 text-sm font-medium md:flex">
           {NAV.map((n) => (
@@ -244,7 +244,7 @@ export default function Home() {
 
       <footer className="flex flex-wrap items-center justify-between gap-2 border-t border-foreground/20 pt-4 text-xs text-foreground/60">
         <span className="display text-lg text-foreground">
-          Your Ballot, <span className="text-coral">Your Block.</span>
+          Your Ballot, <span className="text-accent">Your Block.</span>
         </span>
         <span>A match, not an endorsement · Open source, MIT · Hack for Humanity: Miami 2026</span>
       </footer>

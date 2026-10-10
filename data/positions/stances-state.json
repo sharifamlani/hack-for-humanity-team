@@ -1,8 +1,1162 @@
 {
  "model": "gemma-4-31b-it",
  "embeddingModel": "gemini-embedding-2",
- "built": "2026-10-10T18:13:42.708Z",
+ "built": "2026-10-10T20:10:17.647Z",
  "stances": [
+  {
+   "candidate_id": "fl-ag-rodriguez",
+   "question": "flooding",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.693
+  },
+  {
+   "candidate_id": "fl-ag-rodriguez",
+   "question": "insurance",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.684
+  },
+  {
+   "candidate_id": "fl-ag-rodriguez",
+   "question": "heat",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.679
+  },
+  {
+   "candidate_id": "fl-ag-rodriguez",
+   "question": "drilling",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.702
+  },
+  {
+   "candidate_id": "fl-ag-rodriguez",
+   "question": "everglades",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.738
+  },
+  {
+   "candidate_id": "fl-ag-rodriguez",
+   "question": "species",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.706
+  },
+  {
+   "candidate_id": "fl-ag-rodriguez",
+   "question": "housing",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.685
+  },
+  {
+   "candidate_id": "fl-ag-rodriguez",
+   "question": "wages",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.658
+  },
+  {
+   "candidate_id": "fl-ag-rodriguez",
+   "question": "college",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.698
+  },
+  {
+   "candidate_id": "fl-ag-rodriguez",
+   "question": "immigration",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.7
+  },
+  {
+   "candidate_id": "fl-ag-rodriguez",
+   "question": "fema",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.679
+  },
+  {
+   "candidate_id": "fl-ag-rodriguez",
+   "question": "healthcare",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.694
+  },
+  {
+   "candidate_id": "fl-ag-rodriguez",
+   "question": "enforcement",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.675
+  },
+  {
+   "candidate_id": "fl-ag-rodriguez",
+   "question": "cuba",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.673
+  },
+  {
+   "candidate_id": "fl-ag-rodriguez",
+   "question": "transit",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.689
+  },
+  {
+   "candidate_id": "fl-ag-rodriguez",
+   "question": "taxes",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.697
+  },
+  {
+   "candidate_id": "fl-ag-uthmeier",
+   "question": "flooding",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.711
+  },
+  {
+   "candidate_id": "fl-ag-uthmeier",
+   "question": "insurance",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.69
+  },
+  {
+   "candidate_id": "fl-ag-uthmeier",
+   "question": "heat",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.689
+  },
+  {
+   "candidate_id": "fl-ag-uthmeier",
+   "question": "drilling",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.679
+  },
+  {
+   "candidate_id": "fl-ag-uthmeier",
+   "question": "everglades",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.68
+  },
+  {
+   "candidate_id": "fl-ag-uthmeier",
+   "question": "species",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.723
+  },
+  {
+   "candidate_id": "fl-ag-uthmeier",
+   "question": "housing",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.64
+  },
+  {
+   "candidate_id": "fl-ag-uthmeier",
+   "question": "wages",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.57
+  },
+  {
+   "candidate_id": "fl-ag-uthmeier",
+   "question": "college",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.643
+  },
+  {
+   "candidate_id": "fl-ag-uthmeier",
+   "question": "immigration",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.665
+  },
+  {
+   "candidate_id": "fl-ag-uthmeier",
+   "question": "fema",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.685
+  },
+  {
+   "candidate_id": "fl-ag-uthmeier",
+   "question": "healthcare",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.604
+  },
+  {
+   "candidate_id": "fl-ag-uthmeier",
+   "question": "enforcement",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.644
+  },
+  {
+   "candidate_id": "fl-ag-uthmeier",
+   "question": "cuba",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.622
+  },
+  {
+   "candidate_id": "fl-ag-uthmeier",
+   "question": "transit",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.664
+  },
+  {
+   "candidate_id": "fl-ag-uthmeier",
+   "question": "taxes",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.636
+  },
+  {
+   "candidate_id": "fl-agr-atkins",
+   "question": "flooding",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.693
+  },
+  {
+   "candidate_id": "fl-agr-atkins",
+   "question": "insurance",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.697
+  },
+  {
+   "candidate_id": "fl-agr-atkins",
+   "question": "heat",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.683
+  },
+  {
+   "candidate_id": "fl-agr-atkins",
+   "question": "drilling",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.704
+  },
+  {
+   "candidate_id": "fl-agr-atkins",
+   "question": "everglades",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.723
+  },
+  {
+   "candidate_id": "fl-agr-atkins",
+   "question": "species",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.714
+  },
+  {
+   "candidate_id": "fl-agr-atkins",
+   "question": "housing",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.692
+  },
+  {
+   "candidate_id": "fl-agr-atkins",
+   "question": "wages",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.635
+  },
+  {
+   "candidate_id": "fl-agr-atkins",
+   "question": "college",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.658
+  },
+  {
+   "candidate_id": "fl-agr-atkins",
+   "question": "immigration",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.741
+  },
+  {
+   "candidate_id": "fl-agr-atkins",
+   "question": "fema",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.686
+  },
+  {
+   "candidate_id": "fl-agr-atkins",
+   "question": "healthcare",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.645
+  },
+  {
+   "candidate_id": "fl-agr-atkins",
+   "question": "enforcement",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.629
+  },
+  {
+   "candidate_id": "fl-agr-atkins",
+   "question": "cuba",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.67
+  },
+  {
+   "candidate_id": "fl-agr-atkins",
+   "question": "transit",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.709
+  },
+  {
+   "candidate_id": "fl-agr-atkins",
+   "question": "taxes",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.664
+  },
+  {
+   "candidate_id": "fl-agr-simpson",
+   "question": "flooding",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.719
+  },
+  {
+   "candidate_id": "fl-agr-simpson",
+   "question": "insurance",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.701
+  },
+  {
+   "candidate_id": "fl-agr-simpson",
+   "question": "heat",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.687
+  },
+  {
+   "candidate_id": "fl-agr-simpson",
+   "question": "drilling",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.682
+  },
+  {
+   "candidate_id": "fl-agr-simpson",
+   "question": "everglades",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.78
+  },
+  {
+   "candidate_id": "fl-agr-simpson",
+   "question": "species",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.751
+  },
+  {
+   "candidate_id": "fl-agr-simpson",
+   "question": "housing",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.685
+  },
+  {
+   "candidate_id": "fl-agr-simpson",
+   "question": "wages",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.66
+  },
+  {
+   "candidate_id": "fl-agr-simpson",
+   "question": "college",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.757
+  },
+  {
+   "candidate_id": "fl-agr-simpson",
+   "question": "immigration",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.756
+  },
+  {
+   "candidate_id": "fl-agr-simpson",
+   "question": "fema",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.677
+  },
+  {
+   "candidate_id": "fl-agr-simpson",
+   "question": "healthcare",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.665
+  },
+  {
+   "candidate_id": "fl-agr-simpson",
+   "question": "enforcement",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.7
+  },
+  {
+   "candidate_id": "fl-agr-simpson",
+   "question": "cuba",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.682
+  },
+  {
+   "candidate_id": "fl-agr-simpson",
+   "question": "transit",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.714
+  },
+  {
+   "candidate_id": "fl-agr-simpson",
+   "question": "taxes",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.725
+  },
+  {
+   "candidate_id": "fl-cfo-ingoglia",
+   "question": "flooding",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.716
+  },
+  {
+   "candidate_id": "fl-cfo-ingoglia",
+   "question": "insurance",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.72
+  },
+  {
+   "candidate_id": "fl-cfo-ingoglia",
+   "question": "heat",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.702
+  },
+  {
+   "candidate_id": "fl-cfo-ingoglia",
+   "question": "drilling",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.671
+  },
+  {
+   "candidate_id": "fl-cfo-ingoglia",
+   "question": "everglades",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.732
+  },
+  {
+   "candidate_id": "fl-cfo-ingoglia",
+   "question": "species",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.709
+  },
+  {
+   "candidate_id": "fl-cfo-ingoglia",
+   "question": "housing",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.692
+  },
+  {
+   "candidate_id": "fl-cfo-ingoglia",
+   "question": "wages",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.595
+  },
+  {
+   "candidate_id": "fl-cfo-ingoglia",
+   "question": "college",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.652
+  },
+  {
+   "candidate_id": "fl-cfo-ingoglia",
+   "question": "immigration",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.756
+  },
+  {
+   "candidate_id": "fl-cfo-ingoglia",
+   "question": "fema",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.697
+  },
+  {
+   "candidate_id": "fl-cfo-ingoglia",
+   "question": "healthcare",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.647
+  },
+  {
+   "candidate_id": "fl-cfo-ingoglia",
+   "question": "enforcement",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.678
+  },
+  {
+   "candidate_id": "fl-cfo-ingoglia",
+   "question": "cuba",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.691
+  },
+  {
+   "candidate_id": "fl-cfo-ingoglia",
+   "question": "transit",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.712
+  },
+  {
+   "candidate_id": "fl-cfo-ingoglia",
+   "question": "taxes",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.693
+  },
+  {
+   "candidate_id": "fl-cfo-taddeo",
+   "question": "flooding",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.762
+  },
+  {
+   "candidate_id": "fl-cfo-taddeo",
+   "question": "insurance",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.765
+  },
+  {
+   "candidate_id": "fl-cfo-taddeo",
+   "question": "heat",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.707
+  },
+  {
+   "candidate_id": "fl-cfo-taddeo",
+   "question": "drilling",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.736
+  },
+  {
+   "candidate_id": "fl-cfo-taddeo",
+   "question": "everglades",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.743
+  },
+  {
+   "candidate_id": "fl-cfo-taddeo",
+   "question": "species",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.725
+  },
+  {
+   "candidate_id": "fl-cfo-taddeo",
+   "question": "housing",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.722
+  },
+  {
+   "candidate_id": "fl-cfo-taddeo",
+   "question": "wages",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.644
+  },
+  {
+   "candidate_id": "fl-cfo-taddeo",
+   "question": "college",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.706
+  },
+  {
+   "candidate_id": "fl-cfo-taddeo",
+   "question": "immigration",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.726
+  },
+  {
+   "candidate_id": "fl-cfo-taddeo",
+   "question": "fema",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.762
+  },
+  {
+   "candidate_id": "fl-cfo-taddeo",
+   "question": "healthcare",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.73
+  },
+  {
+   "candidate_id": "fl-cfo-taddeo",
+   "question": "enforcement",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.648
+  },
+  {
+   "candidate_id": "fl-cfo-taddeo",
+   "question": "cuba",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.715
+  },
+  {
+   "candidate_id": "fl-cfo-taddeo",
+   "question": "transit",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.73
+  },
+  {
+   "candidate_id": "fl-cfo-taddeo",
+   "question": "taxes",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.726
+  },
+  {
+   "candidate_id": "fl-gov-donalds",
+   "question": "flooding",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.737
+  },
+  {
+   "candidate_id": "fl-gov-donalds",
+   "question": "insurance",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.784
+  },
+  {
+   "candidate_id": "fl-gov-donalds",
+   "question": "heat",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.72
+  },
+  {
+   "candidate_id": "fl-gov-donalds",
+   "question": "drilling",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.708
+  },
+  {
+   "candidate_id": "fl-gov-donalds",
+   "question": "everglades",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.721
+  },
+  {
+   "candidate_id": "fl-gov-donalds",
+   "question": "species",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.735
+  },
+  {
+   "candidate_id": "fl-gov-donalds",
+   "question": "housing",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.731
+  },
+  {
+   "candidate_id": "fl-gov-donalds",
+   "question": "wages",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.697
+  },
+  {
+   "candidate_id": "fl-gov-donalds",
+   "question": "college",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.704
+  },
+  {
+   "candidate_id": "fl-gov-donalds",
+   "question": "immigration",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.734
+  },
+  {
+   "candidate_id": "fl-gov-donalds",
+   "question": "fema",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.726
+  },
+  {
+   "candidate_id": "fl-gov-donalds",
+   "question": "healthcare",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.769
+  },
+  {
+   "candidate_id": "fl-gov-donalds",
+   "question": "enforcement",
+   "stance": "yes",
+   "quote": "Coordinate state and local police directly with federal authorities to quickly deport noncitizens who commit crimes in our communities.",
+   "url": "https://byrondonalds.com/issues/law-and-order/",
+   "why": "The candidate advocates for coordinating police with federal authorities to quickly deport noncitizens who commit crimes.",
+   "similarity": 0.717,
+   "reading": "stated"
+  },
+  {
+   "candidate_id": "fl-gov-donalds",
+   "question": "cuba",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.692
+  },
+  {
+   "candidate_id": "fl-gov-donalds",
+   "question": "transit",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.731
+  },
+  {
+   "candidate_id": "fl-gov-donalds",
+   "question": "taxes",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.769
+  },
+  {
+   "candidate_id": "fl-gov-jolly",
+   "question": "flooding",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.785
+  },
+  {
+   "candidate_id": "fl-gov-jolly",
+   "question": "insurance",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.8
+  },
+  {
+   "candidate_id": "fl-gov-jolly",
+   "question": "heat",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.727
+  },
+  {
+   "candidate_id": "fl-gov-jolly",
+   "question": "drilling",
+   "stance": "yes",
+   "quote": "Offshore drilling creates very few Florida jobs because rigs are based out of Louisiana and Texas ports.",
+   "url": "https://davidjolly.com/environment",
+   "why": "The candidate provides reasons for opposing offshore drilling, indicating they support a ban.",
+   "similarity": 0.775,
+   "reading": "stated"
+  },
+  {
+   "candidate_id": "fl-gov-jolly",
+   "question": "everglades",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.768
+  },
+  {
+   "candidate_id": "fl-gov-jolly",
+   "question": "species",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.746
+  },
+  {
+   "candidate_id": "fl-gov-jolly",
+   "question": "housing",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.783
+  },
+  {
+   "candidate_id": "fl-gov-jolly",
+   "question": "wages",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.658
+  },
+  {
+   "candidate_id": "fl-gov-jolly",
+   "question": "college",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.707
+  },
+  {
+   "candidate_id": "fl-gov-jolly",
+   "question": "immigration",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.764
+  },
+  {
+   "candidate_id": "fl-gov-jolly",
+   "question": "fema",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.727
+  },
+  {
+   "candidate_id": "fl-gov-jolly",
+   "question": "healthcare",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.743
+  },
+  {
+   "candidate_id": "fl-gov-jolly",
+   "question": "enforcement",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.673
+  },
+  {
+   "candidate_id": "fl-gov-jolly",
+   "question": "cuba",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.678
+  },
+  {
+   "candidate_id": "fl-gov-jolly",
+   "question": "transit",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.753
+  },
+  {
+   "candidate_id": "fl-gov-jolly",
+   "question": "taxes",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.707
+  },
   {
    "candidate_id": "fl-house-106-baez-geller",
    "question": "flooding",

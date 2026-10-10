@@ -1,7 +1,7 @@
 {
  "model": "gemma-4-26b-a4b-it",
  "embeddingModel": "gemini-embedding-2",
- "built": "2026-10-10T18:20:45.687Z",
+ "built": "2026-10-10T18:24:36.405Z",
  "stances": [
   {
    "candidate_id": "us-house-fl24-brown",
@@ -156,20 +156,22 @@
   {
    "candidate_id": "us-house-fl24-gilbert",
    "question": "flooding",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.759
+   "stance": "yes",
+   "quote": "Community-level investments in drainage, wildfire barriers, flood protection, and resilience infrastructure.",
+   "url": "https://olivergilbert.vote/catastrophe-insurance/",
+   "why": "The candidate advocates for community-level investments in drainage and flood protection.",
+   "similarity": 0.773,
+   "reading": "leans"
   },
   {
    "candidate_id": "us-house-fl24-gilbert",
    "question": "insurance",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.751
+   "stance": "yes",
+   "quote": "But when a truly extraordinary catastrophe threatens the stability of an entire insurance market, the federal government should provide a limited, paid backstop.",
+   "url": "https://olivergilbert.vote/catastrophe-insurance/",
+   "why": "The candidate argues that the federal government should provide a limited, paid backstop during extraordinary catastrophes to stabilize the insurance market.",
+   "similarity": 0.78,
+   "reading": "leans"
   },
   {
    "candidate_id": "us-house-fl24-gilbert",
@@ -178,7 +180,7 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.718
+   "similarity": 0.722
   },
   {
    "candidate_id": "us-house-fl24-gilbert",
@@ -214,7 +216,8 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.756
+   "similarity": 0.756,
+   "error": "Gemma timed out"
   },
   {
    "candidate_id": "us-house-fl24-gilbert",
@@ -834,7 +837,8 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.715
+   "similarity": 0.715,
+   "error": "Gemma timed out"
   },
   {
    "candidate_id": "us-house-fl26-locklin",

@@ -1,4 +1,4 @@
-import { QUESTIONS, questionById, stanceOf } from "./questions";
+import { ALL_QUESTION_IDS, QUESTIONS, questionById, scoreOf, stanceOf, voteOf } from "./questions";
 
 // The voter's recorded answer to one question.
 export type Stance = "yea" | "nay" | "unsure" | "skip";
@@ -7,12 +7,15 @@ export type Answers = Record<string, Stance>;
 export type Cell = "agree" | "differ" | "none" | "skipped";
 
 // Where a candidate's position comes from, strongest first.
+//   voted  — a recorded vote in Congress on a bill that answers the question
 //   stated — their own words answer the question (quote shown)
 //   leans  — their own words point that way (quote shown)
 //   party  — nothing found; filled with their party's usual position (a guess, no quote)
-export type Basis = "stated" | "leans" | "party" | null;
+export type Basis = "voted" | "stated" | "leans" | "party" | null;
 
 export function positionOf(candidateId: string, party: string, questionId: string): { stance: "yes" | "no" | null; basis: Basis } {
+  const vote = voteOf(candidateId, questionId);
+  if (vote) return { stance: vote.stance, basis: "voted" };
   const own = stanceOf(candidateId, questionId);
   if (own && own.stance !== "none") return { stance: own.stance, basis: own.reading ?? "stated" };
   const lean = questionById(questionId)?.partyLean?.[party];
@@ -41,4 +44,63 @@ export function tally(answers: Answers, candidateId: string, party: string) {
     if (cell === "agree") bucket.agree++;
   }
   return { own, guess };
+}
+
+// ---- One left-right line -------------------------------------------------------------
+// A rough placement, not a measurement. For the questions that divide the two parties,
+// one answer is the usual left answer and the other the usual right answer.
+const LEFT_ANSWER: Record<string, "yes" | "no"> = {
+  heat: "yes",
+  species: "yes",
+  housing: "yes",
+  wages: "yes",
+  college: "yes",
+  immigration: "yes",
+  healthcare: "yes",
+  enforcement: "no",
+  taxes: "no",
+};
+// A candidate who takes the usual party answer on every question lands at about ±0.5,
+// which is roughly where the two parties sit on Voteview's DW-NOMINATE scale.
+const INDEX_SCALE = 0.5;
+const MIN_ANSWERS = 2;
+
+export type Placement = {
+  x: number; // -1 (left) ... +1 (right)
+  // "record": DW-NOMINATE from votes in Congress. "positions": our index from yes/no positions.
+  // "guess": our index where most of the positions are party guesses.
+  source: "record" | "positions" | "guess";
+  answers: number;
+};
+
+function index(stances: ("yes" | "no" | null)[], ids: string[]) {
+  let right = 0;
+  let n = 0;
+  ids.forEach((id, i) => {
+    const s = stances[i];
+    if (!s || !LEFT_ANSWER[id]) return;
+    n++;
+    right += s === LEFT_ANSWER[id] ? -1 : 1;
+  });
+  return n >= MIN_ANSWERS ? { x: (right / n) * INDEX_SCALE, n } : null;
+}
+
+export function placeVoter(answers: Answers): Placement | null {
+  const ids = Object.keys(LEFT_ANSWER);
+  const got = index(
+    ids.map((id) => (answers[id] === "yea" ? "yes" : answers[id] === "nay" ? "no" : null)),
+    ids,
+  );
+  return got ? { x: got.x, source: "positions", answers: got.n } : null;
+}
+
+export function placeCandidate(candidateId: string, party: string): Placement | null {
+  const record = scoreOf(candidateId);
+  if (record) return { x: record.nominate_dim1, source: "record", answers: record.votes_scored };
+  const ids = ALL_QUESTION_IDS.filter((id) => LEFT_ANSWER[id]);
+  const positions = ids.map((id) => positionOf(candidateId, party, id));
+  const got = index(positions.map((p) => p.stance), ids);
+  if (!got) return null;
+  const guessed = positions.filter((p) => p.basis === "party").length;
+  return { x: got.x, source: guessed > got.n / 2 ? "guess" : "positions", answers: got.n };
 }

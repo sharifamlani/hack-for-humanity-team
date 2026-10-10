@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { compare, tally, type Answers, type Cell } from "@/lib/match";
-import { QUESTIONS, THEMES, closestOf, hasRecord, stanceOf } from "@/lib/questions";
+import { compare, placeCandidate, placeVoter, tally, type Answers, type Cell, type Placement } from "@/lib/match";
+import { QUESTIONS, THEMES, closestOf, hasRecord, stanceOf, voteOf } from "@/lib/questions";
 import type { Candidate, LookupResult } from "@/lib/types";
 
 const MARK: Record<Cell, { icon: string; label: string; style: string }> = {
@@ -11,6 +11,75 @@ const MARK: Record<Cell, { icon: string; label: string; style: string }> = {
   none: { icon: "◌", label: "no public position found", style: "border border-foreground/25 text-foreground/40" },
   skipped: { icon: "–", label: "you skipped this", style: "text-foreground/30" },
 };
+
+const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H"];
+const pct = (x: number) => `${((Math.max(-1, Math.min(1, x)) + 1) / 2) * 100}%`;
+
+// Everyone in a race on one left-right line. Members of Congress sit at their published
+// DW-NOMINATE score; everyone else at a rough index built from their yes/no positions.
+function SpectrumLine({ me, people }: { me: Placement | null; people: { letter: string; name: string; at: Placement | null }[] }) {
+  return (
+    <div className="mt-3 rounded-2xl bg-background p-4">
+      <div className="flex justify-between text-[10px] font-bold uppercase tracking-wider text-foreground/50">
+        <span>◀ more liberal</span>
+        <span>more conservative ▶</span>
+      </div>
+      <div className="relative mt-7 h-9">
+        <div className="absolute inset-x-0 top-1/2 h-1 -translate-y-1/2 rounded-full bg-foreground/15" />
+        <div className="absolute left-1/2 top-1/2 h-3 w-px -translate-y-1/2 bg-foreground/30" />
+        {people.map(
+          (p) =>
+            p.at && (
+              <div
+                key={p.letter}
+                title={p.name}
+                className={`absolute top-1/2 flex h-6 w-6 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-md text-xs font-black ${
+                  p.at.source === "guess"
+                    ? "border-2 border-dashed border-foreground/50 bg-background text-foreground/60"
+                    : p.at.source === "record"
+                      ? "bg-foreground text-background"
+                      : "border-2 border-foreground bg-card"
+                }`}
+                style={{ left: pct(p.at.x) }}
+              >
+                {p.letter}
+              </div>
+            ),
+        )}
+        {me && (
+          <div className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2" style={{ left: pct(me.x) }}>
+            <span className="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-black text-accent">YOU</span>
+            <div className="h-5 w-5 rounded-full border-2 border-foreground bg-accent" />
+          </div>
+        )}
+      </div>
+      <ul className="mt-2 space-y-0.5 text-xs">
+        {people.map((p) => {
+          const record = p.at?.source === "record";
+          return (
+            <li key={p.letter}>
+              <b>{p.letter}</b> {p.name}{" "}
+              <span className="text-foreground/60">
+                {!p.at
+                  ? "— not enough to place"
+                  : record
+                    ? `— from ${p.at.answers} votes in Congress (DW-NOMINATE ${p.at.x.toFixed(2)})`
+                    : p.at.source === "guess"
+                      ? "— mostly a party guess"
+                      : `— from ${p.at.answers} positions`}
+              </span>
+            </li>
+          );
+        })}
+        {!me && <li className="text-foreground/60">Answer two or more of the questions to place yourself.</li>}
+      </ul>
+      <p className="mt-2 text-[11px] text-foreground/50">
+        Rough placement. Solid dark = measured from votes in Congress. Outlined = our estimate from
+        published positions. Dashed = party guess.
+      </p>
+    </div>
+  );
+}
 
 type Finding = { id: string; name: string; said: string; quote: string; url: string };
 
@@ -136,6 +205,14 @@ export function MatchStep({
       {(answered || !openSaid) && races.map((race) => (
         <section key={race.office} className="rounded-3xl bg-card p-5">
           <h3 className="text-sm font-bold text-accent">{race.office}</h3>
+          <SpectrumLine
+            me={placeVoter(answers)}
+            people={race.candidates.map((c, i) => ({
+              letter: LETTERS[i] ?? "?",
+              name: c.name,
+              at: placeCandidate(c.candidate_id, c.party),
+            }))}
+          />
 
           <div
             className="mt-3 grid items-center gap-x-2 gap-y-1"
@@ -200,9 +277,18 @@ export function MatchStep({
                         const s = stanceOf(c.candidate_id, q.id);
                         const guess = q.partyLean?.[c.party];
                         const near = closestOf(c.candidate_id, q.id);
+                        const vote = voteOf(c.candidate_id, q.id);
                         return (
                           <p key={c.candidate_id} className="mt-2">
                             <b>{c.name}:</b>{" "}
+                            {vote && (
+                              <>
+                                🗳 {vote.text}{" "}
+                                <a className="font-semibold underline" href={vote.url} target="_blank" rel="noreferrer">
+                                  roll call ↗
+                                </a>{" "}
+                              </>
+                            )}
                             {s && s.stance !== "none" ? (
                               <>
                                 {s.reading === "leans" && (
@@ -213,7 +299,7 @@ export function MatchStep({
                                   source ↗
                                 </a>
                               </>
-                            ) : (
+                            ) : vote ? null : (
                               <>
                                 {near ? (
                                   <>

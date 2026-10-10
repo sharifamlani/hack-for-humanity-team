@@ -3,6 +3,7 @@ import stancesJson from "@/data/positions/stances.json";
 import stateStancesJson from "@/data/positions/stances-state.json";
 import closestJson from "@/data/positions/closest.json";
 import reviewedOutJson from "@/data/positions/reviewed-out.json";
+import recordsJson from "@/data/positions/records.json";
 
 export type Theme = "forces" | "wildlife" | "jobs";
 
@@ -70,6 +71,17 @@ export type ClosestPassage = { candidate_id: string; question: string; text: str
 const CLOSEST = (closestJson as { closest: ClosestPassage[] }).closest;
 export const closestOf = (candidateId: string, questionId: string) =>
   CLOSEST.find((c) => c.candidate_id === candidateId && c.question === questionId);
+
+// Voting records for candidates who have served in Congress (scripts/build-records.mjs):
+// a real vote on a bill that answers the question, and their DW-NOMINATE score.
+export type RecordedVote = { candidate_id: string; question: string; stance: "yes" | "no"; text: string; url: string };
+export type RecordScore = { candidate_id: string; chamber: string; nominate_dim1: number; votes_scored: number; url: string };
+const VOTES = recordsJson.votes as RecordedVote[];
+const SCORES = recordsJson.scores as RecordScore[];
+export const voteOf = (candidateId: string, questionId: string) =>
+  VOTES.find((v) => v.candidate_id === candidateId && v.question === questionId);
+export const scoreOf = (candidateId: string) => SCORES.find((s) => s.candidate_id === candidateId);
+export const ALL_QUESTION_IDS = ALL.map((q) => q.id);
 
 // Candidates we have collected any published words for.
 export const hasRecord = (candidateId: string) =>

@@ -1,0 +1,315 @@
+{
+ "source": "Voteview, 119th Congress (voteview.com)",
+ "scores": [
+  {
+   "candidate_id": "us-house-fl26-diaz-balart",
+   "bioguide": "D000600",
+   "chamber": "U.S. House",
+   "nominate_dim1": 0.282,
+   "votes_scored": 549,
+   "url": "https://voteview.com/person/20316"
+  },
+  {
+   "candidate_id": "us-house-fl27-salazar",
+   "bioguide": "S000168",
+   "chamber": "U.S. House",
+   "nominate_dim1": 0.274,
+   "votes_scored": 504,
+   "url": "https://voteview.com/person/22150"
+  },
+  {
+   "candidate_id": "us-house-fl28-gimenez",
+   "bioguide": "G000593",
+   "chamber": "U.S. House",
+   "nominate_dim1": 0.329,
+   "votes_scored": 536,
+   "url": "https://voteview.com/person/22118"
+  },
+  {
+   "candidate_id": "us-house-fl25-moskowitz",
+   "bioguide": "M001217",
+   "chamber": "U.S. House",
+   "nominate_dim1": -0.227,
+   "votes_scored": 553,
+   "url": "https://voteview.com/person/22353"
+  },
+  {
+   "candidate_id": "us-senate-fl-moody",
+   "bioguide": "M001244",
+   "chamber": "U.S. Senate",
+   "nominate_dim1": 0.689,
+   "votes_scored": 890,
+   "url": "https://voteview.com/person/42506"
+  },
+  {
+   "candidate_id": "fl-gov-donalds",
+   "bioguide": "D000032",
+   "chamber": "U.S. House",
+   "nominate_dim1": 0.636,
+   "votes_scored": 515,
+   "url": "https://voteview.com/person/22111"
+  }
+ ],
+ "votes": [
+  {
+   "candidate_id": "us-house-fl26-diaz-balart",
+   "question": "enforcement",
+   "stance": "yes",
+   "voted": "yea",
+   "bill": "S. 5",
+   "date": "2025-01-22",
+   "text": "Voted YES on the Laken Riley Act, which requires detention of unauthorized immigrants charged with theft and similar crimes (S. 5, 2025-01-22).",
+   "url": "https://voteview.com/rollcall/RH1190022"
+  },
+  {
+   "candidate_id": "us-house-fl26-diaz-balart",
+   "question": "taxes",
+   "stance": "yes",
+   "voted": "yea",
+   "bill": "H.R. 1",
+   "date": "2025-07-03",
+   "text": "Voted YES on the 2025 tax and spending law (the One Big Beautiful Bill Act), which extended and added federal tax cuts (H.R. 1, 2025-07-03).",
+   "url": "https://voteview.com/rollcall/RH1190189"
+  },
+  {
+   "candidate_id": "us-house-fl26-diaz-balart",
+   "question": "immigration",
+   "stance": "yes",
+   "voted": "yea",
+   "bill": "H.R. 1689",
+   "date": "2026-04-16",
+   "text": "Voted YES on a bill requiring Temporary Protected Status for Haiti (H.R. 1689, 2026-04-16).",
+   "url": "https://voteview.com/rollcall/RH1190480"
+  },
+  {
+   "candidate_id": "us-house-fl26-diaz-balart",
+   "question": "species",
+   "stance": "no",
+   "voted": "yea",
+   "bill": "H.J.Res. 78",
+   "date": "2025-05-01",
+   "text": "Voted YES on a resolution removing endangered-species protection for the longfin smelt (H.J.Res. 78, 2025-05-01).",
+   "url": "https://voteview.com/rollcall/RH1190112"
+  },
+  {
+   "candidate_id": "us-house-fl26-diaz-balart",
+   "question": "housing",
+   "stance": "yes",
+   "voted": "yea",
+   "bill": "H.R. 6644",
+   "date": "2026-06-23",
+   "text": "Voted YES on the Housing for the 21st Century Act, a bill to increase the supply of housing (H.R. 6644, 2026-06-23).",
+   "url": "https://voteview.com/rollcall/RH1190584"
+  },
+  {
+   "candidate_id": "us-house-fl27-salazar",
+   "question": "enforcement",
+   "stance": "yes",
+   "voted": "yea",
+   "bill": "S. 5",
+   "date": "2025-01-22",
+   "text": "Voted YES on the Laken Riley Act, which requires detention of unauthorized immigrants charged with theft and similar crimes (S. 5, 2025-01-22).",
+   "url": "https://voteview.com/rollcall/RH1190022"
+  },
+  {
+   "candidate_id": "us-house-fl27-salazar",
+   "question": "taxes",
+   "stance": "yes",
+   "voted": "yea",
+   "bill": "H.R. 1",
+   "date": "2025-07-03",
+   "text": "Voted YES on the 2025 tax and spending law (the One Big Beautiful Bill Act), which extended and added federal tax cuts (H.R. 1, 2025-07-03).",
+   "url": "https://voteview.com/rollcall/RH1190189"
+  },
+  {
+   "candidate_id": "us-house-fl27-salazar",
+   "question": "immigration",
+   "stance": "yes",
+   "voted": "yea",
+   "bill": "H.R. 1689",
+   "date": "2026-04-16",
+   "text": "Voted YES on a bill requiring Temporary Protected Status for Haiti (H.R. 1689, 2026-04-16).",
+   "url": "https://voteview.com/rollcall/RH1190480"
+  },
+  {
+   "candidate_id": "us-house-fl28-gimenez",
+   "question": "enforcement",
+   "stance": "yes",
+   "voted": "yea",
+   "bill": "S. 5",
+   "date": "2025-01-22",
+   "text": "Voted YES on the Laken Riley Act, which requires detention of unauthorized immigrants charged with theft and similar crimes (S. 5, 2025-01-22).",
+   "url": "https://voteview.com/rollcall/RH1190022"
+  },
+  {
+   "candidate_id": "us-house-fl28-gimenez",
+   "question": "taxes",
+   "stance": "yes",
+   "voted": "yea",
+   "bill": "H.R. 1",
+   "date": "2025-07-03",
+   "text": "Voted YES on the 2025 tax and spending law (the One Big Beautiful Bill Act), which extended and added federal tax cuts (H.R. 1, 2025-07-03).",
+   "url": "https://voteview.com/rollcall/RH1190189"
+  },
+  {
+   "candidate_id": "us-house-fl28-gimenez",
+   "question": "immigration",
+   "stance": "yes",
+   "voted": "yea",
+   "bill": "H.R. 1689",
+   "date": "2026-04-16",
+   "text": "Voted YES on a bill requiring Temporary Protected Status for Haiti (H.R. 1689, 2026-04-16).",
+   "url": "https://voteview.com/rollcall/RH1190480"
+  },
+  {
+   "candidate_id": "us-house-fl28-gimenez",
+   "question": "species",
+   "stance": "no",
+   "voted": "yea",
+   "bill": "H.J.Res. 78",
+   "date": "2025-05-01",
+   "text": "Voted YES on a resolution removing endangered-species protection for the longfin smelt (H.J.Res. 78, 2025-05-01).",
+   "url": "https://voteview.com/rollcall/RH1190112"
+  },
+  {
+   "candidate_id": "us-house-fl28-gimenez",
+   "question": "housing",
+   "stance": "yes",
+   "voted": "yea",
+   "bill": "H.R. 6644",
+   "date": "2026-06-23",
+   "text": "Voted YES on the Housing for the 21st Century Act, a bill to increase the supply of housing (H.R. 6644, 2026-06-23).",
+   "url": "https://voteview.com/rollcall/RH1190584"
+  },
+  {
+   "candidate_id": "us-house-fl25-moskowitz",
+   "question": "enforcement",
+   "stance": "yes",
+   "voted": "yea",
+   "bill": "S. 5",
+   "date": "2025-01-22",
+   "text": "Voted YES on the Laken Riley Act, which requires detention of unauthorized immigrants charged with theft and similar crimes (S. 5, 2025-01-22).",
+   "url": "https://voteview.com/rollcall/RH1190022"
+  },
+  {
+   "candidate_id": "us-house-fl25-moskowitz",
+   "question": "taxes",
+   "stance": "no",
+   "voted": "nay",
+   "bill": "H.R. 1",
+   "date": "2025-07-03",
+   "text": "Voted NO on the 2025 tax and spending law (the One Big Beautiful Bill Act), which extended and added federal tax cuts (H.R. 1, 2025-07-03).",
+   "url": "https://voteview.com/rollcall/RH1190189"
+  },
+  {
+   "candidate_id": "us-house-fl25-moskowitz",
+   "question": "immigration",
+   "stance": "yes",
+   "voted": "yea",
+   "bill": "H.R. 1689",
+   "date": "2026-04-16",
+   "text": "Voted YES on a bill requiring Temporary Protected Status for Haiti (H.R. 1689, 2026-04-16).",
+   "url": "https://voteview.com/rollcall/RH1190480"
+  },
+  {
+   "candidate_id": "us-house-fl25-moskowitz",
+   "question": "species",
+   "stance": "yes",
+   "voted": "nay",
+   "bill": "H.J.Res. 78",
+   "date": "2025-05-01",
+   "text": "Voted NO on a resolution removing endangered-species protection for the longfin smelt (H.J.Res. 78, 2025-05-01).",
+   "url": "https://voteview.com/rollcall/RH1190112"
+  },
+  {
+   "candidate_id": "us-house-fl25-moskowitz",
+   "question": "housing",
+   "stance": "yes",
+   "voted": "yea",
+   "bill": "H.R. 6644",
+   "date": "2026-06-23",
+   "text": "Voted YES on the Housing for the 21st Century Act, a bill to increase the supply of housing (H.R. 6644, 2026-06-23).",
+   "url": "https://voteview.com/rollcall/RH1190584"
+  },
+  {
+   "candidate_id": "us-senate-fl-moody",
+   "question": "taxes",
+   "stance": "yes",
+   "voted": "yea",
+   "bill": "H.R. 1",
+   "date": "2025-07-01",
+   "text": "Voted YES on the 2025 tax and spending law (the One Big Beautiful Bill Act), which extended and added federal tax cuts (H.R. 1, 2025-07-01).",
+   "url": "https://voteview.com/rollcall/RS1190372"
+  },
+  {
+   "candidate_id": "us-senate-fl-moody",
+   "question": "housing",
+   "stance": "yes",
+   "voted": "yea",
+   "bill": "H.R. 6644",
+   "date": "2026-03-12",
+   "text": "Voted YES on the Housing for the 21st Century Act, a bill to increase the supply of housing (H.R. 6644, 2026-03-12).",
+   "url": "https://voteview.com/rollcall/RS1190712"
+  },
+  {
+   "candidate_id": "us-senate-fl-moody",
+   "question": "healthcare",
+   "stance": "no",
+   "voted": "nay",
+   "bill": "S. 3385",
+   "date": "2025-12-11",
+   "text": "Voted NO on moving ahead on a bill to extend the enhanced health-insurance premium tax credits (S. 3385, 2025-12-11).",
+   "url": "https://voteview.com/rollcall/RS1190644"
+  },
+  {
+   "candidate_id": "fl-gov-donalds",
+   "question": "enforcement",
+   "stance": "yes",
+   "voted": "yea",
+   "bill": "S. 5",
+   "date": "2025-01-22",
+   "text": "Voted YES on the Laken Riley Act, which requires detention of unauthorized immigrants charged with theft and similar crimes (S. 5, 2025-01-22).",
+   "url": "https://voteview.com/rollcall/RH1190022"
+  },
+  {
+   "candidate_id": "fl-gov-donalds",
+   "question": "taxes",
+   "stance": "yes",
+   "voted": "yea",
+   "bill": "H.R. 1",
+   "date": "2025-07-03",
+   "text": "Voted YES on the 2025 tax and spending law (the One Big Beautiful Bill Act), which extended and added federal tax cuts (H.R. 1, 2025-07-03).",
+   "url": "https://voteview.com/rollcall/RH1190189"
+  },
+  {
+   "candidate_id": "fl-gov-donalds",
+   "question": "immigration",
+   "stance": "no",
+   "voted": "nay",
+   "bill": "H.R. 1689",
+   "date": "2026-04-16",
+   "text": "Voted NO on a bill requiring Temporary Protected Status for Haiti (H.R. 1689, 2026-04-16).",
+   "url": "https://voteview.com/rollcall/RH1190480"
+  },
+  {
+   "candidate_id": "fl-gov-donalds",
+   "question": "species",
+   "stance": "no",
+   "voted": "yea",
+   "bill": "H.J.Res. 78",
+   "date": "2025-05-01",
+   "text": "Voted YES on a resolution removing endangered-species protection for the longfin smelt (H.J.Res. 78, 2025-05-01).",
+   "url": "https://voteview.com/rollcall/RH1190112"
+  },
+  {
+   "candidate_id": "fl-gov-donalds",
+   "question": "housing",
+   "stance": "no",
+   "voted": "nay",
+   "bill": "H.R. 6644",
+   "date": "2026-06-23",
+   "text": "Voted NO on the Housing for the 21st Century Act, a bill to increase the supply of housing (H.R. 6644, 2026-06-23).",
+   "url": "https://voteview.com/rollcall/RH1190584"
+  }
+ ]
+}

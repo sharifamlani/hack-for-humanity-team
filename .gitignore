@@ -1,0 +1,39 @@
+# ---- Secrets / local env ----
+# Last matching pattern wins, so the negation must come last.
+.env
+.env.*
+*.env*
+!.env.example
+
+# ---- Agent / editor tooling (local only) ----
+.claude/
+.cursor/
+.playwright-mcp/
+.vscode/
+.idea/
+
+# ---- Dependencies ----
+node_modules/
+.pnpm-store/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# ---- Build output ----
+.next/
+out/
+dist/
+build/
+*.tsbuildinfo
+
+# ---- Deploy / cache ----
+.vercel/
+.turbo/
+
+# ---- OS / scratch ----
+.DS_Store
+Thumbs.db
+*.log
+scratch/
+tmp/

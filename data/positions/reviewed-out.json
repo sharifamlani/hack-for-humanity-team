@@ -1,0 +1,70 @@
+{
+ "note": "Readings a person looked at and judged too much of a stretch to show. The app treats these cells as having no position. Reviewed Oct 10, 2026.",
+ "removed": [
+  {
+   "candidate_id": "us-house-fl25-singer",
+   "question": "species",
+   "reason": "Quote is about cutting regulation in general, not wildlife."
+  },
+  {
+   "candidate_id": "us-house-fl25-singer",
+   "question": "heat",
+   "reason": "Quote is about cutting regulation in general, not heat rules."
+  },
+  {
+   "candidate_id": "us-house-fl28-ehr",
+   "question": "species",
+   "reason": "Quote is about the Everglades and data centers, not endangered animals."
+  },
+  {
+   "candidate_id": "us-senate-fl-nixon",
+   "question": "species",
+   "reason": "Quote is about data centers, not endangered animals."
+  },
+  {
+   "candidate_id": "us-senate-fl-nixon",
+   "question": "heat",
+   "reason": "Quote is about labor law in general, not heat protections."
+  },
+  {
+   "candidate_id": "us-house-fl26-locklin",
+   "question": "everglades",
+   "reason": "Quote is a general line about the planet, not the Everglades or Biscayne Bay."
+  },
+  {
+   "candidate_id": "us-house-fl25-moskowitz",
+   "question": "immigration",
+   "reason": "Quote does not say what policy it refers to."
+  },
+  {
+   "candidate_id": "us-senate-fl-moody",
+   "question": "flooding",
+   "reason": "Quote is about disaster recovery projects, not flood protection spending."
+  },
+  {
+   "candidate_id": "fl-house-106-basabe",
+   "question": "flooding",
+   "reason": "Quote is a general list of priorities, not flooding."
+  },
+  {
+   "candidate_id": "fl-house-106-basabe",
+   "question": "species",
+   "reason": "Quote is a general statement about the environment."
+  },
+  {
+   "candidate_id": "fl-house-106-basabe",
+   "question": "everglades",
+   "reason": "Quote is a general statement about the environment."
+  },
+  {
+   "candidate_id": "fl-house-108-campbell",
+   "question": "housing",
+   "reason": "Quote is a general campaign line."
+  },
+  {
+   "candidate_id": "fl-house-106-baez-geller",
+   "question": "everglades",
+   "reason": "Quote is about resilience in general, not the Everglades or Biscayne Bay."
+  }
+ ]
+}

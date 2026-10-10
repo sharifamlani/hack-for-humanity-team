@@ -16,6 +16,34 @@
    "similarity": 0.744
   },
   {
+   "candidate_id": "fl-senate-34-gantt",
+   "question": "flooding",
+   "text": "Miami-Dade County is ground-zero for climate change. Addressing sea level rise for our coastal communities, and providing clean air and water to Floridians should be a top priority in the State Senate. Legal and financial consequences must be levied against polluters, holding them accountable for the destruction of our beaches, water supply, and air.",
+   "url": "https://ashley.vote/issues/",
+   "similarity": 0.753
+  },
+  {
+   "candidate_id": "fl-senate-34-gantt",
+   "question": "housing",
+   "text": "Miami-Dade’s housing affordability crisis is in dire need for solutions. Our county’s State of Emergency is due to families’ inability to stay in their homes and find safe housing. As housing costs skyrocket while wages remain stagnant, it’s imperative that we provide affordable housing opportunities to the residents of Florida.",
+   "url": "https://ashley.vote/issues/",
+   "similarity": 0.774
+  },
+  {
+   "candidate_id": "fl-senate-34-gantt",
+   "question": "transit",
+   "text": "Effective and reliable transportation is the cornerstone of a region’s economic health. Investing in eco-friendly public transportation will help create green jobs, improve accessibility for residents in densely populated urban areas, and expand workforce opportunities regionally. Supporting Small Business & Job Creation",
+   "url": "https://ashley.vote/issues/",
+   "similarity": 0.734
+  },
+  {
+   "candidate_id": "fl-senate-34-jeanty",
+   "question": "insurance",
+   "text": "Fighting for relief and fairness for families struggling with rising insurance premiums. Investing in strong infrastructure and flood protection to keep our communities safe and resilient. Promoting transparency, accountability, and leadership that puts residents first. Service is not about a title. It’s about showing up, listening, educating, and delivering results that change lives.",
+   "url": "https://elizabethforsenate34.com/meet-elizabeth",
+   "similarity": 0.731
+  },
+  {
    "candidate_id": "fl-senate-36-garcia",
    "question": "flooding",
    "text": "Fortifying Florida's coastlines using nature-based solutions like mangrove restoration and living seawalls. This allows smart, targeted environmental improvements in vital areas like Biscayne Bay to naturally protect our communities. (read more)",
@@ -70,6 +98,76 @@
    "text": "My parents fled Cuba after opposing dictatorship. They taught my brothers and me to question authority, show compassion, and put principle before party. That’s why I registered as a Democrat at eighteen, and it’s why I’m running today. As a legal consultant, I bring an analytical mind and a commitment to public service. Tallahassee has gone too long without answering to the people it governs.",
    "url": "https://votegeorgelavin.com/",
    "similarity": 0.737
+  },
+  {
+   "candidate_id": "fl-senate-38-calatayud",
+   "question": "cuba",
+   "text": "A passionate human rights advocate and granddaughter of Cuban political asylum seekers, Senator Calatayud collaborates with nonprofits to support political prisoners and dissidents in exile and promote freedom from authoritarian regimes. She has also trained over 500 university student leaders on higher education affordability issues.",
+   "url": "https://alexiscalatayud.com/",
+   "similarity": 0.752
+  },
+  {
+   "candidate_id": "fl-senate-38-lamondin",
+   "question": "housing",
+   "text": "Miami has become the most rent-burdened county in the nation, and young people, families, and seniors are being priced out of the communities they built and have called home their whole lives. Richard believes housing isn’t just about real estate, it’s about dignity, stability, and the ability to put down roots and build generational opportunity.",
+   "url": "https://richard.vote/",
+   "similarity": 0.813
+  },
+  {
+   "candidate_id": "fl-senate-38-lamondin",
+   "question": "immigration",
+   "text": "Richard Lamondin isn’t running to be a politician — he’s running because too many politicians have forgotten what real life looks like. From building a clean infrastructure company with his brother to raising a young family right here in Miami, Richard knows what it means to hustle, to worry, to hope. And to show up for others.",
+   "url": "https://richard.vote/about/",
+   "similarity": 0.735
+  },
+  {
+   "candidate_id": "fl-senate-40-rodriguez",
+   "question": "flooding",
+   "text": "Identify short-, medium-, and long-term solutions to address flooding, sea level rise, and community resilience. Protect the integrity of Miami-Dade County’s Urban Development Boundary to preserve the Everglades and safeguard this irreplaceable ecosystem for future generations. Fight unnecessary toll increases that make commuting and daily life more expensive.",
+   "url": "https://electanamaria.com/miami-dade-county/",
+   "similarity": 0.764
+  },
+  {
+   "candidate_id": "fl-senate-40-rodriguez",
+   "question": "insurance",
+   "text": "Improve Florida’s unemployment compensation system so it works when residents need it most. Use a responsible, data-driven approach to economic policy that protects both livelihoods and quality of life. Fight to reduce homeowner’s insurance premiums and bring more stability, transparency, and accountability to the property insurance market.",
+   "url": "https://electanamaria.com/miami-dade-county/",
+   "similarity": 0.759
+  },
+  {
+   "candidate_id": "fl-senate-40-rodriguez",
+   "question": "everglades",
+   "text": "Identify short-, medium-, and long-term solutions to address flooding, sea level rise, and community resilience. Protect the integrity of Miami-Dade County’s Urban Development Boundary to preserve the Everglades and safeguard this irreplaceable ecosystem for future generations. Fight unnecessary toll increases that make commuting and daily life more expensive.",
+   "url": "https://electanamaria.com/miami-dade-county/",
+   "similarity": 0.743
+  },
+  {
+   "candidate_id": "fl-senate-40-rodriguez",
+   "question": "housing",
+   "text": "In Miami-Dade, the affordability crisis is one of the most urgent challenges facing families, seniors, renters, homeowners, and small businesses. Ana Maria is focused on practical solutions that put more money back in residents’ pockets: tax relief, property insurance reform, stronger consumer protections, responsible budgeting, and policies that make it easier to build and preserve affordable and workforce housing.",
+   "url": "https://electanamaria.com/miami-dade-county/",
+   "similarity": 0.793
+  },
+  {
+   "candidate_id": "fl-senate-40-rodriguez",
+   "question": "healthcare",
+   "text": "Support local governments that choose to expand the adoption of body cameras and other accountability tools. Increase access to high-quality, affordable healthcare. Expand telehealth options for seniors, working families, and vulnerable residents. Continue efforts to reduce the cost of prescription drugs.",
+   "url": "https://electanamaria.com/miami-dade-county/",
+   "similarity": 0.738
+  },
+  {
+   "candidate_id": "fl-senate-40-rodriguez",
+   "question": "taxes",
+   "text": "In Miami-Dade, the affordability crisis is one of the most urgent challenges facing families, seniors, renters, homeowners, and small businesses. Ana Maria is focused on practical solutions that put more money back in residents’ pockets: tax relief, property insurance reform, stronger consumer protections, responsible budgeting, and policies that make it easier to build and preserve affordable and workforce housing.",
+   "url": "https://electanamaria.com/miami-dade-county/",
+   "similarity": 0.739
+  },
+  {
+   "candidate_id": "fl-senate-40-stoute",
+   "question": "immigration",
+   "text": "Keep politics out of the classroom and university boardroom. Educators and parents should guide what and how children learn. Keep politics out of healthcare, protect sound medical decision-making, and keep children safe through vaccination. Protect communities from fear-based enforcement and keep Florida focused on safety, opportunity, and dignity.",
+   "url": "https://electstoute.org/",
+   "similarity": 0.762
   },
   {
    "candidate_id": "us-house-fl24-brown",

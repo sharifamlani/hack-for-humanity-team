@@ -1,0 +1,23 @@
+candidate_id,name,url,kind,http_status,text_chars,topics,found_via
+fl-senate-34-gantt,Ashley Viola Gantt,https://ashley.vote/issues/,campaign_issues,200,3664,flooding;environment;housing;cost of living;health care;transit;taxes;schools,ballotready.org/people/ashley-v-gantt
+fl-senate-34-gantt,Ashley Viola Gantt,https://ashley.vote/about/,campaign_issues,200,2772,transit;schools,ballotready.org/people/ashley-v-gantt
+fl-senate-34-gantt,Ashley Viola Gantt,https://ashley.vote/,campaign_home,200,1511,schools,ballotready.org/people/ashley-v-gantt
+fl-senate-34-gantt,Ashley Viola Gantt,https://www.flhouse.gov/Sections/Representatives/details.aspx?MemberId=4897,official_home,200,1575,housing,ballotready.org/people/ashley-v-gantt
+fl-senate-34-jeanty,Elizabeth Jeanty,https://elizabethforsenate34.com/meet-elizabeth,campaign_issues,200,5488,flooding;insurance;environment;housing;cost of living;schools,ballotready.org/people/elizabeth-jeanty
+fl-senate-34-jeanty,Elizabeth Jeanty,https://elizabethforsenate34.com/,campaign_home,200,3230,flooding;insurance;environment;housing;cost of living;health care;schools;public safety,ballotready.org/people/elizabeth-jeanty
+fl-senate-34-jeanty,Elizabeth Jeanty,https://elizabethforsenate34.com/in-the-community,campaign_news,200,5559,environment;health care;immigration;schools;public safety,home page nav link
+fl-senate-38-calatayud,Alexis Maria Calatayud,https://alexiscalatayud.com/,campaign_home,200,35836,flooding;insurance;environment;housing;cost of living;health care;transit;taxes;schools;public safety,ballotready.org/people/alexis-maria-calatayud
+fl-senate-38-calatayud,Alexis Maria Calatayud,https://communitynewspapers.com/sponsored-content/message-from-senator-alexis-calatayud/,press_release,200,7675,environment;housing;cost of living;health care;schools;public safety,campaign home page link (sponsored message in her own words)
+fl-senate-38-calatayud,Alexis Maria Calatayud,https://www.flsenate.gov/PublishedContent/Offices/Senator/Copy_of_Legislative_Session_Newsletter_2_11_2026.pdf,press_release,200,4980,insurance;housing;health care;schools;public safety;cost of living,web search (PDF; text via pdftotext/pypdf)
+fl-senate-38-calatayud,Alexis Maria Calatayud,https://www.flsenate.gov/PublishedContent/Offices/Senator/Community_Connection_5_13_26.pdf,press_release,200,4867,insurance;housing;health care;schools;public safety;cost of living,web search (PDF; text via pdftotext)
+fl-senate-38-calatayud,Alexis Maria Calatayud,https://www.flsenate.gov/senators/s38,official_home,200,6754,health care;schools,web search (mostly site chrome)
+fl-senate-38-lamondin,Richard Lamondin Jr.,https://richard.vote/,campaign_home,200,6704,flooding;insurance;housing;cost of living;health care;taxes;schools,theballotbrief.com SD38 page
+fl-senate-38-lamondin,Richard Lamondin Jr.,https://richard.vote/about/,campaign_issues,200,3747,insurance;environment;housing;cost of living;health care;immigration,richard.vote home nav
+fl-senate-38-solomon,Jeffrey Doc Solomon,,,,,,"NOTHING FOUND: Ballot Brief SD38 page; ballotready.org/people/jeffrey-solomon links docsolomonforhouse.com (old House campaign; curl fails: connection error / 406 Mod_Security); web search for site"
+fl-senate-40-rodriguez,Ana Maria Rodriguez,https://electanamaria.com/miami-dade-county/,campaign_issues,200,4149,flooding;insurance;hurricanes;environment;housing;cost of living;health care;taxes;schools;public safety,ballotready.org/people/ana-maria-rodriguez
+fl-senate-40-rodriguez,Ana Maria Rodriguez,https://electanamaria.com/about-ana-maria/,campaign_issues,200,3836,flooding;insurance;hurricanes;housing;cost of living;health care;taxes;schools;public safety,electanamaria.com home nav
+fl-senate-40-rodriguez,Ana Maria Rodriguez,https://electanamaria.com/hurricane-prep-miami/,campaign_news,200,3945,insurance;hurricanes;health care;public safety,electanamaria.com home nav
+fl-senate-40-rodriguez,Ana Maria Rodriguez,https://electanamaria.com/,campaign_home,200,1784,insurance;hurricanes;environment;housing;cost of living;health care;taxes;schools,ballotready.org/people/ana-maria-rodriguez
+fl-senate-40-rodriguez,Ana Maria Rodriguez,https://www.flsenate.gov/senators/s40,official_home,200,7947,environment;health care;schools,web search (mostly site chrome)
+fl-senate-40-stoute,Jose Antonio Stoute,https://electstoute.org/,campaign_home,200,2829,housing;cost of living;health care;immigration;schools;public safety,ballotready.org/people/jose-antonio-stoute
+fl-senate-40-orta,Ramiro Orta,,,,,,"NOTHING FOUND: Ballot Brief SD40 page; ballotready.org/people/ramiro-orta (only Instagram ram4floridasenator40 + LinkedIn); web search for campaign website"

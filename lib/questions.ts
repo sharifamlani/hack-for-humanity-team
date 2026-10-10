@@ -2,6 +2,7 @@ import questionsJson from "@/data/questions.json";
 import stancesJson from "@/data/positions/stances.json";
 import stateStancesJson from "@/data/positions/stances-state.json";
 import closestJson from "@/data/positions/closest.json";
+import reviewedOutJson from "@/data/positions/reviewed-out.json";
 
 export type Theme = "forces" | "wildlife" | "jobs";
 
@@ -53,10 +54,12 @@ export const QUESTIONS: Question[] = (() => {
 export const questionById = (id: string) => ALL.find((q) => q.id === id);
 
 // Federal candidates and state-legislature candidates are read in separate runs.
+// Readings a person reviewed and judged too much of a stretch are dropped here.
+const REVIEWED_OUT = new Set(reviewedOutJson.removed.map((r) => `${r.candidate_id}|${r.question}`));
 const STANCES = [
   ...(stancesJson as { stances: CandidateStance[] }).stances,
   ...(stateStancesJson as { stances: CandidateStance[] }).stances,
-];
+].filter((s) => !REVIEWED_OUT.has(`${s.candidate_id}|${s.question}`));
 
 export const stanceOf = (candidateId: string, questionId: string) =>
   STANCES.find((s) => s.candidate_id === candidateId && s.question === questionId);

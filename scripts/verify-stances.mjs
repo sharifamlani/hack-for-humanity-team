@@ -3,10 +3,13 @@
 // Fails if any shown position has a quote that is not word-for-word in a passage from the
 // same candidate and the same URL, or has no link.
 // Usage: node scripts/verify-stances.mjs
-import { readFileSync } from "node:fs";
+import { readFileSync, existsSync } from "node:fs";
 import { normalise } from "./build-stances.mjs";
 
-const { stances } = JSON.parse(readFileSync("data/positions/stances.json", "utf8"));
+// Federal and state-legislature candidates are read in separate runs and separate files.
+const stances = ["data/positions/stances.json", "data/positions/stances-state.json"]
+  .filter(existsSync)
+  .flatMap((f) => JSON.parse(readFileSync(f, "utf8")).stances);
 const { chunks } = JSON.parse(readFileSync("data/positions/chunks.json", "utf8"));
 const { questions } = JSON.parse(readFileSync("data/questions.json", "utf8"));
 

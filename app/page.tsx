@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BallotStep } from "@/components/BallotStep";
 import { InterviewStep } from "@/components/InterviewStep";
 import { MatchStep } from "@/components/MatchStep";
@@ -26,6 +26,11 @@ const NAV = [
 export default function Home() {
   const [step, setStep] = useState(0);
   const [address, setAddress] = useState("");
+
+  // Every screen opens at its top, not wherever the last one was scrolled to.
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [step]);
 
   const [result, setResult] = useState<LookupResult | null>(null);
   const [answers, setAnswers] = useState<Answers>({});

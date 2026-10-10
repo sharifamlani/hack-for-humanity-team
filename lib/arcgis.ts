@@ -25,11 +25,11 @@ const atPoint = (lat: number, lon: number) =>
 // The county's pre-2026 congressional layer. It only covers the four districts that
 // were inside Miami-Dade on the old map. Display names are spelled out here because
 // the layer's own REPNAME field has broken accent characters.
-const OLD_LINES_REPS: Record<string, string> = {
-  "24": "Frederica Wilson",
-  "26": "Mario Díaz-Balart",
-  "27": "María Elvira Salazar",
-  "28": "Carlos A. Giménez",
+const OLD_LINES_REPS: Record<string, { name: string; bioguide: string }> = {
+  "24": { name: "Frederica Wilson", bioguide: "W000808" },
+  "26": { name: "Mario Díaz-Balart", bioguide: "D000600" },
+  "27": { name: "María Elvira Salazar", bioguide: "S000168" },
+  "28": { name: "Carlos A. Giménez", bioguide: "G000593" },
 };
 
 export async function oldCongressionalDistrict(lat: number, lon: number) {
@@ -39,9 +39,10 @@ export async function oldCongressionalDistrict(lat: number, lon: number) {
     `${atPoint(lat, lon)}&outFields=ID`,
   );
   const id = features[0]?.attributes.ID;
-  if (id == null) return { district: null, rep: null };
+  if (id == null) return { district: null, rep: null, bioguide: null };
   const district = String(id);
-  return { district, rep: OLD_LINES_REPS[district] ?? null };
+  const rep = OLD_LINES_REPS[district];
+  return { district, rep: rep?.name ?? null, bioguide: rep?.bioguide ?? null };
 }
 
 export async function pollingPlace(lat: number, lon: number): Promise<PollingPlace | null> {

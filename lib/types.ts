@@ -60,6 +60,7 @@ export type LookupResult = {
   // Congressional district under the pre-2026 map, and who holds that seat today.
   oldDistrict: string | null;
   currentRep: string | null;
+  currentRepBioguide: string | null;
   districtChanged: boolean;
   polling: PollingPlace | null;
   earlyVoting: EarlyVotingSite[];

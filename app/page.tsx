@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { BallotStep } from "@/components/BallotStep";
+import { InterviewStep, type Answers } from "@/components/InterviewStep";
+import { MatchStep } from "@/components/MatchStep";
 import { PollingStep } from "@/components/PollingStep";
 import { STEPS, StepBar } from "@/components/StepBar";
 import type { LookupResult } from "@/lib/types";
@@ -14,24 +16,12 @@ const THEMES = [
   { emoji: "🎓", label: "Jobs & staying in Miami", color: "bg-jobs" },
 ];
 
-// What each later step will show once it is wired. Shown on screen so nobody
-// mistakes the shell for a working feature.
-const COMING: Record<number, { title: string; body: string }> = {
-  2: {
-    title: "Ten real votes, your call",
-    body: "Yes / No / Skip on questions Congress actually voted on, one card at a time.",
-  },
-  3: {
-    title: "Where you stand",
-    body: "You and the candidates on one scale for each theme, with a Gemma 4 explanation of where you differ.",
-  },
-};
-
 export default function Home() {
   const [step, setStep] = useState(0);
   const [address, setAddress] = useState("");
 
   const [result, setResult] = useState<LookupResult | null>(null);
+  const [answers, setAnswers] = useState<Answers>({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -175,30 +165,17 @@ export default function Home() {
         </main>
       ) : result && step === 1 ? (
         <BallotStep result={result} onNext={next} onSkipToPolling={() => setStep(4)} />
-      ) : result && step === 4 ? (
+      ) : result && step === 2 ? (
+        <InterviewStep
+          answers={answers}
+          onAnswer={(roll, stance) => setAnswers((a) => ({ ...a, [roll]: stance }))}
+          onDone={next}
+        />
+      ) : result && step === 3 ? (
+        <MatchStep result={result} answers={answers} onNext={next} />
+      ) : result ? (
         <PollingStep result={result} />
-      ) : (
-        <main className="flex flex-1 flex-col gap-6">
-          <section className="rounded-3xl bg-card p-6">
-            <p className="text-xs font-bold uppercase tracking-widest text-accent">
-              Not built yet
-            </p>
-            <h2 className="mt-2 text-3xl font-black tracking-tight">
-              {COMING[step].title}
-            </h2>
-            <p className="mt-3 text-foreground/80">{COMING[step].body}</p>
-          </section>
-          {step < STEPS.length - 1 && (
-            <button
-              type="button"
-              onClick={next}
-              className="rounded-2xl bg-foreground px-4 py-4 text-lg font-bold text-background"
-            >
-              Next: {STEPS[step + 1]} ▶
-            </button>
-          )}
-        </main>
-      )}
+      ) : null}
 
       <footer className="text-center text-xs text-foreground/60">
         We describe. We never recommend. · Open source, MIT · Hack for Humanity:

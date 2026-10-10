@@ -38,7 +38,7 @@ export async function GET(request: Request) {
 
     // Each county lookup may fail on its own without taking the ballot down with it.
     const [old, polling, earlyVoting] = await Promise.all([
-      oldCongressionalDistrict(geo.lat, geo.lon).catch(() => ({ district: null, rep: null })),
+      oldCongressionalDistrict(geo.lat, geo.lon).catch(() => ({ district: null, rep: null, bioguide: null })),
       pollingPlace(geo.lat, geo.lon).catch(() => null),
       nearestEarlyVoting(geo.lat, geo.lon).catch(() => []),
     ]);
@@ -47,6 +47,7 @@ export async function GET(request: Request) {
       geo,
       oldDistrict: old.district,
       currentRep: old.rep,
+      currentRepBioguide: old.bioguide,
       districtChanged: !!old.district && !!geo.congressional && old.district !== geo.congressional,
       polling,
       earlyVoting,

@@ -1,5 +1,4 @@
-          <p className="display mt-1 text-2xl">{street || geo.city || "Miami-Dade"}</p>
-          {street && rest && <p className="mt-1 text-sm text-foreground/80">{rest}</p>}import type { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { matchScore, type Answers, type Placement } from "@/lib/match";
 import { hasRecord } from "@/lib/questions";
 import type { Candidate, LookupResult } from "@/lib/types";
@@ -149,7 +148,8 @@ export function BallotStep({
       <div className="grid items-start gap-4 lg:grid-cols-[300px_1fr]">
         <section className="panel-purple p-6">
           <p className="eyebrow">Your address</p>
-          <p className="display mt-1 text-2xl">{geo.city || "Miami-Dade"}</p>
+          <p className="display mt-1 text-2xl">{street || geo.city || "Miami-Dade"}</p>
+          {street && rest && <p className="mt-1 text-sm text-foreground/80">{rest}</p>}
 
           <div className="mt-4 border-t border-white/25 pt-4">
             <p className="text-sm text-foreground/80">Represented now by</p>

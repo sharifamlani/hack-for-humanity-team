@@ -89,7 +89,7 @@ export function OpenTalk({ onDone, onBack }: { onDone: (said: string) => void; o
       <div className="relative my-4 flex h-44 w-44 items-center justify-center">
         {(state === "speaking" || state === "listening") && (
           <span
-            className={`absolute inset-0 animate-ping rounded-full opacity-30 ${state === "listening" ? "bg-wildlife" : "bg-accent"}`}
+            className={`absolute inset-0 animate-ping rounded-full opacity-30 ${state === "listening" ? "bg-wildlife" : "bg-coral"}`}
           />
         )}
         <button
@@ -98,14 +98,14 @@ export function OpenTalk({ onDone, onBack }: { onDone: (said: string) => void; o
           onClick={() => voice.current?.endTurn()}
           aria-label={state === "listening" ? "I'm done talking" : "Voice assistant"}
           className={`relative h-40 w-40 rounded-full border-4 border-foreground text-5xl transition-transform duration-100 ${
-            state === "listening" ? "bg-wildlife" : state === "thinking" || state === "connecting" ? "animate-pulse bg-jobs" : "bg-accent"
+            state === "listening" ? "bg-wildlife" : state === "thinking" || state === "connecting" ? "animate-pulse bg-jobs" : "bg-coral"
           }`}
         >
           {state === "listening" ? "👂" : state === "thinking" || state === "connecting" ? "💭" : "🗣️"}
         </button>
       </div>
       <p className="text-sm font-bold">{STATUS[state]}</p>
-      {note && <p className="rounded-xl bg-accent/10 px-3 py-2 text-sm font-semibold text-accent">{note}</p>}
+      {note && <p className="rounded-xl bg-coral/15 px-3 py-2 text-sm font-semibold text-coral">{note}</p>}
 
       <div className="w-full rounded-3xl bg-card p-4">
         <p className="min-h-12">
@@ -130,12 +130,12 @@ export function OpenTalk({ onDone, onBack }: { onDone: (said: string) => void; o
           placeholder="…or type it here"
           aria-label="What you care about"
           rows={2}
-          className="rounded-2xl border-2 border-foreground bg-card px-4 py-3 outline-none focus:ring-4 focus:ring-accent/30"
+          className="rounded-2xl border border-foreground/25 bg-card px-4 py-3 outline-none focus:ring-4 focus:ring-accent/30"
         />
         <button
           type="submit"
           disabled={(draft.trim() || myLine.trim()).length < 8}
-          className="rounded-2xl bg-accent px-4 py-4 text-lg font-bold text-white shadow-[0_4px_0_0_var(--foreground)] disabled:opacity-40"
+          className="rounded-2xl bg-accent px-4 py-4 text-lg font-bold text-background disabled:opacity-40"
         >
           See what candidates have said ▶
         </button>

@@ -154,7 +154,7 @@ export function VoiceInterview({
         <button
           type="button"
           onClick={start}
-          className="w-full rounded-3xl bg-accent px-5 py-6 text-left text-white shadow-[0_6px_0_0_var(--foreground)] active:translate-y-1"
+          className="w-full rounded-3xl bg-accent px-5 py-6 text-left text-background active:translate-y-1"
         >
           <span className="block text-2xl font-black">🎙 Ask me</span>
           <span className="block text-sm font-semibold opacity-90">
@@ -164,7 +164,7 @@ export function VoiceInterview({
         <button
           type="button"
           onClick={onOpen}
-          className="w-full rounded-3xl border-2 border-foreground bg-card px-5 py-6 text-left shadow-[0_6px_0_0_var(--foreground)] active:translate-y-1"
+          className="w-full rounded-3xl border border-foreground/25 bg-card px-5 py-6 text-left active:translate-y-1"
         >
           <span className="block text-2xl font-black">💬 I&apos;ll tell you what I care about</span>
           <span className="block text-sm font-semibold text-foreground/70">
@@ -192,7 +192,7 @@ export function VoiceInterview({
       <div className="relative my-4 flex h-44 w-44 items-center justify-center">
         {(state === "speaking" || state === "listening") && (
           <span
-            className={`absolute inset-0 animate-ping rounded-full opacity-30 ${state === "listening" ? "bg-wildlife" : "bg-accent"}`}
+            className={`absolute inset-0 animate-ping rounded-full opacity-30 ${state === "listening" ? "bg-wildlife" : "bg-coral"}`}
           />
         )}
         <button
@@ -201,14 +201,14 @@ export function VoiceInterview({
           onClick={() => voice.current?.endTurn()}
           aria-label={state === "listening" ? "I'm done talking" : "Voice assistant"}
           className={`relative h-40 w-40 rounded-full border-4 border-foreground text-5xl transition-transform duration-100 ${
-            state === "listening" ? "bg-wildlife" : state === "thinking" || state === "connecting" ? "animate-pulse bg-jobs" : "bg-accent"
+            state === "listening" ? "bg-wildlife" : state === "thinking" || state === "connecting" ? "animate-pulse bg-jobs" : "bg-coral"
           }`}
         >
           {state === "listening" ? "👂" : state === "thinking" || state === "connecting" ? "💭" : "🗣️"}
         </button>
       </div>
       <p className="text-sm font-bold">{micOff && state === "listening" ? "Mic is off — tap your answer below" : STATUS[state]}</p>
-      {note && <p className="rounded-xl bg-accent/10 px-3 py-2 text-sm font-semibold text-accent">{note}</p>}
+      {note && <p className="rounded-xl bg-coral/15 px-3 py-2 text-sm font-semibold text-coral">{note}</p>}
 
       <div className="w-full rounded-3xl bg-card p-4">
         <p className="min-h-12">{aiLine || (question ? question.question : "That's everything. Let's see where you stand.")}</p>
@@ -231,10 +231,10 @@ export function VoiceInterview({
       <div className="mt-auto flex w-full flex-col gap-2 pt-2">
         {!done && (
           <div className="grid grid-cols-4 gap-2 text-sm font-bold">
-            <button type="button" onClick={() => tap("yea")} className="rounded-xl border-2 border-foreground bg-card py-2.5">
+            <button type="button" onClick={() => tap("yea")} className="rounded-xl border border-foreground/25 bg-card py-2.5">
               👍 Yes
             </button>
-            <button type="button" onClick={() => tap("nay")} className="rounded-xl border-2 border-foreground bg-card py-2.5">
+            <button type="button" onClick={() => tap("nay")} className="rounded-xl border border-foreground/25 bg-card py-2.5">
               👎 No
             </button>
             <button type="button" onClick={() => tap("unsure")} className="rounded-xl border border-foreground/30 py-2.5">
@@ -254,8 +254,8 @@ export function VoiceInterview({
             }}
             className={`rounded-2xl px-4 py-4 text-lg font-bold ${
               done
-                ? "bg-accent text-white shadow-[0_4px_0_0_var(--foreground)]"
-                : "border-2 border-foreground"
+                ? "bg-accent text-background"
+                : "border border-foreground/25"
             }`}
           >
             See where I stand ▶

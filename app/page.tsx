@@ -7,16 +7,18 @@ import { MatchStep } from "@/components/MatchStep";
 import { OpenTalk } from "@/components/OpenTalk";
 import { VoiceInterview } from "@/components/VoiceInterview";
 import { PollingStep } from "@/components/PollingStep";
+import { Shapes } from "@/components/Shapes";
 import { STEPS, StepBar } from "@/components/StepBar";
 import type { Answers, Stance } from "@/lib/match";
 import type { LookupResult } from "@/lib/types";
 
 const VENUE_ADDRESS = "2750 NW 3rd Ave, Miami, FL 33127";
 
-const THEMES = [
-  { emoji: "🌊", label: "Water · air · land · fire", color: "bg-water" },
-  { emoji: "🐢", label: "Wildlife", color: "bg-wildlife" },
-  { emoji: "🎓", label: "Jobs & staying in Miami", color: "bg-jobs" },
+const NAV = [
+  { label: "Home", step: 0, steps: [0] },
+  { label: "My ballot", step: 1, steps: [1] },
+  { label: "Explore issues", step: 2, steps: [2, 3] },
+  { label: "Voting plan", step: 4, steps: [4] },
 ];
 
 export default function Home() {
@@ -81,44 +83,62 @@ export default function Home() {
   }
 
   return (
-    <div className="mx-auto flex w-full max-w-md flex-1 flex-col gap-6 px-5 py-6">
-      <header className="flex items-center justify-between">
-        <span className="text-xl font-black tracking-tight">
-          305 <span className="text-accent">VOTES</span>
+    <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-6 px-5 py-6 lg:px-8">
+      <header className="flex items-center justify-between gap-4 border-b border-foreground/20 pb-4">
+        <button type="button" onClick={() => setStep(0)} className="text-2xl font-black tracking-tight">
+          305 <span className="text-coral">VOTES</span>
+        </button>
+        <nav aria-label="Sections" className="hidden gap-7 text-sm font-medium md:flex">
+          {NAV.map((n) => (
+            <button
+              key={n.label}
+              type="button"
+              onClick={() => goTo(n.step)}
+              className={`border-b-2 pb-1 ${
+                n.steps.includes(step) ? "border-accent text-accent" : "border-transparent hover:text-accent"
+              }`}
+            >
+              {n.label}
+            </button>
+          ))}
+        </nav>
+        <span
+          title="We never store your address or location."
+          className="rounded-full border border-foreground/40 px-4 py-1.5 text-sm font-semibold"
+        >
+          🛡 Privacy
         </span>
-        <div className="flex gap-2 text-xs font-semibold">
-          <span className="rounded-full bg-foreground px-3 py-1 text-background">
-            Vote
-          </span>
-          <span className="rounded-full border border-foreground/20 px-3 py-1 text-foreground/40">
-            Housing · soon
-          </span>
-          <span className="rounded-full border border-foreground/20 px-3 py-1 text-foreground/40">
-            Climate · soon
-          </span>
-        </div>
       </header>
 
-      <StepBar step={step} onStep={goTo} />
+      <div className="flex items-start justify-between gap-6">
+        <StepBar step={step} onStep={goTo} />
+        <Shapes className="hidden h-24 shrink-0 md:block" />
+      </div>
 
       {step === 0 ? (
-        <main className="flex flex-1 flex-col gap-6">
-          <h1 className="text-5xl font-black leading-[1.05] tracking-tight">
-            Your ballot.
-            <br />
-            Your block.
-            <br />
-            <span className="text-accent">Two minutes.</span>
-          </h1>
+        <main className="grid flex-1 items-start gap-8 lg:grid-cols-[1.1fr_1fr]">
+          <div>
+            <h1 className="display text-6xl lg:text-7xl">
+              Your ballot.
+              <br />
+              Your block.
+              <br />
+              <span className="text-accent">Two minutes.</span>
+            </h1>
+            <p className="mt-4 max-w-md text-lg text-foreground/80">
+              Miami-Dade redrew its districts this year. See who is really on your ballot, what
+              they have said in their own words, and where you vote on Tuesday, Nov 3.
+            </p>
+          </div>
 
           <form
-            className="flex flex-col gap-3"
+            className="card flex flex-col gap-3 p-6"
             onSubmit={(e) => {
               e.preventDefault();
               if (address.trim()) lookup(`address=${encodeURIComponent(address.trim())}`);
             }}
           >
-            <label htmlFor="address" className="text-sm font-semibold">
+            <label htmlFor="address" className="eyebrow text-foreground/70">
               Your home address
             </label>
             <input
@@ -128,57 +148,34 @@ export default function Home() {
               placeholder="123 Main St, Miami, FL"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
-              className="rounded-2xl border-2 border-foreground bg-card px-4 py-4 text-lg outline-none focus:ring-4 focus:ring-accent/30"
+              className="rounded-xl border border-foreground/30 bg-background px-4 py-4 text-lg outline-none focus:border-accent focus:ring-4 focus:ring-accent/25"
             />
-            <button
-              type="submit"
-              disabled={!address.trim() || loading}
-              className="rounded-2xl bg-accent px-4 py-4 text-lg font-bold text-white shadow-[0_4px_0_0_var(--foreground)] transition active:translate-y-1 active:shadow-none disabled:opacity-40"
-            >
-              {loading ? "Finding your district…" : "Show my ballot ▶"}
+            <button type="submit" disabled={!address.trim() || loading} className="btn-primary text-lg">
+              {loading ? "Finding your district…" : "Show my ballot →"}
             </button>
             {error && (
-              <p role="alert" className="rounded-xl bg-accent/10 px-3 py-2 text-sm font-semibold text-accent">
+              <p role="alert" className="rounded-xl bg-coral/15 px-3 py-2 text-sm font-semibold text-coral">
                 {error}
               </p>
             )}
-            <button
-              type="button"
-              onClick={useMyLocation}
-              disabled={loading}
-              className="rounded-2xl border-2 border-foreground px-4 py-3 font-bold disabled:opacity-40"
-            >
+            <button type="button" onClick={useMyLocation} disabled={loading} className="btn-ghost">
               📍 Use my location
             </button>
             <button
               type="button"
               onClick={() => setAddress(VENUE_ADDRESS)}
-              className="self-start rounded-full border border-foreground/30 px-3 py-1.5 text-sm"
+              className="self-start rounded-full border border-foreground/30 px-3 py-1.5 text-sm hover:border-accent"
             >
               Try: 2750 NW 3rd Ave — we&apos;re here
             </button>
-            <p className="text-sm text-foreground/70">
-              🔒 We never store your address or location.
-            </p>
+            <p className="text-sm text-foreground/70">🔒 We never store your address or location.</p>
           </form>
-
-          <ul className="mt-auto flex flex-col gap-2">
-            {THEMES.map((t) => (
-              <li
-                key={t.label}
-                className="flex items-center gap-3 rounded-2xl bg-card px-4 py-3 text-sm font-semibold"
-              >
-                <span className={`h-3 w-3 rounded-full ${t.color}`} />
-                <span>
-                  {t.emoji} {t.label}
-                </span>
-              </li>
-            ))}
-          </ul>
         </main>
       ) : result && step === 1 ? (
         <BallotStep result={result} onNext={next} onSkipToPolling={() => setStep(4)} />
-      ) : result && step === 2 && openMode ? (
+      ) : result && step === 2 ? (
+        <div className="mx-auto flex w-full max-w-md flex-1 flex-col">
+          {openMode ? (
         <OpenTalk
           onBack={() => setOpenMode(false)}
           onDone={(words) => {
@@ -187,7 +184,7 @@ export default function Home() {
             setStep(3);
           }}
         />
-      ) : result && step === 2 && !typed ? (
+          ) : !typed ? (
         <VoiceInterview
           answers={answers}
           onAnswer={record}
@@ -195,21 +192,25 @@ export default function Home() {
           onOpen={() => setOpenMode(true)}
           onTypeInstead={() => setTyped(true)}
         />
-      ) : result && step === 2 ? (
+          ) : (
         <InterviewStep
           answers={answers}
           onAnswer={record}
           onDone={next}
         />
+          )}
+        </div>
       ) : result && step === 3 ? (
-        <MatchStep result={result} answers={answers} said={said} openSaid={openSaid} onNext={next} />
+        <MatchStep result={result} answers={answers} said={said} openSaid={openSaid} onNext={next} onBack={() => setStep(2)} />
       ) : result ? (
         <PollingStep result={result} />
       ) : null}
 
-      <footer className="text-center text-xs text-foreground/60">
-        A match, not an endorsement · Open source, MIT · Hack for Humanity:
-        Miami 2026
+      <footer className="flex flex-wrap items-center justify-between gap-2 border-t border-foreground/20 pt-4 text-xs text-foreground/60">
+        <span className="text-xl font-black tracking-tight text-foreground">
+          305 <span className="text-coral">VOTES</span>
+        </span>
+        <span>A match, not an endorsement · Open source, MIT · Hack for Humanity: Miami 2026</span>
       </footer>
     </div>
   );

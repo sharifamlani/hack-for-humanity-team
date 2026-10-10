@@ -147,7 +147,7 @@ export function InterviewStep({
                 placeholder="Type your answer…"
                 aria-label="Your answer"
                 disabled={thinking}
-                className="min-w-0 flex-1 rounded-2xl border-2 border-foreground bg-card px-4 py-3 outline-none focus:ring-4 focus:ring-accent/30"
+                className="min-w-0 flex-1 rounded-2xl border border-foreground/25 bg-card px-4 py-3 outline-none focus:ring-4 focus:ring-accent/30"
               />
               <button
                 type="submit"
@@ -159,10 +159,10 @@ export function InterviewStep({
               </button>
             </form>
             <div className="grid grid-cols-4 gap-2 text-sm font-bold">
-              <button type="button" disabled={thinking} onClick={() => record("yea", "Yes")} className="rounded-xl border-2 border-foreground bg-card py-2.5 disabled:opacity-40">
+              <button type="button" disabled={thinking} onClick={() => record("yea", "Yes")} className="rounded-xl border border-foreground/25 bg-card py-2.5 disabled:opacity-40">
                 👍 Yes
               </button>
-              <button type="button" disabled={thinking} onClick={() => record("nay", "No")} className="rounded-xl border-2 border-foreground bg-card py-2.5 disabled:opacity-40">
+              <button type="button" disabled={thinking} onClick={() => record("nay", "No")} className="rounded-xl border border-foreground/25 bg-card py-2.5 disabled:opacity-40">
                 👎 No
               </button>
               <button type="button" disabled={thinking} onClick={() => record("unsure", "Not sure")} className="rounded-xl border border-foreground/30 py-2.5 disabled:opacity-40">
@@ -179,7 +179,7 @@ export function InterviewStep({
             type="button"
             onClick={onDone}
             className={`rounded-2xl px-4 py-4 text-lg font-bold ${
-              question ? "border-2 border-foreground" : "bg-accent text-white shadow-[0_4px_0_0_var(--foreground)]"
+              question ? "border border-foreground/25" : "bg-accent text-background"
             }`}
           >
             See where I stand ▶

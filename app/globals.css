@@ -1,14 +1,18 @@
 @import "tailwindcss";
 
-/* Theme tokens — placeholder palette until the team locks the final one. */
+/* Theme tokens — the dark palette from the final mockups. */
 :root {
-  --background: #fff7ec;
-  --foreground: #1b1b3a;
-  --card: #ffffff;
-  --accent: #ff5a4e;
-  --water: #1fa2ff;
-  --wildlife: #18b47b;
-  --jobs: #ffb703;
+  --background: #0a0a0b;
+  --foreground: #f5f3ee;
+  --card: #131316;
+  --accent: #55e6b0;
+  --coral: #ff5a4e;
+  --purple: #4a2bb8;
+  --sun: #ffc93c;
+  --sky: #7b8cff;
+  --water: #7b8cff;
+  --wildlife: #55e6b0;
+  --jobs: #ffc93c;
 }
 
 @theme inline {
@@ -16,6 +20,10 @@
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-accent: var(--accent);
+  --color-coral: var(--coral);
+  --color-purple: var(--purple);
+  --color-sun: var(--sun);
+  --color-sky: var(--sky);
   --color-water: var(--water);
   --color-wildlife: var(--wildlife);
   --color-jobs: var(--jobs);
@@ -28,3 +36,65 @@ body {
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
+
+/* Shared pieces, so every screen draws the same button and the same card. */
+.display {
+  font-family: var(--font-display), Georgia, "Times New Roman", serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid color-mix(in srgb, var(--foreground) 14%, transparent);
+  border-radius: 1rem;
+}
+
+.panel-purple {
+  background: linear-gradient(160deg, #5a35d6 0%, var(--purple) 55%, #2f1a80 100%);
+  border-radius: 1rem;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  background: var(--accent);
+  color: #06120d;
+  padding: 0.85rem 1.75rem;
+  font-weight: 700;
+  transition: filter 0.15s, transform 0.1s;
+}
+.btn-primary:hover { filter: brightness(1.08); }
+.btn-primary:active { transform: translateY(1px); }
+.btn-primary:disabled { opacity: 0.4; }
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  border: 1.5px solid var(--accent);
+  color: var(--foreground);
+  padding: 0.8rem 1.5rem;
+  font-weight: 700;
+}
+.btn-ghost:hover { background: color-mix(in srgb, var(--accent) 12%, transparent); }
+.btn-ghost:disabled { opacity: 0.4; }
+
+.eyebrow {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.link-mint {
+  color: var(--accent);
+  font-weight: 600;
+}
+.link-mint:hover { text-decoration: underline; }

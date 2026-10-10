@@ -392,12 +392,6 @@
    "seat": "state:upper"
   },
   {
-   "candidate_id": "fl-house-108-francius",
-   "cfscore": -1.309,
-   "cycle": 2022,
-   "seat": "state:lower"
-  },
-  {
    "candidate_id": "us-senate-fl-nixon",
    "cfscore": -0.922,
    "cycle": 2022,

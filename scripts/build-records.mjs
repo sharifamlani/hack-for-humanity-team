@@ -91,8 +91,10 @@ for (const [candidate_id, m] of Object.entries(MEMBERS)) {
 
 // CFscores (Bonica's DIME database): where a candidate's donors place them, on a scale of
 // about -2 (left) to +2 (right). Collected into data/positions/cfscores.csv from the DIME
-// recipients file. Jolly is left out: his only score is from 2016, when he ran as a Republican.
-const SKIP_CF = new Set(["fl-gov-jolly"]);
+// recipients file. Two are left out because the score is from a run under a different party
+// than the one they are running with now: Jolly (2016, as a Republican) and Francius (2022,
+// as a Democrat).
+const SKIP_CF = new Set(["fl-gov-jolly", "fl-house-108-francius"]);
 const cfscores = [];
 if (existsSync("data/positions/cfscores.csv")) {
   const [h, ...rows] = parseCsv(readFileSync("data/positions/cfscores.csv", "utf8"));

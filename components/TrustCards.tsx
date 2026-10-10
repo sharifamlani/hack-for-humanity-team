@@ -1,7 +1,5 @@
 import { Flower } from "@/components/Shapes";
 
-const REPO = "https://github.com/sharifamlani/hack-for-humanity-team";
-
 // The three promises at the bottom of the home page: privacy, sources, and the voter's choice.
 export function TrustCards() {
   return (
@@ -14,9 +12,6 @@ export function TrustCards() {
             <p className="mt-2 text-sm text-foreground/75">
               Your address is used once, to find your districts and polling place. We never store it.
             </p>
-            <a className="link-mint mt-3 inline-block text-sm" href={`${REPO}#limits-and-honesty`} target="_blank" rel="noreferrer">
-              Privacy &amp; data →
-            </a>
           </div>
           <svg viewBox="0 0 64 80" aria-hidden="true" className="h-20 w-16 shrink-0">
             <path d="M32 4 C46 26 58 38 58 52 A26 26 0 0 1 6 52 C6 38 18 26 32 4 Z" fill="var(--sun)" />
@@ -29,9 +24,6 @@ export function TrustCards() {
             <p className="mt-2 text-sm text-foreground/75">
               Every position links to the candidate&apos;s own page or their recorded vote.
             </p>
-            <a className="link-mint mt-3 inline-block text-sm" href={`${REPO}#data-sources`} target="_blank" rel="noreferrer">
-              About our sources →
-            </a>
           </div>
           <svg viewBox="0 0 80 72" aria-hidden="true" className="h-[4.5rem] w-20 shrink-0">
             <path d="M40 68 C12 48 4 34 4 22 A18 18 0 0 1 40 16 A18 18 0 0 1 76 22 C76 34 68 48 40 68 Z" fill="var(--accent)" />
@@ -44,9 +36,6 @@ export function TrustCards() {
             <p className="mt-2 text-sm text-foreground/75">
               We show a match and its evidence. It is a starting point, never an endorsement.
             </p>
-            <a className="link-mint mt-3 inline-block text-sm" href={`${REPO}#how-it-works`} target="_blank" rel="noreferrer">
-              How it works →
-            </a>
           </div>
           <Flower className="h-20 w-20 shrink-0 text-sky" />
         </article>

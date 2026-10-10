@@ -2,11 +2,13 @@
 
 import { useState } from "react";
 import { BallotStep } from "@/components/BallotStep";
-import { InterviewStep, type Answers } from "@/components/InterviewStep";
+import { InterviewStep } from "@/components/InterviewStep";
 import { MatchStep } from "@/components/MatchStep";
+import { OpenTalk } from "@/components/OpenTalk";
 import { VoiceInterview } from "@/components/VoiceInterview";
 import { PollingStep } from "@/components/PollingStep";
 import { STEPS, StepBar } from "@/components/StepBar";
+import type { Answers, Stance } from "@/lib/match";
 import type { LookupResult } from "@/lib/types";
 
 const VENUE_ADDRESS = "2750 NW 3rd Ave, Miami, FL 33127";
@@ -23,7 +25,16 @@ export default function Home() {
 
   const [result, setResult] = useState<LookupResult | null>(null);
   const [answers, setAnswers] = useState<Answers>({});
+  const [said, setSaid] = useState<Record<string, string>>({});
   const [typed, setTyped] = useState(false);
+  const [openMode, setOpenMode] = useState(false);
+  const [openSaid, setOpenSaid] = useState("");
+
+  // Record an answer and, when we have them, the voter's own words for it.
+  const record = (id: string, stance: Stance, words?: string) => {
+    setAnswers((a) => ({ ...a, [id]: stance }));
+    if (words?.trim()) setSaid((s) => ({ ...s, [id]: words }));
+  };
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -167,21 +178,31 @@ export default function Home() {
         </main>
       ) : result && step === 1 ? (
         <BallotStep result={result} onNext={next} onSkipToPolling={() => setStep(4)} />
+      ) : result && step === 2 && openMode ? (
+        <OpenTalk
+          onBack={() => setOpenMode(false)}
+          onDone={(words) => {
+            setOpenSaid(words);
+            setOpenMode(false);
+            setStep(3);
+          }}
+        />
       ) : result && step === 2 && !typed ? (
         <VoiceInterview
           answers={answers}
-          onAnswer={(roll, stance) => setAnswers((a) => ({ ...a, [roll]: stance }))}
+          onAnswer={record}
           onDone={next}
+          onOpen={() => setOpenMode(true)}
           onTypeInstead={() => setTyped(true)}
         />
       ) : result && step === 2 ? (
         <InterviewStep
           answers={answers}
-          onAnswer={(roll, stance) => setAnswers((a) => ({ ...a, [roll]: stance }))}
+          onAnswer={record}
           onDone={next}
         />
       ) : result && step === 3 ? (
-        <MatchStep result={result} answers={answers} onNext={next} />
+        <MatchStep result={result} answers={answers} said={said} openSaid={openSaid} onNext={next} />
       ) : result ? (
         <PollingStep result={result} />
       ) : null}

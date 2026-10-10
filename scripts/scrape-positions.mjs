@@ -73,7 +73,10 @@ async function main() {
   // Only pages that are the candidate's own words. News articles and forum write-ups quote
   // several people, so a sentence could be pinned on the wrong candidate.
   const OWN_WORDS = /^(campaign_|official_|press_release|speech|questionnaire)/;
-  const pages = rows.filter((r) => /^https?:\/\//.test(r.url) && OWN_WORDS.test(r.kind));
+  // PDFs are skipped: this script reads HTML only.
+  const pages = rows.filter(
+    (r) => /^https?:\/\//.test(r.url) && OWN_WORDS.test(r.kind) && !/\.pdf($|\?)/i.test(r.url),
+  );
   console.log(`${pages.length} pages listed for ${new Set(pages.map((p) => p.candidate_id)).size} candidates`);
 
   const chunks = [];

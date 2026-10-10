@@ -1,25 +1,23 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { INTERVIEW_ORDER, THEMES, type Item } from "@/lib/items";
 import { LiveVoice, type VoiceState } from "@/lib/liveVoice";
-import type { Answers, Stance } from "./InterviewStep";
+import type { Answers, Stance } from "@/lib/match";
+import { QUESTIONS, THEMES, type Question } from "@/lib/questions";
 
-const QUESTIONS = INTERVIEW_ORDER.slice(0, 6); // two votes per theme
-
-const SYSTEM = `You are the voice of 305 Votes, a friendly and strictly neutral civic interviewer talking with an 18 to 25 year old in Miami. You ask about real votes in the U.S. House, one at a time. Sound warm and relaxed, like a friend who follows the news, and keep everything short.
+const SYSTEM = `You are the voice of 305 Votes, a friendly and strictly neutral civic interviewer talking with an 18 to 25 year old in Miami. You ask about issues that touch life in Miami and South Florida, one at a time. Sound warm and relaxed, like a friend who follows the news, and keep everything short.
 Rules:
 - Messages in [brackets] are instructions from the app, not from the person. Never read them aloud.
 - When told to ask a question, ask it out loud in one or two natural sentences.
-- When the person answers, call record_answer with their stance on the bill: "yes", "no", or "unsure". Supporting something a bill removes means "no" on the bill.
-- If they ask what the bill does, explain briefly using only the summary you were given, then ask again. Do not call record_answer until they give an answer.
+- When the person answers, call record_answer with their answer to the question as asked: "yes", "no", or "unsure".
+- If they ask what you mean, explain in one neutral sentence without taking a side, then ask again. Do not call record_answer until they give an answer.
 - After record_answer returns, say one short neutral acknowledgement (under 10 words), then ask the next question it gives you. If it says the interview is complete, say what it tells you to say.
-- Never give your own opinion, never argue, never mention political parties, never recommend a candidate.`;
+- Never give your own opinion, never argue, never mention political parties, never name or recommend a candidate, and never state statistics.`;
 
 const DONE_LINE =
-  "The interview is complete. Tell them that is enough to place them, and to tap See where I stand.";
+  "The interview is complete. Tell them that is everything, and to tap See where I stand.";
 
-const askLine = (item: Item) => `Summary: ${item.summary} Question: ${item.question}`;
+const askLine = (q: Question) => `Question: ${q.question}`;
 
 const LABEL: Record<Stance, string> = { yea: "Yes", nay: "No", unsure: "Not sure", skip: "Skipped" };
 
@@ -36,11 +34,13 @@ export function VoiceInterview({
   answers,
   onAnswer,
   onDone,
+  onOpen,
   onTypeInstead,
 }: {
   answers: Answers;
-  onAnswer: (roll: number, stance: Stance) => void;
+  onAnswer: (id: string, stance: Stance, said?: string) => void;
   onDone: () => void;
+  onOpen: () => void;
   onTypeInstead: () => void;
 }) {
   const [started, setStarted] = useState(false);
@@ -49,7 +49,7 @@ export function VoiceInterview({
   const [aiLine, setAiLine] = useState("");
   const [myLine, setMyLine] = useState("");
   const [note, setNote] = useState<string | null>(null);
-  const [checking, setChecking] = useState<Record<number, boolean>>({});
+  const [checking, setChecking] = useState<Record<string, boolean>>({});
   const [micOff, setMicOff] = useState(false);
 
   const voice = useRef<LiveVoice | null>(null);
@@ -60,7 +60,7 @@ export function VoiceInterview({
 
   useEffect(() => () => voice.current?.stop(), []);
 
-  const item = QUESTIONS[index] as Item | undefined;
+  const question = QUESTIONS[index] as Question | undefined;
   const recorded = Object.keys(answers).length;
 
   // Move to the next question and say what the voice should be told about it.
@@ -76,23 +76,23 @@ export function VoiceInterview({
 
   // Gemma 4 is the reader of record: it re-reads what the person actually said and its
   // reading replaces the voice model's quick one.
-  async function confirmWithGemma(roll: number, said: string) {
+  async function confirmWithGemma(id: string, said: string) {
     if (!said.trim()) return;
-    setChecking((c) => ({ ...c, [roll]: true }));
+    setChecking((c) => ({ ...c, [id]: true }));
     try {
       const res = await fetch("/api/interview", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ roll, answer: said }),
+        body: JSON.stringify({ id, answer: said }),
       });
       const json = await res.json();
       if (res.ok && json.stance !== "unclear") {
-        onAnswer(roll, json.stance === "yes" ? "yea" : json.stance === "no" ? "nay" : "unsure");
+        onAnswer(id, json.stance === "yes" ? "yea" : json.stance === "no" ? "nay" : "unsure", said);
       }
     } catch {
       // Keep the provisional reading.
     } finally {
-      setChecking((c) => ({ ...c, [roll]: false }));
+      setChecking((c) => ({ ...c, [id]: false }));
     }
   }
 
@@ -119,8 +119,8 @@ export function VoiceInterview({
         const current = QUESTIONS[indexRef.current];
         if (!current) return { recorded: false, next: DONE_LINE };
         const said = heard.current;
-        onAnswer(current.roll, stance === "yes" ? "yea" : stance === "no" ? "nay" : "unsure");
-        confirmWithGemma(current.roll, said);
+        onAnswer(current.id, stance === "yes" ? "yea" : stance === "no" ? "nay" : "unsure", said);
+        confirmWithGemma(current.id, said);
         return { recorded: true, next: advance() };
       },
       onError: (message) => setNote(message),
@@ -128,7 +128,7 @@ export function VoiceInterview({
     voice.current = v;
     try {
       await v.start(
-        `Greet the person in one short sentence, tell them you'll ask about ${QUESTIONS.length} things Congress really voted on and there are no wrong answers, then ask the first one. ${askLine(QUESTIONS[0])}`,
+        `Greet the person in one short sentence, tell them you'll ask about ${QUESTIONS.length} things that matter in Miami and there are no wrong answers, then ask the first one. ${askLine(QUESTIONS[0])}`,
       );
       setMicOff(!v.micAvailable);
     } catch (e) {
@@ -138,8 +138,8 @@ export function VoiceInterview({
   }
 
   function tap(stance: Stance) {
-    if (!item) return;
-    onAnswer(item.roll, stance);
+    if (!question) return;
+    onAnswer(question.id, stance);
     const next = advance();
     voice.current?.instruct(
       `The person tapped "${LABEL[stance]}" on screen for the current question. Acknowledge in a few words, then continue. ${next}`,
@@ -150,16 +150,26 @@ export function VoiceInterview({
     return (
       <main className="flex flex-1 flex-col items-center gap-6 text-center">
         <h2 className="text-3xl font-black tracking-tight">Let&apos;s talk it through</h2>
-        <p className="text-foreground/80">
-          I&apos;ll ask you out loud about {QUESTIONS.length} things Congress really voted on. Just
-          answer like you&apos;re talking to a friend.
-        </p>
+        <p className="text-foreground/80">Two ways to do this. Both are out loud, like talking to a friend.</p>
         <button
           type="button"
           onClick={start}
-          className="flex h-44 w-44 items-center justify-center rounded-full bg-accent text-xl font-black text-white shadow-[0_8px_0_0_var(--foreground)] active:translate-y-1"
+          className="w-full rounded-3xl bg-accent px-5 py-6 text-left text-white shadow-[0_6px_0_0_var(--foreground)] active:translate-y-1"
         >
-          🎙 Start
+          <span className="block text-2xl font-black">🎙 Ask me</span>
+          <span className="block text-sm font-semibold opacity-90">
+            {QUESTIONS.length} quick questions about Miami, then see who lines up with you
+          </span>
+        </button>
+        <button
+          type="button"
+          onClick={onOpen}
+          className="w-full rounded-3xl border-2 border-foreground bg-card px-5 py-6 text-left shadow-[0_6px_0_0_var(--foreground)] active:translate-y-1"
+        >
+          <span className="block text-2xl font-black">💬 I&apos;ll tell you what I care about</span>
+          <span className="block text-sm font-semibold text-foreground/70">
+            Talk about anything, then see what the candidates have said about it
+          </span>
         </button>
         <p className="text-sm text-foreground/60">Turn your sound on. We&apos;ll ask to use your mic.</p>
         <button type="button" onClick={onTypeInstead} className="text-sm font-semibold underline">
@@ -169,11 +179,11 @@ export function VoiceInterview({
     );
   }
 
-  const done = !item;
+  const done = !question;
   return (
     <main className="flex flex-1 flex-col items-center gap-4">
       <div className="flex w-full items-center justify-between text-xs font-black uppercase tracking-widest">
-        <span>{item ? `${THEMES[item.theme].emoji} ${THEMES[item.theme].label}` : "Interview"}</span>
+        <span>{question ? `${THEMES[question.theme].emoji} ${THEMES[question.theme].label}` : "Interview"}</span>
         <span className="text-foreground/50">
           {Math.min(index + 1, QUESTIONS.length)} of {QUESTIONS.length}
         </span>
@@ -201,33 +211,17 @@ export function VoiceInterview({
       {note && <p className="rounded-xl bg-accent/10 px-3 py-2 text-sm font-semibold text-accent">{note}</p>}
 
       <div className="w-full rounded-3xl bg-card p-4">
-        <p className="min-h-12">{aiLine || (item ? item.question : "That's everything. Let's see where you stand.")}</p>
-        {item && (
-          <details className="mt-2 text-sm text-foreground/70">
-            <summary className="cursor-pointer font-semibold">
-              Real vote: {item.bill} · {item.date} ⓘ
-            </summary>
-            <p className="mt-1">{item.summary}</p>
-            <p className="mt-1">
-              <a className="underline" href={item.billUrl} target="_blank" rel="noreferrer">
-                Read the bill ↗
-              </a>{" "}
-              <a className="underline" href={item.voteUrl} target="_blank" rel="noreferrer">
-                See the roll call ↗
-              </a>
-            </p>
-          </details>
-        )}
+        <p className="min-h-12">{aiLine || (question ? question.question : "That's everything. Let's see where you stand.")}</p>
         {myLine && <p className="mt-3 border-t border-foreground/10 pt-3 text-sm italic">You: “{myLine.trim()}”</p>}
       </div>
 
       {recorded > 0 && (
         <ul className="flex w-full flex-wrap gap-2 text-xs font-bold">
-          {QUESTIONS.filter((q) => answers[q.roll]).map((q) => (
-            <li key={q.roll} className="rounded-full border border-foreground/20 bg-card px-3 py-1">
-              {q.bill}: {LABEL[answers[q.roll]]}
+          {QUESTIONS.filter((q) => answers[q.id]).map((q) => (
+            <li key={q.id} className="rounded-full border border-foreground/20 bg-card px-3 py-1">
+              {q.short}: {LABEL[answers[q.id]]}
               <span className="ml-1 font-normal text-foreground/50">
-                {checking[q.roll] ? "· Gemma 4 checking…" : "✓"}
+                {checking[q.id] ? "· Gemma 4 checking…" : "✓"}
               </span>
             </li>
           ))}

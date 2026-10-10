@@ -7,7 +7,9 @@
    "short": "Flooding",
    "question": "Sunny-day flooding keeps closing Miami streets. Should the federal government spend more to raise roads, upgrade drains and build sea walls here?",
    "search": "flooding, sea level rise, storm surge, resilience, stormwater drains, sea walls, hurricane protection and infrastructure funding for South Florida",
-   "reviewed": false
+   "reviewed": false,
+   "partyLean": {},
+   "active": true
   },
   {
    "id": "insurance",
@@ -15,7 +17,11 @@
    "short": "Home insurance",
    "question": "Home insurance bills in South Florida keep climbing. Should the federal government step in to bring property-insurance costs down?",
    "search": "property insurance, homeowners insurance premiums, flood insurance, NFIP, insurance crisis, cost of insuring a home in Florida",
-   "reviewed": false
+   "reviewed": false,
+   "partyLean": {
+    "Democratic": "yes"
+   },
+   "active": true
   },
   {
    "id": "heat",
@@ -23,7 +29,12 @@
    "short": "Extreme heat",
    "question": "Miami summers keep getting hotter. Should there be a national rule requiring water, shade and rest breaks for people who work outdoors?",
    "search": "extreme heat, heat protections for outdoor workers, water and shade breaks, heat standard, construction and farm workers, climate change and rising temperatures",
-   "reviewed": false
+   "reviewed": false,
+   "partyLean": {
+    "Democratic": "yes",
+    "Republican": "no"
+   },
+   "active": false
   },
   {
    "id": "drilling",
@@ -31,7 +42,9 @@
    "short": "Offshore drilling",
    "question": "Should oil and gas drilling be banned off Florida's coast?",
    "search": "offshore oil and gas drilling off Florida's coast, drilling moratorium, Gulf of Mexico, protecting beaches, energy production, clean energy, solar",
-   "reviewed": false
+   "reviewed": false,
+   "partyLean": {},
+   "active": false
   },
   {
    "id": "everglades",
@@ -39,7 +52,9 @@
    "short": "Everglades & Biscayne Bay",
    "question": "Should Congress spend more to restore the Everglades and clean up Biscayne Bay?",
    "search": "Everglades restoration funding, Biscayne Bay, water quality, Lake Okeechobee, red tide, algae, coral reefs, clean water",
-   "reviewed": false
+   "reviewed": false,
+   "partyLean": {},
+   "active": true
   },
   {
    "id": "species",
@@ -47,7 +62,12 @@
    "short": "Endangered animals",
    "question": "Should protecting endangered animals like manatees and Florida panthers come first, even when it slows down new building?",
    "search": "endangered species, manatees, Florida panther, sea turtles, wildlife protection, conservation, habitat, animal welfare, development and environmental rules",
-   "reviewed": false
+   "reviewed": false,
+   "partyLean": {
+    "Democratic": "yes",
+    "Republican": "no"
+   },
+   "active": true
   },
   {
    "id": "housing",
@@ -55,7 +75,12 @@
    "short": "Rent & housing",
    "question": "Rent in Miami has pushed a lot of young people out. Should the federal government spend more to build housing and help renters?",
    "search": "affordable housing, rent, housing costs, cost of living, homeownership, housing affordability in Miami and South Florida",
-   "reviewed": false
+   "reviewed": false,
+   "partyLean": {
+    "Democratic": "yes",
+    "Republican": "no"
+   },
+   "active": true
   },
   {
    "id": "wages",
@@ -63,7 +88,12 @@
    "short": "Minimum wage",
    "question": "Should the federal minimum wage be raised?",
    "search": "minimum wage, wages, good-paying jobs, workers, unions, small business, economy, taxes and jobs",
-   "reviewed": false
+   "reviewed": false,
+   "partyLean": {
+    "Democratic": "yes",
+    "Republican": "no"
+   },
+   "active": false
   },
   {
    "id": "college",
@@ -71,7 +101,12 @@
    "short": "College costs",
    "question": "Should the government cancel or cut student debt?",
    "search": "student debt, student loans, college affordability, tuition, Pell grants, higher education, workforce training, education",
-   "reviewed": false
+   "reviewed": false,
+   "partyLean": {
+    "Democratic": "yes",
+    "Republican": "no"
+   },
+   "active": false
   },
   {
    "id": "immigration",
@@ -79,7 +114,12 @@
    "short": "Immigration",
    "question": "Should immigrants who have lived here for years, like Dreamers and people with TPS, get a path to legal status?",
    "search": "immigration, path to legal status or citizenship, Dreamers, DACA, TPS for Venezuelans Haitians Cubans Nicaraguans, deportation, border security",
-   "reviewed": false
+   "reviewed": false,
+   "partyLean": {
+    "Democratic": "yes"
+   },
+   "active": true
   }
- ]
+ ],
+ "partyLeanNote": "Fallback only, used when we found nothing in a candidate's own words. A rough generalisation of the two national parties' usual positions, written by the team on Oct 10, 2026 — NOT sourced per candidate. Left empty where the parties do not plainly differ or where South Florida members often break from their party (flooding, Everglades, offshore drilling, and Republicans on immigration and insurance)."
 }

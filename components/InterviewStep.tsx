@@ -1,14 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { INTERVIEW_ORDER, THEMES, type Item } from "@/lib/items";
+import type { Answers, Stance } from "@/lib/match";
+import { QUESTIONS, THEMES, type Question } from "@/lib/questions";
 
-export type Stance = "yea" | "nay" | "unsure" | "skip";
-export type Answers = Record<number, Stance>;
+// The typed version of the interview — the fallback when someone would rather not talk.
 
-type Message = { from: "ai" | "me"; text: string; item?: Item };
-
-const FIRST_ROUND = 6; // two votes per theme; enough to place someone, short enough to finish
+type Message = { from: "ai" | "me"; text: string };
 
 const STANCE_LABEL: Record<Stance, string> = {
   yea: "YES",
@@ -17,82 +15,71 @@ const STANCE_LABEL: Record<Stance, string> = {
   skip: "SKIPPED",
 };
 
-const ask = (item: Item): Message => ({ from: "ai", text: `${item.hook} ${item.question}`, item });
-
 export function InterviewStep({
   answers,
   onAnswer,
   onDone,
 }: {
   answers: Answers;
-  onAnswer: (roll: number, stance: Stance) => void;
+  onAnswer: (id: string, stance: Stance, said?: string) => void;
   onDone: () => void;
 }) {
   const [index, setIndex] = useState(0);
   const [messages, setMessages] = useState<Message[]>([
     {
       from: "ai",
-      text: "Hey! I'm going to ask you about a few things Congress actually voted on. Answer in your own words, or just tap. There are no right answers.",
+      text: `Hey! I'm going to ask you about ${QUESTIONS.length} things that matter in Miami. Answer in your own words, or just tap. There are no right answers.`,
     },
-    ask(INTERVIEW_ORDER[0]),
+    { from: "ai", text: QUESTIONS[0].question },
   ]);
   const [draft, setDraft] = useState("");
   const [thinking, setThinking] = useState(false);
-  const [keepGoing, setKeepGoing] = useState(false);
   const bottom = useRef<HTMLDivElement>(null);
 
-  const item = INTERVIEW_ORDER[index] as Item | undefined;
+  const question = QUESTIONS[index] as Question | undefined;
   const answered = Object.keys(answers).length;
-  const atBreak = index === FIRST_ROUND && !keepGoing;
-  const finished = !item;
 
   useEffect(() => {
     bottom.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [messages, thinking]);
 
-  function record(stance: Stance, mine: string, reply?: string) {
-    if (!item) return;
-    onAnswer(item.roll, stance);
-    const nextItem = INTERVIEW_ORDER[index + 1];
+  function record(stance: Stance, mine: string, reply?: string, said?: string) {
+    if (!question) return;
+    onAnswer(question.id, stance, said);
+    const next = QUESTIONS[index + 1];
     const ack =
       reply ??
       (stance === "skip"
         ? "No problem, skipping that one."
-        : `Got it — counting that as ${STANCE_LABEL[stance]} on ${item.bill}.`);
-    const out: Message[] = [{ from: "me", text: mine }, { from: "ai", text: ack }];
-    if (index + 1 === FIRST_ROUND) {
-      out.push({
-        from: "ai",
-        text: "That's enough to place you. Want to see where you stand, or answer a few more for a sharper picture?",
-      });
-    } else if (nextItem) {
-      out.push(ask(nextItem));
-    } else {
-      out.push({ from: "ai", text: "That's all of them. Let's see where you stand." });
-    }
-    setMessages((m) => [...m, ...out]);
+        : `Got it — counting that as ${STANCE_LABEL[stance]} on ${question.short.toLowerCase()}.`);
+    setMessages((m) => [
+      ...m,
+      { from: "me", text: mine },
+      { from: "ai", text: ack },
+      { from: "ai", text: next ? next.question : "That's all of them. Let's see where you stand." },
+    ]);
     setIndex(index + 1);
   }
 
   async function sendTyped() {
     const text = draft.trim();
-    if (!text || !item || thinking) return;
+    if (!text || !question || thinking) return;
     setDraft("");
     setThinking(true);
     try {
       const res = await fetch("/api/interview", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ roll: item.roll, answer: text }),
+        body: JSON.stringify({ id: question.id, answer: text }),
       });
       const json = await res.json();
       if (!res.ok) throw new Error(json.error);
       if (json.stance === "unclear") {
-        // Stay on the same vote; the reply is a follow-up question.
+        // Stay on the same question; the reply is a follow-up.
         setMessages((m) => [...m, { from: "me", text }, { from: "ai", text: json.reply }]);
       } else {
         const stance: Stance = json.stance === "yes" ? "yea" : json.stance === "no" ? "nay" : "unsure";
-        record(stance, text, `${json.reply} (Recorded: ${STANCE_LABEL[stance]} on ${item.bill}.)`);
+        record(stance, text, `${json.reply} (Recorded: ${STANCE_LABEL[stance]}.)`, text);
       }
     } catch (e) {
       setMessages((m) => [
@@ -114,12 +101,9 @@ export function InterviewStep({
   return (
     <main className="flex flex-1 flex-col gap-4">
       <div className="flex items-center justify-between text-xs font-black uppercase tracking-widest">
-        <span>
-          {item && !atBreak ? `${THEMES[item.theme].emoji} ${THEMES[item.theme].label}` : "Interview"}
-        </span>
+        <span>{question ? `${THEMES[question.theme].emoji} ${THEMES[question.theme].label}` : "Interview"}</span>
         <span className="text-foreground/50">
-          {Math.min(index + (item && !atBreak ? 1 : 0), INTERVIEW_ORDER.length)} of{" "}
-          {keepGoing ? INTERVIEW_ORDER.length : FIRST_ROUND}
+          {Math.min(index + 1, QUESTIONS.length)} of {QUESTIONS.length}
         </span>
       </div>
 
@@ -127,24 +111,7 @@ export function InterviewStep({
         {messages.map((m, i) =>
           m.from === "ai" ? (
             <div key={i} className="max-w-[88%] self-start rounded-3xl rounded-bl-md bg-card px-4 py-3">
-              <p>{m.text}</p>
-              {m.item && (
-                <details className="mt-2 text-sm text-foreground/70">
-                  <summary className="cursor-pointer font-semibold">
-                    Real vote: {m.item.bill} · {m.item.date} ⓘ
-                  </summary>
-                  <p className="mt-1">{m.item.summary}</p>
-                  <p className="mt-1">
-                    {m.item.result} {m.item.yea}–{m.item.nay}.{" "}
-                    <a className="underline" href={m.item.billUrl} target="_blank" rel="noreferrer">
-                      Read the bill ↗
-                    </a>{" "}
-                    <a className="underline" href={m.item.voteUrl} target="_blank" rel="noreferrer">
-                      See the roll call ↗
-                    </a>
-                  </p>
-                </details>
-              )}
+              {m.text}
             </div>
           ) : (
             <div
@@ -164,29 +131,7 @@ export function InterviewStep({
       </div>
 
       <div className="sticky bottom-0 mt-auto flex flex-col gap-2 bg-background pb-2 pt-3">
-        {atBreak || finished ? (
-          <>
-            <button
-              type="button"
-              onClick={onDone}
-              className="rounded-2xl bg-accent px-4 py-4 text-lg font-bold text-white shadow-[0_4px_0_0_var(--foreground)] active:translate-y-1 active:shadow-none"
-            >
-              See where I stand ▶
-            </button>
-            {atBreak && (
-              <button
-                type="button"
-                onClick={() => {
-                  setKeepGoing(true);
-                  setMessages((m) => [...m, ask(INTERVIEW_ORDER[FIRST_ROUND])]);
-                }}
-                className="rounded-2xl border-2 border-foreground px-4 py-3 font-bold"
-              >
-                Ask me {INTERVIEW_ORDER.length - FIRST_ROUND} more
-              </button>
-            )}
-          </>
-        ) : (
+        {question && (
           <>
             <form
               className="flex gap-2"
@@ -229,8 +174,19 @@ export function InterviewStep({
             </div>
           </>
         )}
+        {(!question || answered >= 2) && (
+          <button
+            type="button"
+            onClick={onDone}
+            className={`rounded-2xl px-4 py-4 text-lg font-bold ${
+              question ? "border-2 border-foreground" : "bg-accent text-white shadow-[0_4px_0_0_var(--foreground)]"
+            }`}
+          >
+            See where I stand ▶
+          </button>
+        )}
         <p className="text-center text-xs text-foreground/60">
-          ⚡ Gemma 4 reads your answers · {answered} recorded · based on real House votes
+          ⚡ Gemma 4 reads your answers · {answered} recorded
         </p>
       </div>
     </main>

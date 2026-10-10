@@ -1,126 +1,90 @@
 "use client";
 
-import { useState } from "react";
-import { ITEMS, MEMBERS, THEMES, THEME_KEYS, type Item, type Theme } from "@/lib/items";
-import { agreement, estimatePosition, type Answer, type Position } from "@/lib/scale";
-import type { LookupResult } from "@/lib/types";
-import type { Answers } from "./InterviewStep";
+import { useEffect, useState } from "react";
+import { compare, tally, type Answers, type Cell } from "@/lib/match";
+import { QUESTIONS, THEMES, hasRecord, stanceOf } from "@/lib/questions";
+import type { Candidate, LookupResult } from "@/lib/types";
 
-const MIN_ANSWERS = 2; // fewer than this in a theme and we do not place the person
-const LETTERS = ["A", "B", "C", "D"];
+const MARK: Record<Cell, { icon: string; label: string; style: string }> = {
+  agree: { icon: "✓", label: "agrees with you", style: "bg-wildlife text-white" },
+  differ: { icon: "✗", label: "differs from you", style: "bg-foreground text-background" },
+  none: { icon: "◌", label: "no public position found", style: "border border-foreground/25 text-foreground/40" },
+  skipped: { icon: "–", label: "you skipped this", style: "text-foreground/30" },
+};
 
-type Person = { id: string; name: string; role: string; letter: string };
+type Finding = { id: string; name: string; said: string; quote: string; url: string };
 
-const pct = (theta: number) => `${((Math.max(-1, Math.min(1, theta)) + 1) / 2) * 100}%`;
-
-function ScaleLine({
-  me,
-  others,
-}: {
-  me: Position | null;
-  others: { letter: string; pos: Position | null }[];
-}) {
-  return (
-    <div className="relative mt-7 h-10">
-      <div className="absolute inset-x-0 top-1/2 h-1 -translate-y-1/2 rounded-full bg-foreground/15" />
-      <div className="absolute left-1/2 top-1/2 h-3 w-px -translate-y-1/2 bg-foreground/30" />
-      {me && (
-        <>
-          <div
-            className="absolute top-1/2 h-4 -translate-y-1/2 rounded-full bg-accent/25"
-            style={{ left: pct(me.low), width: `calc(${pct(me.high)} - ${pct(me.low)})` }}
-          />
-          <div
-            className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2"
-            style={{ left: pct(me.theta) }}
-          >
-            <span className="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-black text-accent">
-              YOU
-            </span>
-            <div className="h-5 w-5 rounded-full border-2 border-foreground bg-accent" />
-          </div>
-        </>
-      )}
-      {others.map(
-        (o) =>
-          o.pos && (
-            <div
-              key={o.letter}
-              className="absolute top-1/2 flex h-6 w-6 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-md border-2 border-foreground bg-card text-xs font-black"
-              style={{ left: pct(o.pos.theta) }}
-            >
-              {o.letter}
-            </div>
-          ),
-      )}
-    </div>
-  );
-}
+const lastName =(name: string) =>
+  name.replace(/["“”].*?["“”]/g, "").replace(/\b(Jr\.?|Sr\.?|III|II|IV)\b/g, "").trim().split(/\s+/).pop() ?? name;
 
 export function MatchStep({
   result,
   answers,
+  said,
+  openSaid,
   onNext,
 }: {
   result: LookupResult;
   answers: Answers;
+  said: Record<string, string>;
+  // Set when the voter used the open mode: what they told us they care about.
+  openSaid: string;
   onNext: () => void;
 }) {
-  const [open, setOpen] = useState<Theme | null>(null);
+  const [open, setOpen] = useState<string | null>(null);
+  const [ask, setAsk] = useState<{ loading: boolean; topic?: string; findings?: Finding[]; error?: string }>({
+    loading: !!openSaid,
+  });
+  const answered = Object.values(answers).some((a) => a === "yea" || a === "nay");
+
+  useEffect(() => {
+    if (!openSaid) return;
+    const house = result.ballot.flatMap((s) => s.races).find((r) => r.office.startsWith("U.S. House"));
+    fetch("/api/ask", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        said: openSaid,
+        candidates: (house?.candidates ?? []).map((c) => ({ id: c.candidate_id, name: c.name })),
+      }),
+    })
+      .then(async (res) => {
+        const json = await res.json();
+        if (!res.ok) throw new Error(json.error);
+        setAsk({ loading: false, topic: json.topic, findings: json.findings });
+      })
+      .catch((e) => setAsk({ loading: false, error: e.message || "We couldn't look that up right now." }));
+  }, [openSaid, result]);
   const [explain, setExplain] = useState<Record<string, { text?: string; loading?: boolean }>>({});
 
-  // Only clear yes/no answers place someone; "not sure" and skips are left out.
-  const mine: Record<number, Answer> = {};
-  for (const [roll, stance] of Object.entries(answers)) {
-    if (stance === "yea" || stance === "nay") mine[Number(roll)] = stance;
-  }
-
-  // People with a real voting record on these bills: the current member, and any
-  // incumbent on this ballot. Everyone else cannot be placed.
-  const people: Person[] = [];
-  const add = (id: string | null | undefined, name: string, role: string) => {
-    if (id && MEMBERS[id] && !people.some((p) => p.id === id)) {
-      people.push({ id, name, role, letter: LETTERS[people.length] });
-    }
-  };
-  if (result.currentRep) {
-    add(result.currentRepBioguide, result.currentRep, `represents you now · FL-${result.oldDistrict}`);
-  }
-  const houseRace = result.ballot
+  // The races we have collected candidates' own words for: U.S. House, then U.S. Senate.
+  const races = result.ballot
     .flatMap((s) => s.races)
-    .find((r) => r.office.startsWith("U.S. House"));
-  for (const c of houseRace?.candidates ?? []) {
-    add(c.bioguide_id, c.name, `on your ballot · ${c.office} ${c.district}`);
-  }
-  const unplaced = (houseRace?.candidates ?? []).filter((c) => !MEMBERS[c.bioguide_id]);
+    .filter((r) => r.office.startsWith("U.S. House") || r.office.startsWith("U.S. Senate"))
+    .sort((a, b) => Number(b.office.startsWith("U.S. House")) - Number(a.office.startsWith("U.S. House")))
+    .filter((r) => r.candidates.some((c) => hasRecord(c.candidate_id)));
 
-  const votesOf = (id: string, items: Item[]) =>
-    Object.fromEntries(items.map((i) => [i.roll, i.memberVotes[id]]));
-
-  const rows: { key: Theme | "all"; label: string; items: Item[] }[] = [
-    ...THEME_KEYS.map((t) => ({
-      key: t,
-      label: `${THEMES[t].emoji} ${THEMES[t].label}`,
-      items: ITEMS.filter((i) => i.theme === t),
-    })),
-    { key: "all", label: "Everything together", items: ITEMS },
-  ];
-
-  async function toggle(theme: Theme) {
-    setOpen(open === theme ? null : theme);
-    if (explain[theme] || people.length === 0) return;
-    setExplain((e) => ({ ...e, [theme]: { loading: true } }));
+  async function toggle(key: string, questionId: string, candidates: Candidate[]) {
+    setOpen(open === key ? null : key);
+    const mine = answers[questionId];
+    if (explain[key] || (mine !== "yea" && mine !== "nay")) return;
+    setExplain((e) => ({ ...e, [key]: { loading: true } }));
     try {
       const res = await fetch("/api/explain", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ theme, answers: mine, bioguideIds: people.map((p) => p.id) }),
+        body: JSON.stringify({
+          id: questionId,
+          stance: mine,
+          said: said[questionId] ?? "",
+          candidates: candidates.map((c) => ({ id: c.candidate_id, name: c.name })),
+        }),
       });
       const json = await res.json();
       if (!res.ok) throw new Error();
-      setExplain((e) => ({ ...e, [theme]: { text: json.text } }));
+      setExplain((e) => ({ ...e, [key]: { text: json.text } }));
     } catch {
-      setExplain((e) => ({ ...e, [theme]: {} }));
+      setExplain((e) => ({ ...e, [key]: {} }));
     }
   }
 
@@ -128,103 +92,196 @@ export function MatchStep({
     <main className="flex flex-1 flex-col gap-5">
       <h2 className="text-3xl font-black tracking-tight">Where you stand</h2>
 
-      <section className="rounded-3xl bg-card p-5">
-        <div className="flex justify-between text-[10px] font-bold uppercase tracking-wider text-foreground/50">
-          <span>◀ votes more with the left</span>
-          <span>votes more with the right ▶</span>
-        </div>
-
-        {rows.map((row) => {
-          const answeredHere = row.items.filter((i) => mine[i.roll]).length;
-          const me = answeredHere >= MIN_ANSWERS ? estimatePosition(row.items, mine) : null;
-          const others = people.map((p) => ({
-            letter: p.letter,
-            pos: estimatePosition(row.items, votesOf(p.id, row.items)),
-          }));
-          const isTheme = row.key !== "all";
-          return (
-            <div key={row.key} className="border-b border-foreground/10 py-4 last:border-0">
-              <button
-                type="button"
-                disabled={!isTheme}
-                onClick={() => isTheme && toggle(row.key as Theme)}
-                className="flex w-full items-center justify-between text-left font-black"
-              >
-                <span>{row.label}</span>
-                {isTheme && <span className="text-xs text-accent">{open === row.key ? "hide" : "why? ⚡"}</span>}
-              </button>
-              <ScaleLine me={me} others={others} />
-              {!me && (
-                <p className="mt-1 text-xs text-foreground/60">
-                  Answer at least {MIN_ANSWERS} questions here to place you.
-                </p>
-              )}
-
-              {isTheme && open === row.key && (
-                <div className="mt-3 rounded-2xl bg-background p-4 text-sm">
-                  {people.map((p) => {
-                    const a = agreement(row.items, mine, votesOf(p.id, row.items));
-                    return (
-                      <p key={p.id} className="font-semibold">
-                        You and {p.name} agreed on {a.same} of {a.of} real votes.
-                      </p>
-                    );
-                  })}
-                  {explain[row.key]?.loading && (
-                    <p className="mt-2 animate-pulse text-foreground/60">Gemma 4 is reading the votes…</p>
-                  )}
-                  {explain[row.key]?.text && (
-                    <p className="mt-2">
-                      {explain[row.key].text}
-                      <span className="ml-1 text-xs text-foreground/50">— written by Gemma 4</span>
-                    </p>
-                  )}
-                  <ul className="mt-3 space-y-1 text-xs">
-                    {row.items
-                      .filter((i) => mine[i.roll])
-                      .map((i) => (
-                        <li key={i.roll}>
-                          <a className="underline" href={i.voteUrl} target="_blank" rel="noreferrer">
-                            {i.bill} ↗
-                          </a>{" "}
-                          you: {mine[i.roll] === "yea" ? "yes" : "no"}
-                          {people.map((p) => ` · ${p.letter}: ${i.memberVotes[p.id] ?? "no vote"}`)}
-                        </li>
-                      ))}
-                  </ul>
-                </div>
+      {openSaid && (
+        <section className="rounded-3xl border-2 border-foreground bg-card p-5">
+          <p className="text-xs font-black uppercase tracking-widest text-accent">
+            You talked about{ask.topic ? `: ${ask.topic}` : ""}
+          </p>
+          <p className="mt-2 text-sm italic">“{openSaid.trim()}”</p>
+          {ask.loading && (
+            <p className="mt-3 animate-pulse text-foreground/60">
+              Gemma 4 is reading what your candidates have published…
+            </p>
+          )}
+          {ask.error && <p className="mt-3 text-sm font-semibold text-accent">{ask.error}</p>}
+          {ask.findings?.map((f) => (
+            <div key={f.id} className="mt-4 border-t border-foreground/10 pt-3 text-sm">
+              <p className="font-black">{f.name}</p>
+              {f.quote ? (
+                <>
+                  <p className="mt-1">{f.said}</p>
+                  <p className="mt-1 text-foreground/80">
+                    “{f.quote}”{" "}
+                    <a className="font-semibold underline" href={f.url} target="_blank" rel="noreferrer">
+                      source ↗
+                    </a>
+                  </p>
+                </>
+              ) : (
+                <p className="mt-1 text-foreground/60">◌ Nothing found on this in what they&apos;ve published.</p>
               )}
             </div>
-          );
-        })}
+          ))}
+          {ask.findings && (
+            <p className="mt-3 text-xs text-foreground/50">Read and summarised by Gemma 4. Quotes are exact.</p>
+          )}
+        </section>
+      )}
 
-        <ul className="mt-2 space-y-1 text-sm">
-          <li>
-            <span className="mr-2 inline-block h-3 w-3 rounded-full bg-accent align-middle" />
-            You — the shaded band is how sure we are
-          </li>
-          {people.map((p) => (
-            <li key={p.id}>
-              <span className="mr-2 inline-flex h-5 w-5 items-center justify-center rounded-md border-2 border-foreground text-[10px] font-black">
-                {p.letter}
+      {races.length === 0 && (
+        <p className="rounded-3xl bg-card p-5">
+          We haven&apos;t collected what the candidates on your ballot have said yet.
+        </p>
+      )}
+
+      {(answered || !openSaid) && races.map((race) => (
+        <section key={race.office} className="rounded-3xl bg-card p-5">
+          <h3 className="text-sm font-bold text-accent">{race.office}</h3>
+
+          <div
+            className="mt-3 grid items-center gap-x-2 gap-y-1"
+            style={{ gridTemplateColumns: `minmax(0,1fr) repeat(${race.candidates.length}, 3.75rem)` }}
+          >
+            <span />
+            {race.candidates.map((c) => (
+              <span key={c.candidate_id} className="truncate text-center text-[11px] font-black" title={c.name}>
+                {lastName(c.name)}
               </span>
-              {p.name} <span className="text-foreground/60">({p.role})</span>
-            </li>
-          ))}
-          {unplaced.map((c) => (
-            <li key={c.candidate_id} className="text-foreground/60">
-              ◌ {c.name} — not enough public record to place
-            </li>
-          ))}
-        </ul>
-      </section>
+            ))}
+
+            {QUESTIONS.map((q) => {
+              const key = `${race.office}|${q.id}`;
+              return (
+                <div key={q.id} className="contents">
+                  <button
+                    type="button"
+                    onClick={() => toggle(key, q.id, race.candidates)}
+                    className="py-2 text-left text-sm font-bold"
+                  >
+                    {THEMES[q.theme].emoji} {q.short}
+                    <span className="ml-1 text-xs text-accent">{open === key ? "hide" : "why?"}</span>
+                  </button>
+                  {race.candidates.map((c) => {
+                    const { cell, basis } = compare(answers, c.candidate_id, c.party, q.id);
+                    const mark = MARK[cell];
+                    // A party guess is drawn hollow and dashed so it never looks like a quote.
+                    const guess = basis === "party" && (cell === "agree" || cell === "differ");
+                    return (
+                      <button
+                        key={c.candidate_id}
+                        type="button"
+                        onClick={() => toggle(key, q.id, race.candidates)}
+                        aria-label={`${c.name}: ${guess ? "party guess, " : basis === "leans" ? "leans, " : ""}${mark.label}`}
+                        className={`mx-auto flex h-8 w-8 items-center justify-center rounded-full text-sm font-black ${
+                          guess
+                            ? "border-2 border-dashed border-foreground/50 text-foreground/60"
+                            : `${mark.style} ${basis === "leans" ? "opacity-60" : ""}`
+                        }`}
+                      >
+                        {guess ? `~${mark.icon}` : mark.icon}
+                      </button>
+                    );
+                  })}
+
+                  {open === key && (
+                    <div className="col-span-full mb-2 rounded-2xl bg-background p-4 text-sm">
+                      <p className="font-semibold">{q.question}</p>
+                      <p className="mt-2">
+                        You:{" "}
+                        <b>
+                          {answers[q.id] === "yea" ? "Yes" : answers[q.id] === "nay" ? "No" : answers[q.id] === "unsure" ? "Not sure" : "skipped"}
+                        </b>
+                        {said[q.id] && <span className="italic"> — “{said[q.id].trim()}”</span>}
+                      </p>
+                      {race.candidates.map((c) => {
+                        const s = stanceOf(c.candidate_id, q.id);
+                        const guess = q.partyLean?.[c.party];
+                        return (
+                          <p key={c.candidate_id} className="mt-2">
+                            <b>{c.name}:</b>{" "}
+                            {s && s.stance !== "none" ? (
+                              <>
+                                {s.reading === "leans" && (
+                                  <span className="text-foreground/60">leans {s.stance} — </span>
+                                )}
+                                “{s.quote}”{" "}
+                                <a className="font-semibold underline" href={s.url} target="_blank" rel="noreferrer">
+                                  source ↗
+                                </a>
+                              </>
+                            ) : guess ? (
+                              <span className="text-foreground/60">
+                                nothing found in their own words. Party guess: {c.party} candidates usually
+                                say {guess}. This is not {lastName(c.name)}&apos;s statement.
+                              </span>
+                            ) : (
+                              <span className="text-foreground/60">no public position found on this.</span>
+                            )}
+                          </p>
+                        );
+                      })}
+                      {explain[key]?.loading && (
+                        <p className="mt-3 animate-pulse text-foreground/60">Gemma 4 is reading…</p>
+                      )}
+                      {explain[key]?.text && (
+                        <p className="mt-3 border-t border-foreground/10 pt-3">
+                          {explain[key].text}
+                          <span className="ml-1 text-xs text-foreground/50">— written by Gemma 4</span>
+                        </p>
+                      )}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+
+          <ul className="mt-4 space-y-1 border-t border-foreground/10 pt-3 text-sm">
+            {race.candidates.map((c) => {
+              const t = tally(answers, c.candidate_id, c.party);
+              return (
+                <li key={c.candidate_id}>
+                  <b>{c.name}</b>{" "}
+                  {t.own.of > 0
+                    ? `lines up with you on ${t.own.agree} of ${t.own.of} from their own words`
+                    : "— nothing in their own words to compare yet"}
+                  {t.guess.of > 0 && (
+                    <span className="text-foreground/60">
+                      {" "}
+                      · {t.guess.agree} of {t.guess.of} by party guess
+                    </span>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+          <p className="mt-1 text-xs text-foreground/60">
+            Counted only on issues where you answered yes or no.
+          </p>
+        </section>
+      ))}
+
+      <ul className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-foreground/70">
+        {(["agree", "differ", "none"] as Cell[]).map((k) => (
+          <li key={k}>
+            <b>{MARK[k].icon}</b> {MARK[k].label}
+          </li>
+        ))}
+        <li>
+          <b>faded</b> their words lean that way
+        </li>
+        <li>
+          <b>~ dashed</b> party guess, not their words
+        </li>
+      </ul>
 
       <p className="text-xs text-foreground/60">
-        How this works: you and members of Congress are placed from the same real House votes,
-        using each vote&apos;s published dividing line from Voteview. A few answers give a rough
-        position, so read the band, not the dot. Members are placed from how they actually voted;
-        candidates who have never voted in Congress are not placed. We describe. We never
-        recommend.
+        How this works: we collected what each candidate has published on their own websites and
+        press releases. A search finds the passages closest to each question, Gemma 4 reads them
+        and decides whether they answer it yes or no, and a position is shown only when its quote
+        is on the page word for word. Where we found nothing, a dashed mark fills in the usual
+        position of the candidate&apos;s party — a rough guess, never their own statement. A blank
+        circle means we found nothing and made no guess. We describe. We never recommend.
       </p>
 
       <button

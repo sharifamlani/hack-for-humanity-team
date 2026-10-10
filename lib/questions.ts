@@ -1,0 +1,59 @@
+import questionsJson from "@/data/questions.json";
+import stancesJson from "@/data/positions/stances.json";
+
+export type Theme = "forces" | "wildlife" | "jobs";
+
+export type Question = {
+  id: string;
+  theme: Theme;
+  short: string;
+  question: string;
+  search: string;
+  active?: boolean;
+  // Fallback only: the usual position of a national party, used when a candidate's own
+  // words gave us nothing. Not sourced per candidate; always labelled as a guess.
+  partyLean?: Record<string, "yes" | "no">;
+};
+
+// What a candidate's own published words say on one question. Built before the demo by
+// scripts/build-stances.mjs: cosine search finds the passages, Gemma 4 reads them, and a
+// stance is kept only when its quote is word-for-word on the page.
+export type CandidateStance = {
+  candidate_id: string;
+  question: string;
+  stance: "yes" | "no" | "none";
+  // "stated": the quote answers the question. "leans": the quote points that way.
+  reading?: "stated" | "leans";
+  quote: string;
+  url: string;
+  why: string;
+};
+
+export const THEMES: Record<Theme, { emoji: string; label: string; color: string }> = {
+  forces: { emoji: "🌊", label: "Water · air · land · fire", color: "bg-water" },
+  wildlife: { emoji: "🐢", label: "Wildlife", color: "bg-wildlife" },
+  jobs: { emoji: "🎓", label: "Jobs & staying in Miami", color: "bg-jobs" },
+};
+
+const ALL = questionsJson.questions as Question[];
+const chosen = ALL.some((q) => q.active) ? ALL.filter((q) => q.active) : ALL;
+
+// Interview order: one question from each theme in turn, so stopping early covers all three.
+export const QUESTIONS: Question[] = (() => {
+  const groups = (Object.keys(THEMES) as Theme[]).map((t) => chosen.filter((q) => q.theme === t));
+  const out: Question[] = [];
+  for (let i = 0; i < Math.max(...groups.map((g) => g.length)); i++) {
+    for (const g of groups) if (g[i]) out.push(g[i]);
+  }
+  return out;
+})();
+
+export const questionById = (id: string) => ALL.find((q) => q.id === id);
+
+const STANCES = (stancesJson as { stances: CandidateStance[] }).stances;
+
+export const stanceOf = (candidateId: string, questionId: string) =>
+  STANCES.find((s) => s.candidate_id === candidateId && s.question === questionId);
+
+// Candidates we have collected any published words for.
+export const hasRecord = (candidateId: string) => STANCES.some((s) => s.candidate_id === candidateId);

@@ -1,0 +1,7 @@
+candidate_id,name,url,kind,http_status,text_chars,topics,found_via
+us-house-fl24-gilbert,Oliver G. Gilbert III,https://olivergilbert.vote/catastrophe-insurance/,campaign_issues,200,13876,1;2;7,page-sitemap.xml of olivergilbert.vote
+us-house-fl24-gilbert,Oliver G. Gilbert III,https://olivergilbert.vote/home-act/,campaign_issues,200,9164,7,page-sitemap.xml of olivergilbert.vote
+us-house-fl26-locklin,Nicole Locklin,https://locklinforcongress.com/faq,campaign_issues,200,4496,2;7,sitemap.xml of locklinforcongress.com
+us-house-fl26-locklin,Nicole Locklin,https://locklinforcongress.com/news,press_release,200,1436,,sitemap.xml of locklinforcongress.com (campaign launch release; mentions affordability only)
+us-house-fl28-ehr,"Phil ""Felipe"" Ehr",https://ehrforcongress.us/wp-content/uploads/2024/03/20231130-Endorses-Fellow-Navy-Veteran-in-Pivotal-Florida-House-District-118.pdf,press_release,200,1947,2,PDF link on ehrforcongress.us/press/ (Nov 2023; homeowners insurance crisis)
+us-house-fl28-ehr,"Phil ""Felipe"" Ehr",https://ehrforcongress.us/wp-content/uploads/2024/03/20231219-Calls-on-Rep.-Carlos-Gimenez-to-Condemn-Donald-Trump-Latino-Hating.pdf,press_release,200,1780,10,PDF link on ehrforcongress.us/press/ (Dec 2023; border/immigration reform)

@@ -61,7 +61,7 @@ address / phone location
 
 | Model | Job in the product | Where |
 |---|---|---|
-| **Gemma 4** (`gemma-4-31b-it`, open-weight, via the Gemini API) | Makes every decision. Reads each candidate's passages and decides yes / no / none with an exact quote. Reads the voter's spoken or typed answers. Writes the comparisons. | `scripts/build-stances.mjs`, `app/api/interview`, `app/api/explain`, `app/api/ask` |
+| **Gemma 4** (`gemma-4-31b-it`, open-weight, via the Gemini API) | Does all the reading. Reads each candidate's passages and decides yes / no / none with an exact quote. Reads the voter's spoken or typed answers. Places the voter on the left–right line from the whole conversation, and estimates a position for candidates who have no record. Writes the comparisons. | `scripts/build-stances.mjs`, `scripts/estimate-scores.mjs`, `app/api/interview`, `app/api/place`, `app/api/explain`, `app/api/ask` |
 | **Gemini Live** (`gemini-3.8-live`, closed-weight) | Voice only. Speaks the questions and hears the answers. | `lib/liveVoice.ts`, `app/api/voice-token` |
 | **`gemini-embedding-2`** (closed-weight) | Finds passages only, by cosine similarity. Decides nothing. | `scripts/embed-positions.mjs`, `app/api/ask` |
 
@@ -74,10 +74,36 @@ spacing). Otherwise it is recorded as "none". This runs when positions are built
 (`build-stances.mjs`), in the open mode at request time (`app/api/ask`), and is re-checked by
 `scripts/verify-stances.mjs`.
 
-**We describe, we never recommend.** The prompts in `app/api/explain`, `app/api/ask` and
-`app/api/interview` forbid recommending, praising or criticising anyone, and forbid
-mentioning parties. The match screen says "We describe. We never recommend." The agree /
-differ marks are a plain comparison in [`lib/match.ts`](lib/match.ts), with no model.
+**One left–right line per race.** Everyone in a race is drawn on one line, each from the best
+source we hold for them ([`lib/match.ts`](lib/match.ts), `placeCandidate`):
+
+| Order | Source | Who | Shown as |
+|---|---|---|---|
+| 1 | DW-NOMINATE first dimension, from votes in Congress (Voteview) | Sitting members | Dark square |
+| 2 | CFscore, from who funded their past campaigns (Bonica's DIME), converted with a straight line fitted on the five people here who have both scores (average miss 0.07) | 16 candidates | Blue square |
+| 3 | **Gemma 4's estimate from the candidate's own published words** | Candidates with neither of the above | Red outline |
+| 4 | An index from their yes/no positions, which may be mostly party guess | Everyone else | Outline, dashed if mostly guess |
+
+The Gemma 4 estimate is checked before it is used: `scripts/estimate-scores.mjs` first has
+Gemma 4 place the sitting members from their websites alone, never seeing their real scores,
+and writes estimates only if every member lands on the correct side and the average miss is
+under 0.25. The result of that check is stored in `data/positions/estimates.json` and printed
+under the line in the app.
+
+**The voter's own dot comes from the conversation.** `app/api/place` gives Gemma 4 each
+question and what the voter said in their own words, and gets back a position with a range on
+the same scale. `scripts/smoke-place.mjs` checks it on five made-up voters: they come out in
+order from left to right, and a second run gives the same numbers. It takes about 20 seconds,
+so the match screen opens with a rough spot from the yes/no answers and swaps it when Gemma 4
+answers. There is no true answer to compare a voter's placement with, so "ordered and
+repeatable" is all we claim for it.
+
+**Suggested picks, with their basis shown.** In each race the app shows a match percentage
+and names the closest candidate: the average of how often the voter and candidate agree (a
+party guess counts half) and how near they sit on the line. Gemma 4 places people; it never
+picks anyone — the percentage is plain arithmetic in [`lib/match.ts`](lib/match.ts). The
+prompts in `app/api/explain`, `app/api/ask` and `app/api/interview` still forbid recommending,
+praising or criticising anyone.
 
 **Privacy.** `app/api/lookup` uses the address for that one request only. It is not stored or
 logged. The browser gets a single-use, short-lived voice token, so the API key stays on the
@@ -105,6 +131,13 @@ Every source the app or its build scripts read.
 | Miami-Dade ArcGIS, `PollingPlace_gdb` | Polling place for the precinct | [layer](https://services.arcgis.com/8Pc9XBTAsYuxx9Ny/arcgis/rest/services/PollingPlace_gdb/FeatureServer/0) |
 | Miami-Dade ArcGIS, `ElectionGeography_public` | Early-voting sites | [layer](https://services.arcgis.com/8Pc9XBTAsYuxx9Ny/arcgis/rest/services/ElectionGeography_public/FeatureServer/0) |
 | Miami-Dade Supervisor of Elections | Official lookup the app links to | [votemiamidade.gov](https://www.votemiamidade.gov/elections/home.page) |
+
+**Where candidates sit on the left–right line** — [`data/positions/records.json`](data/positions/records.json)
+
+| Source | Used for | Link |
+|---|---|---|
+| Voteview, 119th Congress | DW-NOMINATE scores and recorded votes of sitting members | [voteview.com](https://voteview.com/data) |
+| DIME v4.0 (Bonica), recipients 1979–2024 | CFscores for 16 candidates, per row in [`data/positions/cfscores.csv`](data/positions/cfscores.csv) | [data.stanford.edu/dime](https://data.stanford.edu/dime) |
 
 **Candidate roster** — [`data/candidates/*.csv`](data/candidates) (federal 16 rows, state 41,
 local 38; 95 rows merged into `data/candidates.csv`). Every row carries its own `source_url`.
@@ -202,15 +235,31 @@ node --env-file=.env scripts/build-stances.mjs         # Gemma 4 reads passages 
 node scripts/verify-stances.mjs                        # fails if any quote is not on its page
 ```
 
-TODO: `data/positions/stances.json` currently holds an empty list (`{"stances":[]}`). Until
-`build-stances.mjs` is run and committed, the guided mode shows "no public position found"
-for every candidate. After the run, add the yes / no / none counts here.
+```bash
+node scripts/build-records.mjs                         # Voteview scores + votes, DIME CFscores -> records.json
+node --env-file=.env --experimental-strip-types scripts/estimate-scores.mjs   # Gemma 4 estimates + member check -> estimates.json
+node scripts/smoke-place.mjs                           # voter placement: ordered and repeatable (needs the dev server)
+```
+
+As built on Oct 10: 320 candidate-by-question cells for 20 candidates — 99 "yes", 8 "no",
+213 "nothing found" (`data/positions/stances.json` and `stances-state.json`).
 
 ## Limits and honesty
 
-- **Federal candidates only.** Candidate words are collected for the 16 federal candidates
-  (U.S. Senate and U.S. House). State, county and local candidates are on the ballot screen
-  but have no positions.
+- **The left–right line is rough.** It mixes three kinds of score (votes, donors, a model's
+  reading of a website) that are not the same measurement. A donors score describes who funded
+  a campaign, not how the candidate would vote. The Gemma 4 estimate was checked on only a
+  handful of sitting members, whose websites also reveal their party.
+- **The voter's placement cannot be checked against a true answer.** It is ordered and
+  repeatable on test voters; that is all.
+- **A suggested pick is a closest match on thin data, not advice.** In most races the
+  candidates' own words disagree on very little, so the percentage leans on the line and on
+  party guesses, which are labelled.
+
+- **Federal and some state-legislature candidates only.** Candidate words are collected for
+  31 candidates (U.S. Senate, U.S. House, and the state legislative districts covering the
+  areas we tested). Governor, Cabinet, county, judicial and local candidates are on the
+  ballot screen but have no positions, and ballot questions are never scored.
 - **Two candidates have no website we could find** (Meidinger Hosey, Jassenoff), so they have
   no positions.
 - **"No public position found" does not mean "no view."** It means we found nothing in the

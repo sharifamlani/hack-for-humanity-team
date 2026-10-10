@@ -1,0 +1,84 @@
+{
+ "note": "Left-right positions estimated by Gemma 4 from candidates' own published words, for candidates with no voting record in Congress and no campaign-finance score. An estimate, not a measurement. Used only for candidates for Congress, because that is who the check was run on.",
+ "model": "gemma-4-31b-it",
+ "built": "2026-10-10T18:45:22.992Z",
+ "check": {
+  "members": [
+   {
+    "candidate_id": "us-house-fl25-moskowitz",
+    "x": -0.4,
+    "real": -0.227,
+    "miss": 0.17
+   },
+   {
+    "candidate_id": "us-house-fl26-diaz-balart",
+    "x": 0.55,
+    "real": 0.282,
+    "miss": 0.27
+   },
+   {
+    "candidate_id": "us-house-fl27-salazar",
+    "x": 0.25,
+    "real": 0.274,
+    "miss": 0.02
+   },
+   {
+    "candidate_id": "us-house-fl28-gimenez",
+    "x": 0.5,
+    "real": 0.329,
+    "miss": 0.17
+   },
+   {
+    "candidate_id": "us-senate-fl-moody",
+    "x": 0.5,
+    "real": 0.689,
+    "miss": 0.19
+   }
+  ],
+  "correctSide": 5,
+  "of": 5,
+  "averageMiss": 0.16
+ },
+ "estimates": [
+  {
+   "candidate_id": "us-house-fl24-brown",
+   "x": 0.58,
+   "low": 0.45,
+   "high": 0.7,
+   "why": "Strong support for school choice, the Second Amendment, and border security, combined with a pro-MAGA identity, though tempered by a specific earned path to citizenship for Haitian immigrants.",
+   "passages": 13
+  },
+  {
+   "candidate_id": "us-house-fl24-gilbert",
+   "x": -0.3,
+   "low": -0.5,
+   "high": 0,
+   "why": "Proposes federal intervention in insurance markets, mandatory rate filings to lower consumer costs, and income-based assistance for homeowners.",
+   "passages": 11
+  },
+  {
+   "candidate_id": "us-house-fl25-singer",
+   "x": 0.58,
+   "low": 0.45,
+   "high": 0.72,
+   "why": "The candidate advocates for tax cuts, deregulation, strict border security, 'America First' policies, and opposes 'woke' or race-based government programs.",
+   "passages": 12
+  },
+  {
+   "candidate_id": "us-house-fl26-locklin",
+   "x": -0.5,
+   "low": -0.5,
+   "high": -0.5,
+   "why": "The candidate supports Medicare for All, taxing billionaires, and ending 'endless wars,' which are hallmark positions of the progressive wing of the Democratic party.",
+   "passages": 13
+  },
+  {
+   "candidate_id": "us-house-fl27-rodriguez",
+   "x": -0.38,
+   "low": -0.5,
+   "high": -0.2,
+   "why": "The candidate supports expanding Medicare, protecting the ACA, increasing taxes on the wealthy, and protecting immigrants, while explicitly affirming a belief in capitalism and market competition.",
+   "passages": 12
+  }
+ ]
+}

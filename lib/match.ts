@@ -1,4 +1,4 @@
-import { ALL_QUESTION_IDS, QUESTIONS, cfOf, questionById, scoreOf, stanceOf, voteOf } from "./questions";
+import { ALL_QUESTION_IDS, QUESTIONS, cfOf, estimateOf, questionById, scoreOf, stanceOf, voteOf } from "./questions";
 
 // The voter's recorded answer to one question.
 export type Stance = "yea" | "nay" | "unsure" | "skip";
@@ -70,14 +70,24 @@ export type Placement = {
   // "record": DW-NOMINATE from votes in Congress. "donors": CFscore from who funded their
   // past campaigns. "positions": our index from yes/no positions. "guess": our index where
   // most of the positions are party guesses.
-  source: "record" | "donors" | "positions" | "guess";
+  // "words": Gemma 4's estimate from the candidate's own published words.
+  // "conversation": the voter, placed by Gemma 4 from their whole interview.
+  source: "record" | "donors" | "words" | "positions" | "guess" | "conversation";
   answers: number;
+  // The range around an estimate, and the model's one-sentence reason.
+  low?: number;
+  high?: number;
+  why?: string;
+  // For "donors": the CFscore itself, before it is converted to this line.
+  raw?: number;
   // For "donors": the election cycle the score comes from.
   cycle?: number;
 };
 
-// CFscores run about -2 to +2; halving puts them on roughly the same line as DW-NOMINATE.
-const CF_SCALE = 0.5;
+// CFscores run about -2 to +2 and are not on the DW-NOMINATE scale. This straight line was
+// fitted on the five people here who have both scores (Díaz-Balart, Salazar, Giménez,
+// Moskowitz, Donalds): average miss 0.07, against 0.13 for simply halving the CFscore.
+const cfToLine = (cf: number) => Math.max(-1, Math.min(1, -0.098 + 0.456 * cf));
 
 function index(stances: ("yes" | "no" | null)[], ids: string[]) {
   let right = 0;
@@ -104,7 +114,9 @@ export function placeCandidate(candidateId: string, party: string): Placement | 
   const record = scoreOf(candidateId);
   if (record) return { x: record.nominate_dim1, source: "record", answers: record.votes_scored };
   const cf = cfOf(candidateId);
-  if (cf) return { x: cf.cfscore * CF_SCALE, source: "donors", answers: 0, cycle: cf.cycle };
+  if (cf) return { x: cfToLine(cf.cfscore), source: "donors", answers: 0, cycle: cf.cycle, raw: cf.cfscore };
+  const est = estimateOf(candidateId);
+  if (est) return { x: est.x, source: "words", answers: est.passages, low: est.low, high: est.high, why: est.why };
   const ids = ALL_QUESTION_IDS.filter((id) => LEFT_ANSWER[id]);
   const positions = ids.map((id) => positionOf(candidateId, party, id));
   const got = index(positions.map((p) => p.stance), ids);
@@ -120,12 +132,14 @@ export function placeCandidate(candidateId: string, party: string): Placement | 
 // line. Plain arithmetic; no model picks anyone.
 export type MatchScore = { score: number; agreeShare: number | null; lineCloseness: number | null };
 
-export function matchScore(answers: Answers, candidateId: string, party: string): MatchScore | null {
+// `voter` is the Gemma 4 placement from the conversation once it has arrived; until then
+// (or if it fails) the rough index from the yes/no answers is used.
+export function matchScore(answers: Answers, candidateId: string, party: string, voter?: Placement | null): MatchScore | null {
   const t = tally(answers, candidateId, party);
   const weight = t.own.of + 0.5 * t.guess.of;
   const agreeShare = weight > 0 ? (t.own.agree + 0.5 * t.guess.agree) / weight : null;
 
-  const me = placeVoter(answers);
+  const me = voter ?? placeVoter(answers);
   const them = placeCandidate(candidateId, party);
   const lineCloseness = me && them ? 1 - Math.min(Math.abs(me.x - them.x), 1) : null;
 

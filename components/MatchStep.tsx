@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { compare, matchScore, placeCandidate, placeVoter, tally, type Answers, type Cell, type Placement } from "@/lib/match";
-import { QUESTIONS, THEMES, closestOf, hasRecord, stanceOf, voteOf } from "@/lib/questions";
+import { ESTIMATE_CHECK, QUESTIONS, THEMES, closestOf, hasRecord, stanceOf, voteOf } from "@/lib/questions";
 import type { Candidate, LookupResult } from "@/lib/types";
 
 const MARK: Record<Cell, { icon: string; label: string; style: string }> = {
@@ -17,7 +17,7 @@ const pct = (x: number) => `${((Math.max(-1, Math.min(1, x)) + 1) / 2) * 100}%`;
 
 // Everyone in a race on one left-right line. Members of Congress sit at their published
 // DW-NOMINATE score; everyone else at a rough index built from their yes/no positions.
-function SpectrumLine({ me, people }: { me: Placement | null; people: { letter: string; name: string; at: Placement | null }[] }) {
+function SpectrumLine({ me, placing, people }: { me: Placement | null; placing: boolean; people: { letter: string; name: string; at: Placement | null }[] }) {
   return (
     <div className="mt-3 rounded-2xl bg-background p-4">
       <div className="flex justify-between text-[10px] font-bold uppercase tracking-wider text-foreground/50">
@@ -36,6 +36,8 @@ function SpectrumLine({ me, people }: { me: Placement | null; people: { letter: 
                 className={`absolute top-1/2 flex h-6 w-6 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-md text-xs font-black ${
                   p.at.source === "guess"
                     ? "border-2 border-dashed border-foreground/50 bg-background text-foreground/60"
+                    : p.at.source === "words"
+                      ? "border-2 border-accent bg-card"
                     : p.at.source === "record"
                       ? "bg-foreground text-background"
                       : p.at.source === "donors"
@@ -47,6 +49,12 @@ function SpectrumLine({ me, people }: { me: Placement | null; people: { letter: 
                 {p.letter}
               </div>
             ),
+        )}
+        {me?.low != null && me.high != null && (
+          <div
+            className="absolute top-1/2 h-4 -translate-y-1/2 rounded-full bg-accent/25"
+            style={{ left: pct(me.low), width: `calc(${pct(me.high)} - ${pct(me.low)})` }}
+          />
         )}
         {me && (
           <div className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2" style={{ left: pct(me.x) }}>
@@ -67,7 +75,9 @@ function SpectrumLine({ me, people }: { me: Placement | null; people: { letter: 
                   : record
                     ? `— from ${p.at.answers} votes in Congress (DW-NOMINATE ${p.at.x.toFixed(2)})`
                     : p.at.source === "donors"
-                      ? `— from who funded their ${p.at.cycle} campaign (CFscore ${(p.at.x * 2).toFixed(2)})`
+                      ? `— from who funded their ${p.at.cycle} campaign (CFscore ${(p.at.raw ?? 0).toFixed(2)})`
+                      : p.at.source === "words"
+                      ? `— estimated by Gemma 4 from ${p.at.answers} passages of their own words`
                       : p.at.source === "guess"
                       ? "— mostly a party guess"
                       : `— from ${p.at.answers} positions`}
@@ -76,11 +86,26 @@ function SpectrumLine({ me, people }: { me: Placement | null; people: { letter: 
           );
         })}
         {!me && <li className="text-foreground/60">Answer two or more of the questions to place yourself.</li>}
+        {me?.source === "conversation" && (
+          <li>
+            <b className="text-accent">YOU</b>{" "}
+            <span className="text-foreground/60">— placed by Gemma 4 from what you said. {me.why}</span>
+          </li>
+        )}
+        {me && me.source !== "conversation" && (
+          <li className="text-foreground/60">
+            <b className="text-accent">YOU</b> —{" "}
+            {placing ? "rough spot while Gemma 4 reads what you said…" : `rough spot from ${me.answers} of your answers`}
+          </li>
+        )}
       </ul>
       <p className="mt-2 text-[11px] text-foreground/50">
         Rough placement. Dark = measured from votes in Congress (DW-NOMINATE, Voteview). Blue =
         from past campaign donors (CFscore, Bonica&apos;s DIME). Outlined = our estimate from published
-        positions. Dashed = party guess. The three scales are not identical.
+        positions. Red outline = Gemma 4&apos;s estimate from their own words (checked on sitting
+        members: right side {ESTIMATE_CHECK.correctSide} of {ESTIMATE_CHECK.of}, average miss{" "}
+        {ESTIMATE_CHECK.averageMiss.toFixed(2)}). Dashed = party guess. The shaded band is the range
+        for your own spot. These scales are not identical.
       </p>
     </div>
   );
@@ -131,6 +156,34 @@ export function MatchStep({
   }, [openSaid, result]);
   const [explain, setExplain] = useState<Record<string, { text?: string; loading?: boolean }>>({});
 
+  // Gemma 4 places the voter from the whole conversation. It takes about 20 seconds, so the
+  // rough index is shown first and replaced when the placement arrives.
+  const takesASide = Object.values(answers).filter((a) => a === "yea" || a === "nay").length;
+  const canPlace = takesASide >= 2 || openSaid.trim().length >= 40;
+  // One request per distinct conversation; `settled` records which one has come back.
+  const conversation = JSON.stringify({ answers, said, openSaid });
+  const [settled, setSettled] = useState<{ key: string; placement: Placement | null } | null>(null);
+  useEffect(() => {
+    if (!canPlace) return;
+    let cancelled = false;
+    fetch("/api/place", { method: "POST", headers: { "content-type": "application/json" }, body: conversation })
+      .then(async (res) => {
+        const json = await res.json();
+        if (!res.ok) throw new Error(json.error);
+        return { x: json.x, low: json.low, high: json.high, why: json.why, source: "conversation", answers: json.turns } as Placement;
+      })
+      .catch(() => null)
+      .then((placement) => {
+        if (!cancelled) setSettled({ key: conversation, placement });
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [conversation, canPlace]);
+  const current = settled?.key === conversation ? settled : null;
+  const placing = canPlace && !current;
+  const me = current?.placement ?? placeVoter(answers);
+
   // The races we have collected candidates' own words for: U.S. House, then U.S. Senate.
   const races = result.ballot
     .flatMap((s) => s.races)
@@ -141,7 +194,7 @@ export function MatchStep({
   const suggestions = races
     .map((race) => {
       const ranked = race.candidates
-        .map((c) => ({ c, m: matchScore(answers, c.candidate_id, c.party) }))
+        .map((c) => ({ c, m: matchScore(answers, c.candidate_id, c.party, me) }))
         .filter((x): x is { c: Candidate; m: NonNullable<ReturnType<typeof matchScore>> } => x.m !== null)
         .sort((a, b) => b.m.score - a.m.score);
       // Within three points is a coin flip, not a match.
@@ -251,7 +304,8 @@ export function MatchStep({
         <section key={race.office} className="rounded-3xl bg-card p-5">
           <h3 className="text-sm font-bold text-accent">{race.office}</h3>
           <SpectrumLine
-            me={placeVoter(answers)}
+            me={me}
+            placing={placing}
             people={race.candidates.map((c, i) => ({
               letter: LETTERS[i] ?? "?",
               name: c.name,
@@ -388,7 +442,7 @@ export function MatchStep({
           <ul className="mt-4 space-y-1 border-t border-foreground/10 pt-3 text-sm">
             {race.candidates.map((c) => {
               const t = tally(answers, c.candidate_id, c.party);
-              const m = matchScore(answers, c.candidate_id, c.party);
+              const m = matchScore(answers, c.candidate_id, c.party, me);
               return (
                 <li key={c.candidate_id}>
                   <b>{c.name}</b>{" "}

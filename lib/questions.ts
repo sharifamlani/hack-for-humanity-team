@@ -4,6 +4,7 @@ import stateStancesJson from "@/data/positions/stances-state.json";
 import closestJson from "@/data/positions/closest.json";
 import reviewedOutJson from "@/data/positions/reviewed-out.json";
 import recordsJson from "@/data/positions/records.json";
+import estimatesJson from "@/data/positions/estimates.json";
 
 export type Theme = "forces" | "wildlife" | "jobs";
 
@@ -87,6 +88,13 @@ export const ALL_QUESTION_IDS = ALL.map((q) => q.id);
 export type CfScore = { candidate_id: string; cfscore: number; cycle: number; seat: string };
 const CFSCORES = recordsJson.cfscores as CfScore[];
 export const cfOf = (candidateId: string) => CFSCORES.find((c) => c.candidate_id === candidateId);
+
+// Left-right position estimated by Gemma 4 from a candidate's own published words, for
+// candidates with no voting record and no CFscore (scripts/estimate-scores.mjs).
+export type WordsEstimate = { candidate_id: string; x: number; low: number; high: number; why: string; passages: number };
+const ESTIMATES = estimatesJson.estimates as WordsEstimate[];
+export const estimateOf = (candidateId: string) => ESTIMATES.find((e) => e.candidate_id === candidateId);
+export const ESTIMATE_CHECK = estimatesJson.check as { correctSide: number; of: number; averageMiss: number };
 
 // Candidates we have collected any published words for.
 export const hasRecord = (candidateId: string) =>

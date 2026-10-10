@@ -1,6 +1,6 @@
 # ROADMAP — Hack for Humanity: Miami
 
-**Version:** v1.2
+**Version:** v1.3
 **Canonical execution directive for this repo.** If any other doc disagrees with this file,
 this file wins or the other doc gets corrected.
 
@@ -8,7 +8,7 @@ this file wins or the other doc gets corrected.
 
 ## §0 — You are here
 
-**Current phase:** Phase 0 — Pre-build setup (Friday Oct 9, 2026, evening)
+**Current phase:** Phase 2 — Build (Saturday Oct 10, 2026). **Live site: https://hack-for-humanity-team.vercel.app** — scaffold + address screen deployed (181af42); steps 2–5 are labelled placeholders. **Next unblocked:** address lookup (district, representative, polling place), then quiz items + scaling. Plan: `docs/build-plan.md`.
 
 - **Done:** repo skeleton — MIT license, docs, ignore rules (`87bc02e`, 2026-10-09).
 - **Done:** public repo live at **https://github.com/sharifamlani/hack-for-humanity** —
@@ -123,6 +123,7 @@ against production, not localhost.
 ---
 
 ## §6 — Changelog
+- **2026-10-10 (12:16 PM)** — **Site is up:** Next.js 16 + Tailwind scaffold with the five-step shell and the address screen, deployed to https://hack-for-humanity-team.vercel.app (181af42). Build passes; live URL returns 200. Not wired yet: lookup, ballot, quiz, scale, polling place. GitHub auto-deploy could not be connected, so deploys are manual (`vercel --prod --yes`).
 
 - **2026-10-10 (11:45 AM, at the event)** — **Team submission repo created and pushed:**
   https://github.com/sharifamlani/hack-for-humanity-team. Fresh history starting inside the

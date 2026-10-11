@@ -1,12 +1,14 @@
 # ROADMAP — Hack for Humanity: Miami
 
-**Version:** v1.16
+**Version:** v2.0
 **Canonical execution directive for this repo.** If any other doc disagrees with this file,
 this file wins or the other doc gets corrected.
 
 ---
 
 ## §0 — You are here
+
+**🏆 GRAND CHAMPION — Hack for Humanity: Miami, Saturday Oct 10, 2026.** The event is over and the build won the top prize. **Next unblocked:** add the four team members' names to the README "Team" section; keep the repo public (required to stay prize-eligible); follow up on the commercialization invitation. Everything below this line is the record of the build day.
 
 **Current phase:** Phase 2 — Build (Saturday Oct 10, 2026). **Live site: https://hack-for-humanity-team.vercel.app** — **final UI live at 3:15 PM** (dark theme from the team mockups on all five screens; app renamed **Your Ballot, Your Block** at 3:19 PM). Underneath: the full pivot is deployed (208fe61): Miami questions, voice interview, candidates' own words with quotes, one left–right line per race (votes, donors, or a checked Gemma 4 estimate), a suggested ballot, and the voter's dot placed by Gemma 4 from the conversation. The roll-call version is tagged `roll-call-version`. **Next unblocked:** one timed rehearsal of `docs/demo-script.md` on the live site in a real browser with a microphone, teammate names in README, submit on OrganizerHQ by 3:45.
 
@@ -124,6 +126,7 @@ against production, not localhost.
 
 ## §6 — Changelog
 
+- **2026-10-10 (evening)** — **🏆 Grand Champion.** "Your Ballot. Your Block." won the top prize at Hack for Humanity: Miami, as reported by Sharif from the venue. Team of four. Phase 5 (submit) and the demo are closed. Still open after the event: README team names; statewide candidates have only two quoted positions, so their matches rest mostly on party guess and donor score; the spoken-answer path was never tested through a real microphone by this session; repo, Vercel URL and package name still carry the old "305 Votes" name. The repo must stay public.
 - **2026-10-10 (4:18 PM)** — **All four statewide races are matched on production** (`ad7a55f`, `0756c87`, `3b0c63f`): pages collected for eight statewide candidates (383 passages), donor scores for four, and Gemma 4's first-pass readings (128, quote check 0 missing). A donor score now counts as evidence, which unblocked Attorney General. Checked on production with the venue address: Governor, Attorney General, CFO and Agriculture each show a match; 16 match percentages on the ballot. **Honest limit:** only two of those 128 readings are real stated positions (Donalds on immigration enforcement, Jolly on offshore drilling), so statewide percentages rest mostly on party guess and donor score; Jolly showed a starred 100% on a party guess. Gemma 4's leanings pass was still running in another session at the time.
 - **2026-10-10 (3:52-4:05 PM)** — **Home page and polish** (`054c52e`, `acc396e`, `e79dfd9`, `edadef7`, `8a242a3`, `6ac6adf`): "Two minutes." removed from the headline; a "Clarity. Choice. Control." section with three cards (no links, since those pages do not exist); every screen now opens at the top (the ballot used to open 1,854px down after the interview; measured 0 on production after the fix); logo reads "Your Ballot. Your Block." with "Your Block." in mint.
 - **2026-10-10 (3:47 PM)** — **Governor race is now matched** (`3b1c126`). It was skipped because the ballot only scored races with collected pages, although Byron Donalds has 515 scored votes in Congress and roll-call votes on our questions. A race is now scored when any candidate has published words or a voting record. Checked on production: Governor shows a match for Donalds (from votes) and Jolly. Open and important: **Jolly's percentage rests on a party guess only** (no pages collected, and his 2014-2017 House record is not loaded), yet it can carry the star; the six other Governor candidates and the Attorney General, CFO and Agriculture races still have no data.

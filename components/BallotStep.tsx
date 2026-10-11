@@ -61,7 +61,7 @@ function RaceBlock({
           const isBest = best?.candidate_id === c.candidate_id;
           const isMeasure = c.office_level === "ballot_measure";
           return (
-            <li key={c.candidate_id} className="flex items-center gap-3 py-3">
+            <li key={c.candidate_id} className="flex flex-wrap items-center gap-x-3 gap-y-2 py-3">
               {!isMeasure && (
                 <span className={`w-28 shrink-0 rounded-full px-2.5 py-0.5 text-center text-xs font-bold ${partyStyle(c.party)}`}>
                   {c.party.replace(" Affiliation", "")}
@@ -71,25 +71,26 @@ function RaceBlock({
                 {c.name}
                 {c.incumbent && <span className="ml-2 text-sm font-normal text-foreground/60">incumbent</span>}
               </p>
-              {m ? (
+              {/* The candidate's own campaign site when we have it; otherwise the official
+                  listing that puts them on the ballot. */}
+              <a
+                href={c.campaign_url || c.source_url}
+                target="_blank"
+                rel="noreferrer"
+                title={c.campaign_url ? `${c.name}'s campaign website` : c.source_name}
+                className="shrink-0 rounded-full border border-foreground/30 px-3 py-1 text-sm text-foreground/80 hover:border-accent hover:text-accent"
+              >
+                {c.campaign_url ? "Campaign site ↗" : isMeasure ? "Source ↗" : "Official listing ↗"}
+              </a>
+              {m && (
                 <span
-                  className={`shrink-0 rounded-full px-3 py-1 text-sm font-black ${
+                  className={`w-32 shrink-0 rounded-full px-3 py-1 text-center text-sm font-black ${
                     isBest ? "bg-accent text-background" : "border border-foreground/25 text-foreground/70"
                   }`}
                 >
                   {isBest && "★ "}
                   {Math.round(m.score * 100)}% match
                 </span>
-              ) : (
-                <a
-                  href={c.source_url}
-                  target="_blank"
-                  rel="noreferrer"
-                  title={c.source_name}
-                  className="shrink-0 rounded-full border border-foreground/30 px-3 py-1 text-sm text-foreground/80"
-                >
-                  Source ↗
-                </a>
               )}
             </li>
           );

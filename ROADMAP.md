@@ -1,6 +1,6 @@
 # ROADMAP — Hack for Humanity: Miami
 
-**Version:** v2.2
+**Version:** v2.3
 **Canonical execution directive for this repo.** If any other doc disagrees with this file,
 this file wins or the other doc gets corrected.
 
@@ -126,6 +126,7 @@ against production, not localhost.
 
 ## §6 — Changelog
 
+- **2026-10-10 (night) — post-event** — **Google map on the voting plan** (`ae67e3f`): the drawn street grid at the top of the polling-place card is replaced by an embedded Google map centred on the polling place, with a pin on it. It uses Google's keyless embed, so there is no API key and only the polling place's coordinates go to Google, never the voter's address. Checked locally and on production with the venue address (pin on Paul Laurence Dunbar K-8 Center, no console errors). The drawn grid remains as the fallback when no polling place is matched. Limits: the map is Google's standard light style inside a dark page (a dark-styled map needs an API key), and the keyless embed is not a documented, guaranteed Google product.
 - **2026-10-10 (night) — first post-event change** — **Ballot buttons open the candidate's campaign website.** Every candidate row now has a link: "Campaign site" when we hold their campaign site, otherwise "Official listing" (the filing that puts them on the ballot); ballot questions keep "Source". Scored candidates used to show only a percentage and no link; they now show both. 33 of 81 people on the roster have a campaign site, taken from the `campaign_home` pages already collected for the position data (`scripts/fill-campaign-urls.mjs`); `scripts/verify-campaign-urls.mjs` reports 28 answering and 5 refusing a script, and those 5 load with the right page title in a real browser. At the venue address: 16 campaign-site buttons, 17 official listings, 13 ballot-question sources. Not done: the 48 people with no campaign site on file (six minor Governor candidates, Uthmeier, sitting House members whose only collected site is their official one, judges, county and city offices) still open the official listing. Event-day versions are tagged `submission-deadline`, `judged-demo` and `event-day-final`; this and everything after it is post-event work.
 - **2026-10-10 (evening)** — **README team section filled in:** Sharif Amlani, Sandy Denis, Vania Arredondo and Schneur Werde, with LinkedIn links for the three teammates. Closes the last of the five required README sections.
 - **2026-10-10 (evening)** — **🏆 Grand Champion.** "Your Ballot. Your Block." won the top prize at Hack for Humanity: Miami, as reported by Sharif from the venue. Team of four. Phase 5 (submit) and the demo are closed. Still open after the event: README team names; statewide candidates have only two quoted positions, so their matches rest mostly on party guess and donor score; the spoken-answer path was never tested through a real microphone by this session; repo, Vercel URL and package name still carry the old "305 Votes" name. The repo must stay public.

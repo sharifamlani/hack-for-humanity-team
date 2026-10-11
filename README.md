@@ -277,6 +277,10 @@ As built on Oct 10: 320 candidate-by-question cells for 20 candidates — 99 "ye
 
 ## Team
 
+![The team in front of the Hack for Humanity: Miami banner at The LAB Miami](docs/images/team-grand-champion.jpg)
+
+*Grand Champion, Hack for Humanity: Miami — The LAB Miami, Saturday, Oct 10, 2026.*
+
 - Sharif Amlani — [LinkedIn](https://www.linkedin.com/in/sharif-amlani-a7a28a21b/)
 - Sandy Denis — [LinkedIn](https://www.linkedin.com/in/sandy-denis-643138257/)
 - Vania Arredondo — [LinkedIn](https://www.linkedin.com/in/vaav/)

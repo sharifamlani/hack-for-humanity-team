@@ -12,6 +12,12 @@ const shortDate = (ms: number | null) =>
         timeZone: "America/New_York",
       });
 
+// Google's keyless map embed, centred on the polling place with a pin on it. Only the
+// polling place's coordinates are sent to Google, never the voter's address.
+const mapEmbed = (lat: number, lon: number) =>
+  `https://www.google.com/maps?q=${lat},${lon}&z=16&output=embed`;
+
+// Shown in place of the map when no polling place was matched.
 function StreetGrid() {
   return (
     <svg
@@ -54,7 +60,17 @@ export function PollingStep({ result }: { result: LookupResult }) {
 
       <div className="grid items-start gap-4 lg:grid-cols-[1.4fr_1fr]">
         <section className="overflow-hidden rounded-2xl border border-accent/40 bg-[#0c2a26]">
-          <StreetGrid />
+          {polling ? (
+            <iframe
+              title={`Map showing ${polling.name}`}
+              src={mapEmbed(polling.lat, polling.lon)}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="block h-[260px] w-full border-0 bg-[#0f3a35]"
+            />
+          ) : (
+            <StreetGrid />
+          )}
           <div className="p-6">
             <p className="eyebrow text-coral">
               Your polling place (most likely) · Confirm before you go

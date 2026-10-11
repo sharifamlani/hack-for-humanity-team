@@ -8,6 +8,8 @@ did and exits non-zero on failure.
 | `merge-candidates.mjs` | Merges `data/candidates/{federal,state,local}.csv` into `data/candidates.csv` |
 | `build-candidates-json.mjs` | Turns that CSV into `data/candidates.json`, the file the app reads |
 | `verify-candidates.mjs` | Checks every roster row has a source |
+| `fill-campaign-urls.mjs` | Fills each candidate's `campaign_url` from the `campaign_home` pages in `data/candidates/sites/*.csv` (front page of the site; official government sites are never used). Run `pnpm data` after it |
+| `verify-campaign-urls.mjs` | Checks every `campaign_url` answers; a dead address fails the run, a site that refuses scripts is listed for a check by hand |
 | `scrape-positions.mjs` | Downloads the pages in `data/candidates/sites/*.csv` and saves their exact text as passages |
 | `embed-positions.mjs` | Embeds passages and interview questions (`--check` prints the closest passages per question) |
 | `build-stances.mjs` | Gemma 4 reads each candidate's closest passages and decides yes / no / none, with a word-for-word quote check (`--second-look` re-reads the empty cells) |

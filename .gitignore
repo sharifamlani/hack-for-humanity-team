@@ -43,3 +43,6 @@ next-env.d.ts
 
 # ---- Downloaded source data, re-fetched by scripts/build-items.mjs ----
 data/.cache/
+
+# ---- Marketing drafts (LinkedIn post, blog): kept local, not part of the submission ----
+marketing/

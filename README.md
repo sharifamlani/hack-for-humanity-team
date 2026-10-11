@@ -278,7 +278,9 @@ As built on Oct 10: 320 candidate-by-question cells for 20 candidates — 99 "ye
 ## Team
 
 - Sharif Amlani
-- ADD TEAMMATE NAMES (three more members)
+- Sandy Denis — [LinkedIn](https://www.linkedin.com/in/sandy-denis-643138257/)
+- Vania Arredondo — [LinkedIn](https://www.linkedin.com/in/vaav/)
+- Schneur Werde — [LinkedIn](https://www.linkedin.com/in/schneur-werde/)
 
 ## License
 

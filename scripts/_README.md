@@ -14,6 +14,7 @@ did and exits non-zero on failure.
 | `embed-positions.mjs` | Embeds passages and interview questions (`--check` prints the closest passages per question) |
 | `build-stances.mjs` | Gemma 4 reads each candidate's closest passages and decides yes / no / none, with a word-for-word quote check (`--second-look` re-reads the empty cells) |
 | `verify-stances.mjs` | Asserts every shown quote is on its page word for word; prints the coverage table |
+| `verify-closest.mjs` | Flags "closest thing they've said" passages that may be someone else's words (attribution patterns, other candidates' names, long quotations) and fails unless each is reviewed in `data/positions/closest-review.json` |
 
 Order for the position data: scrape → embed → build-stances → verify-stances.
 `pnpm data` runs the two candidate-roster scripts and is run automatically before `pnpm build`.

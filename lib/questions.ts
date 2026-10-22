@@ -3,6 +3,7 @@ import stancesJson from "@/data/positions/stances.json";
 import stateStancesJson from "@/data/positions/stances-state.json";
 import closestJson from "@/data/positions/closest.json";
 import reviewedOutJson from "@/data/positions/reviewed-out.json";
+import closestReviewJson from "@/data/positions/closest-review.json";
 import recordsJson from "@/data/positions/records.json";
 import estimatesJson from "@/data/positions/estimates.json";
 
@@ -69,7 +70,12 @@ export const stanceOf = (candidateId: string, questionId: string) =>
 // The candidate's closest on-topic passage for a question, in their exact words. No model
 // has read it and it carries no yes/no (scripts/attach-passages.mjs).
 export type ClosestPassage = { candidate_id: string; question: string; text: string; url: string };
-const CLOSEST = (closestJson as { closest: ClosestPassage[] }).closest;
+// Passages a person judged not to be the candidate's own words (a quote of someone else) are
+// dropped (data/positions/closest-review.json, scripts/verify-closest.mjs).
+const CLOSEST_EXCLUDED = new Set(closestReviewJson.excluded.map((r) => `${r.candidate_id}|${r.question}`));
+const CLOSEST = (closestJson as { closest: ClosestPassage[] }).closest.filter(
+  (c) => !CLOSEST_EXCLUDED.has(`${c.candidate_id}|${c.question}`),
+);
 export const closestOf = (candidateId: string, questionId: string) =>
   CLOSEST.find((c) => c.candidate_id === candidateId && c.question === questionId);
 

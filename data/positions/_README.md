@@ -9,6 +9,7 @@ collected and built during the event on Oct 10, 2026.
 | `chunks.json` | The exact visible text of those pages, cut into short passages, each with its URL | `scripts/scrape-positions.mjs` |
 | `embeddings.json` | One vector per passage and per interview question (`gemini-embedding-2`) | `scripts/embed-positions.mjs` |
 | `stances.json` | Candidate × question: yes / no / none, with the quote and link | `scripts/build-stances.mjs` |
+| `closest-review.json` | A person's decision on each "closest thing they've said" passage that might be someone else's words: `excluded` (hidden in the app) or `allowed` | by hand; checked by `scripts/verify-closest.mjs` |
 
 Check it with `node scripts/verify-stances.mjs`.
 

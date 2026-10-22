@@ -1,0 +1,85 @@
+{
+ "excluded": [
+  {
+   "candidate_id": "us-senate-fl-moody",
+   "question": "flooding",
+   "reason": "Quote of Rep. Byron Donalds, not Moody",
+   "text_start": "Congressman Byron Donalds said, “For far too long, the risin"
+  },
+  {
+   "candidate_id": "us-senate-fl-moody",
+   "question": "insurance",
+   "reason": "Quote of Sen. Rick Scott, not Moody",
+   "text_start": "Senator Rick Scott said, “Floridians know well that flood in"
+  },
+  {
+   "candidate_id": "us-house-fl27-salazar",
+   "question": "species",
+   "reason": "Quote of FWC Director Jessica McCawley, not Salazar",
+   "text_start": "\"Reefing retired ships is a win for all parties,” said FWC D"
+  },
+  {
+   "candidate_id": "us-house-fl28-gimenez",
+   "question": "everglades",
+   "reason": "Quote of Dr. Duane DeFreese (Indian River Lagoon NEP) praising Gimenez/Rubio bill",
+   "text_start": "“ Reauthorization of the South Florida Ecosystem Enhancement"
+  }
+ ],
+ "allowed": [
+  {
+   "candidate_id": "fl-cfo-taddeo",
+   "question": "drilling",
+   "reason": "Taddeo's own campaign page criticising Ingoglia in her own voice"
+  },
+  {
+   "candidate_id": "us-house-fl24-gilbert",
+   "question": "enforcement",
+   "reason": "Gilbert's own issues page; 'They said' is his criticism of the government"
+  },
+  {
+   "candidate_id": "us-house-fl25-moskowitz",
+   "question": "immigration",
+   "reason": "Moskowitz's own statement on his House site; State Department mention is inside his speech"
+  },
+  {
+   "candidate_id": "us-house-fl27-salazar",
+   "question": "insurance",
+   "reason": "Her own quote on her House site ('said Rep. Maria Salazar')"
+  },
+  {
+   "candidate_id": "us-house-fl27-salazar",
+   "question": "fema",
+   "reason": "Her own quote on her House site ('said Congresswoman ... Salazar')"
+  },
+  {
+   "candidate_id": "us-house-fl27-salazar",
+   "question": "cuba",
+   "reason": "Her own quote on her House site (on Venezuela TPS, not Cuba, but her words)"
+  },
+  {
+   "candidate_id": "us-house-fl27-salazar",
+   "question": "taxes",
+   "reason": "Her own quote on her House site ('said Congresswoman Salazar')"
+  },
+  {
+   "candidate_id": "fl-gov-donalds",
+   "question": "housing",
+   "reason": "Pull-quote on Donalds' own campaign issues page, his campaign voice"
+  },
+  {
+   "candidate_id": "fl-gov-donalds",
+   "question": "immigration",
+   "reason": "Pull-quote on Donalds' own campaign issues page, his campaign voice"
+  },
+  {
+   "candidate_id": "fl-gov-donalds",
+   "question": "healthcare",
+   "reason": "Pull-quote on Donalds' own campaign issues page, his campaign voice"
+  },
+  {
+   "candidate_id": "fl-gov-donalds",
+   "question": "transit",
+   "reason": "Pull-quote on Donalds' own campaign issues page, his campaign voice"
+  }
+ ]
+}

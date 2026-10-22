@@ -27,6 +27,9 @@ const ADDRESSES = [
   "10720 Caribbean Blvd, Cutler Bay, FL 33189",
   "17011 NE 19th Ave, North Miami Beach, FL 33162",
   "776 NE 125th St, North Miami, FL 33161",
+  "404 W Palm Dr, Florida City, FL 33034",
+  "12400 SW 152nd St, Miami, FL 33177",
+  "10201 Hammocks Blvd, Miami, FL 33196",
   "100 N Andrews Ave, Fort Lauderdale, FL 33301",
 ];
 
@@ -112,7 +115,9 @@ for (const address of ADDRESSES) {
   const has = (office) => cands.some((c) => c.office === office);
   if (!has("U.S. House")) problems.push(`no U.S. House race for FL-${g.congressional}`);
   if (!has("Florida State Senate")) notes.push(`no State Senate ${g.stateSenate} race on the ballot (not up in 2026, or missing from roster)`);
-  if (!has("Florida State House")) problems.push(`no State House ${g.stateHouse} race on the ballot`);
+  const unopposed = (r.unopposed ?? []).find((u) => u.office.startsWith("Florida State House"));
+  if (unopposed) notes.push(`State House ${g.stateHouse}: shown as unopposed (${unopposed.name})`);
+  else if (!has("Florida State House")) problems.push(`no State House ${g.stateHouse} race on the ballot`);
 
   // Polling place sanity.
   if (!r.polling) problems.push("no polling place");

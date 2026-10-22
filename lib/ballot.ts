@@ -45,5 +45,14 @@ export function buildBallot(geo: Geo) {
   const notPlaced = UNPLACED_OFFICES.filter((office) =>
     CANDIDATES.some((c) => c.on_general_ballot && c.office === office),
   );
-  return { ballot, notPlaced };
+  // This voter's legislative seats that were filled without a contest: the only qualified
+  // candidate was elected when qualifying closed, so the race is not printed on the ballot.
+  const unopposed = CANDIDATES.filter(
+    (c) =>
+      !c.on_general_ballot &&
+      /unopposed, elected at close of qualifying/i.test(c.notes) &&
+      ((c.office === "Florida State House" && c.district === geo.stateHouse) ||
+        (c.office === "Florida State Senate" && c.district === geo.stateSenate)),
+  ).map((c) => ({ office: `${c.office} · District ${c.district}`, name: c.name }));
+  return { ballot, notPlaced, unopposed };
 }

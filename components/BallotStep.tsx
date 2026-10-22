@@ -218,6 +218,13 @@ export function BallotStep({
             </details>
           ))}
 
+          {result.unopposed?.map((u) => (
+            <p key={u.office} className="card px-5 py-3 text-sm">
+              <b>{u.office}</b> is not on your ballot: {u.name} was the only qualified candidate and was elected
+              unopposed.
+            </p>
+          ))}
+
           <p className="text-sm text-foreground/70">
             ⓘ A match, not an endorsement. Races without a percentage are not scored yet.
             {result.notPlaced.length > 0 && (

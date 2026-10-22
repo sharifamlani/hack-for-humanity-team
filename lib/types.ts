@@ -67,6 +67,9 @@ export type LookupResult = {
   ballot: { section: string; races: BallotRace[] }[];
   // Races we know exist but cannot place this address in yet.
   notPlaced: string[];
+  // This voter's seats filled without a contest (not printed on the ballot). Optional: the
+  // saved venue example predates it.
+  unopposed?: { office: string; name: string }[];
   officialLookupUrl: string;
   savedExample?: boolean;
 };

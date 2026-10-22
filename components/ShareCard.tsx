@@ -1,12 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { SHARE_DOMAIN, SHARE_TEXT, SHARE_URL, shareLinks } from "@/lib/share";
+import { SHARE_DOMAIN, SHARE_MESSAGE, SHARE_TEXT, SHARE_URL, shareLinks } from "@/lib/share";
 
 const LINKS = shareLinks();
+// LinkedIn and Facebook are drawn on their own below; these are the plain links.
 const NETWORKS: { label: string; href: string }[] = [
-  { label: "LinkedIn", href: LINKS.linkedin },
-  { label: "Facebook", href: LINKS.facebook },
   { label: "WhatsApp", href: LINKS.whatsapp },
   { label: "X", href: LINKS.x },
   { label: "Text", href: LINKS.sms },
@@ -23,9 +22,9 @@ export function ShareCard() {
   // Copies inside the tap itself. navigator.clipboard.writeText can wait indefinitely when the
   // tab is not focused, which left the button with no feedback, so the synchronous copy goes
   // first and the async API is the fallback.
-  function copyLink(then?: string) {
+  function copyLink(then?: string, value = SHARE_URL) {
     const area = document.createElement("textarea");
-    area.value = SHARE_URL;
+    area.value = value;
     area.setAttribute("readonly", "");
     area.style.position = "fixed";
     area.style.opacity = "0";
@@ -39,11 +38,11 @@ export function ShareCard() {
     }
     area.remove();
     if (!done && navigator.clipboard) {
-      navigator.clipboard.writeText(SHARE_URL).catch(() => setHint(`Copy this link: ${SHARE_URL}`));
+      navigator.clipboard.writeText(value).catch(() => setHint(`Copy this: ${value}`));
       done = true;
     }
     if (!done) {
-      setHint(`Copy this link: ${SHARE_URL}`);
+      setHint(`Copy this: ${value}`);
       return;
     }
     setCopied(true);
@@ -83,15 +82,24 @@ export function ShareCard() {
           <p className="text-sm text-foreground/70">Help someone on your block find their ballot.</p>
         </div>
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-          {NETWORKS.slice(0, 2).map((n) => (
-            <a key={n.label} href={n.href} target="_blank" rel="noopener noreferrer" aria-label={`Share on ${n.label}`} className={pill}>
-              {n.label}
-            </a>
-          ))}
+          <a href={LINKS.linkedin} target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn" className={pill}>
+            LinkedIn
+          </a>
+          {/* Facebook does not let sites fill in the post, so the message is copied on the way out. */}
+          <a
+            href={LINKS.facebook}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Share on Facebook"
+            onClick={() => copyLink("Message copied: paste it in your Facebook post.", SHARE_MESSAGE)}
+            className={pill}
+          >
+            Facebook
+          </a>
           <button type="button" onClick={instagram} aria-label="Share on Instagram" className={pill}>
             Instagram
           </button>
-          {NETWORKS.slice(2).map((n) => (
+          {NETWORKS.map((n) => (
             <a
               key={n.label}
               href={n.href}

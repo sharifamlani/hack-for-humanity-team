@@ -3,7 +3,7 @@
 // text as passages in data/positions/chunks.json. Text is kept word-for-word so that any
 // quote shown in the app can be checked against the page it came from.
 // Usage: node scripts/scrape-positions.mjs [sitesDir] [outFile]
-import { readFileSync, writeFileSync, readdirSync, mkdirSync } from "node:fs";
+import { readFileSync, writeFileSync, readdirSync, mkdirSync, renameSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { execFileSync } from "node:child_process";
 import { parseCsv } from "./merge-candidates.mjs";
@@ -82,6 +82,13 @@ async function main() {
 
   const chunks = [];
   const seenText = new Set();
+  // A site that is down today must not erase what we read from it before: when a page
+  // cannot be fetched, its passages from the last run are carried over unchanged.
+  let previous = [];
+  try {
+    previous = JSON.parse(readFileSync(outFile, "utf8")).chunks ?? [];
+  } catch {}
+  let carried = 0;
   const perCandidate = {};
   let failed = 0;
   for (const page of pages) {
@@ -114,17 +121,28 @@ async function main() {
       console.log(`${String(kept).padStart(3)} passages  ${page.candidate_id.padEnd(30)} ${page.url.slice(0, 80)}`);
     } catch (e) {
       failed++;
-      console.log(`  FAILED (${e.message})  ${page.candidate_id}  ${page.url.slice(0, 80)}`);
+      const old = previous.filter((c) => c.url === page.url && c.candidate_id === page.candidate_id);
+      for (const c of old) {
+        const key = `${c.candidate_id}|${c.text}`;
+        if (seenText.has(key)) continue;
+        seenText.add(key);
+        chunks.push({ ...c, id: chunks.length });
+        carried++;
+      }
+      perCandidate[page.candidate_id] = (perCandidate[page.candidate_id] ?? 0) + old.length;
+      console.log(`  FAILED (${e.message}), kept ${old.length} earlier passages  ${page.candidate_id}  ${page.url.slice(0, 80)}`);
     }
   }
 
   mkdirSync(dirname(outFile), { recursive: true });
-  writeFileSync(outFile, JSON.stringify({ retrieved: new Date().toISOString(), chunks }, null, 1) + "\n", "utf8");
+  // Write to a temporary file and rename, so a reader never sees a half-written file.
+  writeFileSync(`${outFile}.tmp`, JSON.stringify({ retrieved: new Date().toISOString(), chunks }, null, 1) + "\n", "utf8");
+  renameSync(`${outFile}.tmp`, outFile);
   console.log("\nPassages per candidate:");
   for (const id of [...new Set(rows.map((r) => r.candidate_id))].sort()) {
     console.log(`  ${String(perCandidate[id] ?? 0).padStart(4)}  ${id}`);
   }
-  console.log(`wrote ${outFile}: ${chunks.length} passages from ${Object.keys(perCandidate).filter((k) => perCandidate[k]).length} candidates (${failed} pages failed)`);
+  console.log(`wrote ${outFile}: ${chunks.length} passages from ${Object.keys(perCandidate).filter((k) => perCandidate[k]).length} candidates (${failed} pages failed, ${carried} passages carried over from the last run)`);
   if (chunks.length === 0) process.exit(1);
 }
 

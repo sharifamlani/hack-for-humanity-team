@@ -4,7 +4,7 @@
 // The embedding model only FINDS passages; Gemma 4 does the reading (build-stances.mjs).
 // Usage: node --env-file=.env scripts/embed-positions.mjs [--check]
 //   --check  after embedding, print the top passages for each question (a relevance eyeball)
-import { readFileSync, writeFileSync, existsSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync, renameSync } from "node:fs";
 
 export const EMBED_MODEL = "gemini-embedding-2";
 const DIMS = 256;
@@ -62,8 +62,9 @@ async function main() {
   const chunkVectors = await mapPool(chunks, async (c) => known.get(c.text) ?? (await embed(c.text)));
   const questionVectors = await mapPool(questions, (q) => embed(`${q.question} ${q.search}`));
 
+  // Write to a temporary file and rename, so a reader never sees a half-written file.
   writeFileSync(
-    OUT,
+    `${OUT}.tmp`,
     JSON.stringify({
       model: EMBED_MODEL,
       dims: DIMS,
@@ -72,6 +73,7 @@ async function main() {
     }) + "\n",
     "utf8",
   );
+  renameSync(`${OUT}.tmp`, OUT);
   console.log(`wrote ${OUT}: ${chunks.length} passages, ${questions.length} questions, ${DIMS} dims`);
 
   if (process.argv.includes("--check")) {

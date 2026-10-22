@@ -1,17 +1,8 @@
 {
  "model": "gemma-4-31b-it",
  "embeddingModel": "gemini-embedding-2",
- "built": "2026-10-22T14:56:19.318Z",
+ "built": "2026-10-22T15:24:13.165Z",
  "stances": [
-  {
-   "candidate_id": "fl-ag-rodriguez",
-   "question": "flooding",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.693
-  },
   {
    "candidate_id": "fl-ag-rodriguez",
    "question": "insurance",
@@ -34,6 +25,35 @@
   },
   {
    "candidate_id": "fl-ag-rodriguez",
+   "question": "housing",
+   "stance": "yes",
+   "quote": "Stop algorithmic rent setting by corporate landlords that drives up housing costs.",
+   "url": "https://www.jjr.vote/priorities",
+   "why": "The candidate expresses a priority to lower housing costs and stop corporate landlords from driving up rent, which aligns with the goal of helping renters.",
+   "similarity": 0.685,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-ag-rodriguez",
+   "question": "healthcare",
+   "stance": "yes",
+   "quote": "Investigate Big Insurance for rate inflation, excessive claim denials, and delayed payouts.",
+   "url": "https://www.jjr.vote/priorities",
+   "why": "The candidate expresses a desire to combat insurance rate inflation, which is a closely related priority to bringing down the cost of health insurance.",
+   "similarity": 0.694,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-ag-rodriguez",
+   "question": "flooding",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.694
+  },
+  {
+   "candidate_id": "fl-ag-rodriguez",
    "question": "drilling",
    "stance": "none",
    "quote": "",
@@ -43,22 +63,21 @@
   },
   {
    "candidate_id": "fl-ag-rodriguez",
+   "question": "everglades",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.738
+  },
+  {
+   "candidate_id": "fl-ag-rodriguez",
    "question": "species",
    "stance": "none",
    "quote": "",
    "url": "",
    "why": "",
    "similarity": 0.706
-  },
-  {
-   "candidate_id": "fl-ag-rodriguez",
-   "question": "housing",
-   "stance": "yes",
-   "quote": "Stop algorithmic rent setting by corporate landlords that drives up housing costs.",
-   "url": "https://www.jjr.vote/priorities",
-   "why": "The candidate expresses a priority to lower housing costs and stop corporate landlords from driving up rent, which aligns with the goal of helping renters.",
-   "similarity": 0.685,
-   "reading": "leans"
   },
   {
    "candidate_id": "fl-ag-rodriguez",
@@ -85,7 +104,7 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.7
+   "similarity": 0.725
   },
   {
    "candidate_id": "fl-ag-rodriguez",
@@ -94,17 +113,8 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.679
-  },
-  {
-   "candidate_id": "fl-ag-rodriguez",
-   "question": "healthcare",
-   "stance": "yes",
-   "quote": "Investigate Big Insurance for rate inflation, excessive claim denials, and delayed payouts.",
-   "url": "https://www.jjr.vote/priorities",
-   "why": "The candidate expresses a desire to combat insurance rate inflation, which is a closely related priority to bringing down the cost of health insurance.",
-   "similarity": 0.694,
-   "reading": "leans"
+   "similarity": 0.679,
+   "error": "Gemma timed out"
   },
   {
    "candidate_id": "fl-ag-rodriguez",
@@ -122,7 +132,7 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.673
+   "similarity": 0.706
   },
   {
    "candidate_id": "fl-ag-rodriguez",
@@ -143,15 +153,6 @@
    "similarity": 0.697
   },
   {
-   "candidate_id": "fl-ag-rodriguez",
-   "question": "everglades",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.738
-  },
-  {
    "candidate_id": "fl-ag-uthmeier",
    "question": "flooding",
    "stance": "none",
@@ -167,7 +168,7 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.69
+   "similarity": 0.725
   },
   {
    "candidate_id": "fl-ag-uthmeier",
@@ -194,7 +195,7 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.68
+   "similarity": 0.685
   },
   {
    "candidate_id": "fl-ag-uthmeier",
@@ -203,8 +204,7 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.723,
-   "rejected": "quote not found word-for-word in the passage"
+   "similarity": 0.723
   },
   {
    "candidate_id": "fl-ag-uthmeier",
@@ -213,7 +213,7 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.64
+   "similarity": 0.653
   },
   {
    "candidate_id": "fl-ag-uthmeier",
@@ -222,7 +222,7 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.57
+   "similarity": 0.596
   },
   {
    "candidate_id": "fl-ag-uthmeier",
@@ -231,7 +231,7 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.643
+   "similarity": 0.65
   },
   {
    "candidate_id": "fl-ag-uthmeier",
@@ -240,7 +240,7 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.665
+   "similarity": 0.721
   },
   {
    "candidate_id": "fl-ag-uthmeier",
@@ -258,16 +258,17 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.604
+   "similarity": 0.675
   },
   {
    "candidate_id": "fl-ag-uthmeier",
    "question": "enforcement",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.644
+   "stance": "yes",
+   "quote": "At the same time, Florida is strengthening its frontline defenses with FDACS’s newly certified officers, reinforcing the state’s interdiction stations as a critical tool in immigration enforcement.",
+   "url": "https://www.myfloridalegal.com/newsrelease/attorney-general-james-uthmeier-requests-us-dot-revoke-cdl-programs-funding-california",
+   "why": "The candidate describes strengthening frontline defenses and interdiction stations as a way to reinforce immigration enforcement.",
+   "similarity": 0.673,
+   "reading": "leans"
   },
   {
    "candidate_id": "fl-ag-uthmeier",
@@ -276,7 +277,7 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.622
+   "similarity": 0.67
   },
   {
    "candidate_id": "fl-ag-uthmeier",
@@ -285,7 +286,7 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.664
+   "similarity": 0.684
   },
   {
    "candidate_id": "fl-ag-uthmeier",
@@ -294,7 +295,7 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.636
+   "similarity": 0.627
   },
   {
    "candidate_id": "fl-agr-atkins",
@@ -453,6 +454,46 @@
   },
   {
    "candidate_id": "fl-agr-simpson",
+   "question": "everglades",
+   "stance": "yes",
+   "quote": "This includes investments in Piney Point Cleanup ($100 million), Rattlesnake Key ($23 million) and Biscayne Bay ($20 million).",
+   "url": "https://wiltonsimpson.com/environment/",
+   "why": "The candidate's record shows he has supported specific investments for the cleanup of Biscayne Bay.",
+   "similarity": 0.776,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-agr-simpson",
+   "question": "immigration",
+   "stance": "no",
+   "quote": "That is why Wilton worked to ban sanctuary cities in Florida.",
+   "url": "https://wiltonsimpson.com/public-safety/",
+   "why": "Working to ban sanctuary cities is a policy record associated with opposing paths to legal status for undocumented immigrants.",
+   "similarity": 0.756,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-agr-simpson",
+   "question": "enforcement",
+   "stance": "yes",
+   "quote": "That is why Wilton worked to ban sanctuary cities in Florida.",
+   "url": "https://wiltonsimpson.com/public-safety/",
+   "why": "Banning sanctuary cities increases cooperation with federal immigration authorities to facilitate arrests and deportations.",
+   "similarity": 0.7,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-agr-simpson",
+   "question": "taxes",
+   "stance": "yes",
+   "quote": "While states like California and New York continue to hammer residents with unbearable tax burdens, Wilton has cut taxes for families, small and large business owners, farmers and homeowners.",
+   "url": "https://wiltonsimpson.com/economic-freedom/",
+   "why": "The candidate has a record of cutting taxes for families and small businesses at the state level.",
+   "similarity": 0.725,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-agr-simpson",
    "question": "insurance",
    "stance": "none",
    "quote": "",
@@ -467,7 +508,7 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.687
+   "similarity": 0.691
   },
   {
    "candidate_id": "fl-agr-simpson",
@@ -476,110 +517,7 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.682
-  },
-  {
-   "candidate_id": "fl-agr-simpson",
-   "question": "everglades",
-   "stance": "yes",
-   "quote": "This includes investments in Piney Point Cleanup ($100 million), Rattlesnake Key ($23 million) and Biscayne Bay ($20 million).",
-   "url": "https://wiltonsimpson.com/environment/",
-   "why": "The candidate's record shows he has supported specific investments for the cleanup of Biscayne Bay.",
-   "similarity": 0.776,
-   "reading": "leans"
-  },
-  {
-   "candidate_id": "fl-agr-simpson",
-   "question": "housing",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.685
-  },
-  {
-   "candidate_id": "fl-agr-simpson",
-   "question": "wages",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.66
-  },
-  {
-   "candidate_id": "fl-agr-simpson",
-   "question": "college",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.757
-  },
-  {
-   "candidate_id": "fl-agr-simpson",
-   "question": "immigration",
-   "stance": "no",
-   "quote": "That is why Wilton worked to ban sanctuary cities in Florida.",
-   "url": "https://wiltonsimpson.com/public-safety/",
-   "why": "Working to ban sanctuary cities is a policy record associated with opposing paths to legal status for undocumented immigrants.",
-   "similarity": 0.756,
-   "reading": "leans"
-  },
-  {
-   "candidate_id": "fl-agr-simpson",
-   "question": "fema",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.677
-  },
-  {
-   "candidate_id": "fl-agr-simpson",
-   "question": "healthcare",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.665
-  },
-  {
-   "candidate_id": "fl-agr-simpson",
-   "question": "enforcement",
-   "stance": "yes",
-   "quote": "That is why Wilton worked to ban sanctuary cities in Florida.",
-   "url": "https://wiltonsimpson.com/public-safety/",
-   "why": "Banning sanctuary cities increases cooperation with federal immigration authorities to facilitate arrests and deportations.",
-   "similarity": 0.7,
-   "reading": "leans"
-  },
-  {
-   "candidate_id": "fl-agr-simpson",
-   "question": "cuba",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.682
-  },
-  {
-   "candidate_id": "fl-agr-simpson",
-   "question": "transit",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.714
-  },
-  {
-   "candidate_id": "fl-agr-simpson",
-   "question": "taxes",
-   "stance": "yes",
-   "quote": "While states like California and New York continue to hammer residents with unbearable tax burdens, Wilton has cut taxes for families, small and large business owners, farmers and homeowners.",
-   "url": "https://wiltonsimpson.com/economic-freedom/",
-   "why": "The candidate has a record of cutting taxes for families and small businesses at the state level.",
-   "similarity": 0.725,
-   "reading": "leans"
+   "similarity": 0.702
   },
   {
    "candidate_id": "fl-agr-simpson",
@@ -588,124 +526,77 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.751
+   "similarity": 0.751,
+   "error": "Gemma timed out"
   },
   {
-   "candidate_id": "fl-cfo-ingoglia",
-   "question": "flooding",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.716
+   "candidate_id": "fl-agr-simpson",
+   "question": "housing",
+   "stance": "yes",
+   "quote": "We established a three-part statewide infrastructure plan for affordable housing, mitigating the impacts of sea level rise, and enhancing wastewater programs, including septic-to-sewer conversions.",
+   "url": "https://wiltonsimpson.com/session-2022-remarks/",
+   "why": "The candidate established a plan for affordable housing, which is a closely related priority to spending to build housing.",
+   "similarity": 0.684,
+   "reading": "leans"
   },
   {
-   "candidate_id": "fl-cfo-ingoglia",
-   "question": "heat",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.702
-  },
-  {
-   "candidate_id": "fl-cfo-ingoglia",
-   "question": "drilling",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.671
-  },
-  {
-   "candidate_id": "fl-cfo-ingoglia",
-   "question": "everglades",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.732
-  },
-  {
-   "candidate_id": "fl-cfo-ingoglia",
+   "candidate_id": "fl-agr-simpson",
    "question": "wages",
    "stance": "none",
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.595
+   "similarity": 0.724,
+   "reading": "leans",
+   "reviewNote": "Blanked on review (Oct 22): The quote is about raises for state workers, not the minimum wage."
   },
   {
-   "candidate_id": "fl-cfo-ingoglia",
+   "candidate_id": "fl-agr-simpson",
    "question": "college",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.652
+   "stance": "no",
+   "quote": "All too often the debate surrounding higher education focuses on the cost to the student, in terms of tuition and fees, but never the cost to the taxpayer or the actual value to the student.",
+   "url": "https://wiltonsimpson.com/education/",
+   "why": "The candidate prioritizes the cost to the taxpayer over the cost to the student in the higher education debate, which aligns with opposition to student debt cancellation.",
+   "similarity": 0.757,
+   "reading": "leans"
   },
   {
-   "candidate_id": "fl-cfo-ingoglia",
+   "candidate_id": "fl-agr-simpson",
+   "question": "fema",
+   "stance": "yes",
+   "quote": "“Delivering immediate financial support to agricultural producers impacted by Hurricane Isaias is a critical first step to get them back on their feet,” said Commissioner Wilton Simpson.",
+   "url": "https://www.fdacs.gov/News-Events/Press-Releases/2026-Press-Releases/Commissioner-Wilton-Simpson-Launches-Loan-Program-for-Florida-Farmers-Impacted-by-Hurricane-Isaias",
+   "why": "The candidate states that providing immediate financial support to those impacted by a hurricane is a critical first step.",
+   "similarity": 0.696,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-agr-simpson",
    "question": "healthcare",
    "stance": "none",
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.647
+   "similarity": 0.678
   },
   {
-   "candidate_id": "fl-cfo-ingoglia",
+   "candidate_id": "fl-agr-simpson",
    "question": "cuba",
    "stance": "none",
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.691
+   "similarity": 0.694
   },
   {
-   "candidate_id": "fl-cfo-ingoglia",
-   "question": "insurance",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.72
-  },
-  {
-   "candidate_id": "fl-cfo-ingoglia",
-   "question": "housing",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.692
-  },
-  {
-   "candidate_id": "fl-cfo-ingoglia",
-   "question": "fema",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.697
-  },
-  {
-   "candidate_id": "fl-cfo-ingoglia",
+   "candidate_id": "fl-agr-simpson",
    "question": "transit",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.712
-  },
-  {
-   "candidate_id": "fl-cfo-ingoglia",
-   "question": "taxes",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.693
+   "stance": "yes",
+   "quote": "We will continue to invest in our roadways and seaports.",
+   "url": "https://wiltonsimpson.com/session-2022-remarks/",
+   "why": "The candidate explicitly states a commitment to continue investing in roadways.",
+   "similarity": 0.717,
+   "reading": "leans"
   },
   {
    "candidate_id": "fl-cfo-ingoglia",
@@ -719,21 +610,145 @@
   },
   {
    "candidate_id": "fl-cfo-ingoglia",
+   "question": "flooding",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.716
+  },
+  {
+   "candidate_id": "fl-cfo-ingoglia",
+   "question": "insurance",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.738
+  },
+  {
+   "candidate_id": "fl-cfo-ingoglia",
+   "question": "heat",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.704
+  },
+  {
+   "candidate_id": "fl-cfo-ingoglia",
+   "question": "drilling",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.712
+  },
+  {
+   "candidate_id": "fl-cfo-ingoglia",
+   "question": "everglades",
+   "stance": "yes",
+   "quote": "The Everglades, our beaches, our springs, and our farmland are what make Florida, Florida.",
+   "url": "https://blaiseforflorida.com/issues/",
+   "why": "The candidate expresses a commitment to protecting the Everglades and has a record of passing laws to clean up Florida's water.",
+   "similarity": 0.73,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-cfo-ingoglia",
+   "question": "housing",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.682
+  },
+  {
+   "candidate_id": "fl-cfo-ingoglia",
+   "question": "wages",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.631
+  },
+  {
+   "candidate_id": "fl-cfo-ingoglia",
+   "question": "college",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.681
+  },
+  {
+   "candidate_id": "fl-cfo-ingoglia",
    "question": "immigration",
    "stance": "none",
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.698
+   "similarity": 0.722,
+   "reading": "leans",
+   "reviewNote": "Blanked on review (Oct 22): The quote is another person praising Ingoglia, not his own words."
   },
   {
    "candidate_id": "fl-cfo-ingoglia",
-   "question": "enforcement",
+   "question": "fema",
    "stance": "none",
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.641
+   "similarity": 0.701,
+   "reading": "leans",
+   "reviewNote": "Blanked on review (Oct 22): The quote is about funding fire departments, not hurricane or disaster relief."
+  },
+  {
+   "candidate_id": "fl-cfo-ingoglia",
+   "question": "healthcare",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.681
+  },
+  {
+   "candidate_id": "fl-cfo-ingoglia",
+   "question": "enforcement",
+   "stance": "yes",
+   "quote": "State funding is made available through the State Board of Immigration Enforcement for local law enforcement agencies that have applied for reimbursement of immigration enforcement.",
+   "url": "https://myfloridacfo.com/news/pressreleases/press-release-details/2025/11/13/chief-financial-officer-blaise-ingoglia-awards--2-million-to-local-law-enforcement-agencies-to-aid-immigration-enforcement",
+   "why": "The candidate supports providing state funding for local law enforcement agencies to carry out immigration enforcement.",
+   "similarity": 0.645,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-cfo-ingoglia",
+   "question": "cuba",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.677
+  },
+  {
+   "candidate_id": "fl-cfo-ingoglia",
+   "question": "transit",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.712,
+   "error": "Gemma timed out"
+  },
+  {
+   "candidate_id": "fl-cfo-ingoglia",
+   "question": "taxes",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.709
   },
   {
    "candidate_id": "fl-cfo-taddeo",
@@ -878,6 +893,454 @@
    "url": "",
    "why": "",
    "similarity": 0.726
+  },
+  {
+   "candidate_id": "fl-gov-abrams",
+   "question": "flooding",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.792
+  },
+  {
+   "candidate_id": "fl-gov-abrams",
+   "question": "insurance",
+   "stance": "yes",
+   "quote": "Press for a long-term reauthorization and an affordability glide path tied to what a household can pay, not only to what the model says the risk is.",
+   "url": "https://www.deanabrams.com/issues",
+   "why": "The candidate advocates for federal reauthorization of flood insurance with an affordability glide path to manage costs.",
+   "similarity": 0.784,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-gov-abrams",
+   "question": "heat",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.745
+  },
+  {
+   "candidate_id": "fl-gov-abrams",
+   "question": "drilling",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.744
+  },
+  {
+   "candidate_id": "fl-gov-abrams",
+   "question": "everglades",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.762,
+   "error": "Gemma timed out"
+  },
+  {
+   "candidate_id": "fl-gov-abrams",
+   "question": "species",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.724
+  },
+  {
+   "candidate_id": "fl-gov-abrams",
+   "question": "housing",
+   "stance": "yes",
+   "quote": "Direct federal housing money to community land trusts, nonprofits, local builders, and veterans housing, with public transparency on every dollar.",
+   "url": "https://www.deanabrams.com/issues",
+   "why": "The candidate advocates for directing federal housing money to specific community groups and builders.",
+   "similarity": 0.776,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-gov-abrams",
+   "question": "wages",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.719,
+   "error": "Gemma timed out"
+  },
+  {
+   "candidate_id": "fl-gov-abrams",
+   "question": "college",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.716
+  },
+  {
+   "candidate_id": "fl-gov-abrams",
+   "question": "immigration",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.729
+  },
+  {
+   "candidate_id": "fl-gov-abrams",
+   "question": "fema",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.751,
+   "error": "Gemma timed out"
+  },
+  {
+   "candidate_id": "fl-gov-abrams",
+   "question": "healthcare",
+   "stance": "yes",
+   "quote": "The real fix is lowering what care costs: importation, price transparency, disclosure of pharmaceutical financial ties, and closing the coverage gap.",
+   "url": "https://www.deanabrams.com/issues",
+   "why": "The candidate advocates for several specific measures to lower the costs of healthcare and medicine.",
+   "similarity": 0.75,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-gov-abrams",
+   "question": "enforcement",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.678
+  },
+  {
+   "candidate_id": "fl-gov-abrams",
+   "question": "cuba",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.714,
+   "error": "Gemma timed out"
+  },
+  {
+   "candidate_id": "fl-gov-abrams",
+   "question": "transit",
+   "stance": "yes",
+   "quote": "Fund real alternatives in the corridors that need them: I-4, Tampa Bay, South Florida.",
+   "url": "https://www.deanabrams.com/issues",
+   "why": "The candidate advocates for funding transportation alternatives in South Florida.",
+   "similarity": 0.764,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-gov-abrams",
+   "question": "taxes",
+   "stance": "yes",
+   "quote": "I oppose federal income tax on labor.",
+   "url": "https://www.deanabrams.com/issues",
+   "why": "The candidate explicitly states their opposition to federal income tax on labor.",
+   "similarity": 0.748,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-gov-burkett",
+   "question": "flooding",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.763
+  },
+  {
+   "candidate_id": "fl-gov-burkett",
+   "question": "insurance",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.8,
+   "error": "Gemma timed out"
+  },
+  {
+   "candidate_id": "fl-gov-burkett",
+   "question": "heat",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.705
+  },
+  {
+   "candidate_id": "fl-gov-burkett",
+   "question": "drilling",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.73
+  },
+  {
+   "candidate_id": "fl-gov-burkett",
+   "question": "everglades",
+   "stance": "yes",
+   "quote": "This one is easy: take all steps necessary to make certain our water and air are clean and that Florida holds polluters accountable.",
+   "url": "https://burkettforgov.com/",
+   "why": "The candidate expresses a commitment to ensuring clean water and holding polluters accountable, which is a closely related priority to cleaning up water bodies.",
+   "similarity": 0.721,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-gov-burkett",
+   "question": "species",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.737
+  },
+  {
+   "candidate_id": "fl-gov-burkett",
+   "question": "housing",
+   "stance": "no",
+   "quote": "If we stop making the problem worse by mindlessly adding more housing units, and fix and/or improve the housing units we already have, we might be able to preserve the amazing quality of life our current Florida residents envision, get our traffic nightmare under control and further increase the value of all our residents’ investment.",
+   "url": "https://burkettforgov.com/",
+   "why": "The candidate suggests that adding more housing units makes the problem worse and proposes improving existing units instead.",
+   "similarity": 0.736,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-gov-burkett",
+   "question": "wages",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.675
+  },
+  {
+   "candidate_id": "fl-gov-burkett",
+   "question": "college",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.706
+  },
+  {
+   "candidate_id": "fl-gov-burkett",
+   "question": "immigration",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.774
+  },
+  {
+   "candidate_id": "fl-gov-burkett",
+   "question": "fema",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.725,
+   "error": "Gemma timed out"
+  },
+  {
+   "candidate_id": "fl-gov-burkett",
+   "question": "healthcare",
+   "stance": "yes",
+   "quote": "This one step alone could ignite a 'back to affordability' healthcare revolution!",
+   "url": "https://burkettforgov.com/",
+   "why": "The candidate proposes a specific care arrangement intended to ignite a healthcare affordability revolution.",
+   "similarity": 0.727,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-gov-burkett",
+   "question": "enforcement",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.69,
+   "error": "Gemma timed out"
+  },
+  {
+   "candidate_id": "fl-gov-burkett",
+   "question": "cuba",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.717
+  },
+  {
+   "candidate_id": "fl-gov-burkett",
+   "question": "transit",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.771
+  },
+  {
+   "candidate_id": "fl-gov-burkett",
+   "question": "taxes",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.786
+  },
+  {
+   "candidate_id": "fl-gov-dimanche",
+   "question": "flooding",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.69
+  },
+  {
+   "candidate_id": "fl-gov-dimanche",
+   "question": "insurance",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.745
+  },
+  {
+   "candidate_id": "fl-gov-dimanche",
+   "question": "heat",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.664
+  },
+  {
+   "candidate_id": "fl-gov-dimanche",
+   "question": "drilling",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.703
+  },
+  {
+   "candidate_id": "fl-gov-dimanche",
+   "question": "everglades",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.7
+  },
+  {
+   "candidate_id": "fl-gov-dimanche",
+   "question": "species",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.698
+  },
+  {
+   "candidate_id": "fl-gov-dimanche",
+   "question": "housing",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.68
+  },
+  {
+   "candidate_id": "fl-gov-dimanche",
+   "question": "wages",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.651
+  },
+  {
+   "candidate_id": "fl-gov-dimanche",
+   "question": "college",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.642
+  },
+  {
+   "candidate_id": "fl-gov-dimanche",
+   "question": "immigration",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.714
+  },
+  {
+   "candidate_id": "fl-gov-dimanche",
+   "question": "fema",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.672
+  },
+  {
+   "candidate_id": "fl-gov-dimanche",
+   "question": "healthcare",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.626
+  },
+  {
+   "candidate_id": "fl-gov-dimanche",
+   "question": "enforcement",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.691,
+   "error": "Gemma timed out"
+  },
+  {
+   "candidate_id": "fl-gov-dimanche",
+   "question": "cuba",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.693
+  },
+  {
+   "candidate_id": "fl-gov-dimanche",
+   "question": "transit",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.706
+  },
+  {
+   "candidate_id": "fl-gov-dimanche",
+   "question": "taxes",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.711
   },
   {
    "candidate_id": "fl-gov-donalds",
@@ -1028,31 +1491,163 @@
    "similarity": 0.769
   },
   {
-   "candidate_id": "fl-gov-jolly",
+   "candidate_id": "fl-gov-jewett",
    "question": "flooding",
    "stance": "none",
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.785
+   "similarity": 0.773,
+   "error": "Gemma timed out"
   },
   {
-   "candidate_id": "fl-gov-jolly",
+   "candidate_id": "fl-gov-jewett",
    "question": "insurance",
    "stance": "none",
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.8
+   "similarity": 0.805
   },
   {
-   "candidate_id": "fl-gov-jolly",
+   "candidate_id": "fl-gov-jewett",
    "question": "heat",
    "stance": "none",
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.727
+   "similarity": 0.72,
+   "reading": "leans",
+   "reviewNote": "Blanked on review (Oct 22): the quote is a general line about government rules, not an answer to this question."
+  },
+  {
+   "candidate_id": "fl-gov-jewett",
+   "question": "drilling",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.749
+  },
+  {
+   "candidate_id": "fl-gov-jewett",
+   "question": "everglades",
+   "stance": "yes",
+   "quote": "Protect water quality and the Everglades without burying working people in paperwork that does not clean a single gallon.",
+   "url": "https://scottjewett.com/the-issues/",
+   "why": "The candidate expresses a priority to protect water quality and the Everglades.",
+   "similarity": 0.745,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-gov-jewett",
+   "question": "species",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.768,
+   "error": "Gemma timed out"
+  },
+  {
+   "candidate_id": "fl-gov-jewett",
+   "question": "housing",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.773,
+   "reading": "leans",
+   "reviewNote": "Blanked on review (Oct 22): the quote is a general line about government rules, not an answer to this question."
+  },
+  {
+   "candidate_id": "fl-gov-jewett",
+   "question": "wages",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.733,
+   "error": "Gemma timed out"
+  },
+  {
+   "candidate_id": "fl-gov-jewett",
+   "question": "college",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.721
+  },
+  {
+   "candidate_id": "fl-gov-jewett",
+   "question": "immigration",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.814,
+   "error": "Gemma timed out"
+  },
+  {
+   "candidate_id": "fl-gov-jewett",
+   "question": "fema",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.714
+  },
+  {
+   "candidate_id": "fl-gov-jewett",
+   "question": "healthcare",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.778,
+   "reading": "leans",
+   "reviewNote": "Blanked on review (Oct 22): the quote is a general line about government rules, not an answer to this question."
+  },
+  {
+   "candidate_id": "fl-gov-jewett",
+   "question": "enforcement",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.747,
+   "reading": "leans",
+   "reviewNote": "Blanked on review (Oct 22): the quote is a general line about government rules, not an answer to this question."
+  },
+  {
+   "candidate_id": "fl-gov-jewett",
+   "question": "cuba",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.699
+  },
+  {
+   "candidate_id": "fl-gov-jewett",
+   "question": "transit",
+   "stance": "no",
+   "quote": "We call for an end to federal spending on grants to States and local governments, coupled with an equal reduction of federal taxes.",
+   "url": "https://scottjewett.com/platform/",
+   "why": "The candidate calls for an end to federal spending on grants to states and local governments.",
+   "similarity": 0.761,
+   "reading": "stated"
+  },
+  {
+   "candidate_id": "fl-gov-jewett",
+   "question": "taxes",
+   "stance": "yes",
+   "quote": "Hardworking people should keep more of what they earn.",
+   "url": "https://scottjewett.com/the-issues/",
+   "why": "The quote shows the candidate believes people should retain more of their income.",
+   "similarity": 0.76,
+   "reading": "leans"
   },
   {
    "candidate_id": "fl-gov-jolly",
@@ -1096,42 +1691,6 @@
   },
   {
    "candidate_id": "fl-gov-jolly",
-   "question": "wages",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.658
-  },
-  {
-   "candidate_id": "fl-gov-jolly",
-   "question": "college",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.707
-  },
-  {
-   "candidate_id": "fl-gov-jolly",
-   "question": "immigration",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.764
-  },
-  {
-   "candidate_id": "fl-gov-jolly",
-   "question": "fema",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.727
-  },
-  {
-   "candidate_id": "fl-gov-jolly",
    "question": "healthcare",
    "stance": "yes",
    "quote": "Expanding Medicaid is part of the solution.",
@@ -1152,12 +1711,77 @@
   },
   {
    "candidate_id": "fl-gov-jolly",
+   "question": "flooding",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.785
+  },
+  {
+   "candidate_id": "fl-gov-jolly",
+   "question": "insurance",
+   "stance": "yes",
+   "quote": "A state catastrophic fund that removes natural disaster risk from the private insurance market would dramatically reduce property and car insurance rates, restoring affordability and price stability for millions of Floridians.",
+   "url": "https://davidjolly.com/issues/",
+   "why": "The candidate advocates for a government-funded solution to reduce property insurance costs.",
+   "similarity": 0.8,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-gov-jolly",
+   "question": "heat",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.73
+  },
+  {
+   "candidate_id": "fl-gov-jolly",
+   "question": "wages",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.67
+  },
+  {
+   "candidate_id": "fl-gov-jolly",
+   "question": "college",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.714
+  },
+  {
+   "candidate_id": "fl-gov-jolly",
+   "question": "immigration",
+   "stance": "yes",
+   "quote": "Jolly supports a pathway to legal status and to work, particularly for long-term residents and those with U.S. citizen children.",
+   "url": "https://davidjolly.com/issues/immigration/",
+   "why": "The candidate explicitly supports a pathway to legal status for long-term residents.",
+   "similarity": 0.795,
+   "reading": "stated"
+  },
+  {
+   "candidate_id": "fl-gov-jolly",
+   "question": "fema",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.734
+  },
+  {
+   "candidate_id": "fl-gov-jolly",
    "question": "cuba",
    "stance": "none",
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.678
+   "similarity": 0.691
   },
   {
    "candidate_id": "fl-gov-jolly",
@@ -1176,6 +1800,152 @@
    "url": "",
    "why": "",
    "similarity": 0.707
+  },
+  {
+   "candidate_id": "fl-gov-russo",
+   "question": "flooding",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.73
+  },
+  {
+   "candidate_id": "fl-gov-russo",
+   "question": "insurance",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.765
+  },
+  {
+   "candidate_id": "fl-gov-russo",
+   "question": "heat",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.695
+  },
+  {
+   "candidate_id": "fl-gov-russo",
+   "question": "drilling",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.705
+  },
+  {
+   "candidate_id": "fl-gov-russo",
+   "question": "everglades",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.742
+  },
+  {
+   "candidate_id": "fl-gov-russo",
+   "question": "species",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.716
+  },
+  {
+   "candidate_id": "fl-gov-russo",
+   "question": "housing",
+   "stance": "yes",
+   "quote": "Frank wants to work with developers and the private sector to build more housing - but when taxpayer dollars or public incentives are involved, taxpayers deserve to know what they're getting in return.",
+   "url": "https://russo2026.com/priorities/affordability/",
+   "why": "The candidate supports building more housing through the use of taxpayer dollars or public incentives.",
+   "similarity": 0.741,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-gov-russo",
+   "question": "wages",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.684
+  },
+  {
+   "candidate_id": "fl-gov-russo",
+   "question": "college",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.692
+  },
+  {
+   "candidate_id": "fl-gov-russo",
+   "question": "immigration",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.814
+  },
+  {
+   "candidate_id": "fl-gov-russo",
+   "question": "fema",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.706
+  },
+  {
+   "candidate_id": "fl-gov-russo",
+   "question": "healthcare",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.696
+  },
+  {
+   "candidate_id": "fl-gov-russo",
+   "question": "enforcement",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.76,
+   "error": "Gemma timed out"
+  },
+  {
+   "candidate_id": "fl-gov-russo",
+   "question": "cuba",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.701
+  },
+  {
+   "candidate_id": "fl-gov-russo",
+   "question": "transit",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.725
+  },
+  {
+   "candidate_id": "fl-gov-russo",
+   "question": "taxes",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.716
   },
   {
    "candidate_id": "fl-house-106-baez-geller",
@@ -1780,6 +2550,46 @@
   },
   {
    "candidate_id": "fl-senate-36-garcia",
+   "question": "everglades",
+   "stance": "yes",
+   "quote": "In the 2021 Legislative Session, Garica secured $36 million for coastal resilience and Biscayne Bay — $20 million for bay restoration and preservation projects and $16 million in resiliency grant funding for South Florida.",
+   "url": "https://ileanagarcia.com/2021/10/25/ileana-garcia-working-to-secure-additional-funds-to-improve-biscayne-bay-spoil-islands/",
+   "why": "The candidate secured significant funding specifically for the restoration and preservation of Biscayne Bay.",
+   "similarity": 0.764,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-senate-36-garcia",
+   "question": "fema",
+   "stance": "yes",
+   "quote": "Championed Flood Mitigation Efforts in our community",
+   "url": "https://ileanagarcia.com/",
+   "why": "The candidate's record of championing flood mitigation efforts indicates a priority closely related to hurricane disaster relief.",
+   "similarity": 0.68,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-senate-36-garcia",
+   "question": "cuba",
+   "stance": "yes",
+   "quote": "The Florida Senate condemned FARC’s long history of violence, kidnapping, and human rights abuses, and pledged to oppose any regime that supports terrorist groups, including those in Cuba, Venezuela, and Iran.",
+   "url": "https://ileanagarcia.com/legislation/",
+   "why": "The candidate pledged to oppose the regimes of Cuba and Venezuela.",
+   "similarity": 0.753,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-senate-36-garcia",
+   "question": "transit",
+   "stance": "yes",
+   "quote": "$5 million for vital infrastructure and road construction",
+   "url": "https://ileanagarcia.com/",
+   "why": "The candidate has a record of securing funding for road construction and infrastructure.",
+   "similarity": 0.734,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-senate-36-garcia",
    "question": "insurance",
    "stance": "none",
    "quote": "",
@@ -1804,16 +2614,6 @@
    "url": "",
    "why": "",
    "similarity": 0.709
-  },
-  {
-   "candidate_id": "fl-senate-36-garcia",
-   "question": "everglades",
-   "stance": "yes",
-   "quote": "In the 2021 Legislative Session, Garica secured $36 million for coastal resilience and Biscayne Bay — $20 million for bay restoration and preservation projects and $16 million in resiliency grant funding for South Florida.",
-   "url": "https://ileanagarcia.com/2021/10/25/ileana-garcia-working-to-secure-additional-funds-to-improve-biscayne-bay-spoil-islands/",
-   "why": "The candidate secured significant funding specifically for the restoration and preservation of Biscayne Bay.",
-   "similarity": 0.764,
-   "reading": "leans"
   },
   {
    "candidate_id": "fl-senate-36-garcia",
@@ -1862,16 +2662,6 @@
   },
   {
    "candidate_id": "fl-senate-36-garcia",
-   "question": "fema",
-   "stance": "yes",
-   "quote": "Championed Flood Mitigation Efforts in our community",
-   "url": "https://ileanagarcia.com/",
-   "why": "The candidate's record of championing flood mitigation efforts indicates a priority closely related to hurricane disaster relief.",
-   "similarity": 0.68,
-   "reading": "leans"
-  },
-  {
-   "candidate_id": "fl-senate-36-garcia",
    "question": "healthcare",
    "stance": "none",
    "quote": "",
@@ -1887,26 +2677,6 @@
    "url": "",
    "why": "",
    "similarity": 0.651
-  },
-  {
-   "candidate_id": "fl-senate-36-garcia",
-   "question": "cuba",
-   "stance": "yes",
-   "quote": "The Florida Senate condemned FARC’s long history of violence, kidnapping, and human rights abuses, and pledged to oppose any regime that supports terrorist groups, including those in Cuba, Venezuela, and Iran.",
-   "url": "https://ileanagarcia.com/legislation/",
-   "why": "The candidate pledged to oppose the regimes of Cuba and Venezuela.",
-   "similarity": 0.753,
-   "reading": "leans"
-  },
-  {
-   "candidate_id": "fl-senate-36-garcia",
-   "question": "transit",
-   "stance": "yes",
-   "quote": "$5 million for vital infrastructure and road construction",
-   "url": "https://ileanagarcia.com/",
-   "why": "The candidate has a record of securing funding for road construction and infrastructure.",
-   "similarity": 0.734,
-   "reading": "leans"
   },
   {
    "candidate_id": "fl-senate-36-garcia",

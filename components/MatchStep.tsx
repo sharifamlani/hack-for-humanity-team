@@ -302,7 +302,7 @@ export function MatchStep({
                 theme === t ? "bg-accent text-background" : "border border-foreground/25 bg-card hover:border-accent"
               }`}
             >
-              {t === "all" ? "All issues" : `${THEMES[t].emoji} ${THEMES[t].label}`}
+              {t === "all" ? "All issues" : THEMES[t].label}
             </button>
           ))}
         </div>
@@ -349,7 +349,7 @@ export function MatchStep({
                     <div key={q.id} className="contents">
                       <div className="border-t border-foreground/15 py-4 pr-2">
                         <p className="display text-lg">
-                          {THEMES[q.theme].emoji} {q.short}
+                          {q.short}
                         </p>
                         <p className="mt-1 text-sm text-foreground/70">{q.question}</p>
                         <p className="mt-1 text-xs text-foreground/60">
@@ -360,7 +360,7 @@ export function MatchStep({
                         </p>
                         {(answers[q.id] === "yea" || answers[q.id] === "nay") && (
                           <button type="button" onClick={() => toggle(key, q.id, race.candidates)} className="link-mint mt-1 text-left text-sm">
-                            {open === key ? "Hide comparison" : "How do we compare? ⚡ Gemma 4"}
+                            {open === key ? "Hide comparison" : "How do we compare? · Gemma 4"}
                           </button>
                         )}
                       </div>
@@ -379,7 +379,7 @@ export function MatchStep({
                               : theirs.stance
                                 ? `Says ${theirs.stance}`
                                 : near
-                                  ? "💬 No clear yes or no"
+                                  ? "No clear yes or no"
                                   : "Nothing found";
                         return (
                           <div

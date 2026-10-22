@@ -160,7 +160,7 @@ export function BallotStep({
           {answered
             ? "Your closest match in each race, from what you told us. Tap a race to open the evidence."
             : "Everyone on your ballot. Tap a race to see what the candidates have said."}
-          {placing && <span className="ml-2 animate-pulse text-sm text-accent">⚡ Gemma 4 is refining your matches…</span>}
+          {placing && <span className="ml-2 animate-pulse text-sm text-accent">Gemma 4 is refining your matches…</span>}
         </p>
       </div>
 

@@ -88,7 +88,7 @@ export function OpenTalk({ onDone, onBack }: { onDone: (said: string) => void; o
         <button type="button" onClick={onBack} className="font-bold hover:text-accent">
           ← Back
         </button>
-        <span className="eyebrow text-foreground/60">💬 What you care about</span>
+        <span className="eyebrow text-foreground/60">What you care about</span>
         <span className="w-12" />
       </div>
       <h1 className="display border-b border-foreground/25 pb-3 text-3xl lg:text-4xl">Let&apos;s talk about what matters.</h1>
@@ -151,7 +151,7 @@ export function OpenTalk({ onDone, onBack }: { onDone: (said: string) => void; o
           See what candidates have said →
         </button>
         <p className="text-center text-xs text-foreground/60">
-          🗣 Voice: Gemini Live · ⚡ Gemma 4 reads the candidates&apos; own pages for you
+          🗣 Voice: Gemini Live · Gemma 4 reads the candidates&apos; own pages for you
         </p>
       </form>
     </main>

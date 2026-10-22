@@ -101,7 +101,7 @@ export function InterviewStep({
   return (
     <main className="flex flex-1 flex-col gap-4">
       <div className="flex items-center justify-between text-xs font-black uppercase tracking-widest">
-        <span>{question ? `${THEMES[question.theme].emoji} ${THEMES[question.theme].label}` : "Interview"}</span>
+        <span>{question ? THEMES[question.theme].label : "Interview"}</span>
         <span className="text-foreground/50">
           {Math.min(index + 1, QUESTIONS.length)} of {QUESTIONS.length}
         </span>
@@ -187,7 +187,7 @@ export function InterviewStep({
           </button>
         )}
         <p className="text-center text-xs text-foreground/60">
-          ⚡ Gemma 4 reads your answers · {answered} recorded
+          Gemma 4 reads your answers · {answered} recorded
         </p>
       </div>
     </main>

@@ -42,7 +42,8 @@ export function VoiceInterview({
   answers: Answers;
   onAnswer: (id: string, stance: Stance, said?: string) => void;
   onDone: () => void;
-  onOpen: () => void;
+  // The "I'll tell you what I care about" mode; when absent its button is hidden.
+  onOpen?: () => void;
   onTypeInstead: () => void;
 }) {
   const [started, setStarted] = useState(false);
@@ -170,7 +171,9 @@ export function VoiceInterview({
       <main className="flex flex-1 flex-col items-center gap-6 text-center">
         <Flower className="h-24 w-24 text-sun" />
         <h1 className="display text-4xl lg:text-5xl">Let&apos;s talk about what matters.</h1>
-        <p className="text-foreground/80">Two ways to do this. Both are out loud, like talking to a friend.</p>
+        <p className="text-foreground/80">
+          {onOpen ? "Two ways to do this. Both are out loud, like talking to a friend." : `${QUESTIONS.length} quick questions, out loud, like talking to a friend.`}
+        </p>
         <button
           type="button"
           onClick={start}
@@ -181,16 +184,18 @@ export function VoiceInterview({
             {QUESTIONS.length} quick questions about Miami, then see who lines up with you
           </span>
         </button>
-        <button
-          type="button"
-          onClick={onOpen}
-          className="w-full max-w-md rounded-3xl border border-foreground/25 bg-card px-5 py-6 text-left active:translate-y-1"
-        >
-          <span className="block text-2xl font-black">I&apos;ll tell you what I care about</span>
-          <span className="block text-sm font-semibold text-foreground/70">
-            Talk about anything, then see what the candidates have said about it
-          </span>
-        </button>
+        {onOpen && (
+          <button
+            type="button"
+            onClick={onOpen}
+            className="w-full max-w-md rounded-3xl border border-foreground/25 bg-card px-5 py-6 text-left active:translate-y-1"
+          >
+            <span className="block text-2xl font-black">I&apos;ll tell you what I care about</span>
+            <span className="block text-sm font-semibold text-foreground/70">
+              Talk about anything, then see what the candidates have said about it
+            </span>
+          </button>
+        )}
         <p className="text-sm text-foreground/60">Turn your sound on. We&apos;ll ask to use your mic.</p>
         <button type="button" onClick={onTypeInstead} className="text-sm font-semibold underline">
           I&apos;d rather type

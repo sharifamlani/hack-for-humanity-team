@@ -17,6 +17,11 @@ import type { LookupResult } from "@/lib/types";
 
 const VENUE_ADDRESS = "2750 NW 3rd Ave, Miami, FL 33127";
 
+// "I'll tell you what I care about" (free talk, components/OpenTalk.tsx + /api/ask) is off
+// since 2026-10-22: tested on prod it took 51 s and found no quotes, and with no yes/no answers
+// every race showed thin evidence. See ROADMAP.md (decision log) before turning it back on.
+const OPEN_TALK = false;
+
 // Miami-Dade's calendar (the home screen has no county data yet). Voting plan reads the real
 // early-voting dates from the county feed instead.
 const ELECTION_DAY = "2026-11-03";
@@ -52,7 +57,8 @@ export default function Home() {
   const [result, setResult] = useState<LookupResult | null>(null);
   const [answers, setAnswers] = useState<Answers>({});
   const [said, setSaid] = useState<Record<string, string>>({});
-  const [typed, setTyped] = useState(false);
+  // The 10 questions start typed, straight after the address; voice is one tap away.
+  const [typed, setTyped] = useState(true);
   const [openMode, setOpenMode] = useState(false);
   const [openSaid, setOpenSaid] = useState("");
   // The race whose evidence is open; null shows the whole ballot.
@@ -218,11 +224,16 @@ export default function Home() {
               answers={answers}
               onAnswer={record}
               onDone={next}
-              onOpen={() => setOpenMode(true)}
+              onOpen={OPEN_TALK ? () => setOpenMode(true) : undefined}
               onTypeInstead={() => setTyped(true)}
             />
           ) : (
-            <InterviewStep answers={answers} onAnswer={record} onDone={next} />
+            <>
+              <button type="button" onClick={() => setTyped(false)} className="mb-3 self-end text-sm font-semibold underline hover:text-accent">
+                Prefer to answer out loud? Talk instead
+              </button>
+              <InterviewStep answers={answers} onAnswer={record} onDone={next} />
+            </>
           )}
         </div>
       ) : result && step === 2 ? (

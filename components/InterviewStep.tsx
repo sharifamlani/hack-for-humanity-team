@@ -127,7 +127,8 @@ export function InterviewStep({
             Gemma 4 is reading your answer…
           </div>
         )}
-        <div ref={bottom} />
+        {/* Scroll target: its margin keeps the last bubble clear of the sticky button panel. */}
+        <div ref={bottom} className="scroll-mb-72" />
       </div>
 
       <div className="sticky bottom-0 mt-auto flex flex-col gap-2 bg-background pb-2 pt-3">

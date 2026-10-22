@@ -18,71 +18,34 @@ const shortDate = (ms: number | null) =>
       });
 
 
-// Mint banner driven by the county's own early-voting dates. Null (hidden) once the window
-// has closed or when the dates are missing.
-function EarlyVotingBanner({ sites }: { sites: LookupResult["earlyVoting"] }) {
+// The early-voting window from the county's own dates; null when the dates are missing.
+function earlyWindow(sites: LookupResult["earlyVoting"]) {
   const opens = sites.map((s) => s.opens).filter((n): n is number => n != null);
   const closes = sites.map((s) => s.closes).filter((n): n is number => n != null);
   if (!opens.length || !closes.length) return null;
-
   const first = Math.min(...opens);
   const last = Math.max(...closes);
   const today = todayNumber();
-  const status = windowStatus(today, dayNumber(first), dayNumber(last));
-  if (status === "after") return null;
-
-  const daysLeft = dayNumber(last) - today + 1; // counts today and the closing day
-  return (
-    <section
-      role="status"
-      className="rounded-2xl border border-accent bg-accent px-5 py-4 text-background"
-    >
-      {status === "open" ? (
-        <>
-          <p className="eyebrow">● Early voting is open today</p>
-          <p className="mt-1 text-xl font-bold">
-            {daysLeft === 1
-              ? "Today is the last day of early voting."
-              : `Early voting ends ${weekdayDate(last)} · ${daysLeft} days left, including today.`}
-          </p>
-          <p className="font-semibold">{EARLY_VOTING_HOURS}</p>
-          <p className="font-semibold">Nearest: {sites[0].name}</p>
-        </>
-      ) : (
-        <p className="text-xl font-bold">Early voting opens {weekdayDate(first)}</p>
-      )}
-    </section>
-  );
+  return {
+    first,
+    last,
+    status: windowStatus(today, dayNumber(first), dayNumber(last)),
+    daysLeft: dayNumber(last) - today + 1, // counts today and the closing day
+  };
 }
 
-// Google's keyless map embed, centred on the polling place with a pin on it. Only the
-// polling place's coordinates are sent to Google, never the voter's address.
-const mapEmbed = (lat: number, lon: number) =>
-  `https://www.google.com/maps?q=${lat},${lon}&z=16&output=embed`;
-
-// Shown in place of the map when no polling place was matched.
-function StreetGrid() {
+// The numbered heading of each lane: "1 · Vote early", "2 · Vote on Election Day".
+function LaneHead({ n, label, when }: { n: number; label: string; when: string }) {
   return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 600 150"
-      preserveAspectRatio="xMidYMid slice"
-      className="block h-[150px] w-full bg-[#0f3a35]"
-    >
-      <g stroke="white" strokeOpacity="0.2" strokeWidth="1.5" fill="none">
-        <line x1="-20" y1="150" x2="260" y2="-10" />
-        <line x1="80" y1="170" x2="420" y2="-10" />
-        <line x1="260" y1="170" x2="620" y2="10" />
-        <line x1="-20" y1="40" x2="620" y2="110" />
-        <line x1="-20" y1="110" x2="620" y2="30" />
-        <line x1="440" y1="170" x2="640" y2="60" />
-      </g>
-      <path
-        d="M300 112 C282 88 272 76 272 62 a28 28 0 1 1 56 0 c0 14 -10 26 -28 50 z"
-        fill="#5eead4"
-      />
-      <circle cx="300" cy="62" r="10" fill="#0f3a35" />
-    </svg>
+    <div className="flex items-start gap-3">
+      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-foreground text-base font-black text-background">
+        {n}
+      </span>
+      <div>
+        <p className="eyebrow">{label}</p>
+        <h2 className="display text-2xl lg:text-3xl">{when}</h2>
+      </div>
+    </div>
   );
 }
 
@@ -99,6 +62,7 @@ export function PollingStep({
   placing: boolean;
 }) {
   const { polling, earlyVoting } = result;
+  const early = earlyWindow(earlyVoting);
   const [making, setMaking] = useState(false);
   const [failed, setFailed] = useState(false);
   // Tapped while Gemma 4 was still placing: the button turns into "Open my PDF" when it is done.
@@ -133,131 +97,108 @@ export function PollingStep({
 
       <div>
         <h1 className="display text-5xl lg:text-6xl">Make your voting plan.</h1>
-        <p className="mt-3 text-lg text-foreground/80">Your next step, clearly laid out.</p>
+        <p className="mt-3 text-lg text-foreground/80">Two ways to vote. Pick one.</p>
       </div>
 
-      <EarlyVotingBanner sites={earlyVoting} />
-
-      <div className="grid items-start gap-4 lg:grid-cols-[1.4fr_1fr]">
-        <section className="overflow-hidden rounded-2xl border border-accent/40 bg-[#0c2a26]">
-          {polling ? (
-            <iframe
-              title={`Map showing ${polling.name}`}
-              src={mapEmbed(polling.lat, polling.lon)}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              className="block h-[260px] w-full border-0 bg-[#0f3a35]"
+      {/* Early voting can be at ANY site in the county; Election Day only at your own precinct.
+          Two lanes so the two places cannot be mistaken for each other. */}
+      <div className="grid items-start gap-4 md:grid-cols-2">
+        {early && (
+          <section
+            className={`rounded-2xl p-5 ${early.status === "after" ? "border border-foreground/20 opacity-60" : "border-2 border-accent bg-card"}`}
+          >
+            <LaneHead
+              n={1}
+              label="Vote early"
+              when={
+                early.status === "open"
+                  ? `Now through ${weekdayDate(early.last)}`
+                  : early.status === "before"
+                    ? `Opens ${weekdayDate(early.first)}`
+                    : `Ended ${weekdayDate(early.last)}`
+              }
             />
-          ) : (
-            <StreetGrid />
-          )}
-          <div className="p-6">
-            <p className="eyebrow text-coral">
-              Your polling place (most likely) · Confirm before you go
-            </p>
-            {polling ? (
+            {early.status !== "after" && (
               <>
-                <h2 className="display mt-2 text-3xl lg:text-4xl">{polling.name}</h2>
-                <p className="mt-2 text-lg">
-                  {polling.address}, {polling.city} {polling.zip}
-                </p>
-                <p className="text-foreground/70">Precinct {polling.precinct}</p>
-                {polling.temporary && (
-                  <p className="mt-2 font-semibold text-coral">
-                    Temporary location for this election.
+                {early.status === "open" && (
+                  <p className="mt-4 font-bold text-accent">
+                    ● Open today · {early.daysLeft === 1 ? "last day" : `${early.daysLeft} days left, including today`}
                   </p>
                 )}
-                <p className="mt-3 font-semibold">Election Day · Tuesday, Nov 3, 2026</p>
-                <div className="mt-5 flex flex-wrap gap-3">
-                  <a
-                    href={result.officialLookupUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="btn-primary"
-                  >
-                    Confirm with the county ↗
-                  </a>
-                  <a
-                    href={directions(polling.lat, polling.lon)}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="btn-ghost"
-                  >
-                    Get directions ↗
-                  </a>
-                </div>
-              </>
-            ) : (
-              <>
-                <p className="mt-2 text-lg">
-                  We couldn&apos;t match this address to a precinct. Use the county&apos;s lookup below.
+                <p className="mt-1 font-semibold">{EARLY_VOTING_HOURS}</p>
+                <p className="mt-3">
+                  <b>Any early-voting site in Miami-Dade works.</b> Closest to you:
                 </p>
-                <div className="mt-5">
-                  <a
-                    href={result.officialLookupUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="btn-primary"
-                  >
-                    Confirm with the county ↗
-                  </a>
-                </div>
+                <ul className="mt-1 divide-y divide-foreground/10">
+                  {earlyVoting.map((site) => (
+                    <li key={site.name} className="py-3">
+                      <p className="font-bold leading-snug">{site.name}</p>
+                      <p className="text-sm">
+                        {site.address}
+                        {site.city && `, ${site.city}`} · {site.miles.toFixed(1)} mi
+                      </p>
+                      <p className="text-sm text-foreground/70">
+                        {shortDate(site.opens)} – {shortDate(site.closes)}
+                        {site.accessible && " · ♿ accessible"}
+                        {site.dropBox && " · mail-ballot drop box"}
+                      </p>
+                      <a
+                        href={directions(site.lat, site.lon)}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="link-mint mt-1 inline-block text-sm"
+                      >
+                        Directions ↗
+                      </a>
+                    </li>
+                  ))}
+                </ul>
               </>
             )}
-          </div>
-        </section>
-
-        <div className="flex flex-col gap-4">
-          {earlyVoting.length > 0 && (
-            <section className="card p-5">
-              <h2 className="display text-2xl">Early voting nearby</h2>
-              <ul className="mt-2 divide-y divide-foreground/10">
-                {earlyVoting.map((site) => (
-                  <li key={site.name} className="py-3">
-                    <p className="font-bold leading-snug">{site.name}</p>
-                    <p className="text-sm">
-                      {site.address}
-                      {site.city && `, ${site.city}`} · {site.miles.toFixed(1)} mi
-                    </p>
-                    <p className="text-sm text-foreground/70">
-                      {shortDate(site.opens)} – {shortDate(site.closes)}
-                      {site.accessible && " · ♿ accessible"}
-                      {site.dropBox && " · mail-ballot drop box"}
-                    </p>
-                    <a
-                      href={directions(site.lat, site.lon)}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="link-mint mt-1 inline-block text-sm"
-                    >
-                      Directions ↗
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          )}
-
-          <section className="panel-purple p-5">
-            <h2 className="display text-2xl">Before you go</h2>
-            <ul className="mt-3 space-y-3">
-              {[
-                "Confirm your assigned location",
-                "Check current voting hours",
-                "Bring a photo ID with your signature",
-              ].map((t) => (
-                <li key={t} className="flex items-center gap-3">
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent text-sm font-black text-background">
-                    ✓
-                  </span>
-                  {t}
-                </li>
-              ))}
-            </ul>
           </section>
+        )}
 
-        </div>
+        <section className={`rounded-2xl border border-accent/40 bg-[#0c2a26] p-5 ${early ? "" : "md:col-span-2"}`}>
+          <LaneHead n={early ? 2 : 1} label="Vote on Election Day" when="Tue, Nov 3" />
+          {polling ? (
+            <>
+              <p className="mt-4 font-bold text-coral">Only at your precinct&apos;s polling place:</p>
+              <h3 className="display mt-1 text-3xl">{polling.name}</h3>
+              <p className="mt-2 text-lg">
+                {polling.address}, {polling.city} {polling.zip}
+              </p>
+              <p className="text-foreground/70">Precinct {polling.precinct} · 7 AM – 7 PM</p>
+              {polling.temporary && (
+                <p className="mt-2 font-semibold text-coral">Temporary location for this election.</p>
+              )}
+              <p className="mt-3 text-sm text-foreground/80">Most likely; confirm with the county before you go.</p>
+              <div className="mt-4 flex flex-wrap gap-3">
+                <a href={result.officialLookupUrl} target="_blank" rel="noreferrer" className="btn-primary">
+                  Confirm with the county ↗
+                </a>
+                <a href={directions(polling.lat, polling.lon)} target="_blank" rel="noreferrer" className="btn-ghost">
+                  Get directions ↗
+                </a>
+              </div>
+            </>
+          ) : (
+            <>
+              <p className="mt-4 text-lg">
+                We couldn&apos;t match this address to a precinct. Use the county&apos;s lookup.
+              </p>
+              <div className="mt-4">
+                <a href={result.officialLookupUrl} target="_blank" rel="noreferrer" className="btn-primary">
+                  Confirm with the county ↗
+                </a>
+              </div>
+            </>
+          )}
+        </section>
       </div>
+
+      <p className="panel-purple px-5 py-4 font-semibold">
+        Before you go: confirm your location · bring a photo ID with your signature · polls open 7 AM – 7 PM
+      </p>
 
       <ShareCard />
 

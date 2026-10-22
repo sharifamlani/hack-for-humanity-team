@@ -132,11 +132,11 @@ fiction. The shape is fixed, though:
 | 6.13 | Interview: padding so the last bubble clears the sticky button | ✅ | 2026-10-22 · `eaca2e5` | plan · F5 |
 | 6.14 | Deploy, full production walk at 1280px and 390px (S5) | ✅ | 2026-10-22 · `0633b32` (via `scripts/deploy-clean.mjs`) · 1280 + 390 px, 0 console messages, 3/3 API 200 | plan · S5 |
 | 6.15 | Ground truth: three on-screen quotes found word for word on their source pages (S7) | ✅ | 2026-10-22 · 5 of 5 quotes found word for word on live pages (Nixon ×2, Moody, Gilbert, Brown) | plan · S7 |
-| 6.16 | Real-microphone answer on production by a person (S6). Fail → typing and taps on stage | ✅ | 2026-10-22 · Sharif: real-mic answer works on production | | plan · F7 |
+| 6.16 | Real-microphone answer on production by a person (S6). Fail → typing and taps on stage | ✅ | 2026-10-22 · Sharif: real-mic answer works on production | plan · F7 |
 | 6.17 | `docs/demo-script.md`: Demo Night section — 2-minute core, 7-minute extended, Q&A prep for a red-teaming audience | ✅ | 2026-10-22 · `a2127ea`, `8983701` · timings updated to today's measurements | plan · F6 |
-| 6.18 | Rehearsal 1, timed, production URL | ✅ | 2026-10-22 · Sharif, done | | demo-script |
-| 6.19 | Rehearsal 2, timed, production URL | ✅ | 2026-10-22 · Sharif, done | | demo-script |
-| 6.20 | **Code freeze 3:00 PM** (Sharif leaves at 4:00): tag `demo-night-final`, push | ✅ | 2026-10-22 · tag `demo-night-final` → `b411bc3` (first set at 2:05 PM on `3ea4fbe`; moved for the two-lane voting plan) | | plan |
+| 6.18 | Rehearsal 1, timed, production URL | ✅ | 2026-10-22 · Sharif, done | demo-script |
+| 6.19 | Rehearsal 2, timed, production URL | ✅ | 2026-10-22 · Sharif, done | demo-script |
+| 6.20 | **Code freeze 3:00 PM** (Sharif leaves at 4:00): tag `demo-night-final`, push | ✅ | 2026-10-22 · tag `demo-night-final` → `b411bc3` (first set at 2:05 PM on `3ea4fbe`; moved for the two-lane voting plan) | plan |
 | 6.21 | Screen recording of the full path as last-resort fallback; phone hotspot and charger packed | ⏸ | | demo-script · Fallback plan |
 | 6.22 | After the event: flip rows, §0 banner, changelog | ⏸ | | CLAUDE.md |
 | 6.23 | Polling places checked against the Supervisor of Elections' official 10/15/2026 precinct list; 4 moved precincts corrected, temporary sites labelled | ✅ | 2026-10-22 · `376c008`, `3c1a699` · `verify-polling-places.mjs` 756/756; prod shows New Shiloh (253), Glendale Baptist (801, temporary) | QA agents |

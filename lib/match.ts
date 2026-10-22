@@ -149,6 +149,8 @@ export function matchScore(answers: Answers, candidateId: string, party: string,
   const me = voter ?? placeVoter(answers);
   const them = placeCandidate(candidateId, party);
   const lineCloseness = me && them ? 1 - Math.min(Math.abs(me.x - them.x), 1) : null;
+  // One answer and no place on the line is not a match: it would read as 100% or 0%.
+  if (lineCloseness === null && weight < MIN_ANSWERS) return null;
 
   const parts = [agreeShare, lineCloseness].filter((p): p is number => p !== null);
   if (parts.length === 0) return null;

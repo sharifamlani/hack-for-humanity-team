@@ -1,6 +1,6 @@
 # ROADMAP — Hack for Humanity: Miami
 
-**Version:** v2.9
+**Version:** v2.10
 **Canonical execution directive for this repo.** If any other doc disagrees with this file,
 this file wins or the other doc gets corrected.
 
@@ -142,6 +142,8 @@ fiction. The shape is fixed, though:
 | 6.23 | Polling places checked against the Supervisor of Elections' official 10/15/2026 precinct list; 4 moved precincts corrected, temporary sites labelled | ✅ | 2026-10-22 · `376c008`, `3c1a699` · `verify-polling-places.mjs` 756/756; prod shows New Shiloh (253), Glendale Baptist (801, temporary) | QA agents |
 | 6.24 | "Take my choices to the polls": one-page PDF of the voting plan and the closest match in every race, built on the device | ✅ | 2026-10-22 · `929566d`, `b4c1968`, `7a17a17`, `04f9aca`, `c5834ee` · prod: 1 page, required text present, no "vote for", 0 JS errors | `~/.claude/plans/dat-the-last-step-declarative-rainbow.md` |
 | 6.25 | "Share it with your friends" card (LinkedIn, Facebook, Instagram, WhatsApp, X, Text, Copy link, Save QR) + link preview for social | ✅ | 2026-10-22 · `d16cdfd`, `888e204`, `576c006`, `4b0013e` · `verify-share.mjs` PASS on prod; copy + Instagram fallback checked in Chrome | plan file |
+| 6.26 | **Decision:** the 10 questions only; the address goes straight into them; "I'll tell you what I care about" switched off (`OPEN_TALK = false`), code kept | ✅ | 2026-10-22 · `3ea4fbe` · prod: address → "1 OF 10", no chooser; "Talk instead" → only "Ask me" | CLAUDE.md "Deferred feature" |
+| 6.27 | Post-event: rebuild free talk as Gemma 4 filling in the 10 answers for the person to confirm; then set `OPEN_TALK = true` | ⏸ | gate: after Demo Night | CLAUDE.md "Deferred feature" |
 
 ## §5 — Derisking: the smoke ladder
 
@@ -164,6 +166,7 @@ against production, not localhost.
 
 ## §6 — Changelog
 
+- **2026-10-22 (1:25 PM) — decision: the 10 questions only** (`3ea4fbe`). Sharif chose this after a production test of "I'll tell you what I care about": `/api/ask` took 51 s and found no quotes for either FL-24 candidate on rent and flooding; placement from free talk took 21 s with a wide range; and with no yes/no answers every race showed thin evidence, in the ballot and the new PDF. The chooser screen is gone from the path: after the address the voter lands in the typed 10 questions, and "Prefer to answer out loud? Talk instead" leads to a voice screen with only "Ask me" (a tap is still needed, because phones only start audio and the mic from one). Free talk is behind `OPEN_TALK = false` in `app/page.tsx` with its code untouched. How to re-enable it, and the recommended redesign (Gemma 4 fills in the 10 answers for the person to confirm), are in CLAUDE.md under "Deferred feature". Row 6.27 tracks it.
 - **2026-10-22 (1:00 PM) — share messages and tab icon** (`4a0c7d2`, `c459594`). LinkedIn now opens its feed composer with the message filled in (`feed/?shareActive=true&text=`), and the link in it still unfurls into the preview card. Facebook allows no site to fill in a post, so tapping Facebook copies the message and says "Message copied: paste it in your Facebook post." The tab icon is now a ballot with a check going into a mint ballot box (app/icon.svg, a 180 px apple-icon, and favicon.ico regenerated at 16/32/48), replacing Next.js's default N. `verify-share.mjs` PASS on prod; the live favicon.ico matches the new icon.
 - **2026-10-22 (12:50 PM) — share card and social link preview live** (`4b0013e`). The QR card on the voting plan became "Share it with your friends": QR plus LinkedIn, Facebook, Instagram, WhatsApp, X, Text, Copy link and Save QR code. These are plain links with no share scripts, carrying only https://yourballotyourblock.com and a neutral invite. Instagram has no web share link, so phones get the system share sheet and laptops copy the link with a hint. The site now has Open Graph/Twitter tags and a 1200x630 preview image (next/og), so a shared link shows a card instead of a bare title. `scripts/verify-share.mjs` PASS on production. Found while testing: `navigator.clipboard.writeText` can wait forever in an unfocused tab, so the copy is now synchronous inside the tap and always confirms.
 - **2026-10-22 (12:40 PM) — PDF button no longer sits dead** (`83318d8`, `3a88587`). Sharif saw "Finishing your matches…" with nothing to do: placement takes about 25 s (24.8 s and 25.8 s on prod at 12:31) and only starts at the ballot, so a quick jump to the plan left a disabled button. Now the button can always be tapped: "Getting your matches ready…", then "Open my PDF ↓" (a second tap, because phones block downloads a tap did not start). Placement also gives up after 45 s and keeps the rough spot from the yes/no answers, so it can never hang. Production walk with an immediate jump to the plan: tap at 7.6 s, ready at 35.0 s, one-page PDF at 35.2 s, no JS errors.

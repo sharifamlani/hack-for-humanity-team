@@ -333,6 +333,31 @@ a tracked file, rotate it — do not just amend the commit.
 - **ROADMAP.md is the north star.** Flip status cells as work lands, in the same step as
   the work. During a five-hour build this is the only shared view of where we are.
 
+## Deferred feature: "I'll tell you what I care about" (decision 2026-10-22)
+
+The free-talk interview mode is **switched off**, not deleted. Decided by Sharif before DeepStation
+AI Demo Night after a production test at 1:15 PM:
+
+- `/api/ask` took **51 s** and returned **no quotes** for either FL-24 candidate on rent and
+  flooding, although Gilbert has positions on both through the 10 questions.
+- Placing the voter from free talk alone took 21 s and gave a wide range (-0.5 to +0.1).
+- With no yes/no answers, every race showed "Closest, on thin evidence (0)", in the ballot and the PDF.
+
+**Where it lives:** `components/OpenTalk.tsx` (voice UI), `app/api/ask/route.ts` (search + Gemma 4
+reading), the `openMode` / `openSaid` branches in `app/page.tsx`, and the "You talked about" section
+in `components/MatchStep.tsx`. All untouched.
+
+**How to turn it back on:** set `OPEN_TALK = true` in `app/page.tsx`. That restores the
+"I'll tell you what I care about" button on the voice start screen (`VoiceInterview` shows it only
+when `onOpen` is passed). Note that the default is now the typed 10 questions straight after the
+address, so the chooser screen only appears via "Talk instead".
+
+**The recommended redesign before re-enabling** (not a separate pipeline): Gemma 4 turns what the
+person said into answers to the 10 interview questions ("you said rent is crushing you, so Yes on
+housing, right?"), the person confirms, and everything downstream reuses the scoring, star rule,
+PDF and share card that already work. Fix the `/api/ask` latency (51 s) either way. See
+ROADMAP.md row 6.26.
+
 ## Repo layout
 
 ```

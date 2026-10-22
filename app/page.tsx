@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { BallotStep } from "@/components/BallotStep";
 import { InterviewStep } from "@/components/InterviewStep";
 import { MatchStep } from "@/components/MatchStep";
@@ -34,6 +34,9 @@ function countdownLine(): string | null {
     "open";
   return `${daysAway} ${daysAway === 1 ? "day" : "days"} away${early ? " · early voting is open now." : "."}`;
 }
+
+// The calendar does not push updates; the line is read once per render in the browser.
+const noSubscribe = () => () => {};
 
 const NAV = [
   { label: "Home", step: 0, steps: [0] },
@@ -118,7 +121,9 @@ export default function Home() {
     );
   }
 
-  const countdown = countdownLine();
+  // Read the date in the browser, never at build time: a prerendered count would be frozen
+  // at the day of the deploy. The server snapshot is null, so the line appears after load.
+  const countdown = useSyncExternalStore(noSubscribe, countdownLine, () => null);
 
   return (
     <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-6 px-5 py-6 lg:px-8">

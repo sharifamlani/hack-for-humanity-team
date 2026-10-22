@@ -17,6 +17,10 @@ const shortDate = (ms: number | null) =>
 const SHOW_QR = true;
 const LIVE_URL = "yourballotyourblock.com";
 
+// The county feed has no usable hours; these are from the Supervisor of Elections' published
+// early-voting schedule for Nov 3, 2026 (docs/qa-polling-2026-10-22.md): every site, every day.
+const EARLY_VOTING_HOURS = "Open 7 AM – 7 PM every day.";
+
 // Mint banner driven by the county's own early-voting dates. Null (hidden) once the window
 // has closed or when the dates are missing.
 function EarlyVotingBanner({ sites }: { sites: LookupResult["earlyVoting"] }) {
@@ -40,8 +44,11 @@ function EarlyVotingBanner({ sites }: { sites: LookupResult["earlyVoting"] }) {
         <>
           <p className="eyebrow">● Early voting is open today</p>
           <p className="mt-1 text-xl font-bold">
-            Through {weekdayDate(last)} · {daysLeft} {daysLeft === 1 ? "day" : "days"} left.
+            {daysLeft === 1
+              ? "Today is the last day of early voting."
+              : `Early voting ends ${weekdayDate(last)} · ${daysLeft} days left, including today.`}
           </p>
+          <p className="font-semibold">{EARLY_VOTING_HOURS}</p>
           <p className="font-semibold">Nearest: {sites[0].name}</p>
         </>
       ) : (

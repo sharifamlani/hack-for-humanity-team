@@ -144,6 +144,7 @@ fiction. The shape is fixed, though:
 | 6.25 | "Share it with your friends" card (LinkedIn, Facebook, Instagram, WhatsApp, X, Text, Copy link, Save QR) + link preview for social | ✅ | 2026-10-22 · `d16cdfd`, `888e204`, `576c006`, `4b0013e` · `verify-share.mjs` PASS on prod; copy + Instagram fallback checked in Chrome | plan file |
 | 6.26 | **Decision:** the 10 questions only; the address goes straight into them; "I'll tell you what I care about" switched off (`OPEN_TALK = false`), code kept | ✅ | 2026-10-22 · `3ea4fbe` · prod: address → "1 OF 10", no chooser; "Talk instead" → only "Ask me" | CLAUDE.md "Deferred feature" |
 | 6.27 | Post-event: rebuild free talk as Gemma 4 filling in the 10 answers for the person to confirm; then set `OPEN_TALK = true` | ⏸ | gate: after Demo Night | CLAUDE.md "Deferred feature" |
+| 6.28 | Post-event: re-base the interview on 10 questions candidates at every level answer (insurance, housing, healthcare, storms, everglades, enforcement, transit, careers, propertytax, schools); re-read reworded ids, new partyLean + LEFT_ANSWER, smokes 1–7; ship only if candidates with 4+ positions rise from 26 to 35+ | ⏸ | gate: after Demo Night; owner: main session, end to end | `~/.claude/plans/what-do-you-guys-zesty-engelbart.md` |
 
 ## §5 — Derisking: the smoke ladder
 

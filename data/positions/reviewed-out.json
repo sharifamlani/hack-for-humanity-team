@@ -1,5 +1,5 @@
 {
- "note": "Readings a person looked at and judged too much of a stretch to show. The app treats these cells as having no position. Reviewed Oct 10, 2026.",
+ "note": "Readings a person looked at and judged too much of a stretch to show. The app treats these cells as having no position. Reviewed Oct 10, 2026; second review Oct 22, 2026.",
  "removed": [
   {
    "candidate_id": "us-house-fl25-singer",
@@ -110,6 +110,41 @@
    "candidate_id": "fl-cfo-ingoglia",
    "question": "immigration",
    "reason": "Quote is about stopping illegal immigration, not legal status for long-term residents."
+  },
+  {
+   "candidate_id": "fl-house-106-baez-geller",
+   "question": "fema",
+   "reason": "Quote is about resilience to protect oceans and the water supply, not FEMA or hurricane relief. Reviewed Oct 22, 2026."
+  },
+  {
+   "candidate_id": "fl-house-106-baez-geller",
+   "question": "housing",
+   "reason": "Quote is about property-insurance premiums and the cost of living, not building housing or helping renters. Reviewed Oct 22, 2026."
+  },
+  {
+   "candidate_id": "fl-house-108-campbell",
+   "question": "immigration",
+   "reason": "Quote only says she worked on 'the HFRP' (a family-reunification parole program); it does not address legal status for long-time residents. Reviewed Oct 22, 2026."
+  },
+  {
+   "candidate_id": "fl-house-108-francius",
+   "question": "enforcement",
+   "reason": "Generic language about fair, lawful policies and dignity; it does not address stepping up arrests or deportations. Reviewed Oct 22, 2026."
+  },
+  {
+   "candidate_id": "fl-house-108-francius",
+   "question": "immigration",
+   "reason": "Generic 'just and humane immigration policies' heading; it does not mention a path to legal status. Reviewed Oct 22, 2026."
+  },
+  {
+   "candidate_id": "fl-senate-36-garcia",
+   "question": "fema",
+   "reason": "'Championed flood mitigation efforts in our community' is local flood work, not FEMA or hurricane relief. Reviewed Oct 22, 2026."
+  },
+  {
+   "candidate_id": "us-house-fl24-gilbert",
+   "question": "immigration",
+   "reason": "Quote is about ICE arrests and deportations (already counted under enforcement), not a path to legal status. Reviewed Oct 22, 2026."
   }
  ]
 }

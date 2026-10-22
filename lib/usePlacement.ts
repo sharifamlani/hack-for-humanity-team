@@ -15,7 +15,13 @@ export function usePlacement(answers: Answers, said: Record<string, string>, ope
   useEffect(() => {
     if (!canPlace) return;
     let cancelled = false;
-    fetch("/api/place", { method: "POST", headers: { "content-type": "application/json" }, body: conversation })
+    // Never wait forever: after 45 s the rough spot from the yes/no answers stands.
+    fetch("/api/place", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: conversation,
+      signal: AbortSignal.timeout(45000),
+    })
       .then(async (res) => {
         const json = await res.json();
         if (!res.ok) throw new Error(json.error);

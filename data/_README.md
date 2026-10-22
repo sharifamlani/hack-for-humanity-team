@@ -3,6 +3,14 @@
 Research data the app reads. Everything here was collected during the build window on
 Oct 10, 2026.
 
+## polling-overrides.json
+
+Corrections to the county's `PollingPlace_gdb` layer (last edited Aug 3, 2026) taken from the
+Supervisor of Elections' official Nov 3 polling place list (printed 10/15/2026): moved
+precincts, a renamed site, and the precincts at a temporary site. `lib/arcgis.ts` applies them.
+Check with `node scripts/verify-polling-places.mjs`; it also says when an override is no longer
+needed.
+
 ## candidates/
 
 The roster of who Miami and Miami Beach voters see on the **Tuesday Nov 3, 2026** ballot, from

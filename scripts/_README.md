@@ -17,6 +17,8 @@ did and exits non-zero on failure.
 | `verify-closest.mjs` | Flags "closest thing they've said" passages that may be someone else's words (attribution patterns, other candidates' names, long quotations) and fails unless each is reviewed in `data/positions/closest-review.json` |
 
 | `smoke-concurrency.mjs` | N voters finishing the interview at once against `/api/place` (`--base`, `--n`, `--limit`); fails on any non-200 or a slow answer |
+| `verify-polling-places.mjs` | Checks every precinct's polling place, as the app shows it (county layer + `data/polling-overrides.json`), against the Supervisor of Elections' official PDF list; also the temporary-site list. Needs `pdftotext` |
+| `verify-address-mapping.mjs` | 17 addresses on production: districts against the county's own layers, a second geocoder, ballot races, polling-place distance (`--base`) |
 | `deploy-clean.mjs` | Deploys what is committed at HEAD from a temporary git worktree, so other sessions' unfinished edits never reach production (`--preview` for a preview URL) |
 
 Order for the position data: scrape → embed → build-stances → verify-stances.

@@ -15,7 +15,7 @@ const shortDate = (ms: number | null) =>
 
 // Shows the "Try it on your phone" QR; flipped on after the live site passed its load test.
 const SHOW_QR = true;
-const LIVE_URL = "hack-for-humanity-team.vercel.app";
+const LIVE_URL = "yourballotyourblock.com";
 
 // Mint banner driven by the county's own early-voting dates. Null (hidden) once the window
 // has closed or when the dates are missing.

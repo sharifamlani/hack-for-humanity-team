@@ -45,3 +45,7 @@ export type Window = "before" | "open" | "after";
 export function windowStatus(today: number, first: number, last: number): Window {
   return today < first ? "before" : today > last ? "after" : "open";
 }
+
+// The county feed has no usable hours; these are from the Supervisor of Elections' published
+// early-voting schedule for Nov 3, 2026 (docs/qa-polling-2026-10-22.md): every site, every day.
+export const EARLY_VOTING_HOURS = "Open 7 AM – 7 PM every day.";

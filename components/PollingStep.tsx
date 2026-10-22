@@ -1,5 +1,8 @@
-import { dayNumber, todayNumber, weekdayDate, windowStatus } from "@/lib/dates";
+import { useState } from "react";
+import { EARLY_VOTING_HOURS, dayNumber, todayNumber, weekdayDate, windowStatus } from "@/lib/dates";
+import type { Answers, Placement } from "@/lib/match";
 import type { LookupResult } from "@/lib/types";
+import { VOTING_PLAN_FILE, buildVotingPlanPdf } from "@/lib/votingPlanPdf";
 
 const directions = (lat: number, lon: number) =>
   `https://www.google.com/maps/dir/?api=1&destination=${lat},${lon}`;
@@ -16,10 +19,6 @@ const shortDate = (ms: number | null) =>
 // Shows the "Try it on your phone" QR; flipped on after the live site passed its load test.
 const SHOW_QR = true;
 const LIVE_URL = "yourballotyourblock.com";
-
-// The county feed has no usable hours; these are from the Supervisor of Elections' published
-// early-voting schedule for Nov 3, 2026 (docs/qa-polling-2026-10-22.md): every site, every day.
-const EARLY_VOTING_HOURS = "Open 7 AM – 7 PM every day.";
 
 // Mint banner driven by the county's own early-voting dates. Null (hidden) once the window
 // has closed or when the dates are missing.
@@ -89,8 +88,35 @@ function StreetGrid() {
   );
 }
 
-export function PollingStep({ result }: { result: LookupResult }) {
+export function PollingStep({
+  result,
+  answers,
+  me,
+  placing,
+}: {
+  result: LookupResult;
+  answers: Answers;
+  me: Placement | null;
+  // True while Gemma 4 is still placing the voter; the PDF waits so it shows the final matches.
+  placing: boolean;
+}) {
   const { polling, earlyVoting } = result;
+  const [making, setMaking] = useState(false);
+  const [failed, setFailed] = useState(false);
+
+  // Built on the device (lib/votingPlanPdf.ts): the answers and address never leave it.
+  async function takeToPolls() {
+    setMaking(true);
+    setFailed(false);
+    try {
+      const doc = await buildVotingPlanPdf({ result, answers, me });
+      doc.save(VOTING_PLAN_FILE);
+    } catch {
+      setFailed(true);
+    } finally {
+      setMaking(false);
+    }
+  }
   return (
     <main className="flex flex-1 flex-col gap-5">
       {result.savedExample && (
@@ -248,6 +274,19 @@ export function PollingStep({ result }: { result: LookupResult }) {
         Locations and schedules can change. Verify all details with the Miami-Dade Supervisor of
         Elections.
       </p>
+
+      <section className="flex flex-col gap-2">
+        <button type="button" onClick={takeToPolls} disabled={placing || making} className={`btn-primary w-full text-lg ${placing ? "animate-pulse" : ""}`}>
+          {placing ? "Finishing your matches…" : making ? "Making your PDF…" : "Take my choices to the polls ↓"}
+        </button>
+        {failed ? (
+          <p className="text-sm font-semibold text-coral">Couldn&apos;t make the PDF. Try again.</p>
+        ) : (
+          <p className="text-sm text-foreground/70">
+            A one-page PDF of your matches and your voting plan. Made on your device; nothing is sent anywhere.
+          </p>
+        )}
+      </section>
     </main>
   );
 }

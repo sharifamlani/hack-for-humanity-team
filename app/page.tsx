@@ -251,7 +251,7 @@ export default function Home() {
           onNext={next}
         />
       ) : result ? (
-        <PollingStep result={result} />
+        <PollingStep result={result} answers={answers} me={me} placing={placing} />
       ) : null}
 
       <footer className="flex flex-wrap items-center justify-between gap-2 border-t border-foreground/20 pt-4 text-xs text-foreground/60">

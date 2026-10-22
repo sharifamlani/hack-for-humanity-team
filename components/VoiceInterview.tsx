@@ -205,10 +205,11 @@ export function VoiceInterview({
       </p>
       <h1 className="display border-b border-foreground/25 pb-3 text-3xl lg:text-4xl">Let&apos;s talk about what matters.</h1>
       {/* The voice's own words while it speaks. Once it stops, they stay only if they arrived
-          whole (Gemini Live's transcript sometimes stops mid-sentence); otherwise the written
+          whole, ending in a question mark (Gemini Live's transcript sometimes stops mid-sentence,
+          and "Got it." alone is not a question); otherwise the written
           question takes their place, so the person always answers a complete question. */}
       <p className="display min-h-20 max-w-xl text-2xl lg:text-3xl">
-        {(state === "speaking" || /[?.!]\s*$/.test(aiLine) ? aiLine : "") ||
+        {(state === "speaking" || /\?\s*$/.test(aiLine) ? aiLine : "") ||
           (question ? question.question : "That's everything. Let's see where you stand.")}
       </p>
 

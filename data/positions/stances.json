@@ -1,7 +1,7 @@
 {
  "model": "gemma-4-31b-it",
  "embeddingModel": "gemini-embedding-2",
- "built": "2026-10-22T14:55:32.645Z",
+ "built": "2026-10-22T15:02:33.429Z",
  "stances": [
   {
    "candidate_id": "us-house-fl24-brown",
@@ -1662,6 +1662,36 @@
   },
   {
    "candidate_id": "us-senate-fl-gillespie",
+   "question": "healthcare",
+   "stance": "yes",
+   "quote": "I propose national health coverage, with the ability to opt-out.",
+   "url": "https://neilgillespie4senate.blogspot.com/",
+   "why": "The candidate proposes national health coverage, which is a significant federal action regarding health care.",
+   "similarity": 0.716,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "us-senate-fl-gillespie",
+   "question": "enforcement",
+   "stance": "yes",
+   "quote": "I support the lawful removal of people who enter the United States illegally, but not the spectacle created by activists confronting ICE.",
+   "url": "https://neilgillespie4senate.blogspot.com/",
+   "why": "The candidate expresses support for the lawful removal of people who enter the United States illegally.",
+   "similarity": 0.75,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "us-senate-fl-gillespie",
+   "question": "immigration",
+   "stance": "yes",
+   "quote": "I also support a path to citizenship for immigrants who follow the rules .",
+   "url": "https://neilgillespie4senate.blogspot.com/",
+   "why": "The candidate explicitly states his support for a path to citizenship for immigrants who follow the rules.",
+   "similarity": 0.825,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "us-senate-fl-gillespie",
    "question": "flooding",
    "stance": "none",
    "quote": "",
@@ -1676,7 +1706,7 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.713
+   "similarity": 0.712
   },
   {
    "candidate_id": "us-senate-fl-gillespie",
@@ -1694,7 +1724,7 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.696
+   "similarity": 0.692
   },
   {
    "candidate_id": "us-senate-fl-gillespie",
@@ -1703,7 +1733,7 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.735
+   "similarity": 0.727
   },
   {
    "candidate_id": "us-senate-fl-gillespie",
@@ -1730,7 +1760,7 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.672
+   "similarity": 0.671
   },
   {
    "candidate_id": "us-senate-fl-gillespie",
@@ -1739,7 +1769,7 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.704
+   "similarity": 0.705
   },
   {
    "candidate_id": "us-senate-fl-gillespie",
@@ -1752,32 +1782,12 @@
   },
   {
    "candidate_id": "us-senate-fl-gillespie",
-   "question": "healthcare",
-   "stance": "yes",
-   "quote": "I propose national health coverage, with the ability to opt-out.",
-   "url": "https://neilgillespie4senate.blogspot.com/",
-   "why": "The candidate proposes national health coverage, which is a significant federal action regarding health care.",
-   "similarity": 0.716,
-   "reading": "leans"
-  },
-  {
-   "candidate_id": "us-senate-fl-gillespie",
-   "question": "enforcement",
-   "stance": "yes",
-   "quote": "I support the lawful removal of people who enter the United States illegally, but not the spectacle created by activists confronting ICE.",
-   "url": "https://neilgillespie4senate.blogspot.com/",
-   "why": "The candidate expresses support for the lawful removal of people who enter the United States illegally.",
-   "similarity": 0.75,
-   "reading": "leans"
-  },
-  {
-   "candidate_id": "us-senate-fl-gillespie",
    "question": "cuba",
    "stance": "none",
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.703
+   "similarity": 0.699
   },
   {
    "candidate_id": "us-senate-fl-gillespie",
@@ -1795,17 +1805,7 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.707
-  },
-  {
-   "candidate_id": "us-senate-fl-gillespie",
-   "question": "immigration",
-   "stance": "yes",
-   "quote": "I also support a path to citizenship for immigrants who follow the rules .",
-   "url": "https://neilgillespie4senate.blogspot.com/",
-   "why": "The candidate explicitly states his support for a path to citizenship for immigrants who follow the rules.",
-   "similarity": 0.825,
-   "reading": "leans"
+   "similarity": 0.698
   },
   {
    "candidate_id": "us-senate-fl-moody",
@@ -1825,6 +1825,26 @@
    "url": "https://www.moody.senate.gov/press-releases/sens-ashley-moody-and-rick-scott-introduce-bill-to-provide-tax-relief-for-skyrocketing-flood-insurance-costs/",
    "why": "Ashley Moody is proposing federal legislation to reduce the financial burden of flood insurance costs for families.",
    "similarity": 0.713,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "us-senate-fl-moody",
+   "question": "drilling",
+   "stance": "yes",
+   "quote": "The risks posed by new offshore drilling far outweigh any short-term gains.",
+   "url": "https://www.moody.senate.gov/press-releases/news-release-senators-ashley-moody-rick-scott-lead-bipartisan-florida-delegation-letter-to-president-trump-keep-oil-drilling-off-floridas-coasts/",
+   "why": "The candidate states that the risks associated with new offshore drilling are greater than any potential benefits.",
+   "similarity": 0.797,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "us-senate-fl-moody",
+   "question": "enforcement",
+   "stance": "yes",
+   "quote": "Senator Ashley Moody Leads Efforts to Codify President Trump’s Immigration Priorities, Introduces Expedited Removal of Criminal Aliens Act",
+   "url": "https://www.moody.senate.gov/press-releases/senator-ashley-moody-leads-efforts-to-codify-president-trumps-immigration-priorities-introduces-expedited-removal-of-criminal-aliens-act/",
+   "why": "She introduced legislation to expedite the removal of criminal aliens.",
+   "similarity": 0.652,
    "reading": "leans"
   },
   {
@@ -1879,7 +1899,7 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.678
+   "similarity": 0.728
   },
   {
    "candidate_id": "us-senate-fl-moody",
@@ -1888,7 +1908,17 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.728
+   "similarity": 0.737
+  },
+  {
+   "candidate_id": "us-senate-fl-moody",
+   "question": "fema",
+   "stance": "yes",
+   "quote": "Statewide, Senator Moody has secured more than $1.8 billion in FEMA public assistance funding.",
+   "url": "https://www.moody.senate.gov/press-releases/video-senator-moody-secures-nearly-2-billion-in-fema-recovery-assistance-for-florida-communities-hit-by-major-hurricanes/",
+   "why": "The candidate has a record of securing significant funding for FEMA disaster recovery projects.",
+   "similarity": 0.74,
+   "reading": "leans"
   },
   {
    "candidate_id": "us-senate-fl-moody",
@@ -1897,16 +1927,17 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.66
+   "similarity": 0.729
   },
   {
    "candidate_id": "us-senate-fl-moody",
    "question": "cuba",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.704
+   "stance": "yes",
+   "quote": "My DEMOCRACIA Act will build on their efforts by implementing severe sanctions against Communist Cuba and closes existing sanctions gaps.",
+   "url": "https://www.moody.senate.gov/press-releases/news-release-senator-moody-seeks-to-sanction-communist-cuban-regime-for-human-rights-abuses/",
+   "why": "The candidate proposes a bill to implement severe sanctions against Cuba.",
+   "similarity": 0.819,
+   "reading": "leans"
   },
   {
    "candidate_id": "us-senate-fl-moody",
@@ -1915,7 +1946,7 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.705
+   "similarity": 0.717
   },
   {
    "candidate_id": "us-senate-fl-moody",
@@ -1924,36 +1955,8 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.713
-  },
-  {
-   "candidate_id": "us-senate-fl-moody",
-   "question": "drilling",
-   "stance": "yes",
-   "quote": "The risks posed by new offshore drilling far outweigh any short-term gains.",
-   "url": "https://www.moody.senate.gov/press-releases/news-release-senators-ashley-moody-rick-scott-lead-bipartisan-florida-delegation-letter-to-president-trump-keep-oil-drilling-off-floridas-coasts/",
-   "why": "The candidate states that the risks associated with new offshore drilling are greater than any potential benefits.",
-   "similarity": 0.797,
-   "reading": "leans"
-  },
-  {
-   "candidate_id": "us-senate-fl-moody",
-   "question": "fema",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.742
-  },
-  {
-   "candidate_id": "us-senate-fl-moody",
-   "question": "enforcement",
-   "stance": "yes",
-   "quote": "Senator Ashley Moody Leads Efforts to Codify President Trump’s Immigration Priorities, Introduces Expedited Removal of Criminal Aliens Act",
-   "url": "https://www.moody.senate.gov/press-releases/senator-ashley-moody-leads-efforts-to-codify-president-trumps-immigration-priorities-introduces-expedited-removal-of-criminal-aliens-act/",
-   "why": "She introduced legislation to expedite the removal of criminal aliens.",
-   "similarity": 0.652,
-   "reading": "leans"
+   "similarity": 0.785,
+   "error": "Gemma timed out"
   },
   {
    "candidate_id": "us-senate-fl-nixon",
@@ -1984,15 +1987,6 @@
    "why": "The candidate supports extending labor protections to farmworkers, who are a primary group of outdoor workers.",
    "similarity": 0.681,
    "reading": "leans"
-  },
-  {
-   "candidate_id": "us-senate-fl-nixon",
-   "question": "everglades",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.735
   },
   {
    "candidate_id": "us-senate-fl-nixon",
@@ -2046,15 +2040,6 @@
   },
   {
    "candidate_id": "us-senate-fl-nixon",
-   "question": "drilling",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.703
-  },
-  {
-   "candidate_id": "us-senate-fl-nixon",
    "question": "fema",
    "stance": "yes",
    "quote": "Disaster resilience funding  to harden homes against hurricanes.",
@@ -2075,12 +2060,42 @@
   },
   {
    "candidate_id": "us-senate-fl-nixon",
-   "question": "cuba",
+   "question": "healthcare",
+   "stance": "yes",
+   "quote": "Capping prescription drug costs and ending price gouging by drug companies.",
+   "url": "https://angienixon.com/priorities/",
+   "why": "The candidate explicitly supports capping the cost of prescription drugs.",
+   "similarity": 0.736,
+   "reading": "stated"
+  },
+  {
+   "candidate_id": "us-senate-fl-nixon",
+   "question": "drilling",
    "stance": "none",
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.709
+   "similarity": 0.703,
+   "error": "Gemma timed out"
+  },
+  {
+   "candidate_id": "us-senate-fl-nixon",
+   "question": "everglades",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.735
+  },
+  {
+   "candidate_id": "us-senate-fl-nixon",
+   "question": "cuba",
+   "stance": "no",
+   "quote": "Politicians in Washington continue to play political games with human lives, using collective punishment that hurts Cuban families, not the regime.",
+   "url": "https://angienixon.com/u-s-senate-candidate-angie-nixon-calls-for-international-cooperation-as-cuba-faces-third-major-blackout-of-the-year/",
+   "why": "The candidate describes the U.S. blockade of Cuba as collective punishment that harms families rather than the regime.",
+   "similarity": 0.73,
+   "reading": "stated"
   },
   {
    "candidate_id": "us-senate-fl-nixon",
@@ -2093,22 +2108,13 @@
   },
   {
    "candidate_id": "us-senate-fl-nixon",
-   "question": "healthcare",
-   "stance": "yes",
-   "quote": "Capping prescription drug costs and ending price gouging by drug companies.",
-   "url": "https://angienixon.com/priorities/",
-   "why": "The candidate explicitly supports capping the cost of prescription drugs.",
-   "similarity": 0.736,
-   "reading": "stated"
-  },
-  {
-   "candidate_id": "us-senate-fl-nixon",
    "question": "taxes",
    "stance": "none",
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.743
+   "similarity": 0.743,
+   "error": "Gemma timed out"
   }
  ]
 }

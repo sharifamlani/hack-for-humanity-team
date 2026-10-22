@@ -23,7 +23,8 @@ const ELECTION_DAY = "2026-11-03";
 const EARLY_VOTING_FIRST_DAY = "2026-10-19";
 const EARLY_VOTING_LAST_DAY = "2026-11-01";
 
-// "12 days away · early voting is open now." — null once Election Day has passed.
+// "Election Day is 12 days away · early voting is open now." — says what it counts, because
+// the voting plan's "11 days left" counts early-voting days. Null once Election Day has passed.
 function countdownLine(): string | null {
   const today = todayNumber();
   const daysAway = dayNumberOfIso(ELECTION_DAY) - today;
@@ -32,18 +33,12 @@ function countdownLine(): string | null {
   const early =
     windowStatus(today, dayNumberOfIso(EARLY_VOTING_FIRST_DAY), dayNumberOfIso(EARLY_VOTING_LAST_DAY)) ===
     "open";
-  return `${daysAway} ${daysAway === 1 ? "day" : "days"} away${early ? " · early voting is open now." : "."}`;
+  const when = daysAway === 1 ? "Election Day is tomorrow" : `Election Day is ${daysAway} days away`;
+  return `${when}${early ? " · early voting is open now." : "."}`;
 }
 
 // The calendar does not push updates; the line is read once per render in the browser.
 const noSubscribe = () => () => {};
-
-const NAV = [
-  { label: "Home", step: 0, steps: [0] },
-  { label: "Priorities", step: 1, steps: [1] },
-  { label: "My ballot", step: 2, steps: [2] },
-  { label: "Voting plan", step: 3, steps: [3] },
-];
 
 export default function Home() {
   const [step, setStep] = useState(0);
@@ -131,20 +126,6 @@ export default function Home() {
         <button type="button" onClick={() => setStep(0)} className="display text-xl lg:text-2xl">
           Your Ballot. <span className="text-accent">Your Block.</span>
         </button>
-        <nav aria-label="Sections" className="hidden gap-7 text-sm font-medium md:flex">
-          {NAV.map((n) => (
-            <button
-              key={n.label}
-              type="button"
-              onClick={() => goTo(n.step)}
-              className={`border-b-2 pb-1 ${
-                n.steps.includes(step) ? "border-accent text-accent" : "border-transparent hover:text-accent"
-              }`}
-            >
-              {n.label}
-            </button>
-          ))}
-        </nav>
         <span
           title="We never store your address or location."
           className="rounded-full border border-foreground/40 px-4 py-1.5 text-sm font-semibold"

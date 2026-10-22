@@ -102,13 +102,16 @@ export function VoiceInterview({
     const v = new LiveVoice(SYSTEM, {
       onState: (s) => {
         setState(s);
-        if (s === "speaking" && newAiTurn.current) {
-          newAiTurn.current = false;
-          setAiLine("");
-        }
         if (s === "listening" || s === "thinking") newAiTurn.current = true;
       },
-      onAiText: (delta) => setAiLine((t) => t + delta),
+      // The words of a new turn often arrive before its first audio, so the line restarts on
+      // the first words, not on the audio (which used to wipe the start of the question).
+      onAiText: (delta) => {
+        if (newAiTurn.current) {
+          newAiTurn.current = false;
+          setAiLine(delta);
+        } else setAiLine((t) => t + delta);
+      },
       onUserText: (delta) => {
         heard.current += delta;
         setMyLine(heard.current);
@@ -190,9 +193,11 @@ export function VoiceInterview({
         {Math.min(index + 1, QUESTIONS.length)} of {QUESTIONS.length}
       </p>
       <h1 className="display border-b border-foreground/25 pb-3 text-3xl lg:text-4xl">Let&apos;s talk about what matters.</h1>
+      {/* The question as written, always whole; what the voice is saying runs underneath. */}
       <p className="display min-h-20 max-w-xl text-2xl lg:text-3xl">
-        {aiLine || (question ? question.question : "That's everything. Let's see where you stand.")}
+        {question ? question.question : "That's everything. Let's see where you stand."}
       </p>
+      {aiLine && <p className="min-h-12 max-w-xl text-base text-foreground/70">{aiLine}</p>}
 
       <div className="relative my-2 flex h-48 w-48 items-center justify-center">
         {(state === "speaking" || state === "listening") && (

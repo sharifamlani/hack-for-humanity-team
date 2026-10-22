@@ -40,15 +40,18 @@ export function OpenTalk({ onDone, onBack }: { onDone: (said: string) => void; o
     const v = new LiveVoice(SYSTEM, {
       onState: (s) => {
         setState(s);
-        if (s === "speaking" && newAiTurn.current) {
-          newAiTurn.current = false;
-          setAiLine("");
-        }
         if (s === "listening" || s === "thinking") newAiTurn.current = true;
         // The goodbye line has finished playing: hand over what we heard.
         if (s === "ended" && finished.current) onDone(heard.current);
       },
-      onAiText: (delta) => setAiLine((t) => t + delta),
+      // The words of a new turn often arrive before its first audio, so the line restarts on
+      // the first words, not on the audio (which used to wipe the start of the sentence).
+      onAiText: (delta) => {
+        if (newAiTurn.current) {
+          newAiTurn.current = false;
+          setAiLine(delta);
+        } else setAiLine((t) => t + delta);
+      },
       onUserText: (delta) => {
         heard.current += delta;
         setMyLine(heard.current);

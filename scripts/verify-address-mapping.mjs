@@ -28,7 +28,7 @@ const ADDRESSES = [
   "17011 NE 19th Ave, North Miami Beach, FL 33162",
   "776 NE 125th St, North Miami, FL 33161",
   "404 W Palm Dr, Florida City, FL 33034",
-  "12400 SW 152nd St, Miami, FL 33177",
+  "11750 SW 40th St, Miami, FL 33175",
   "10201 Hammocks Blvd, Miami, FL 33196",
   "100 N Andrews Ave, Fort Lauderdale, FL 33301",
 ];

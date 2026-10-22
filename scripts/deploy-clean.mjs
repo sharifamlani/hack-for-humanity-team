@@ -30,5 +30,12 @@ try {
   run(process.argv.includes("--preview") ? "vercel --yes" : "vercel --prod --yes", dir);
   console.log(`deployed ${sha}`);
 } finally {
-  run(`git worktree remove --force "${dir}"`, root);
+  // Windows can hold a file lock for a moment after vercel exits; a failed removal is
+  // not a failed deploy, so fall back to pruning the worktree record.
+  try {
+    run(`git worktree remove --force "${dir}"`, root);
+  } catch {
+    run("git worktree prune", root);
+    console.log(`worktree pruned; delete ${dir} by hand if it is still on disk`);
+  }
 }

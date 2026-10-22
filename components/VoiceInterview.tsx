@@ -161,7 +161,7 @@ export function VoiceInterview({
           onClick={start}
           className="w-full max-w-md rounded-3xl bg-accent px-5 py-6 text-left text-background active:translate-y-1"
         >
-          <span className="block text-2xl font-black">🎙 Ask me</span>
+          <span className="block text-2xl font-black">Ask me</span>
           <span className="block text-sm font-semibold opacity-90">
             {QUESTIONS.length} quick questions about Miami, then see who lines up with you
           </span>
@@ -171,7 +171,7 @@ export function VoiceInterview({
           onClick={onOpen}
           className="w-full max-w-md rounded-3xl border border-foreground/25 bg-card px-5 py-6 text-left active:translate-y-1"
         >
-          <span className="block text-2xl font-black">💬 I&apos;ll tell you what I care about</span>
+          <span className="block text-2xl font-black">I&apos;ll tell you what I care about</span>
           <span className="block text-sm font-semibold text-foreground/70">
             Talk about anything, then see what the candidates have said about it
           </span>
@@ -189,15 +189,14 @@ export function VoiceInterview({
   return (
     <main className="flex flex-1 flex-col items-center gap-4 text-center">
       <p className="eyebrow text-foreground/60">
-        {question ? `${THEMES[question.theme].emoji} ${THEMES[question.theme].label}` : "Interview"} ·{" "}
+        {question ? THEMES[question.theme].label : "Interview"} ·{" "}
         {Math.min(index + 1, QUESTIONS.length)} of {QUESTIONS.length}
       </p>
       <h1 className="display border-b border-foreground/25 pb-3 text-3xl lg:text-4xl">Let&apos;s talk about what matters.</h1>
-      {/* The question as written, always whole; what the voice is saying runs underneath. */}
+      {/* Everything the voice is saying, whole; the written question until its first words arrive. */}
       <p className="display min-h-20 max-w-xl text-2xl lg:text-3xl">
-        {question ? question.question : "That's everything. Let's see where you stand."}
+        {aiLine || (question ? question.question : "That's everything. Let's see where you stand.")}
       </p>
-      {aiLine && <p className="min-h-12 max-w-xl text-base text-foreground/70">{aiLine}</p>}
 
       <div className="relative my-2 flex h-48 w-48 items-center justify-center">
         {(state === "speaking" || state === "listening") && (
@@ -285,7 +284,7 @@ export function VoiceInterview({
           </button>
         )}
         <p className="text-center text-xs text-foreground/60">
-          🗣 Voice: Gemini Live · ⚡ Gemma 4 reads what you said and records your answer · {recorded} recorded
+          🗣 Voice: Gemini Live · Gemma 4 reads what you said and records your answer · {recorded} recorded
         </p>
       </div>
     </main>

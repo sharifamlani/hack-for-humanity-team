@@ -1,0 +1,44 @@
+{
+  "source": "https://www.miamidade.gov/elections/library/2026-11-03-general-election-polling-place-list.pdf",
+  "listDate": "2026-10-15",
+  "election": "2026-11-03",
+  "note": "Corrections to the county's PollingPlace_gdb layer (last edited 2026-08-03) from the Supervisor of Elections' official list. Coordinates are Census geocoder matches of the official address. Check with: node scripts/verify-polling-places.mjs",
+  "temporary": [2, 127, 183, 184, 227, 300, 305, 372, 404, 424, 548, 670, 705, 801, 805, 825, 836],
+  "overrides": {
+    "99": {
+      "name": "Williams Island Building 2800",
+      "address": "2800 Island Blvd",
+      "city": "Aventura",
+      "zip": "33160",
+      "lat": 25.94001224887,
+      "lon": -80.135056312339
+    },
+    "253": {
+      "name": "New Shiloh Missionary Baptist Church",
+      "address": "1350 NW 95 St",
+      "city": "Miami",
+      "zip": "33147",
+      "lat": 25.861320288996,
+      "lon": -80.220828849859
+    },
+    "389": {
+      "name": "Palm Springs North K-8 Center"
+    },
+    "801": {
+      "name": "Glendale Baptist Church",
+      "address": "14580 SW 117 Ave",
+      "city": "Miami",
+      "zip": "33186",
+      "lat": 25.631615310041,
+      "lon": -80.382617800062
+    },
+    "805": {
+      "name": "Glendale Baptist Church",
+      "address": "14580 SW 117 Ave",
+      "city": "Miami",
+      "zip": "33186",
+      "lat": 25.631615310041,
+      "lon": -80.382617800062
+    }
+  }
+}

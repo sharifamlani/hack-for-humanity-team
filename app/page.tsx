@@ -57,8 +57,9 @@ export default function Home() {
   const [result, setResult] = useState<LookupResult | null>(null);
   const [answers, setAnswers] = useState<Answers>({});
   const [said, setSaid] = useState<Record<string, string>>({});
-  // The 10 questions start typed, straight after the address; voice is one tap away.
-  const [typed, setTyped] = useState(true);
+  // Voice first: after the address the voter lands on the voice start screen ("Ask me"; one tap,
+  // because browsers only start the mic and audio from a tap). "I'd rather type" switches to typing.
+  const [typed, setTyped] = useState(false);
   const [openMode, setOpenMode] = useState(false);
   const [openSaid, setOpenSaid] = useState("");
   // The race whose evidence is open; null shows the whole ballot.

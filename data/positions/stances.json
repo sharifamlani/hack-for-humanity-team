@@ -1,7 +1,7 @@
 {
- "model": "gemma-4-26b-a4b-it",
+ "model": "gemma-4-31b-it",
  "embeddingModel": "gemini-embedding-2",
- "built": "2026-10-10T18:24:36.405Z",
+ "built": "2026-10-22T14:55:32.645Z",
  "stances": [
   {
    "candidate_id": "us-house-fl24-brown",
@@ -97,16 +97,6 @@
   },
   {
    "candidate_id": "us-house-fl24-brown",
-   "question": "fema",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.684,
-   "error": "Gemma timed out"
-  },
-  {
-   "candidate_id": "us-house-fl24-brown",
    "question": "healthcare",
    "stance": "yes",
    "quote": "Increase transparency, lower prescription and healthcare costs, and protect patients from unnecessary costs.",
@@ -145,13 +135,21 @@
   },
   {
    "candidate_id": "us-house-fl24-brown",
+   "question": "fema",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.684
+  },
+  {
+   "candidate_id": "us-house-fl24-brown",
    "question": "taxes",
    "stance": "none",
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.75,
-   "error": "Gemma timed out"
+   "similarity": 0.75
   },
   {
    "candidate_id": "us-house-fl24-gilbert",
@@ -208,16 +206,6 @@
    "url": "",
    "why": "",
    "similarity": 0.696
-  },
-  {
-   "candidate_id": "us-house-fl24-gilbert",
-   "question": "housing",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.756,
-   "error": "Gemma timed out"
   },
   {
    "candidate_id": "us-house-fl24-gilbert",
@@ -288,23 +276,31 @@
   },
   {
    "candidate_id": "us-house-fl24-gilbert",
+   "question": "housing",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.756
+  },
+  {
+   "candidate_id": "us-house-fl24-gilbert",
    "question": "transit",
    "stance": "none",
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.787,
-   "error": "Gemma timed out"
+   "similarity": 0.787
   },
   {
    "candidate_id": "us-house-fl24-gilbert",
    "question": "taxes",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.764,
-   "error": "Gemma timed out"
+   "stance": "yes",
+   "quote": "Eliminate Income Taxes for Working Families",
+   "url": "https://olivergilbert.vote/issues/",
+   "why": "The candidate explicitly supports eliminating income taxes for working families, which constitutes a federal tax cut.",
+   "similarity": 0.763,
+   "reading": "leans"
   },
   {
    "candidate_id": "us-house-fl25-moskowitz",
@@ -456,8 +452,7 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.748,
-   "error": "Gemma timed out"
+   "similarity": 0.748
   },
   {
    "candidate_id": "us-house-fl25-singer",
@@ -467,7 +462,8 @@
    "url": "https://www.scottsingerusa.com/priorities",
    "why": "The candidate explicitly states he will work to increase federal support for the district's unique flooding needs.",
    "similarity": 0.724,
-   "reading": "stated"
+   "reading": "leans",
+   "reviewNote": "Relabelled stated -> leans on review (Oct 22): the quote is about lowering costs, not spending on flood infrastructure."
   },
   {
    "candidate_id": "us-house-fl25-singer",
@@ -690,16 +686,6 @@
   },
   {
    "candidate_id": "us-house-fl26-diaz-balart",
-   "question": "flooding",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.782,
-   "error": "Gemma timed out"
-  },
-  {
-   "candidate_id": "us-house-fl26-diaz-balart",
    "question": "species",
    "stance": "none",
    "quote": "",
@@ -728,26 +714,6 @@
   },
   {
    "candidate_id": "us-house-fl26-diaz-balart",
-   "question": "enforcement",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.692,
-   "error": "Gemma timed out"
-  },
-  {
-   "candidate_id": "us-house-fl26-diaz-balart",
-   "question": "cuba",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.797,
-   "error": "Gemma timed out"
-  },
-  {
-   "candidate_id": "us-house-fl26-diaz-balart",
    "question": "transit",
    "stance": "yes",
    "quote": "Beyond ports, this bill continues the strong levels of funding for BUILD grants, Capital Investment Grants, and Airports and Highway Grants, allowing localities like those in Collier, Hendry, and Miami-Dade Counties to compete for federal money to upgrade and expand their facilities.",
@@ -764,6 +730,33 @@
    "url": "",
    "why": "",
    "similarity": 0.713
+  },
+  {
+   "candidate_id": "us-house-fl26-diaz-balart",
+   "question": "flooding",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.782
+  },
+  {
+   "candidate_id": "us-house-fl26-diaz-balart",
+   "question": "enforcement",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.692
+  },
+  {
+   "candidate_id": "us-house-fl26-diaz-balart",
+   "question": "cuba",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.797
   },
   {
    "candidate_id": "us-house-fl26-locklin",
@@ -832,16 +825,6 @@
   },
   {
    "candidate_id": "us-house-fl26-locklin",
-   "question": "species",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.715,
-   "error": "Gemma timed out"
-  },
-  {
-   "candidate_id": "us-house-fl26-locklin",
    "question": "housing",
    "stance": "none",
    "quote": "",
@@ -880,16 +863,6 @@
   },
   {
    "candidate_id": "us-house-fl26-locklin",
-   "question": "enforcement",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.713,
-   "error": "Gemma timed out"
-  },
-  {
-   "candidate_id": "us-house-fl26-locklin",
    "question": "cuba",
    "stance": "no",
    "quote": "If a policy hasn’t worked in 60 years, we have a responsibility to rethink it.",
@@ -915,6 +888,24 @@
    "url": "",
    "why": "",
    "similarity": 0.748
+  },
+  {
+   "candidate_id": "us-house-fl26-locklin",
+   "question": "species",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.715
+  },
+  {
+   "candidate_id": "us-house-fl26-locklin",
+   "question": "enforcement",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.713
   },
   {
    "candidate_id": "us-house-fl27-rodriguez",
@@ -986,16 +977,6 @@
   },
   {
    "candidate_id": "us-house-fl27-rodriguez",
-   "question": "flooding",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.804,
-   "error": "Gemma timed out"
-  },
-  {
-   "candidate_id": "us-house-fl27-rodriguez",
    "question": "drilling",
    "stance": "none",
    "quote": "",
@@ -1024,26 +1005,6 @@
   },
   {
    "candidate_id": "us-house-fl27-rodriguez",
-   "question": "healthcare",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.742,
-   "error": "Gemma timed out"
-  },
-  {
-   "candidate_id": "us-house-fl27-rodriguez",
-   "question": "enforcement",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.715,
-   "error": "Gemma timed out"
-  },
-  {
-   "candidate_id": "us-house-fl27-rodriguez",
    "question": "cuba",
    "stance": "none",
    "quote": "",
@@ -1053,22 +1014,49 @@
   },
   {
    "candidate_id": "us-house-fl27-rodriguez",
-   "question": "transit",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.767,
-   "error": "Gemma timed out"
-  },
-  {
-   "candidate_id": "us-house-fl27-rodriguez",
    "question": "taxes",
    "stance": "none",
    "quote": "",
    "url": "",
    "why": "",
    "similarity": 0.746
+  },
+  {
+   "candidate_id": "us-house-fl27-rodriguez",
+   "question": "flooding",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.804,
+   "error": "Gemma timed out"
+  },
+  {
+   "candidate_id": "us-house-fl27-rodriguez",
+   "question": "healthcare",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.742
+  },
+  {
+   "candidate_id": "us-house-fl27-rodriguez",
+   "question": "enforcement",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.715
+  },
+  {
+   "candidate_id": "us-house-fl27-rodriguez",
+   "question": "transit",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.767
   },
   {
    "candidate_id": "us-house-fl27-salazar",
@@ -1148,16 +1136,6 @@
   },
   {
    "candidate_id": "us-house-fl27-salazar",
-   "question": "everglades",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.769,
-   "error": "Gemma timed out"
-  },
-  {
-   "candidate_id": "us-house-fl27-salazar",
    "question": "species",
    "stance": "none",
    "quote": "",
@@ -1167,32 +1145,12 @@
   },
   {
    "candidate_id": "us-house-fl27-salazar",
-   "question": "fema",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.745,
-   "error": "Gemma timed out"
-  },
-  {
-   "candidate_id": "us-house-fl27-salazar",
    "question": "healthcare",
    "stance": "none",
    "quote": "",
    "url": "",
    "why": "",
    "similarity": 0.707
-  },
-  {
-   "candidate_id": "us-house-fl27-salazar",
-   "question": "enforcement",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.763,
-   "error": "Gemma timed out"
   },
   {
    "candidate_id": "us-house-fl27-salazar",
@@ -1222,6 +1180,34 @@
    "why": "The candidate helped pass legislation that provides tax relief to workers and avoids increasing costs for small business owners.",
    "similarity": 0.765,
    "reading": "leans"
+  },
+  {
+   "candidate_id": "us-house-fl27-salazar",
+   "question": "everglades",
+   "stance": "yes",
+   "quote": "Today, Congresswoman María Elvira Salazar (FL-27) joined local leaders to highlight two major federal investments in Cutler Bay: the Coastal Wetlands Project , a key component of the Comprehensive Everglades Restoration Plan (CERP), and the Marlin Road Improvement Project.",
+   "url": "https://salazar.house.gov/media/press-releases/rep-salazar-highlights-coastal-wetlands-project-and-safer-roads-cutler-bay",
+   "why": "The candidate highlights federal investments in a project that is part of the Comprehensive Everglades Restoration Plan.",
+   "similarity": 0.761,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "us-house-fl27-salazar",
+   "question": "fema",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.745
+  },
+  {
+   "candidate_id": "us-house-fl27-salazar",
+   "question": "enforcement",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.763
   },
   {
    "candidate_id": "us-house-fl28-ehr",
@@ -1490,16 +1476,6 @@
   },
   {
    "candidate_id": "us-house-fl28-gimenez",
-   "question": "enforcement",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.752,
-   "error": "Gemma timed out"
-  },
-  {
-   "candidate_id": "us-house-fl28-gimenez",
    "question": "cuba",
    "stance": "yes",
    "quote": "President Trump has shown steadfast and unwavering solidarity with the Venezuelan people, including by protecting those fleeing oppression, supporting the courageous democratic opposition, and imposing tough sanctions on the Maduro dictatorship.",
@@ -1527,6 +1503,15 @@
    "why": "The candidate states that lowering taxes is the only way to maintain the ingenuity and entrepreneurial spirit of the American people.",
    "similarity": 0.769,
    "reading": "leans"
+  },
+  {
+   "candidate_id": "us-house-fl28-gimenez",
+   "question": "enforcement",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.752
   },
   {
    "candidate_id": "us-house-fl28-rojas",
@@ -1758,16 +1743,6 @@
   },
   {
    "candidate_id": "us-senate-fl-gillespie",
-   "question": "immigration",
-   "stance": "yes",
-   "quote": "I also support a path to citizenship for immigrants who follow the rules.",
-   "url": "https://neilgillespie4senate.blogspot.com/",
-   "why": "The candidate explicitly supports a path to citizenship for immigrants who follow the rules.",
-   "similarity": 0.827,
-   "reading": "leans"
-  },
-  {
-   "candidate_id": "us-senate-fl-gillespie",
    "question": "fema",
    "stance": "none",
    "quote": "",
@@ -1821,6 +1796,16 @@
    "url": "",
    "why": "",
    "similarity": 0.707
+  },
+  {
+   "candidate_id": "us-senate-fl-gillespie",
+   "question": "immigration",
+   "stance": "yes",
+   "quote": "I also support a path to citizenship for immigrants who follow the rules .",
+   "url": "https://neilgillespie4senate.blogspot.com/",
+   "why": "The candidate explicitly states his support for a path to citizenship for immigrants who follow the rules.",
+   "similarity": 0.825,
+   "reading": "leans"
   },
   {
    "candidate_id": "us-senate-fl-moody",
@@ -1907,42 +1892,12 @@
   },
   {
    "candidate_id": "us-senate-fl-moody",
-   "question": "drilling",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.797,
-   "error": "Gemma timed out"
-  },
-  {
-   "candidate_id": "us-senate-fl-moody",
-   "question": "fema",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.742,
-   "error": "Gemma timed out"
-  },
-  {
-   "candidate_id": "us-senate-fl-moody",
    "question": "healthcare",
    "stance": "none",
    "quote": "",
    "url": "",
    "why": "",
    "similarity": 0.66
-  },
-  {
-   "candidate_id": "us-senate-fl-moody",
-   "question": "enforcement",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.693,
-   "error": "Gemma timed out"
   },
   {
    "candidate_id": "us-senate-fl-moody",
@@ -1970,6 +1925,35 @@
    "url": "",
    "why": "",
    "similarity": 0.713
+  },
+  {
+   "candidate_id": "us-senate-fl-moody",
+   "question": "drilling",
+   "stance": "yes",
+   "quote": "The risks posed by new offshore drilling far outweigh any short-term gains.",
+   "url": "https://www.moody.senate.gov/press-releases/news-release-senators-ashley-moody-rick-scott-lead-bipartisan-florida-delegation-letter-to-president-trump-keep-oil-drilling-off-floridas-coasts/",
+   "why": "The candidate states that the risks associated with new offshore drilling are greater than any potential benefits.",
+   "similarity": 0.797,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "us-senate-fl-moody",
+   "question": "fema",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.742
+  },
+  {
+   "candidate_id": "us-senate-fl-moody",
+   "question": "enforcement",
+   "stance": "yes",
+   "quote": "Senator Ashley Moody Leads Efforts to Codify President Trump’s Immigration Priorities, Introduces Expedited Removal of Criminal Aliens Act",
+   "url": "https://www.moody.senate.gov/press-releases/senator-ashley-moody-leads-efforts-to-codify-president-trumps-immigration-priorities-introduces-expedited-removal-of-criminal-aliens-act/",
+   "why": "She introduced legislation to expedite the removal of criminal aliens.",
+   "similarity": 0.652,
+   "reading": "leans"
   },
   {
    "candidate_id": "us-senate-fl-nixon",
@@ -2081,16 +2065,6 @@
   },
   {
    "candidate_id": "us-senate-fl-nixon",
-   "question": "healthcare",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.736,
-   "error": "Gemma timed out"
-  },
-  {
-   "candidate_id": "us-senate-fl-nixon",
    "question": "enforcement",
    "stance": "no",
    "quote": "It is time we had the courage to say it plainly: mass incarceration and mass deportation are moral failures, and I will fight in the United States Senate to end them.",
@@ -2119,13 +2093,22 @@
   },
   {
    "candidate_id": "us-senate-fl-nixon",
+   "question": "healthcare",
+   "stance": "yes",
+   "quote": "Capping prescription drug costs and ending price gouging by drug companies.",
+   "url": "https://angienixon.com/priorities/",
+   "why": "The candidate explicitly supports capping the cost of prescription drugs.",
+   "similarity": 0.736,
+   "reading": "stated"
+  },
+  {
+   "candidate_id": "us-senate-fl-nixon",
    "question": "taxes",
    "stance": "none",
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.743,
-   "error": "Gemma timed out"
+   "similarity": 0.743
   }
  ]
 }

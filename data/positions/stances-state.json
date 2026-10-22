@@ -1,7 +1,7 @@
 {
  "model": "gemma-4-31b-it",
  "embeddingModel": "gemini-embedding-2",
- "built": "2026-10-10T20:26:40.655Z",
+ "built": "2026-10-22T14:56:19.318Z",
  "stances": [
   {
    "candidate_id": "fl-ag-rodriguez",
@@ -40,16 +40,6 @@
    "url": "",
    "why": "",
    "similarity": 0.702
-  },
-  {
-   "candidate_id": "fl-ag-rodriguez",
-   "question": "everglades",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.738,
-   "error": "Gemma timed out"
   },
   {
    "candidate_id": "fl-ag-rodriguez",
@@ -151,6 +141,15 @@
    "url": "",
    "why": "",
    "similarity": 0.697
+  },
+  {
+   "candidate_id": "fl-ag-rodriguez",
+   "question": "everglades",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.738
   },
   {
    "candidate_id": "fl-ag-uthmeier",
@@ -491,16 +490,6 @@
   },
   {
    "candidate_id": "fl-agr-simpson",
-   "question": "species",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.751,
-   "error": "Gemma timed out"
-  },
-  {
-   "candidate_id": "fl-agr-simpson",
    "question": "housing",
    "stance": "none",
    "quote": "",
@@ -593,6 +582,15 @@
    "reading": "leans"
   },
   {
+   "candidate_id": "fl-agr-simpson",
+   "question": "species",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.751
+  },
+  {
    "candidate_id": "fl-cfo-ingoglia",
    "question": "flooding",
    "stance": "none",
@@ -600,16 +598,6 @@
    "url": "",
    "why": "",
    "similarity": 0.716
-  },
-  {
-   "candidate_id": "fl-cfo-ingoglia",
-   "question": "insurance",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.72,
-   "error": "Gemma timed out"
   },
   {
    "candidate_id": "fl-cfo-ingoglia",
@@ -640,26 +628,6 @@
   },
   {
    "candidate_id": "fl-cfo-ingoglia",
-   "question": "species",
-   "stance": "yes",
-   "quote": "As a State Senator, Blaise Ingoglia was among the first legislators to oppose building hotels and golf courses in our state parks.",
-   "url": "https://blaiseforflorida.com/issues/",
-   "why": "The candidate has a record of opposing development in natural areas to preserve Florida's environment.",
-   "similarity": 0.709,
-   "reading": "leans"
-  },
-  {
-   "candidate_id": "fl-cfo-ingoglia",
-   "question": "housing",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.692,
-   "error": "Gemma timed out"
-  },
-  {
-   "candidate_id": "fl-cfo-ingoglia",
    "question": "wages",
    "stance": "none",
    "quote": "",
@@ -678,42 +646,12 @@
   },
   {
    "candidate_id": "fl-cfo-ingoglia",
-   "question": "immigration",
-   "stance": "no",
-   "quote": "For years, Blaise has been the go-to voice in the legislature to stop illegal immigration.",
-   "url": "https://blaiseforflorida.com/issues/",
-   "why": "The candidate's record and stated goal of stopping illegal immigration point toward opposition to providing a path to legal status.",
-   "similarity": 0.73,
-   "reading": "leans"
-  },
-  {
-   "candidate_id": "fl-cfo-ingoglia",
-   "question": "fema",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.697,
-   "error": "Gemma timed out"
-  },
-  {
-   "candidate_id": "fl-cfo-ingoglia",
    "question": "healthcare",
    "stance": "none",
    "quote": "",
    "url": "",
    "why": "",
    "similarity": 0.647
-  },
-  {
-   "candidate_id": "fl-cfo-ingoglia",
-   "question": "enforcement",
-   "stance": "yes",
-   "quote": "Blaise’s message to illegal immigrants has been even clearer – you can go home, or you can go to Alligator Alcatraz, the choice is yours.",
-   "url": "https://blaiseforflorida.com/issues/",
-   "why": "The quote indicates a preference for the deportation or detention of illegal immigrants.",
-   "similarity": 0.678,
-   "reading": "leans"
   },
   {
    "candidate_id": "fl-cfo-ingoglia",
@@ -726,13 +664,39 @@
   },
   {
    "candidate_id": "fl-cfo-ingoglia",
+   "question": "insurance",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.72
+  },
+  {
+   "candidate_id": "fl-cfo-ingoglia",
+   "question": "housing",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.692
+  },
+  {
+   "candidate_id": "fl-cfo-ingoglia",
+   "question": "fema",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.697
+  },
+  {
+   "candidate_id": "fl-cfo-ingoglia",
    "question": "transit",
    "stance": "none",
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.712,
-   "error": "Gemma timed out"
+   "similarity": 0.712
   },
   {
    "candidate_id": "fl-cfo-ingoglia",
@@ -741,8 +705,35 @@
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.693,
-   "error": "Gemma timed out"
+   "similarity": 0.693
+  },
+  {
+   "candidate_id": "fl-cfo-ingoglia",
+   "question": "species",
+   "stance": "yes",
+   "quote": "In the Senate, he killed a bill that would have opened Florida’s farmland to rampant overdevelopment.",
+   "url": "https://blaiseforflorida.com/issues/",
+   "why": "The candidate has a record of opposing development to preserve land.",
+   "similarity": 0.726,
+   "reading": "leans"
+  },
+  {
+   "candidate_id": "fl-cfo-ingoglia",
+   "question": "immigration",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.698
+  },
+  {
+   "candidate_id": "fl-cfo-ingoglia",
+   "question": "enforcement",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.641
   },
   {
    "candidate_id": "fl-cfo-taddeo",
@@ -797,16 +788,6 @@
    "url": "",
    "why": "",
    "similarity": 0.725
-  },
-  {
-   "candidate_id": "fl-cfo-taddeo",
-   "question": "housing",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.722,
-   "error": "Gemma timed out"
   },
   {
    "candidate_id": "fl-cfo-taddeo",
@@ -882,13 +863,21 @@
   },
   {
    "candidate_id": "fl-cfo-taddeo",
+   "question": "housing",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.722
+  },
+  {
+   "candidate_id": "fl-cfo-taddeo",
    "question": "taxes",
    "stance": "none",
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.726,
-   "error": "Gemma timed out"
+   "similarity": 0.726
   },
   {
    "candidate_id": "fl-gov-donalds",
@@ -965,16 +954,6 @@
   },
   {
    "candidate_id": "fl-gov-donalds",
-   "question": "college",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.704,
-   "error": "Gemma timed out"
-  },
-  {
-   "candidate_id": "fl-gov-donalds",
    "question": "immigration",
    "stance": "no",
    "quote": "We must secure our borders, keep local neighborhoods safe, stop taxpayer handouts to illegal immigration, and keep deadly drugs off our streets.",
@@ -1032,13 +1011,21 @@
   },
   {
    "candidate_id": "fl-gov-donalds",
+   "question": "college",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.704
+  },
+  {
+   "candidate_id": "fl-gov-donalds",
    "question": "taxes",
    "stance": "none",
    "quote": "",
    "url": "",
    "why": "",
-   "similarity": 0.769,
-   "error": "Gemma timed out"
+   "similarity": 0.769
   },
   {
    "candidate_id": "fl-gov-jolly",
@@ -1221,16 +1208,6 @@
   },
   {
    "candidate_id": "fl-house-106-baez-geller",
-   "question": "drilling",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.682,
-   "error": "Gemma timed out"
-  },
-  {
-   "candidate_id": "fl-house-106-baez-geller",
    "question": "everglades",
    "stance": "yes",
    "quote": "We need real investment in resilience to protect our oceans, defend our water supply, and keep our neighborhoods healthy, safe, and livable for generations to come.",
@@ -1340,6 +1317,15 @@
    "url": "",
    "why": "",
    "similarity": 0.696
+  },
+  {
+   "candidate_id": "fl-house-106-baez-geller",
+   "question": "drilling",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.682
   },
   {
    "candidate_id": "fl-house-106-basabe",
@@ -1593,16 +1579,6 @@
   },
   {
    "candidate_id": "fl-house-108-campbell",
-   "question": "healthcare",
-   "stance": "none",
-   "quote": "",
-   "url": "",
-   "why": "",
-   "similarity": 0.664,
-   "error": "Gemma timed out"
-  },
-  {
-   "candidate_id": "fl-house-108-campbell",
    "question": "enforcement",
    "stance": "none",
    "quote": "",
@@ -1636,6 +1612,15 @@
    "url": "",
    "why": "",
    "similarity": 0.684
+  },
+  {
+   "candidate_id": "fl-house-108-campbell",
+   "question": "healthcare",
+   "stance": "none",
+   "quote": "",
+   "url": "",
+   "why": "",
+   "similarity": 0.664
   },
   {
    "candidate_id": "fl-house-108-francius",

@@ -262,6 +262,36 @@
    "url": "https://voteview.com/rollcall/RS1190644"
   },
   {
+   "candidate_id": "us-senate-fl-moody",
+   "question": "wages",
+   "stance": "no",
+   "voted": "nay",
+   "bill": "H.Con.Res. 14",
+   "date": "2025-04-05",
+   "text": "Voted NO on an amendment to let the Senate raise the federal minimum wage to $17 an hour by a simple majority (H.Con.Res. 14, 2025-04-05).",
+   "url": "https://voteview.com/rollcall/RS1190184"
+  },
+  {
+   "candidate_id": "us-senate-fl-moody",
+   "question": "enforcement",
+   "stance": "yes",
+   "voted": "nay",
+   "bill": "S. 2",
+   "date": "2026-06-04",
+   "text": "Voted NO on a motion to move U.S. Immigration and Customs Enforcement funding to child-care grants (S. 2, 2026-06-04).",
+   "url": "https://voteview.com/rollcall/RS1190808"
+  },
+  {
+   "candidate_id": "us-senate-fl-moody",
+   "question": "immigration",
+   "stance": "no",
+   "voted": "nay",
+   "bill": "S. 2",
+   "date": "2026-06-05",
+   "text": "Voted NO on a motion to use U.S. Immigration and Customs Enforcement funds to process DACA (Dreamer) applications on time (S. 2, 2026-06-05).",
+   "url": "https://voteview.com/rollcall/RS1190811"
+  },
+  {
    "candidate_id": "fl-gov-donalds",
    "question": "enforcement",
    "stance": "yes",

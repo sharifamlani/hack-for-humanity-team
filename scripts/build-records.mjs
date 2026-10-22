@@ -30,6 +30,9 @@ const ROLLS = [
   { chamber: "H", roll: 584, question: "housing", yea: "yes", bill: "H.R. 6644", what: "the Housing for the 21st Century Act, a bill to increase the supply of housing" },
   { chamber: "S", roll: 712, question: "housing", yea: "yes", bill: "H.R. 6644", what: "the Housing for the 21st Century Act, a bill to increase the supply of housing" },
   { chamber: "S", roll: 644, question: "healthcare", yea: "yes", bill: "S. 3385", what: "moving ahead on a bill to extend the enhanced health-insurance premium tax credits" },
+  { chamber: "S", roll: 184, question: "wages", yea: "yes", bill: "H.Con.Res. 14", what: "an amendment to let the Senate raise the federal minimum wage to $17 an hour by a simple majority" },
+  { chamber: "S", roll: 808, question: "enforcement", yea: "no", bill: "S. 2", what: "a motion to move U.S. Immigration and Customs Enforcement funding to child-care grants" },
+  { chamber: "S", roll: 811, question: "immigration", yea: "yes", bill: "S. 2", what: "a motion to use U.S. Immigration and Customs Enforcement funds to process DACA (Dreamer) applications on time" },
 ];
 
 async function table(name) {

@@ -46,6 +46,13 @@ export function tally(answers: Answers, candidateId: string, party: string) {
   return { own, guess };
 }
 
+// A closest match is starred only when it rests on enough real evidence: at least this many
+// of the voter's answered questions matched against the candidate's recorded votes or own
+// words. Below that it is still named, but labelled thin evidence.
+export const STAR_MIN_POSITIONS = 4;
+export const ownPositions = (answers: Answers, candidateId: string, party: string) =>
+  tally(answers, candidateId, party).own.of;
+
 // ---- One left-right line -------------------------------------------------------------
 // A rough placement, not a measurement. For the questions that divide the two parties,
 // one answer is the usual left answer and the other the usual right answer.

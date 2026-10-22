@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { matchScore, type Answers, type Placement } from "@/lib/match";
+import { STAR_MIN_POSITIONS, matchScore, ownPositions, type Answers, type Placement } from "@/lib/match";
 import { hasEvidence } from "@/lib/questions";
 import type { Candidate, LookupResult } from "@/lib/types";
 
@@ -40,6 +40,14 @@ function RaceBlock({
   const tie =
     ranked.length > 1 && scores.get(ranked[0].candidate_id)!.score - scores.get(ranked[1].candidate_id)!.score < 0.03;
   const best = tie ? null : ranked[0];
+  // The star needs real evidence behind it; a closest match on a few positions is named but not starred.
+  const bestPositions = best ? ownPositions(answers, best.candidate_id, best.party) : 0;
+  const thin = !!best && bestPositions < STAR_MIN_POSITIONS;
+  // Candidates we can score come first, in ballot order, so rows stay put when the percentages settle.
+  const rows = [
+    ...race.candidates.filter((c) => scores.get(c.candidate_id)),
+    ...race.candidates.filter((c) => !scores.get(c.candidate_id)),
+  ];
 
   return (
     <div className="mt-4">
@@ -56,9 +64,10 @@ function RaceBlock({
         <h3 className="font-bold text-coral">{race.office}</h3>
       )}
       <ul className="divide-y divide-foreground/10">
-        {race.candidates.map((c: Candidate) => {
+        {rows.map((c: Candidate) => {
           const m = scores.get(c.candidate_id);
           const isBest = best?.candidate_id === c.candidate_id;
+          const starred = isBest && !thin;
           const isMeasure = c.office_level === "ballot_measure";
           return (
             <li key={c.candidate_id} className="flex flex-wrap items-center gap-x-3 gap-y-2 py-3">
@@ -85,10 +94,14 @@ function RaceBlock({
               {m && (
                 <span
                   className={`w-32 shrink-0 rounded-full px-3 py-1 text-center text-sm font-black ${
-                    isBest ? "bg-accent text-background" : "border border-foreground/25 text-foreground/70"
+                    starred
+                      ? "bg-accent text-background"
+                      : isBest
+                        ? "border border-accent text-accent"
+                        : "border border-foreground/25 text-foreground/70"
                   }`}
                 >
-                  {isBest && "★ "}
+                  {starred && "★ "}
                   {Math.round(m.score * 100)}% match
                 </span>
               )}
@@ -98,6 +111,11 @@ function RaceBlock({
       </ul>
       {scored && open && evidence(race.office)}
       {scored && tie && !open && <p className="text-sm text-foreground/60">Too close to call between the top two.</p>}
+      {scored && best && thin && !open && (
+        <p className="text-sm text-foreground/60">
+          Closest, on thin evidence: {best.name} ({bestPositions} {bestPositions === 1 ? "position" : "positions"} in their own words or votes).
+        </p>
+      )}
     </div>
   );
 }
@@ -146,7 +164,8 @@ export function BallotStep({
         </p>
       </div>
 
-      <div className="grid items-start gap-4 lg:grid-cols-[300px_1fr]">
+      {/* minmax(0,1fr): an open evidence grid scrolls inside its column instead of widening it. */}
+      <div className="grid items-start gap-4 lg:grid-cols-[300px_minmax(0,1fr)]">
         <section className="panel-purple p-6">
           <p className="eyebrow">Your address</p>
           <p className="display mt-1 text-2xl">{street || geo.city || "Miami-Dade"}</p>

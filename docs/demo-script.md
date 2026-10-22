@@ -27,8 +27,8 @@ version and take questions inside the slot.**
 
 ### 1. Two-minute version
 
-Click order: home, **Try: 2750 NW 3rd Ave** , **Start** (lands straight in the typed 10 questions; for voice tap **Talk instead**, then **Ask me** if the
-mic test passed), type ONE answer, tap the rest, **See where I stand**, point at the
+Click order: home, **Try: 2750 NW 3rd Ave** , **Start**, **Ask me** (voice first; one tap starts the AI talking;
+**I'd rather type** is the fallback), answer ONE question out loud, tap the rest, **See where I stand**, point at the
 district-changed card, open **U.S. House** evidence, **Build my voting plan**, early-voting banner, **Take my choices to the polls** (one-page PDF)
 (and the QR if it shows).
 

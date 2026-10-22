@@ -4,7 +4,7 @@
 **[Hack for Humanity: Miami](https://events.mlh.com/events/14790-hack-for-humanity-miami)**,
 an MLH-hosted civic-innovation hackathon presented by The AI Collective at The LAB Miami.
 
-- **Live app:** https://hack-for-humanity-team.vercel.app
+- **Live app:** https://yourballotyourblock.com (also at https://hack-for-humanity-team.vercel.app)
 - **Code:** https://github.com/sharifamlani/hack-for-humanity-team (public, [MIT](LICENSE))
 - **Built:** all code was written during the build window on Saturday, Oct 10, 2026.
 

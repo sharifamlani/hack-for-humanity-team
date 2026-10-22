@@ -103,9 +103,17 @@ export function PollingStep({
   const { polling, earlyVoting } = result;
   const [making, setMaking] = useState(false);
   const [failed, setFailed] = useState(false);
+  // Tapped while Gemma 4 was still placing: the button turns into "Open my PDF" when it is done.
+  // A second tap opens it, because phones block a download that a tap did not start.
+  const [wanted, setWanted] = useState(false);
 
   // Built on the device (lib/votingPlanPdf.ts): the answers and address never leave it.
   async function takeToPolls() {
+    if (placing) {
+      setWanted(true);
+      return;
+    }
+    setWanted(false);
     setMaking(true);
     setFailed(false);
     try {
@@ -276,11 +284,26 @@ export function PollingStep({
       </p>
 
       <section className="flex flex-col gap-2">
-        <button type="button" onClick={takeToPolls} disabled={placing || making} className={`btn-primary w-full text-lg ${placing ? "animate-pulse" : ""}`}>
-          {placing ? "Finishing your matches…" : making ? "Making your PDF…" : "Take my choices to the polls ↓"}
+        <button
+          type="button"
+          onClick={takeToPolls}
+          disabled={making || (placing && wanted)}
+          className={`btn-primary w-full text-lg ${placing && wanted ? "animate-pulse" : ""}`}
+        >
+          {making
+            ? "Making your PDF…"
+            : placing && wanted
+              ? "Getting your matches ready…"
+              : wanted
+                ? "Open my PDF ↓"
+                : "Take my choices to the polls ↓"}
         </button>
         {failed ? (
           <p className="text-sm font-semibold text-coral">Couldn&apos;t make the PDF. Try again.</p>
+        ) : placing ? (
+          <p className="text-sm text-foreground/70">
+            Gemma 4 is finishing your matches; it takes about 25 seconds. Tap now and your PDF will be ready to open.
+          </p>
         ) : (
           <p className="text-sm text-foreground/70">
             A one-page PDF of your matches and your voting plan. Made on your device; nothing is sent anywhere.

@@ -138,15 +138,8 @@ function planLines({ result }: VotingPlanInput): [string, string][] {
       `FL-${geo.congressional}${result.districtChanged ? ` (new map; was FL-${result.oldDistrict})` : ""} · State Senate ${geo.stateSenate} · State House ${geo.stateHouse}`,
     ],
   ];
-  if (polling) {
-    lines.push([
-      "Where you vote",
-      `${polling.name}${polling.temporary ? " (temporary site)" : ""}, ${polling.address}, ${polling.city} ${polling.zip} · Precinct ${polling.precinct} · most likely; confirm with the county`,
-    ]);
-  } else {
-    lines.push(["Where you vote", "Find your polling place at votemiamidade.gov"]);
-  }
-  lines.push(["Election Day", `${ELECTION_DAY} · 7 AM – 7 PM`]);
+  // Same two lanes as the screen: early voting at ANY site in the county, Election Day only at
+  // the precinct's polling place.
   const opens = earlyVoting.map((s) => s.opens).filter((n): n is number => n != null);
   const closes = earlyVoting.map((s) => s.closes).filter((n): n is number => n != null);
   if (opens.length && closes.length && earlyVoting[0]) {
@@ -155,10 +148,18 @@ function planLines({ result }: VotingPlanInput): [string, string][] {
     if (windowStatus(todayNumber(), dayNumber(first), dayNumber(last)) !== "after") {
       const near = earlyVoting[0];
       lines.push([
-        "Early voting",
-        `${weekdayDate(first)} – ${weekdayDate(last)} · ${EARLY_VOTING_HOURS} Nearest: ${near.name}, ${near.address}`,
+        "Vote early",
+        `${weekdayDate(first)} – ${weekdayDate(last)} · ${EARLY_VOTING_HOURS} Any early-voting site in Miami-Dade works. Closest: ${near.name}, ${near.address}`,
       ]);
     }
+  }
+  if (polling) {
+    lines.push([
+      "Election Day",
+      `${ELECTION_DAY} · 7 AM – 7 PM · only at your precinct's polling place: ${polling.name}${polling.temporary ? " (temporary site)" : ""}, ${polling.address}, ${polling.city} ${polling.zip} · Precinct ${polling.precinct} · most likely; confirm with the county`,
+    ]);
+  } else {
+    lines.push(["Election Day", `${ELECTION_DAY} · 7 AM – 7 PM · find your polling place at votemiamidade.gov`]);
   }
   return lines.map(([a, b]) => [a, clean(b)]);
 }
@@ -169,7 +170,7 @@ function font(doc: JsPdf, bold: boolean, size: number) {
 }
 
 const LABEL_W = 78;
-const planBold = (label: string) => label === "Where you vote" || label === "Address";
+const planBold = (label: string) => label === "Election Day" || label === "Address";
 
 function planHeight(doc: JsPdf, lines: [string, string][], k: number) {
   return lines.reduce((h, [label, v]) => {

@@ -219,9 +219,9 @@ export function PollingStep({ result }: { result: LookupResult }) {
               <img
                 src="/qr-live-site.png"
                 alt={`QR code linking to ${LIVE_URL}`}
-                width={120}
-                height={120}
-                className="h-[120px] w-[120px] shrink-0 rounded-lg bg-white p-2"
+                width={168}
+                height={168}
+                className="h-[168px] w-[168px] shrink-0 rounded-lg bg-white p-2"
               />
               <div className="min-w-0">
                 <p className="display text-xl">Try it on your phone:</p>

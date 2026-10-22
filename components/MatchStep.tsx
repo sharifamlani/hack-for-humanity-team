@@ -310,11 +310,11 @@ export function MatchStep({
 
       {(answered || !openSaid) && races.map((race) => {
         // Narrow enough minimums that a three-way race fits the ballot column at 1280px.
-        const cols = { gridTemplateColumns: `minmax(150px,1.1fr) repeat(${race.candidates.length}, minmax(140px,1fr))` };
+        const cols = { gridTemplateColumns: `minmax(140px,1.1fr) repeat(${race.candidates.length}, minmax(135px,1fr))` };
         return (
           <section key={race.office} className={embedded ? "flex flex-col" : "card flex flex-col p-5"}>
             <div className="overflow-x-auto">
-              <div className="grid gap-x-5" style={cols}>
+              <div className="grid gap-x-4" style={cols}>
                 <p className="text-sm text-foreground/70">{race.office}</p>
                 {race.candidates.map((c) => {
                   const t = tally(answers, c.candidate_id, c.party);

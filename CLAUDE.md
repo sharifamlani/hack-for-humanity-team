@@ -349,8 +349,8 @@ in `components/MatchStep.tsx`. All untouched.
 
 **How to turn it back on:** set `OPEN_TALK = true` in `app/page.tsx`. That restores the
 "I'll tell you what I care about" button on the voice start screen (`VoiceInterview` shows it only
-when `onOpen` is passed). Note that the default is now the typed 10 questions straight after the
-address, so the chooser screen only appears via "Talk instead".
+when `onOpen` is passed). Since 2026-10-22 evening the default after the address is the voice start
+screen (voice first, one tap on "Ask me"); "I'd rather type" switches to the typed questions.
 
 **The recommended redesign before re-enabling** (not a separate pipeline): Gemma 4 turns what the
 person said into answers to the 10 interview questions ("you said rent is crushing you, so Yes on

@@ -1,6 +1,6 @@
 # ROADMAP — Hack for Humanity: Miami
 
-**Version:** v2.12
+**Version:** v2.13
 **Canonical execution directive for this repo.** If any other doc disagrees with this file,
 this file wins or the other doc gets corrected.
 
@@ -8,7 +8,7 @@ this file wins or the other doc gets corrected.
 
 ## §0 — You are here
 
-**▶ NOW: Phase 6 — DeepStation AI Demo Night, Thursday Oct 22, 2026, The LAB Miami.** **Code frozen: tag `demo-night-final` → `b411bc3`, live at https://yourballotyourblock.com.** Mic test and two rehearsals done (Sharif). A friend is confirming the 7:50 PM Demo 3 slot with Grant Kurz. Left: 6.21 backup screen recording; 6.22 after the event. Next build work: 6.28 (10-question rework), after the event.
+**▶ NOW: Phase 6 — DeepStation AI Demo Night, Thursday Oct 22, 2026, The LAB Miami.** **Code frozen: tag `demo-night-final` → `76daffc` (voice first), live at https://yourballotyourblock.com.** Mic test and two rehearsals done (Sharif). A friend is confirming the 7:50 PM Demo 3 slot with Grant Kurz. Left: 6.21 backup screen recording; 6.22 after the event. Next build work: 6.28 (10-question rework), after the event.
 
 **🏆 GRAND CHAMPION — Hack for Humanity: Miami, Saturday Oct 10, 2026.** The event is over and the build won the top prize. **Next unblocked:** keep the repo public (required to stay prize-eligible); follow up on the commercialization invitation. Everything below this line is the record of the build day.
 
@@ -136,7 +136,7 @@ fiction. The shape is fixed, though:
 | 6.17 | `docs/demo-script.md`: Demo Night section — 2-minute core, 7-minute extended, Q&A prep for a red-teaming audience | ✅ | 2026-10-22 · `a2127ea`, `8983701` · timings updated to today's measurements | plan · F6 |
 | 6.18 | Rehearsal 1, timed, production URL | ✅ | 2026-10-22 · Sharif, done | demo-script |
 | 6.19 | Rehearsal 2, timed, production URL | ✅ | 2026-10-22 · Sharif, done | demo-script |
-| 6.20 | **Code freeze 3:00 PM** (Sharif leaves at 4:00): tag `demo-night-final`, push | ✅ | 2026-10-22 · tag `demo-night-final` → `b411bc3` (first set at 2:05 PM on `3ea4fbe`; moved for the two-lane voting plan) | plan |
+| 6.20 | **Code freeze 3:00 PM** (Sharif leaves at 4:00): tag `demo-night-final`, push | ✅ | 2026-10-22 · tag `demo-night-final` → `76daffc` (first set at 2:05 PM on `3ea4fbe`; moved for the two-lane voting plan, then for voice first) | plan |
 | 6.21 | Screen recording of the full path as last-resort fallback; phone hotspot and charger packed | ⏸ | | demo-script · Fallback plan |
 | 6.22 | After the event: flip rows, §0 banner, changelog | ⏸ | | CLAUDE.md |
 | 6.23 | Polling places checked against the Supervisor of Elections' official 10/15/2026 precinct list; 4 moved precincts corrected, temporary sites labelled | ✅ | 2026-10-22 · `376c008`, `3c1a699` · `verify-polling-places.mjs` 756/756; prod shows New Shiloh (253), Glendale Baptist (801, temporary) | QA agents |
@@ -167,6 +167,7 @@ against production, not localhost.
 
 ## §6 — Changelog
 
+- **2026-10-22 (7:30 PM) — voice first after the address** (`76daffc`; freeze tag moved to it). Sharif, after checking the app before the demo: the interview must be voice first, not text first. After the address the voter lands on the voice start screen, "Ask me" (one tap, because browsers only start the mic and audio from a tap), with "I'd rather type" as the fallback and "Talk instead" to go back. Verified on production: the address leads to the voice screen (no free-talk option), typed↔voice both ways, and a cold browser with a fake mic hears question 1 and moves to 2 of 10 on a tap; no console errors. Demo script, README and CLAUDE.md updated.
 - **2026-10-22 (2:35 PM) — final QA before leaving for the venue: GO.** Read-only, against production at `demo-night-final` → `b411bc3` (no app changes since the tag; HEAD = origin, nothing unpushed; deploy Ready). Address mapping 17/17 (county 2026 layers, a second geocoder, ballot races, polling distance). Data on a clean worktree: 0 quotes missing (157 positions), closest passages 0 unreviewed / 0 stale, 108 roster rows 0 unsourced, polling places 756/756 match the official list (17 temporary sites match). Share links + link preview PASS. Domain: apex 200, www/http 308, vercel.app 200, cert to 2027-01-20; icons and QR 200. Load: 10/10 concurrent placements, slowest 27.6 s. Voice token 200 in 0.4 s. End-to-end in Chrome (venue address, demo click order): straight into the questions, typed answer read in 11.9 s, 10 recorded, placement 29.7 s, stars Gilbert / Abrams / Simpson, 4 thin, 1 tie, no 100%/0% scores, U.S. House evidence 13 sources with no grid overflow, both voting-plan lanes, share card with 8 buttons, PDF 1 page with lane wording and no 'vote for', 0 JS errors, 0 console errors. Phone width (390 px): 0 elements overflowing on home, questions, ballot and voting plan.
 - **2026-10-22 (2:45 PM) — voting plan: two lanes** (`70a1234`, `b411bc3`; freeze tag moved from `3ea4fbe` to `b411bc3`). Sharif asked whether the screen made clear that early voting and Election Day happen at different places. It did not: the banner named one early-voting site as "Nearest", and the biggest text was the Election Day polling place with its date below the fold. Now there are two lanes: "1 · Vote early · Now through Sun, Nov 1 · Any early-voting site in Miami-Dade works. Closest to you: ..." and "2 · Vote on Election Day · Tue, Nov 3 · Only at your precinct's polling place: ...". Lane 1 closes by itself after Nov 1. The map is removed (Directions links stay), and "Before you go" is one line. The PDF's plan block now uses the same wording. Checked on production in Chrome at desktop width and in a 390 px frame (no sideways scroll), no console errors; PDF one page with the new wording.
 - **2026-10-22 (2:05 PM) — code freeze for Demo Night.** Tag `demo-night-final` → `3ea4fbe`, the commit production serves (everything after it is docs only). Sharif: real-mic answer on production works, two timed rehearsals done, and a friend is confirming the slot with Grant Kurz. Rows 6.16, 6.18, 6.19 and 6.20 done.

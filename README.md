@@ -33,10 +33,11 @@ never voted, three things are hard at once:
 
 1. **Find your district.** Type an address or share your phone's location. The app shows your
    congressional district on the old and new maps and says if it changed.
-2. **Answer 10 Miami questions.** Right after the address, the app asks about flooding, home
+2. **Talk through 10 Miami questions.** Right after the address, a voice guide asks out loud about flooding, home
    insurance, the Everglades, housing, college costs, a path to legal status, hurricane relief,
-   health-care costs, immigration enforcement and transit. Type an answer in your own words, or
-   tap Yes / No / Not sure. "Talk instead" switches to a voice interview.
+   health-care costs, immigration enforcement and transit. Answer in your own words, or tap
+   Yes / No / Not sure. One tap on "Ask me" starts it (browsers only start the microphone from a
+   tap); "I'd rather type" switches to typing.
 3. **See your ballot, with your closest match in each race.** Every race for your address, from
    Congress to judges and ballot questions, with a match percentage for each scored candidate.
    The closest candidate gets a **star only when the match rests on 4 or more of their own
@@ -67,7 +68,7 @@ address / phone location
    -> Miami-Dade ArcGIS: old-map district, precinct, polling place, early voting  (lib/arcgis.ts)
       + corrections from the Supervisor of Elections' official 10/15 list          (data/polling-overrides.json)
    -> ballot for that address from data/candidates.json                           (lib/ballot.ts)
-   -> 10-question interview, typed or by voice                                    (components/InterviewStep.tsx, VoiceInterview.tsx, lib/liveVoice.ts)
+   -> 10-question interview, voice first or typed                                   (components/InterviewStep.tsx, VoiceInterview.tsx, lib/liveVoice.ts)
    -> Gemma 4 places the voter on a left-right line                               (app/api/place, lib/usePlacement.ts)
    -> match per race: agreement + line closeness, star rule                       (lib/match.ts, lib/raceMatch.ts)
    -> ballot, evidence, voting plan                                               (components/BallotStep.tsx, MatchStep.tsx, PollingStep.tsx)

@@ -58,6 +58,9 @@ export function VoiceInterview({
   const indexRef = useRef(0);
   const heard = useRef("");
   const newAiTurn = useRef(true);
+  // Set by a tap until it is the person's turn again: the model sometimes records an answer
+  // of its own right after being told about the tap, which skipped a question.
+  const tapPending = useRef(false);
 
   useEffect(() => () => voice.current?.stop(), []);
 
@@ -71,6 +74,9 @@ export function VoiceInterview({
     setIndex(indexRef.current);
     heard.current = "";
     setMyLine("");
+    // The last question's words leave with it; the new question shows until the voice speaks.
+    setAiLine("");
+    newAiTurn.current = true;
     if (!next) voice.current?.finish();
     return next ? askLine(next) : DONE_LINE;
   }
@@ -103,6 +109,7 @@ export function VoiceInterview({
       onState: (s) => {
         setState(s);
         if (s === "listening" || s === "thinking") newAiTurn.current = true;
+        if (s === "listening") tapPending.current = false;
       },
       // The words of a new turn often arrive before its first audio, so the line restarts on
       // the first words, not on the audio (which used to wipe the start of the question).
@@ -122,6 +129,9 @@ export function VoiceInterview({
       onAnswer: (stance) => {
         const current = QUESTIONS[indexRef.current];
         if (!current) return { recorded: false, next: DONE_LINE };
+        if (tapPending.current) {
+          return { recorded: false, next: `Nothing recorded: the person has not answered this one yet. ${askLine(current)}` };
+        }
         const said = heard.current;
         onAnswer(current.id, stance === "yes" ? "yea" : stance === "no" ? "nay" : "unsure", said);
         confirmWithGemma(current.id, said);
@@ -143,6 +153,7 @@ export function VoiceInterview({
 
   function tap(stance: Stance) {
     if (!question) return;
+    tapPending.current = true;
     onAnswer(question.id, stance);
     const next = advance();
     voice.current?.instruct(
@@ -193,9 +204,12 @@ export function VoiceInterview({
         {Math.min(index + 1, QUESTIONS.length)} of {QUESTIONS.length}
       </p>
       <h1 className="display border-b border-foreground/25 pb-3 text-3xl lg:text-4xl">Let&apos;s talk about what matters.</h1>
-      {/* Everything the voice is saying, whole; the written question until its first words arrive. */}
+      {/* The voice's own words while it speaks. Once it stops, they stay only if they arrived
+          whole (Gemini Live's transcript sometimes stops mid-sentence); otherwise the written
+          question takes their place, so the person always answers a complete question. */}
       <p className="display min-h-20 max-w-xl text-2xl lg:text-3xl">
-        {aiLine || (question ? question.question : "That's everything. Let's see where you stand.")}
+        {(state === "speaking" || /[?.!]\s*$/.test(aiLine) ? aiLine : "") ||
+          (question ? question.question : "That's everything. Let's see where you stand.")}
       </p>
 
       <div className="relative my-2 flex h-48 w-48 items-center justify-center">

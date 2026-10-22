@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { EARLY_VOTING_HOURS, dayNumber, todayNumber, weekdayDate, windowStatus } from "@/lib/dates";
 import type { Answers, Placement } from "@/lib/match";
 import type { LookupResult } from "@/lib/types";
@@ -65,17 +65,17 @@ export function PollingStep({
   const early = earlyWindow(earlyVoting);
   const [making, setMaking] = useState(false);
   const [failed, setFailed] = useState(false);
-  // Tapped while Gemma 4 was still placing: the button turns into "Open my PDF" when it is done.
-  // A second tap opens it, because phones block a download that a tap did not start.
+  // Tapped while Gemma 4 was still placing: the PDF downloads by itself the moment it is done,
+  // so the voter only ever taps once.
   const [wanted, setWanted] = useState(false);
 
+  // Load the PDF library as soon as the plan opens, so the tap does not wait for it.
+  useEffect(() => {
+    void import("jspdf");
+  }, []);
+
   // Built on the device (lib/votingPlanPdf.ts): the answers and address never leave it.
-  async function takeToPolls() {
-    if (placing) {
-      setWanted(true);
-      return;
-    }
-    setWanted(false);
+  async function makePdf() {
     setMaking(true);
     setFailed(false);
     try {
@@ -87,6 +87,22 @@ export function PollingStep({
       setMaking(false);
     }
   }
+
+  function takeToPolls() {
+    if (placing) setWanted(true);
+    else void makePdf();
+  }
+
+  // The placement finished after the tap: download now.
+  useEffect(() => {
+    if (!wanted || placing) return;
+    queueMicrotask(() => {
+      setWanted(false);
+      void makePdf();
+    });
+    // makePdf reads the latest result/answers/me; only these two flags should trigger it.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [wanted, placing]);
   return (
     <main className="flex flex-1 flex-col gap-5">
       {result.savedExample && (
@@ -217,16 +233,14 @@ export function PollingStep({
           {making
             ? "Making your PDF…"
             : placing && wanted
-              ? "Getting your matches ready…"
-              : wanted
-                ? "Open my PDF ↓"
-                : "Take my choices to the polls ↓"}
+              ? "Finishing your matches… your PDF will download by itself"
+              : "Take my choices to the polls ↓"}
         </button>
         {failed ? (
           <p className="text-sm font-semibold text-coral">Couldn&apos;t make the PDF. Try again.</p>
         ) : placing ? (
           <p className="text-sm text-foreground/70">
-            Gemma 4 is finishing your matches; it takes about 25 seconds. Tap now and your PDF will be ready to open.
+            Gemma 4 is finishing your matches (about 25 seconds). Tap now; your PDF downloads as soon as they are ready.
           </p>
         ) : (
           <p className="text-sm text-foreground/70">

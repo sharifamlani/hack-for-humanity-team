@@ -20,21 +20,42 @@ export function ShareCard() {
   const [copied, setCopied] = useState(false);
   const [hint, setHint] = useState<string | null>(null);
 
-  async function copyLink(then?: string) {
+  // Copies inside the tap itself. navigator.clipboard.writeText can wait indefinitely when the
+  // tab is not focused, which left the button with no feedback, so the synchronous copy goes
+  // first and the async API is the fallback.
+  function copyLink(then?: string) {
+    const area = document.createElement("textarea");
+    area.value = SHARE_URL;
+    area.setAttribute("readonly", "");
+    area.style.position = "fixed";
+    area.style.opacity = "0";
+    document.body.appendChild(area);
+    area.select();
+    let done = false;
     try {
-      await navigator.clipboard.writeText(SHARE_URL);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-      setHint(then ?? null);
+      done = document.execCommand("copy");
     } catch {
-      setHint(`Copy this link: ${SHARE_URL}`);
+      done = false;
     }
+    area.remove();
+    if (!done && navigator.clipboard) {
+      navigator.clipboard.writeText(SHARE_URL).catch(() => setHint(`Copy this link: ${SHARE_URL}`));
+      done = true;
+    }
+    if (!done) {
+      setHint(`Copy this link: ${SHARE_URL}`);
+      return;
+    }
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+    setHint(then ?? null);
   }
 
   // Instagram has no web share link: phones get the system share sheet (which lists
   // Instagram); elsewhere the link is copied with a pointer to paste it.
   async function instagram() {
-    if (navigator.share) {
+    // Desktop browsers have a share sheet too, but Instagram is only in the phone's.
+    if (navigator.share && window.matchMedia("(pointer: coarse)").matches) {
       try {
         await navigator.share({ title: "Your Ballot. Your Block.", text: SHARE_TEXT, url: SHARE_URL });
         return;

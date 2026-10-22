@@ -1,6 +1,6 @@
-# ROADMAP — Hack for Humanity: Miami
+| 6.20 |undefined| ✅ | 2026-10-22 2:05 PM · tag `demo-night-final` → `3ea4fbe` (what production serves; later commits are docs only) || 6.19 |undefined| ✅ | 2026-10-22 · Sharif, done || 6.18 |undefined| ✅ | 2026-10-22 · Sharif, done || 6.16 |undefined| ✅ | 2026-10-22 · Sharif: real-mic answer works on production |# ROADMAP — Hack for Humanity: Miami
 
-**Version:** v2.10
+**Version:** v2.11
 **Canonical execution directive for this repo.** If any other doc disagrees with this file,
 this file wins or the other doc gets corrected.
 
@@ -8,7 +8,7 @@ this file wins or the other doc gets corrected.
 
 ## §0 — You are here
 
-**▶ NOW: Phase 6 — DeepStation AI Demo Night, Thursday Oct 22, 2026, The LAB Miami.** **Live at https://yourballotyourblock.com** (www and http 308 to it; the vercel.app URL still works). Doors 6:00 PM; the open "Demo 3" slot is 7:50–8:35 PM. **All code rows (6.1–6.15, 6.17, 6.23) are done and verified on production**; latest deploy `3c1a699` (polling-place corrections from the official 10/15 list). Left for Sharif: 6.16 real-mic test, 6.18–6.19 two timed rehearsals, then 6.20 freeze tag at 3:00 PM and 6.21 screen recording; Sharif leaves at 4:00 PM. A second session is adding new candidate data; it ships only if it is committed, verified and deployed with `scripts/deploy-clean.mjs` before 3:00. **Open:** confirm the 7:50 slot and its length with the host.
+**▶ NOW: Phase 6 — DeepStation AI Demo Night, Thursday Oct 22, 2026, The LAB Miami.** **Code frozen at 2:05 PM: tag `demo-night-final` → `3ea4fbe`, live at https://yourballotyourblock.com.** Mic test and two rehearsals done (Sharif). A friend is confirming the 7:50 PM Demo 3 slot with Grant Kurz. Left: 6.21 backup screen recording; 6.22 after the event. Next build work: 6.28 (10-question rework), after the event.
 
 **🏆 GRAND CHAMPION — Hack for Humanity: Miami, Saturday Oct 10, 2026.** The event is over and the build won the top prize. **Next unblocked:** keep the repo public (required to stay prize-eligible); follow up on the commercialization invitation. Everything below this line is the record of the build day.
 
@@ -167,6 +167,7 @@ against production, not localhost.
 
 ## §6 — Changelog
 
+- **2026-10-22 (2:05 PM) — code freeze for Demo Night.** Tag `demo-night-final` → `3ea4fbe`, the commit production serves (everything after it is docs only). Sharif: real-mic answer on production works, two timed rehearsals done, and a friend is confirming the slot with Grant Kurz. Rows 6.16, 6.18, 6.19 and 6.20 done.
 - **2026-10-22 (1:35 PM) — decision: the 10 questions only** (`3ea4fbe`). Sharif chose this after a production test of "I'll tell you what I care about": `/api/ask` took 51 s and found no quotes for either FL-24 candidate on rent and flooding; placement from free talk took 21 s with a wide range; and with no yes/no answers every race showed thin evidence, in the ballot and the new PDF. The chooser screen is gone from the path: after the address the voter lands in the typed 10 questions, and "Prefer to answer out loud? Talk instead" leads to a voice screen with only "Ask me" (a tap is still needed, because phones only start audio and the mic from one). Free talk is behind `OPEN_TALK = false` in `app/page.tsx` with its code untouched. How to re-enable it, and the recommended redesign (Gemma 4 fills in the 10 answers for the person to confirm), are in CLAUDE.md under "Deferred feature". Row 6.27 tracks it.
 - **2026-10-22 (1:00 PM) — share messages and tab icon** (`4a0c7d2`, `c459594`). LinkedIn now opens its feed composer with the message filled in (`feed/?shareActive=true&text=`), and the link in it still unfurls into the preview card. Facebook allows no site to fill in a post, so tapping Facebook copies the message and says "Message copied: paste it in your Facebook post." The tab icon is now a ballot with a check going into a mint ballot box (app/icon.svg, a 180 px apple-icon, and favicon.ico regenerated at 16/32/48), replacing Next.js's default N. `verify-share.mjs` PASS on prod; the live favicon.ico matches the new icon.
 - **2026-10-22 (12:50 PM) — share card and social link preview live** (`4b0013e`). The QR card on the voting plan became "Share it with your friends": QR plus LinkedIn, Facebook, Instagram, WhatsApp, X, Text, Copy link and Save QR code. These are plain links with no share scripts, carrying only https://yourballotyourblock.com and a neutral invite. Instagram has no web share link, so phones get the system share sheet and laptops copy the link with a hint. The site now has Open Graph/Twitter tags and a 1200x630 preview image (next/og), so a shared link shows a card instead of a bare title. `scripts/verify-share.mjs` PASS on production. Found while testing: `navigator.clipboard.writeText` can wait forever in an unfocused tab, so the copy is now synchronous inside the tap and always confirms.

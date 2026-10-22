@@ -1,12 +1,14 @@
 # ROADMAP — Hack for Humanity: Miami
 
-**Version:** v2.3
+**Version:** v2.4
 **Canonical execution directive for this repo.** If any other doc disagrees with this file,
 this file wins or the other doc gets corrected.
 
 ---
 
 ## §0 — You are here
+
+**▶ NOW: Phase 6 — DeepStation AI Demo Night, Thursday Oct 22, 2026, The LAB Miami.** Doors 6:00 PM; the open "Demo 3" slot is 7:50–8:35 PM. Production walked clean at 10:27 AM; seven findings to fix or prepare for (`docs/demo-night-plan.md`). **Code freeze 4:30 PM.** **Next unblocked:** row 6.1 (tag the baseline), then 6.2 (quota smoke, which decides the QR code). **Open:** confirm with DeepStation that the 7:50 slot is ours and how long it is (§4.6 note).
 
 **🏆 GRAND CHAMPION — Hack for Humanity: Miami, Saturday Oct 10, 2026.** The event is over and the build won the top prize. **Next unblocked:** keep the repo public (required to stay prize-eligible); follow up on the commercialization invitation. Everything below this line is the record of the build day.
 
@@ -105,6 +107,39 @@ fiction. The shape is fixed, though:
 | 4.2 | README "The problem" / "What we built" / "How it works" filled in | ⏸ |
 | 5.1 | Repo public, MIT license present, submission form in by **3:45 PM** | ⏸ |
 
+## §4.6 — Phase 6: AI Demo Night polish (Thursday, Oct 22, 2026)
+
+**Goal:** the live app holds up in front of ~200 ML engineers and red-teamers at DeepStation's AI Demo Night, with nothing on screen a sharp viewer can knock down.
+**Entry gate:** production walked clean at 10:27 AM (S1 in the plan).
+**Exit gate:** `demo-night-final` tagged at 4:30 PM, full production walk green after the last deploy, script rehearsed twice.
+**Plan:** [`docs/demo-night-plan.md`](docs/demo-night-plan.md) — findings F1–F7, folder tree, flowchart, wireframes, smokes S0–S7.
+**Note:** the Luma listing (luma.com/deepst-49cd) still shows Demo 3 as "to be announced". Confirm the slot and its length with the host (Grant Kurz). The script covers both a 2-minute and a 7-minute version.
+
+| # | Action | Status | Date · Commit | Source |
+|---|---|---|---|---|
+| 6.1 | Tag production baseline `demo-night-baseline` at `d2ef280`, push the tag (S0) | ⏸ | | plan · S0 |
+| 6.2 | `scripts/smoke-concurrency.mjs`: 10 parallel `/api/place` calls against prod (S2). Pass → QR in; fail → QR out | ⏸ | | plan · S2 |
+| 6.3 | `scripts/verify-closest.mjs`: flag closest passages that name another person or report speech (16 of 122 flagged in the 10:40 AM scan) | ⏸ | | plan · F1 |
+| 6.4 | Human review of the flagged passages → `data/positions/reviewed-out.json`; `closestOf()` skips them (S3 = 0 flagged) | ⏸ | | plan · F1 |
+| 6.5 | Star rule: only with ≥4 positions from votes or own words; otherwise "Closest, on thin evidence (n)" | ⏸ | | plan · F2 |
+| 6.6 | Race rows: scored candidates first (roster order among them), then unscored | ⏸ | | plan · F3 |
+| 6.7 | `pnpm build && pnpm lint`, deploy, production walk (S4, S5) | ⏸ | | plan · S4–S5 |
+| 6.8 | "Early voting is open" banner on the voting plan, dates from the county data | ⏸ | | plan · B1 |
+| 6.9 | Home hero line: "12 days away · early voting is open now." (computed, not typed) | ⏸ | | plan · B2 |
+| 6.10 | QR card to the live site on the voting plan (only if 6.2 passed) | ⏸ | | plan · B3 |
+| 6.11 | Footer: "Grand Champion, Hack for Humanity: Miami 2026" | ⏸ | | plan · B4 |
+| 6.12 | Race evidence grid fits its column at 1280px | ⏸ | | plan · F4 |
+| 6.13 | Interview: padding so the last bubble clears the sticky button | ⏸ | | plan · F5 |
+| 6.14 | Deploy, full production walk at 1280px and 390px (S5) | ⏸ | | plan · S5 |
+| 6.15 | Ground truth: three on-screen quotes found word for word on their source pages (S7) | ⏸ | | plan · S7 |
+| 6.16 | Real-microphone answer on production by a person (S6). Fail → typing and taps on stage | ⏸ | | plan · F7 |
+| 6.17 | `docs/demo-script.md`: Demo Night section — 2-minute core, 7-minute extended, Q&A prep for a red-teaming audience | ⏸ | | plan · F6 |
+| 6.18 | Rehearsal 1, timed, production URL | ⏸ | | demo-script |
+| 6.19 | Rehearsal 2, timed, production URL | ⏸ | | demo-script |
+| 6.20 | **Code freeze 4:30 PM**: tag `demo-night-final`, push | ⏸ | | plan |
+| 6.21 | Screen recording of the full path as last-resort fallback; phone hotspot and charger packed | ⏸ | | demo-script · Fallback plan |
+| 6.22 | After the event: flip rows, §0 banner, changelog | ⏸ | | CLAUDE.md |
+
 ## §5 — Derisking: the smoke ladder
 
 Ordered by dependency — each smoke is meaningless to interpret if the one above it is broken.
@@ -126,6 +161,7 @@ against production, not localhost.
 
 ## §6 — Changelog
 
+- **2026-10-22 (10:50 AM) — v2.4, Phase 6 planned: DeepStation AI Demo Night tonight** at The LAB Miami (doors 6:00 PM; Demo 3 slot 7:50–8:35 PM still listed as "to be announced"). Walked production at 1280px and 390px with the venue address: all four steps work, no console errors, no failed requests. Seven findings in `docs/demo-night-plan.md`. Worst: a "closest thing they've said" passage for Ashley Moody is a quote of Byron Donalds (16 of 122 passages flagged for review); a third-party Senate candidate gets the star on 3 positions; Governor lists Donalds last. Also found: early voting runs Mon Oct 19 – Sun Nov 1, so it is open today, which becomes tonight's hook. Unblocked: rows 6.1–6.2. Code freeze 4:30 PM.
 - **2026-10-10 (night) — post-event** — **Google map on the voting plan** (`ae67e3f`): the drawn street grid at the top of the polling-place card is replaced by an embedded Google map centred on the polling place, with a pin on it. It uses Google's keyless embed, so there is no API key and only the polling place's coordinates go to Google, never the voter's address. Checked locally and on production with the venue address (pin on Paul Laurence Dunbar K-8 Center, no console errors). The drawn grid remains as the fallback when no polling place is matched. Limits: the map is Google's standard light style inside a dark page (a dark-styled map needs an API key), and the keyless embed is not a documented, guaranteed Google product.
 - **2026-10-10 (night) — first post-event change** — **Ballot buttons open the candidate's campaign website.** Every candidate row now has a link: "Campaign site" when we hold their campaign site, otherwise "Official listing" (the filing that puts them on the ballot); ballot questions keep "Source". Scored candidates used to show only a percentage and no link; they now show both. 33 of 81 people on the roster have a campaign site, taken from the `campaign_home` pages already collected for the position data (`scripts/fill-campaign-urls.mjs`); `scripts/verify-campaign-urls.mjs` reports 28 answering and 5 refusing a script, and those 5 load with the right page title in a real browser. At the venue address: 16 campaign-site buttons, 17 official listings, 13 ballot-question sources. Not done: the 48 people with no campaign site on file (six minor Governor candidates, Uthmeier, sitting House members whose only collected site is their official one, judges, county and city offices) still open the official listing. Event-day versions are tagged `submission-deadline`, `judged-demo` and `event-day-final`; this and everything after it is post-event work.
 - **2026-10-10 (evening)** — **README team section filled in:** Sharif Amlani, Sandy Denis, Vania Arredondo and Schneur Werde, with LinkedIn links for the three teammates. Closes the last of the five required README sections.

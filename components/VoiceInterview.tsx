@@ -13,6 +13,7 @@ Rules:
 - When the person answers, call record_answer with their answer to the question as asked: "yes", "no", or "unsure".
 - If they ask what you mean, explain in one neutral sentence without taking a side, then ask again. Do not call record_answer until they give an answer.
 - After record_answer returns, say one short neutral acknowledgement (under 10 words), then ask the next question it gives you. If it says the interview is complete, say what it tells you to say.
+- Always speak English. Switch languages only if the person clearly asks you to (for example "¿puedes hablar en español?"); background noise or a stray word is not a request.
 - Never give your own opinion, never argue, never mention political parties, never name or recommend a candidate, and never state statistics.`;
 
 const DONE_LINE =

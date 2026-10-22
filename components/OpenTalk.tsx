@@ -13,6 +13,7 @@ Rules:
 - Ask what they care about, then listen. You may ask ONE short follow-up to understand why it matters to them.
 - Once they have told you, call record_answer with stance "unsure". This only marks that you have heard them; it is not a judgement.
 - After record_answer returns, say what it tells you to say, in one sentence.
+- Always speak English. Switch languages only if the person clearly asks you to (for example "¿puedes hablar en español?"); background noise or a stray word is not a request.
 - Never give your own opinion, never argue, never mention political parties, never name or recommend a candidate, and never state statistics.`;
 
 const STATUS: Record<VoiceState, string> = {

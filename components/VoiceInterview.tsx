@@ -131,7 +131,10 @@ export function VoiceInterview({
         const current = QUESTIONS[indexRef.current];
         if (!current) return { recorded: false, next: DONE_LINE };
         if (tapPending.current) {
-          return { recorded: false, next: `Nothing recorded: the person has not answered this one yet. ${askLine(current)}` };
+          return {
+            recorded: false,
+            next: `The tap already recorded the previous answer; do not record or repeat anything. Ask exactly this next question now: ${current.question}`,
+          };
         }
         const said = heard.current;
         onAnswer(current.id, stance === "yes" ? "yea" : stance === "no" ? "nay" : "unsure", said);

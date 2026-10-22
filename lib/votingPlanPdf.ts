@@ -4,35 +4,30 @@ import { matchRace } from "./raceMatch";
 import type { Candidate, LookupResult } from "./types";
 
 // The take-to-the-polls sheet: one half-letter page (5.5 x 8.5 in) built in the browser, so
-// the voter's answers and address never leave the device. On a phone the page shows at about
-// one point per pixel, so the 11 pt names read like 11 px text; it prints on Letter fitted.
+// the voter's answers and address never leave the device. One type size for everything but
+// the title, and the races as a table: Race | Your closest match | Match | Evidence. On a
+// phone the page shows at about one point per pixel; it prints on Letter fitted.
 // It says "closest match", never "vote for": the same match, label and caveat as the screen.
 
 type JsPdf = InstanceType<(typeof import("jspdf"))["jsPDF"]>;
 type Rgb = [number, number, number];
-type Marker = "match" | "thin" | "tie";
-type Line = {
-  text: string;
-  size: number;
-  bold?: boolean;
-  color?: Rgb;
-  indent?: number;
-  gap?: number; // space above, in points
-  marker?: Marker;
-  rule?: boolean; // a thin divider instead of text
-  oneLine?: boolean; // cut to one line with an ellipsis instead of wrapping
-};
 
 const PAGE_W = 396; // 5.5 in
 const PAGE_H = 612; // 8.5 in
-const MARGIN = 28;
-const FOOTER_H = 58;
-const LEADING = 1.28;
+const MARGIN = 26;
+const W = PAGE_W - 2 * MARGIN;
+const BODY = 9; // the one text size
+const LEADING = 1.3;
+const PAD = 3.5;
 const INK: Rgb = [17, 17, 17];
-const MUTED: Rgb = [90, 90, 90];
+const MUTED: Rgb = [95, 95, 95];
 const MINT: Rgb = [14, 138, 104]; // the app's mint, darkened so it holds up on white paper
-const CORAL: Rgb = [200, 70, 55];
+const BAND: Rgb = [228, 245, 239];
+const RULE: Rgb = [215, 215, 215];
 const ELECTION_DAY = "Tue, Nov 3, 2026";
+// Race | Your closest match | Match | Evidence: always the full width; only type scales.
+const COLS = [0.32, 0.42, 0.1, 0.16].map((f) => f * W);
+const HEAD = ["Race", "Your closest match", "Match", "Evidence"];
 
 // The built-in Helvetica only covers Latin-1 plus a few typographic marks.
 const clean = (s: string) =>
@@ -46,254 +41,243 @@ const PARTY: Record<string, string> = {
   Libertarian: "LPF",
 };
 const party = (c: Candidate) => PARTY[c.party] ?? c.party.slice(0, 3).toUpperCase();
-const pct = (score: number | undefined) => (score == null ? "" : ` · ${Math.round(score * 100)}%`);
-// "Amendment 1: Budget Stabilization Fund (HJR 5019)" -> "Amendment 1: Budget Stabilization Fund"
-const shortMeasure = (name: string) => name.replace(/\s*\([^)]*\)\s*$/, "");
+// "Arthur LeMar \"Marty\" McNeil" -> "McNeil"; "James Bush III" -> "Bush III"
+const surname = (name: string) => {
+  const words = name.replace(/"[^"]*"/g, "").trim().split(/\s+/);
+  const last = words.pop() ?? name;
+  return /^(Jr\.?|Sr\.?|II|III|IV)$/.test(last) && words.length ? `${words.pop()} ${last}` : last;
+};
+// Office names short enough for the Race column.
+const shortOffice = (office: string) =>
+  office
+    .replace(/^Florida State (Senate|House) · District (\d+)$/, "State $1 $2")
+    .replace(/^Circuit Judge, 11th Judicial Circuit · Group (\d+)$/, "Circuit Judge, Group $1")
+    .replace(/^Justice of the Supreme Court of Florida - retention$/, "Supreme Court: retain?")
+    .replace(/^Judge, 3rd District Court of Appeal - retention$/, "3rd District Court of Appeal: retain?")
+    .replace(/^Commissioner of Agriculture$/, "Agriculture Commissioner");
+// "Amendment 1: Budget Stabilization Fund (HJR 5019)" -> ["Amendment 1", "Budget Stabilization Fund"]
+// The county and city questions use " - " where the state amendments use ":".
+const measureParts = (name: string) => {
+  const t = name.replace(/\s*\([^)]*\)\s*$/, "");
+  const cuts = [t.indexOf(":"), t.indexOf(" - ")].filter((n) => n > 0);
+  const i = cuts.length ? Math.min(...cuts) : -1;
+  return i > 0 ? [t.slice(0, i), t.slice(i).replace(/^(:| - )\s*/, "")] : [t, ""];
+};
+
+// ["Amendment 1", "Amendment 2", "County Referendum 1 - Charter Amendment", ...]
+//   -> "Amendment 1, 2 · County Referendum 1 - Charter Amendment, ..." grouped by the words around the number.
+const groupLabels = (labels: string[]) => {
+  const groups = new Map<string, { head: string; nums: string[]; tail: string }>();
+  for (const l of labels) {
+    const m = l.match(/^(.*?)(\d+)(.*)$/);
+    const key = m ? `${m[1]}#${m[3]}` : l;
+    const g = groups.get(key) ?? { head: m ? m[1] : l, nums: [], tail: m ? m[3] : "" };
+    if (m) g.nums.push(m[2]);
+    groups.set(key, g);
+  }
+  return [...groups.values()].map((g) => `${g.head}${g.nums.join(", ")}${g.tail}`).join(" · ");
+};
+
+type Row =
+  | { kind: "band"; text: string }
+  | { kind: "head" }
+  | { kind: "row"; cells: string[]; strong?: boolean; muted?: boolean };
 
 export type VotingPlanInput = { result: LookupResult; answers: Answers; me: Placement | null };
 
-function contentLines({ result, answers, me }: VotingPlanInput, collapse: boolean): Line[] {
-  const { geo, polling, earlyVoting } = result;
-  const lines: Line[] = [];
-  const add = (l: Line) => lines.push({ ...l, text: clean(l.text) });
-
-  add({ text: geo.matchedAddress ?? geo.city ?? "Miami-Dade", size: 10, bold: true, gap: 4 });
-  add({
-    text: `FL-${geo.congressional}${result.districtChanged ? ` (new map; was FL-${result.oldDistrict})` : ""} · State Senate ${geo.stateSenate} · State House ${geo.stateHouse}`,
-    size: 8.5,
-    color: MUTED,
-  });
-
-  add({ text: "WHERE YOU VOTE (most likely; confirm with the county)", size: 7.5, bold: true, color: MINT, gap: 9 });
-  if (polling) {
-    add({ text: polling.name, size: 11, bold: true, gap: 2 });
-    add({ text: `${polling.address}, ${polling.city} ${polling.zip} · Precinct ${polling.precinct}`, size: 8.5 });
-    if (polling.temporary) add({ text: "Temporary location for this election.", size: 8.5, bold: true, color: CORAL });
-    add({ text: `Election Day, ${ELECTION_DAY} · 7 AM – 7 PM`, size: 8.5 });
-  } else {
-    add({ text: "Find your polling place at votemiamidade.gov", size: 9, gap: 2 });
+function tableRows({ result, answers, me }: VotingPlanInput): Row[] {
+  const rows: Row[] = [{ kind: "head" }];
+  for (const section of result.ballot) {
+    rows.push({ kind: "band", text: section.section });
+    if (section.section === "Ballot questions") {
+      // One row naming every question: a long ballot has a dozen, too many for a row each.
+      const labels = groupLabels(section.races.flatMap((r) => r.candidates).map((c) => measureParts(c.name)[0]));
+      rows.push({ kind: "row", cells: [`${section.races.flatMap((r) => r.candidates).length} questions`, `Your call: ${labels}. Read each on the official sample ballot.`, "–", "Not scored"], muted: true });
+      continue;
+    }
+    for (const race of section.races) {
+      const office = shortOffice(race.office);
+      const m = matchRace(race, answers, me);
+      if (m.best) {
+        const score = m.scores.get(m.best.candidate_id)?.score;
+        rows.push({
+          kind: "row",
+          cells: [
+            office,
+            `${m.best.name} (${party(m.best)})`,
+            score == null ? "–" : `${Math.round(score * 100)}%`,
+            m.thin ? `Thin (${m.bestPositions})` : "Strong",
+          ],
+          strong: !m.thin,
+        });
+      } else if (m.tie && m.ranked.length > 1) {
+        const [a, b] = m.ranked;
+        rows.push({ kind: "row", cells: [office, `Too close to call: ${surname(a.name)} (${party(a)}) or ${surname(b.name)} (${party(b)})`, "–", "Tie"] });
+      } else {
+        const names = race.candidates.map((c) => surname(c.name)).join(", ");
+        rows.push({ kind: "row", cells: [office, `Your call: ${names}`, "–", "Not scored"], muted: true });
+      }
+    }
   }
+  if (result.unopposed?.length) {
+    rows.push({ kind: "band", text: "Not on your ballot" });
+    result.unopposed.forEach((u) =>
+      rows.push({ kind: "row", cells: [shortOffice(u.office), `${u.name}, elected unopposed`, "–", "Decided"], muted: true }),
+    );
+  }
+  return rows.map((r) => (r.kind === "row" ? { ...r, cells: r.cells.map(clean) } : r));
+}
 
+// The plan above the table: label / value pairs, all at the one body size.
+function planLines({ result }: VotingPlanInput): [string, string][] {
+  const { geo, polling, earlyVoting } = result;
+  const lines: [string, string][] = [
+    ["Address", geo.matchedAddress ?? geo.city ?? "Miami-Dade"],
+    [
+      "Districts",
+      `FL-${geo.congressional}${result.districtChanged ? ` (new map; was FL-${result.oldDistrict})` : ""} · State Senate ${geo.stateSenate} · State House ${geo.stateHouse}`,
+    ],
+  ];
+  if (polling) {
+    lines.push([
+      "Where you vote",
+      `${polling.name}${polling.temporary ? " (temporary site)" : ""}, ${polling.address}, ${polling.city} ${polling.zip} · Precinct ${polling.precinct} · most likely; confirm with the county`,
+    ]);
+  } else {
+    lines.push(["Where you vote", "Find your polling place at votemiamidade.gov"]);
+  }
+  lines.push(["Election Day", `${ELECTION_DAY} · 7 AM – 7 PM`]);
   const opens = earlyVoting.map((s) => s.opens).filter((n): n is number => n != null);
   const closes = earlyVoting.map((s) => s.closes).filter((n): n is number => n != null);
   if (opens.length && closes.length && earlyVoting[0]) {
     const first = Math.min(...opens);
     const last = Math.max(...closes);
     if (windowStatus(todayNumber(), dayNumber(first), dayNumber(last)) !== "after") {
-      add({ text: "EARLY VOTING", size: 7.5, bold: true, color: MINT, gap: 7 });
-      add({ text: `${weekdayDate(first)} – ${weekdayDate(last)} · ${EARLY_VOTING_HOURS}`, size: 8.5, gap: 2 });
       const near = earlyVoting[0];
-      add({ text: `Nearest: ${near.name}, ${near.address}`, size: 8.5 });
+      lines.push([
+        "Early voting",
+        `${weekdayDate(first)} – ${weekdayDate(last)} · ${EARLY_VOTING_HOURS} Nearest: ${near.name}, ${near.address}`,
+      ]);
     }
   }
-
-  add({ text: "", size: 0, rule: true, gap: 9 });
-  add({ text: "YOUR CLOSEST MATCH IN EACH RACE", size: 9, bold: true, gap: 8 });
-  const answered = Object.values(answers).some((a) => a === "yea" || a === "nay");
-  if (!answered) {
-    add({ text: "You skipped the questions, so no race is scored. Every race is your call.", size: 8.5, color: MUTED, gap: 2 });
-  }
-
-  for (const section of result.ballot) {
-    add({ text: section.section.toUpperCase(), size: 7.5, bold: true, color: MINT, gap: 8 });
-    if (section.section === "Ballot questions") {
-      add({ text: "Your call, not scored. Read each one on the official sample ballot.", size: 8.5, color: MUTED, gap: 2 });
-      const titles = section.races.flatMap((r) => r.candidates.map((c) => shortMeasure(c.name)));
-      if (collapse) add({ text: titles.join(" · "), size: 8, indent: 8, oneLine: true });
-      else titles.forEach((t) => add({ text: t, size: 8, indent: 8, oneLine: true }));
-      continue;
-    }
-    for (const race of section.races) {
-      add({ text: race.office, size: 9, bold: true, indent: 6, gap: 4 });
-      const m = matchRace(race, answers, me);
-      if (m.best) {
-        const score = m.scores.get(m.best.candidate_id)?.score;
-        add({
-          text: `${m.best.name} (${party(m.best)})${pct(score)}${m.thin ? ` · thin evidence (${m.bestPositions})` : ""}`,
-          size: 11,
-          bold: !m.thin,
-          indent: 18,
-          marker: m.thin ? "thin" : "match",
-          gap: 1,
-        });
-      } else if (m.tie && m.ranked.length > 1) {
-        const [a, b] = m.ranked;
-        add({ text: `Too close to call: ${a.name} (${party(a)}) / ${b.name} (${party(b)})`, size: 10, indent: 18, marker: "tie", gap: 1 });
-      } else {
-        const names = race.candidates.map((c) => `${c.name} (${party(c)})`).join(", ");
-        add({ text: `Your call, not scored: ${names}`, size: 8.5, color: MUTED, indent: 18, gap: 1, oneLine: collapse });
-      }
-    }
-  }
-
-  if (result.unopposed?.length) {
-    add({ text: "NOT ON YOUR BALLOT", size: 7.5, bold: true, color: MINT, gap: 8 });
-    result.unopposed.forEach((u) =>
-      add({ text: `${u.office}: filled unopposed (${u.name})`, size: 8.5, color: MUTED, indent: 6, gap: 2 }),
-    );
-  }
-  return lines;
+  return lines.map(([a, b]) => [a, clean(b)]);
 }
 
-function setType(doc: JsPdf, l: Line, k: number) {
-  doc.setFont("helvetica", l.bold ? "bold" : "normal");
-  doc.setFontSize(l.size * k);
+function font(doc: JsPdf, bold: boolean, size: number) {
+  doc.setFont("helvetica", bold ? "bold" : "normal");
+  doc.setFontSize(size);
 }
 
-const MARK_W = 12; // room left of a marked line for its dot
+const LABEL_W = 78;
+const planBold = (label: string) => label === "Where you vote" || label === "Address";
 
-function wrap(doc: JsPdf, l: Line, k: number): string[] {
-  setType(doc, l, k);
-  const width = PAGE_W - 2 * MARGIN - (l.indent ?? 0) * k;
-  const parts: string[] = doc.splitTextToSize(l.text, width);
-  if (!l.oneLine || parts.length <= 1) return parts;
-  // One line only: trim the first line until it fits with an ellipsis.
-  let first = parts[0];
-  while (first.length > 1 && doc.getTextWidth(`${first}…`) > width) first = first.slice(0, -1);
-  return [`${first.trimEnd()}…`];
+function planHeight(doc: JsPdf, lines: [string, string][], k: number) {
+  return lines.reduce((h, [label, v]) => {
+    font(doc, planBold(label), BODY * k);
+    return h + doc.splitTextToSize(v, W - LABEL_W).length * BODY * k * LEADING + 2 * k;
+  }, 0);
 }
 
-function lineHeight(doc: JsPdf, l: Line, k: number) {
-  if (l.rule) return (l.gap ?? 0) * k + 1;
-  return (l.gap ?? 0) * k + wrap(doc, l, k).length * l.size * k * LEADING;
+const cellBold = (row: { strong?: boolean }, i: number) => i === 0 || (i === 1 && !!row.strong);
+
+function rowHeight(doc: JsPdf, row: Row, k: number) {
+  const line = BODY * k * LEADING;
+  if (row.kind !== "row") return line + 2 * PAD * k;
+  const lines = row.cells.map((c, i) => {
+    font(doc, cellBold(row, i), BODY * k);
+    return doc.splitTextToSize(c, COLS[i] - 2 * PAD).length;
+  });
+  return Math.max(...lines) * line + 2 * PAD * k;
 }
 
-function drawMarker(doc: JsPdf, marker: Marker, x: number, y: number, size: number) {
-  const r = size * 0.24;
-  const cy = y - size * 0.33;
-  doc.setLineWidth(1);
-  if (marker === "match") {
-    doc.setFillColor(...MINT);
-    doc.circle(x + r, cy, r, "F");
-  } else if (marker === "thin") {
-    doc.setDrawColor(...MINT);
-    doc.circle(x + r, cy, r, "S");
-  } else {
-    doc.setTextColor(...MINT);
-    doc.setFont("helvetica", "bold");
-    doc.text("=", x, y);
-  }
-}
-
-function drawLines(doc: JsPdf, lines: Line[], k: number, top: number, bottom: number) {
+function drawPlan(doc: JsPdf, lines: [string, string][], k: number, top: number) {
   let y = top;
-  for (const l of lines) {
-    if (l.rule) {
-      y += (l.gap ?? 0) * k;
-      doc.setDrawColor(200, 200, 200);
-      doc.setLineWidth(0.6);
-      doc.line(MARGIN, y, PAGE_W - MARGIN, y);
-      y += 1;
-      continue;
-    }
-    const parts = wrap(doc, l, k);
-    const step = l.size * k * LEADING;
-    y += (l.gap ?? 0) * k;
-    if (y + parts.length * step > bottom) {
-      // Last resort: never spill onto a second page.
-      setType(doc, { text: "", size: 8 }, 1);
-      doc.setTextColor(...MUTED);
-      doc.text("More races on your official sample ballot.", MARGIN, Math.min(y + 8, bottom));
-      return;
-    }
-    const x = MARGIN + (l.indent ?? 0) * k;
-    parts.forEach((p, i) => {
-      const baseline = y + (i + 1) * step - step * 0.22;
-      if (i === 0 && l.marker) drawMarker(doc, l.marker, x - MARK_W * k, baseline, l.size * k);
-      setType(doc, l, k);
-      doc.setTextColor(...(l.color ?? INK));
-      doc.text(p, x, baseline);
-    });
-    y += parts.length * step;
+  const line = BODY * k * LEADING;
+  for (const [label, value] of lines) {
+    font(doc, true, BODY * k);
+    doc.setTextColor(...MINT);
+    doc.text(label, MARGIN, y + line * 0.78);
+    font(doc, planBold(label), BODY * k);
+    doc.setTextColor(...INK);
+    const parts: string[] = doc.splitTextToSize(value, W - LABEL_W);
+    parts.forEach((p, i) => doc.text(p, MARGIN + LABEL_W, y + line * (i + 0.78)));
+    y += parts.length * line + 2 * k;
   }
+  return y;
+}
+
+function drawTable(doc: JsPdf, rows: Row[], k: number, top: number) {
+  let y = top;
+  const line = BODY * k * LEADING;
+  const xs = COLS.map((_, i) => MARGIN + COLS.slice(0, i).reduce((a, b) => a + b, 0));
+  const width = W;
+  for (const row of rows) {
+    const h = rowHeight(doc, row, k);
+    if (row.kind === "head") {
+      font(doc, true, BODY * k);
+      doc.setTextColor(...MUTED);
+      HEAD.forEach((t, i) => doc.text(t.toUpperCase(), xs[i] + PAD, y + PAD * k + line * 0.78));
+      doc.setDrawColor(...INK);
+      doc.setLineWidth(0.8);
+      doc.line(MARGIN, y + h, MARGIN + width, y + h);
+    } else if (row.kind === "band") {
+      doc.setFillColor(...BAND);
+      doc.rect(MARGIN, y, width, h, "F");
+      font(doc, true, BODY * k);
+      doc.setTextColor(...MINT);
+      doc.text(row.text.toUpperCase(), MARGIN + PAD * k, y + PAD * k + line * 0.78);
+    } else {
+      row.cells.forEach((c, i) => {
+        font(doc, cellBold(row, i), BODY * k);
+        doc.setTextColor(...(row.muted && i > 0 ? MUTED : INK));
+        const parts: string[] = doc.splitTextToSize(c, COLS[i] - 2 * PAD);
+        parts.forEach((p, j) => doc.text(p, xs[i] + PAD, y + PAD * k + line * (j + 0.78)));
+      });
+      doc.setDrawColor(...RULE);
+      doc.setLineWidth(0.5);
+      doc.line(MARGIN, y + h, MARGIN + width, y + h);
+    }
+    y += h;
+  }
+  return y;
 }
 
 function drawHeader(doc: JsPdf): number {
+  font(doc, true, 10);
   doc.setTextColor(...INK);
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(11);
   doc.text("Your Ballot.", MARGIN, MARGIN + 8);
   const w = doc.getTextWidth("Your Ballot. ");
   doc.setTextColor(...MINT);
   doc.text("Your Block.", MARGIN + w, MARGIN + 8);
-  doc.setTextColor(...MUTED);
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(7.5);
-  doc.text("ELECTION DAY", PAGE_W - MARGIN, MARGIN + 3, { align: "right" });
   doc.setTextColor(...INK);
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(10);
-  doc.text(ELECTION_DAY, PAGE_W - MARGIN, MARGIN + 14, { align: "right" });
-  doc.setFontSize(18);
-  doc.text("Take this to the polls", MARGIN, MARGIN + 34);
+  doc.text(`Election Day: ${ELECTION_DAY}`, PAGE_W - MARGIN, MARGIN + 8, { align: "right" });
+  font(doc, true, 17);
+  doc.text("Take this to the polls", MARGIN, MARGIN + 30);
   doc.setDrawColor(...INK);
   doc.setLineWidth(1.2);
-  doc.line(MARGIN, MARGIN + 42, PAGE_W - MARGIN, MARGIN + 42);
+  doc.line(MARGIN, MARGIN + 38, PAGE_W - MARGIN, MARGIN + 38);
   return MARGIN + 44;
 }
 
-function drawFooter(doc: JsPdf, now: Date) {
-  const top = PAGE_H - MARGIN - FOOTER_H + 6;
-  doc.setDrawColor(200, 200, 200);
-  doc.setLineWidth(0.6);
-  doc.line(MARGIN, top, PAGE_W - MARGIN, top);
-  let x = MARGIN;
-  const y = top + 13;
-  const legend: [Marker, string][] = [
-    ["match", "Closest match, on 4+ of their own words or votes"],
-    ["thin", "Closest, thin evidence"],
-    ["tie", "Within 3 points"],
-  ];
-  doc.setFontSize(7);
-  for (const [marker, label] of legend) {
-    drawMarker(doc, marker, x, y, 8);
-    doc.setFont("helvetica", "normal");
-    doc.setTextColor(...MUTED);
-    doc.text(label, x + 9, y);
-    x += 9 + doc.getTextWidth(label) + 10;
-  }
-  doc.setTextColor(...INK);
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(8.5);
-  doc.text("A match, not an endorsement. The choice is yours.", MARGIN, y + 14);
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(7);
-  doc.setTextColor(...MUTED);
-  const made = now.toLocaleDateString("en-US", {
-    weekday: "short",
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-    timeZone: "America/New_York",
-  });
-  doc.text(`From your answers on ${made} · made on your device, nothing stored · yourballotyourblock.com`, MARGIN, y + 25);
-  doc.text("Print it, or keep it on your phone.", MARGIN, y + 34);
-}
-
-// Builds the page, shrinking type step by step until everything fits on one page.
-export async function buildVotingPlanPdf(input: VotingPlanInput, now = new Date()): Promise<JsPdf> {
+// Builds the page; if the ballot is long, everything shrinks together (one size) until it fits.
+export async function buildVotingPlanPdf(input: VotingPlanInput): Promise<JsPdf> {
   const { jsPDF } = await import("jspdf");
   const doc = new jsPDF({ unit: "pt", format: [PAGE_W, PAGE_H], orientation: "portrait" });
-  doc.setProperties({ title: "Your Ballot. Your Block. — take this to the polls", creator: "yourballotyourblock.com" });
+  doc.setProperties({ title: "Your Ballot. Your Block. - take this to the polls", creator: "yourballotyourblock.com" });
 
   const top = drawHeader(doc);
-  const bottom = PAGE_H - MARGIN - FOOTER_H;
-  const room = bottom - top;
-  let chosen: { lines: Line[]; k: number } | null = null;
-  for (const collapse of [false, true]) {
-    const lines = contentLines(input, collapse);
-    for (const k of [1, 0.94, 0.88, 0.82, 0.76, 0.72]) {
-      const height = lines.reduce((h, l) => h + lineHeight(doc, l, k), 0);
-      if (height <= room) {
-        chosen = { lines, k };
-        break;
-      }
-    }
-    if (chosen) break;
+  const room = PAGE_H - MARGIN - top;
+  const plan = planLines(input);
+  const rows = tableRows(input);
+  const GAP = 10;
+  let k = 1;
+  for (const candidate of [1, 0.95, 0.9, 0.85, 0.8, 0.75, 0.7, 0.65]) {
+    k = candidate;
+    const height = planHeight(doc, plan, k) + GAP * k + rows.reduce((h, r) => h + rowHeight(doc, r, k), 0);
+    if (height <= room) break;
   }
-  chosen ??= { lines: contentLines(input, true), k: 0.72 };
-  drawLines(doc, chosen.lines, chosen.k, top, bottom);
-  drawFooter(doc, now);
+  const afterPlan = drawPlan(doc, plan, k, top);
+  drawTable(doc, rows, k, afterPlan + GAP * k);
   return doc;
 }
 

@@ -13,12 +13,12 @@ if (!file) {
 }
 const raw = readFileSync(file).toString("latin1");
 const pages = (raw.match(/\/Type\s*\/Page\b(?!s)/g) || []).length;
-const text = execFileSync("pdftotext", ["-layout", file, "-"], { encoding: "utf8" });
+const text = execFileSync("pdftotext", ["-layout", "-enc", "UTF-8", file, "-"], { encoding: "utf8" });
 const flat = text.replace(/\s+/g, " ");
 
 const required = extra.length
   ? extra
-  : ["Take this to the polls", "Dunbar", "FL-24", "U.S. House", "Gilbert", "YOUR CLOSEST MATCH", "not an endorsement", "Election Day"];
+  : ["Take this to the polls", "Dunbar", "FL-24", "U.S. House", "Gilbert", "YOUR CLOSEST MATCH", "EVIDENCE", "Election Day"];
 const forbidden = [/vote for/i];
 
 const problems = [];

@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
-import { STAR_MIN_POSITIONS, matchScore, ownPositions, type Answers, type Placement } from "@/lib/match";
+import type { Answers, Placement } from "@/lib/match";
 import { hasEvidence } from "@/lib/questions";
+import { matchRace } from "@/lib/raceMatch";
 import type { Candidate, LookupResult } from "@/lib/types";
 
 type Race = LookupResult["ballot"][number]["races"][number];
@@ -28,26 +29,8 @@ function RaceBlock({
   open: boolean;
   evidence: (office: string) => ReactNode;
 }) {
-  // Only races where a candidate has published words or a voting record can be scored.
-  const scored = race.candidates.some((c) => hasEvidence(c.candidate_id));
-  const scores = new Map(
-    race.candidates.map((c) => [c.candidate_id, scored ? matchScore(answers, c.candidate_id, c.party, me) : null]),
-  );
-  const ranked = race.candidates
-    .filter((c) => scores.get(c.candidate_id))
-    .sort((a, b) => scores.get(b.candidate_id)!.score - scores.get(a.candidate_id)!.score);
-  // Within three points is a coin flip, not a match.
-  const tie =
-    ranked.length > 1 && scores.get(ranked[0].candidate_id)!.score - scores.get(ranked[1].candidate_id)!.score < 0.03;
-  const best = tie ? null : ranked[0];
-  // The star needs real evidence behind it; a closest match on a few positions is named but not starred.
-  const bestPositions = best ? ownPositions(answers, best.candidate_id, best.party) : 0;
-  const thin = !!best && bestPositions < STAR_MIN_POSITIONS;
-  // Candidates we can score come first, in ballot order, so rows stay put when the percentages settle.
-  const rows = [
-    ...race.candidates.filter((c) => scores.get(c.candidate_id)),
-    ...race.candidates.filter((c) => !scores.get(c.candidate_id)),
-  ];
+  // Shared with the take-to-the-polls PDF (lib/raceMatch.ts), so the two never disagree.
+  const { scored, scores, tie, best, bestPositions, thin, rows } = matchRace(race, answers, me);
 
   return (
     <div className="mt-4">

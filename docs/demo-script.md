@@ -89,7 +89,7 @@ Keep answers to three sentences. Say "we have not tested that" when it is true.
 
 ### 4. Pre-flight, 5:30 PM
 
-One line: production URL and local dev server open in separate tabs and the screen recording
+One line: production URL (https://yourballotyourblock.com; fallback https://hack-for-humanity-team.vercel.app) and local dev server open in separate tabs and the screen recording
 queued, address pre-typed once to warm the page, laptop sound on and volume tested, phone hotspot
 on and tested, charger plugged in, `node scripts/verify-closest.mjs` run, and the recording of
 the full path on the laptop and phone as the last resort.

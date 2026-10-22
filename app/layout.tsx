@@ -18,9 +18,24 @@ const display = Source_Serif_4({
   weight: ["600", "700"],
 });
 
+const DESCRIPTION =
+  "Miami-Dade redrew its districts. See who's really on your ballot, in their own words, and where you vote on Nov 3.";
+
+// The preview tags LinkedIn, Facebook, WhatsApp and X read when someone shares the link; the
+// image comes from app/opengraph-image.tsx.
 export const metadata: Metadata = {
+  metadataBase: new URL("https://yourballotyourblock.com"),
   title: "Your Ballot. Your Block.",
-  description: "From your address to the ballot box — Miami-Dade, Nov 3 2026",
+  description: DESCRIPTION,
+  openGraph: {
+    title: "Your Ballot. Your Block.",
+    description: DESCRIPTION,
+    url: "/",
+    siteName: "Your Ballot. Your Block.",
+    type: "website",
+    locale: "en_US",
+  },
+  twitter: { card: "summary_large_image", title: "Your Ballot. Your Block.", description: DESCRIPTION },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

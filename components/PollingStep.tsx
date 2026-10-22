@@ -2,6 +2,7 @@ import { useState } from "react";
 import { EARLY_VOTING_HOURS, dayNumber, todayNumber, weekdayDate, windowStatus } from "@/lib/dates";
 import type { Answers, Placement } from "@/lib/match";
 import type { LookupResult } from "@/lib/types";
+import { ShareCard } from "./ShareCard";
 import { VOTING_PLAN_FILE, buildVotingPlanPdf } from "@/lib/votingPlanPdf";
 
 const directions = (lat: number, lon: number) =>
@@ -16,9 +17,6 @@ const shortDate = (ms: number | null) =>
         timeZone: "America/New_York",
       });
 
-// Shows the "Try it on your phone" QR; flipped on after the live site passed its load test.
-const SHOW_QR = true;
-const LIVE_URL = "yourballotyourblock.com";
 
 // Mint banner driven by the county's own early-voting dates. Null (hidden) once the window
 // has closed or when the dates are missing.
@@ -258,25 +256,10 @@ export function PollingStep({
             </ul>
           </section>
 
-          {SHOW_QR && (
-            <section className="card flex items-center gap-4 p-4">
-              {/* White padding so the code scans off a dark projector. */}
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/qr-live-site.png"
-                alt={`QR code linking to ${LIVE_URL}`}
-                width={168}
-                height={168}
-                className="h-[168px] w-[168px] shrink-0 rounded-lg bg-white p-2"
-              />
-              <div className="min-w-0">
-                <p className="display text-xl">Try it on your phone:</p>
-                <p className="mt-1 break-words text-sm font-semibold text-accent">{LIVE_URL}</p>
-              </div>
-            </section>
-          )}
         </div>
       </div>
+
+      <ShareCard />
 
       <p className="card px-4 py-3 text-sm">
         Locations and schedules can change. Verify all details with the Miami-Dade Supervisor of

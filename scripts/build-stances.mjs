@@ -100,7 +100,10 @@ async function main() {
   const retryErrors = process.argv.includes("--retry-errors");
   // --questions a,b limits the run to some questions (used when new questions are added).
   const onlyQuestions = process.argv.includes("--questions") ? process.argv[process.argv.indexOf("--questions") + 1].split(",") : null;
-  const previous = (secondLook || only || retryErrors || onlyQuestions) && existsSync(OUT) ? JSON.parse(readFileSync(OUT, "utf8")).stances : [];
+  // --empty-only: strict re-read of cells that have no position yet (used after new pages
+  // arrive, so positions already found are never re-rolled).
+  const emptyOnly = process.argv.includes("--empty-only");
+  const previous = (secondLook || only || retryErrors || onlyQuestions || emptyOnly) && existsSync(OUT) ? JSON.parse(readFileSync(OUT, "utf8")).stances : [];
   const store = JSON.parse(readFileSync("data/positions/embeddings.json", "utf8"));
   const { questions } = JSON.parse(readFileSync("data/questions.json", "utf8"));
   const names = new Map(JSON.parse(readFileSync("data/candidates.json", "utf8")).map((c) => [c.candidate_id, c.name]));
@@ -110,6 +113,11 @@ async function main() {
   const jobs = candidates
     .flatMap((candidate_id) => questions.map((q) => ({ candidate_id, q })))
     .filter((j) => !onlyQuestions || onlyQuestions.includes(j.q.id))
+    .filter(
+      (j) =>
+        !emptyOnly ||
+        !previous.some((p) => p.candidate_id === j.candidate_id && p.question === j.q.id && p.stance !== "none"),
+    )
     .filter(
       (j) =>
         (!retryErrors || previous.some((p) => p.candidate_id === j.candidate_id && p.question === j.q.id && p.error)) &&

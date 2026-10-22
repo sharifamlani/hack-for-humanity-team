@@ -123,6 +123,11 @@ export function PollingStep({ result }: { result: LookupResult }) {
                   {polling.address}, {polling.city} {polling.zip}
                 </p>
                 <p className="text-foreground/70">Precinct {polling.precinct}</p>
+                {polling.temporary && (
+                  <p className="mt-2 font-semibold text-coral">
+                    Temporary location for this election.
+                  </p>
+                )}
                 <p className="mt-3 font-semibold">Election Day · Tuesday, Nov 3, 2026</p>
                 <div className="mt-5 flex flex-wrap gap-3">
                   <a

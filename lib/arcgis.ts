@@ -1,4 +1,5 @@
 import type { EarlyVotingSite, PollingPlace } from "./types";
+import pollingFixes from "@/data/polling-overrides.json";
 
 // Miami-Dade County open data (ArcGIS). All layers are public and keyless.
 const BASE = "https://services.arcgis.com/8Pc9XBTAsYuxx9Ny/arcgis/rest/services";
@@ -59,7 +60,7 @@ export async function pollingPlace(lat: number, lon: number): Promise<PollingPla
   // The mapped point, not the typed LAT/LON fields: those are wrong for 21 of 756 rows
   // (South Dade Government Center's put the pin 10 miles north; one row has LAT in both).
   const g = places[0].geometry;
-  return {
+  const layer: PollingPlace = {
     precinct: Number(precinct),
     name: String(a.NAME).trim(),
     address: String(a.ADDRESS).trim(),
@@ -67,7 +68,12 @@ export async function pollingPlace(lat: number, lon: number): Promise<PollingPla
     zip: String(a.ZIPCODE),
     lat: g ? g.y : Number(a.LAT),
     lon: g ? g.x : Number(a.LON),
+    temporary: pollingFixes.temporary.includes(Number(precinct)),
   };
+  // The layer predates the Supervisor of Elections' 10/15/2026 list: a few sites moved since.
+  const fix: Partial<PollingPlace> | undefined =
+    pollingFixes.overrides[String(precinct) as keyof typeof pollingFixes.overrides];
+  return { ...layer, ...fix };
 }
 
 function milesBetween(lat1: number, lon1: number, lat2: number, lon2: number) {

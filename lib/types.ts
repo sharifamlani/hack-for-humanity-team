@@ -38,6 +38,9 @@ export type PollingPlace = {
   zip: string;
   lat: number;
   lon: number;
+  // A temporary site for this election (marked "T" on the official list). Optional: the
+  // saved venue example predates it.
+  temporary?: boolean;
 };
 
 export type EarlyVotingSite = {

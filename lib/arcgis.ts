@@ -52,18 +52,21 @@ export async function pollingPlace(lat: number, lon: number): Promise<PollingPla
   const places = await query(
     "PollingPlace_gdb",
     0,
-    `where=PRECINCT%3D${precinct}&outFields=PRECINCT,NAME,ADDRESS,CITY,ZIPCODE,LAT,LON&returnGeometry=false`,
+    `where=PRECINCT%3D${precinct}&outFields=PRECINCT,NAME,ADDRESS,CITY,ZIPCODE,LAT,LON&returnGeometry=true&outSR=4326`,
   );
   const a = places[0]?.attributes;
   if (!a) return null;
+  // The mapped point, not the typed LAT/LON fields: those are wrong for 21 of 756 rows
+  // (South Dade Government Center's put the pin 10 miles north; one row has LAT in both).
+  const g = places[0].geometry;
   return {
     precinct: Number(precinct),
-    name: String(a.NAME),
-    address: String(a.ADDRESS),
-    city: String(a.CITY),
+    name: String(a.NAME).trim(),
+    address: String(a.ADDRESS).trim(),
+    city: String(a.CITY).trim(),
     zip: String(a.ZIPCODE),
-    lat: Number(a.LAT),
-    lon: Number(a.LON),
+    lat: g ? g.y : Number(a.LAT),
+    lon: g ? g.x : Number(a.LON),
   };
 }
 

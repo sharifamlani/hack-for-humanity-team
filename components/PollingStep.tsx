@@ -1,3 +1,4 @@
+import { dayNumber, todayNumber, weekdayDate, windowStatus } from "@/lib/dates";
 import type { LookupResult } from "@/lib/types";
 
 const directions = (lat: number, lon: number) =>
@@ -11,6 +12,44 @@ const shortDate = (ms: number | null) =>
         day: "numeric",
         timeZone: "America/New_York",
       });
+
+// Shows the "Try it on your phone" QR; flipped on after the live site passed its load test.
+const SHOW_QR = true;
+const LIVE_URL = "hack-for-humanity-team.vercel.app";
+
+// Mint banner driven by the county's own early-voting dates. Null (hidden) once the window
+// has closed or when the dates are missing.
+function EarlyVotingBanner({ sites }: { sites: LookupResult["earlyVoting"] }) {
+  const opens = sites.map((s) => s.opens).filter((n): n is number => n != null);
+  const closes = sites.map((s) => s.closes).filter((n): n is number => n != null);
+  if (!opens.length || !closes.length) return null;
+
+  const first = Math.min(...opens);
+  const last = Math.max(...closes);
+  const today = todayNumber();
+  const status = windowStatus(today, dayNumber(first), dayNumber(last));
+  if (status === "after") return null;
+
+  const daysLeft = dayNumber(last) - today + 1; // counts today and the closing day
+  return (
+    <section
+      role="status"
+      className="rounded-2xl border border-accent bg-accent px-5 py-4 text-background"
+    >
+      {status === "open" ? (
+        <>
+          <p className="eyebrow">● Early voting is open today</p>
+          <p className="mt-1 text-xl font-bold">
+            Through {weekdayDate(last)} · {daysLeft} {daysLeft === 1 ? "day" : "days"} left.
+          </p>
+          <p className="font-semibold">Nearest: {sites[0].name}</p>
+        </>
+      ) : (
+        <p className="text-xl font-bold">Early voting opens {weekdayDate(first)}</p>
+      )}
+    </section>
+  );
+}
 
 // Google's keyless map embed, centred on the polling place with a pin on it. Only the
 // polling place's coordinates are sent to Google, never the voter's address.
@@ -57,6 +96,8 @@ export function PollingStep({ result }: { result: LookupResult }) {
         <h1 className="display text-5xl lg:text-6xl">Make your voting plan.</h1>
         <p className="mt-3 text-lg text-foreground/80">Your next step, clearly laid out.</p>
       </div>
+
+      <EarlyVotingBanner sites={earlyVoting} />
 
       <div className="grid items-start gap-4 lg:grid-cols-[1.4fr_1fr]">
         <section className="overflow-hidden rounded-2xl border border-accent/40 bg-[#0c2a26]">
@@ -170,6 +211,24 @@ export function PollingStep({ result }: { result: LookupResult }) {
               ))}
             </ul>
           </section>
+
+          {SHOW_QR && (
+            <section className="card flex items-center gap-4 p-4">
+              {/* White padding so the code scans off a dark projector. */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/qr-live-site.png"
+                alt={`QR code linking to ${LIVE_URL}`}
+                width={120}
+                height={120}
+                className="h-[120px] w-[120px] shrink-0 rounded-lg bg-white p-2"
+              />
+              <div className="min-w-0">
+                <p className="display text-xl">Try it on your phone:</p>
+                <p className="mt-1 break-words text-sm font-semibold text-accent">{LIVE_URL}</p>
+              </div>
+            </section>
+          )}
         </div>
       </div>
 

@@ -11,10 +11,29 @@ import { Shapes } from "@/components/Shapes";
 import { STEPS, StepBar } from "@/components/StepBar";
 import { TrustCards } from "@/components/TrustCards";
 import type { Answers, Stance } from "@/lib/match";
+import { dayNumberOfIso, todayNumber, windowStatus } from "@/lib/dates";
 import { usePlacement } from "@/lib/usePlacement";
 import type { LookupResult } from "@/lib/types";
 
 const VENUE_ADDRESS = "2750 NW 3rd Ave, Miami, FL 33127";
+
+// Miami-Dade's calendar (the home screen has no county data yet). Voting plan reads the real
+// early-voting dates from the county feed instead.
+const ELECTION_DAY = "2026-11-03";
+const EARLY_VOTING_FIRST_DAY = "2026-10-19";
+const EARLY_VOTING_LAST_DAY = "2026-11-01";
+
+// "12 days away · early voting is open now." — null once Election Day has passed.
+function countdownLine(): string | null {
+  const today = todayNumber();
+  const daysAway = dayNumberOfIso(ELECTION_DAY) - today;
+  if (daysAway < 0) return null;
+  if (daysAway === 0) return "Today is Election Day.";
+  const early =
+    windowStatus(today, dayNumberOfIso(EARLY_VOTING_FIRST_DAY), dayNumberOfIso(EARLY_VOTING_LAST_DAY)) ===
+    "open";
+  return `${daysAway} ${daysAway === 1 ? "day" : "days"} away${early ? " · early voting is open now." : "."}`;
+}
 
 const NAV = [
   { label: "Home", step: 0, steps: [0] },
@@ -99,6 +118,8 @@ export default function Home() {
     );
   }
 
+  const countdown = countdownLine();
+
   return (
     <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-6 px-5 py-6 lg:px-8">
       <header className="flex items-center justify-between gap-4 border-b border-foreground/20 pb-4">
@@ -144,6 +165,11 @@ export default function Home() {
               Miami-Dade redrew its districts this year. See who is really on your ballot, what
               they have said in their own words, and where you vote on Tuesday, Nov 3.
             </p>
+            {countdown && (
+              <p suppressHydrationWarning className="mt-3 text-lg font-bold text-accent">
+                {countdown}
+              </p>
+            )}
           </div>
 
           <form
@@ -246,7 +272,11 @@ export default function Home() {
         <span className="display text-lg text-foreground">
           Your Ballot. <span className="text-accent">Your Block.</span>
         </span>
-        <span>A match, not an endorsement · Open source, MIT · Hack for Humanity: Miami 2026</span>
+        <span>
+          A match, not an endorsement · Open source, MIT ·{" "}
+          <span className="whitespace-nowrap">🏆 Grand Champion,</span>{" "}
+          <span className="whitespace-nowrap">Hack for Humanity: Miami 2026</span>
+        </span>
       </footer>
     </div>
   );
